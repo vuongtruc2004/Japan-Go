@@ -1,0 +1,60 @@
+{
+    "AppHeader": {
+        "sidebarActionButton": {
+            "close": "Close",
+            "open": "Open"
+        },
+        "appSearchPlaceholder": "Search for anything",
+        "switchLanguageButton": {
+            "label": {
+                "vi": "Vietnamese",
+                "en": "English",
+                "ja": "Japanese"
+            }
+        },
+        "registerButton": "Sign up",
+        "loginButton": "Log in"
+    },
+    "AppSidebar": {
+        "projectName": "Project name",
+        "groupsTitle": {
+            "main": "Management",
+            "sub": "Others"
+        },
+        "links": {
+            "home": "Home",
+            "course": "Your courses",
+            "kanji": "Kanji list",
+            "settings": "Settings"
+        },
+        "buttons": {
+            "modeButtons": {
+                "lightMode": "Light mode",
+                "darkMode": "Dark mode"
+            },
+            "logoutButton": "Log out"
+        }
+    },
+    "Pages": {
+        "kanji": {
+            "search": {
+                "placeholder": "Enter Kanji, Sino-Vietnamese reading or meaning...",
+                "title": "Search",
+                "drawButton": "Draw Kanji to search"
+            },
+            "explore": {
+                "title": "Explore Kanji by level",
+                "levels": {
+                    "n5": "N5 - Beginner",
+                    "n4": "N4 - Elementary",
+                    "n3": "N3 - Intermediate",
+                    "n2": "N2 - Upper Intermediate",
+                    "n1": "N1 - Advanced"
+                },
+                "suggestTitle": "You can click on a box below to view detailed Kanji information.",
+                "empty": "No Kanji available to display!",
+                "uploadFile": "Upload data"
+            }
+        }
+    }
+}

@@ -1,0 +1,23 @@
+package com.nass.infrastructure.entities;
+
+import com.nass.infrastructure.entities.base.BaseEntity;
+import jakarta.persistence.Entity;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
+import jakarta.persistence.Table;
+import lombok.*;
+import lombok.experimental.FieldDefaults;
+
+@Getter
+@Setter
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+@Entity
+@Table(name = "teachers")
+@FieldDefaults(level = AccessLevel.PRIVATE)
+public class TeacherEntity extends BaseEntity<Integer> {
+    @OneToOne
+    @JoinColumn(name = "user_id")
+    UserEntity user;
+}

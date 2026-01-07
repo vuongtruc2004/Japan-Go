@@ -1,0 +1,31 @@
+spring:
+  application:
+    name: nass_be
+  servlet:
+    multipart:
+      max-file-size: 50MB
+      max-request-size: 50MB
+
+  data:
+    web:
+      pageable:
+        one-indexed-parameters: true
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQLDialect
+        enable_lazy_load_no_trans: true
+        format_sql: true
+        jdbc:
+          batch_size: 50
+    show-sql: true
+
+  profiles:
+    active: uat
+
+server:
+  port: 2509
+

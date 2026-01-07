@@ -1,0 +1,60 @@
+{
+    "AppHeader": {
+        "sidebarActionButton": {
+            "close": "Đóng",
+            "open": "Mở"
+        },
+        "appSearchPlaceholder": "Tìm kiếm bất cứ gì",
+        "switchLanguageButton": {
+            "label": {
+                "vi": "Tiếng Việt",
+                "en": "Tiếng Anh",
+                "ja": "Tiếng Nhật"
+            }
+        },
+        "registerButton": "Đăng kí",
+        "loginButton": "Đăng nhập"
+    },
+    "AppSidebar": {
+        "projectName": "Tên dự án",
+        "groupsTitle": {
+            "main": "Quản lí",
+            "sub": "Khác"
+        },
+        "links": {
+            "home": "Trang chủ",
+            "course": "Khóa học của bạn",
+            "kanji": "Danh sách Kanji",
+            "settings": "Cài đặt"
+        },
+        "buttons": {
+            "modeButtons": {
+                "lightMode": "Chế độ sáng",
+                "darkMode": "Chế độ tối"
+            },
+            "logoutButton": "Đăng xuất"
+        }
+    },
+    "Pages": {
+        "kanji": {
+            "search": {
+                "placeholder": "Nhập Kanji, phiên âm Hán Việt hoặc nghĩa...",
+                "title": "Tìm kiếm",
+                "drawButton": "Vẽ Kanji cần tìm"
+            },
+            "explore": {
+                "title": "Khám phá Kanji theo trình độ",
+                "levels": {
+                    "n5": "N5 - Cơ bản",
+                    "n4": "N4 - Sơ cấp",
+                    "n3": "N3 - Trung cấp",
+                    "n2": "N2 - Trung cao cấp",
+                    "n1": "N1 - Cao cấp"
+                },
+                "suggestTitle": "Bạn có thể nhấp vào 1 ô dưới đây để xem chi tiết Kanji.",
+                "empty": "Không có Kanji nào để hiển thị!",
+                "uploadFile": "Tải lên dữ liệu"
+            }
+        }
+    }
+}
