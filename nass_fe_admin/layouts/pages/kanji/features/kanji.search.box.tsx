@@ -15,7 +15,6 @@ const KanjiSearchBox = () => {
                 className="flex items-center justify-between gap-x-3"
             >
                 <TextField
-                    color="success"
                     slotProps={{
                         input: {
                             sx: {

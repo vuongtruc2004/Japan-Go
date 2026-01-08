@@ -12,7 +12,7 @@ import lombok.experimental.FieldDefaults;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "users")
+@Table(name = "user")
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class UserEntity extends BaseEntity<Integer> {
     String email;

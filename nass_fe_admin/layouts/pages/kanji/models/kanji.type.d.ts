@@ -4,3 +4,14 @@ interface IKanjiTab {
     tabKeyTranslation: KanjiTabs;
     colorStyle: string;
 }
+
+interface IGroupKanjiTab {
+    readonly id: string;
+    kanjiTabs: IKanjiTab[];
+}
+
+interface IGetSinoVn {
+    kanji: ValidateFields;
+    dividerType: string;
+    customDivider: ValidateFields;
+}

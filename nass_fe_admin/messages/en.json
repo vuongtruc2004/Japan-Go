@@ -53,7 +53,8 @@
                 },
                 "suggestTitle": "You can click on a box below to view detailed Kanji information.",
                 "empty": "No Kanji available to display!",
-                "uploadFile": "Upload data"
+                "uploadFile": "Upload data",
+                "enrichSinoVietnamese": "Add Sino-Vietnamese reading"
             }
         }
     }

@@ -9,7 +9,6 @@ const AppSearchBox = () => {
     return (
         <form>
             <TextField
-                color="success"
                 slotProps={{
                     input: {
                         startAdornment: (

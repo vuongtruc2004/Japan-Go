@@ -12,7 +12,7 @@ import lombok.experimental.FieldDefaults;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "images")
+@Table(name = "image")
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class ImageEntity extends BaseEntity<Long> {
     String imgPath;

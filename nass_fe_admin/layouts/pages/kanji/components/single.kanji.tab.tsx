@@ -1,8 +1,7 @@
 import Empty from "@/components/common/empty";
 import { useTranslations } from "next-intl";
-import { IKanjiTab } from "../models/kanji.type";
 
-const SingleKanjiTab = ({ activeTab }: { activeTab: IKanjiTab }) => {
+const SingleKanjiTab = () => {
     const t = useTranslations("Pages.kanji.explore");
     return (
         // <div className="grid grid-cols-10 gap-3">

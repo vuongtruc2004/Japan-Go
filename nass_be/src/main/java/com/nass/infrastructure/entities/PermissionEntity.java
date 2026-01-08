@@ -14,7 +14,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "permissions")
+@Table(name = "permission")
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class PermissionEntity extends BaseEntity<Integer> {
     String apiPath;

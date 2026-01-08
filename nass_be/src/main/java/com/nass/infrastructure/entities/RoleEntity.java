@@ -14,7 +14,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "roles")
+@Table(name = "role")
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class RoleEntity extends BaseEntity<Integer> {
 

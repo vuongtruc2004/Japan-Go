@@ -1,5 +1,5 @@
 import { TooltipCustom } from "@/components/mui-custom/tooltip.custom";
-import { useSidebarCollapse } from "@/libs/wrapper/context/sidebar-collapse/sidebar.collapse";
+import { useSidebarCollapse } from "@/libs/wrapper/context/sidebar-collapse/sidebar.collapse.wrapper";
 import DehazeOutlinedIcon from "@mui/icons-material/DehazeOutlined";
 import { Button } from "@mui/material";
 import { useTranslations } from "next-intl";

@@ -1,7 +1,7 @@
 "use client";
 import { TooltipCustom } from "@/components/mui-custom/tooltip.custom";
 import { Link, usePathname } from "@/i18n/navigation";
-import { useSidebarCollapse } from "@/libs/wrapper/context/sidebar-collapse/sidebar.collapse";
+import { useSidebarCollapse } from "@/libs/wrapper/context/sidebar-collapse/sidebar.collapse.wrapper";
 import { Badge } from "@mui/material";
 import { useTranslations } from "next-intl";
 import { SidebarItem } from "../models/sidebar.type";

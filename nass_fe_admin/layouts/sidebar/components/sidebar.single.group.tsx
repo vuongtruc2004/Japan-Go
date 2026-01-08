@@ -1,4 +1,4 @@
-import { useSidebarCollapse } from "@/libs/wrapper/context/sidebar-collapse/sidebar.collapse";
+import { useSidebarCollapse } from "@/libs/wrapper/context/sidebar-collapse/sidebar.collapse.wrapper";
 import { Divider } from "@mui/material";
 import { useTranslations } from "next-intl";
 import { ISidebarGroup } from "../models/sidebar.type";

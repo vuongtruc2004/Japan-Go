@@ -53,7 +53,8 @@
                 },
                 "suggestTitle": "Bạn có thể nhấp vào 1 ô dưới đây để xem chi tiết Kanji.",
                 "empty": "Không có Kanji nào để hiển thị!",
-                "uploadFile": "Tải lên dữ liệu"
+                "uploadFile": "Tải lên dữ liệu",
+                "enrichSinoVietnamese": "Thêm phiên âm Hán Việt"
             }
         }
     }

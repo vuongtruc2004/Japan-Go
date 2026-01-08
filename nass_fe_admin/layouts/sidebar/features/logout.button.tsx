@@ -1,5 +1,5 @@
 import { TooltipCustom } from "@/components/mui-custom/tooltip.custom";
-import { useSidebarCollapse } from "@/libs/wrapper/context/sidebar-collapse/sidebar.collapse";
+import { useSidebarCollapse } from "@/libs/wrapper/context/sidebar-collapse/sidebar.collapse.wrapper";
 import LogoutOutlinedIcon from "@mui/icons-material/LogoutOutlined";
 import { useTranslations } from "next-intl";
 

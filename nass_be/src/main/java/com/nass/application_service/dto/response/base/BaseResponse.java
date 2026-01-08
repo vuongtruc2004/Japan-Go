@@ -6,7 +6,6 @@ import lombok.experimental.FieldDefaults;
 
 import java.time.Instant;
 
-@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
@@ -18,4 +17,7 @@ public class BaseResponse<TKey> {
     Instant createdTime;
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+7")
     Instant modifiedTime;
+
+    String createdBy;
+    String modifiedBy;
 }
