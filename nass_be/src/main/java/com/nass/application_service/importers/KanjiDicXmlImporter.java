@@ -40,7 +40,7 @@ public class KanjiDicXmlImporter {
             XMLEventReader xmlEventReader = xmlInputFactory.createXMLEventReader(inputStream);
 
             List<KanjiEntity> list = new ArrayList<>();
-            Map<String, Integer> kanjiInJlpt = getKanjiByJLPTLevel(kanjijlptFile);
+            Map<Character, Integer> kanjiInJlpt = getKanjiByJLPTLevel(kanjijlptFile);
             KanjiEntity kanjiEntity = null;
 
             while (xmlEventReader.hasNext()) {
@@ -72,8 +72,12 @@ public class KanjiDicXmlImporter {
                 kanjiEntity = new KanjiEntity();
                 break;
             case "literal":
-                if (kanjiEntity != null)
-                    kanjiEntity.setKanji(xmlEventReader.getElementText().trim());
+                if (kanjiEntity != null) {
+                    String value = xmlEventReader.getElementText().trim();
+                    if (!value.isEmpty()) {
+                        kanjiEntity.setKanjiCharacter(value.charAt(0));
+                    }
+                }
                 break;
             case "cp_value":
                 handleCpValueTag(kanjiEntity, startElement, xmlEventReader);
@@ -147,12 +151,12 @@ public class KanjiDicXmlImporter {
         }
     }
 
-    private void addKanjiIntoList(KanjiEntity kanjiEntity, List<KanjiEntity> list, Map<String, Integer> kanjiInJlpt) {
+    private void addKanjiIntoList(KanjiEntity kanjiEntity, List<KanjiEntity> list, Map<Character, Integer> kanjiInJlpt) {
         if (kanjiEntity != null && kanjiEntity.getUnicode() != null) {
             if (kanjiRepository.existsByUnicode(kanjiEntity.getUnicode())) {
                 throw new FileNotValidException("Unicode " + kanjiEntity.getUnicode() + " already exists");
             }
-            Integer jlptLevel = kanjiInJlpt.get(kanjiEntity.getKanji());
+            Integer jlptLevel = kanjiInJlpt.get(kanjiEntity.getKanjiCharacter());
             if (jlptLevel != null) {
                 kanjiEntity.setJlptLevel(jlptLevel);
             }
@@ -160,7 +164,7 @@ public class KanjiDicXmlImporter {
         }
     }
 
-    private Map<String, Integer> getKanjiByJLPTLevel(MultipartFile file) {
+    private Map<Character, Integer> getKanjiByJLPTLevel(MultipartFile file) {
         if (!fileValidator.isJSONFile(file)) {
             throw new FileNotValidException(
                     FileMessage.IS_NOT_XML_FILE_DEV,
@@ -174,14 +178,16 @@ public class KanjiDicXmlImporter {
             if (!root.isObject()) {
                 throw new FileNotValidException("");
             }
-            Map<String, Integer> map = new HashMap<>();
+            Map<Character, Integer> map = new HashMap<>();
             Set<Map.Entry<String, JsonNode>> fields = root.properties();
 
             for (Map.Entry<String, JsonNode> field : fields) {
                 String jlptLevel = field.getKey();
                 String[] kanjiChars = field.getValue().asString().split(",");
                 for (String kanjiChar : kanjiChars) {
-                    map.put(kanjiChar, parseHelper.parseStringToInteger(jlptLevel));
+                    if (!kanjiChar.isBlank()) {
+                        map.put(kanjiChar.trim().charAt(0), parseHelper.parseStringToInteger(jlptLevel));
+                    }
                 }
             }
 

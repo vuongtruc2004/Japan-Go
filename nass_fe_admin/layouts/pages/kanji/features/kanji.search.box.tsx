@@ -49,10 +49,7 @@ const KanjiSearchBox = () => {
                     <Button
                         variant="contained"
                         color="primary"
-                        sx={{
-                            textWrap: "nowrap",
-                            height: "36px",
-                        }}
+                        sx={{ textWrap: "nowrap" }}
                     >
                         {t("search.title")}
                     </Button>

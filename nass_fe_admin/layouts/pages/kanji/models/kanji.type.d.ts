@@ -13,5 +13,6 @@ interface IGroupKanjiTab {
 interface IGetSinoVn {
     kanji: ValidateFields;
     dividerType: string;
-    customDivider: ValidateFields;
+    customDivider: string;
+    sinoVn: string;
 }

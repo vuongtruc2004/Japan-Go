@@ -18,19 +18,13 @@ const AppHeader = () => {
             <div className="flex items-center gap-x-3">
                 <SwitchLanguageSelect />
                 <Link href={"/register"}>
-                    <Button
-                        variant="outlined"
-                        color="success"
-                        sx={{ height: "36px" }}
-                    >
+                    <Button variant="outlined" color="success">
                         {t("registerButton")}
                     </Button>
                 </Link>
 
                 <Link href={"/login"}>
-                    <Button variant="contained" sx={{ height: "36px" }}>
-                        {t("loginButton")}
-                    </Button>
+                    <Button variant="contained">{t("loginButton")}</Button>
                 </Link>
             </div>
         </div>

@@ -1,11 +1,8 @@
-import { TooltipCustom } from "@/components/mui-custom/tooltip.custom";
 import CloseIcon from "@mui/icons-material/Close";
-import ContentCopyIcon from "@mui/icons-material/ContentCopy";
 import FileUploadOutlinedIcon from "@mui/icons-material/FileUploadOutlined";
 import {
     Button,
     FormControlLabel,
-    IconButton,
     Modal,
     Radio,
     RadioGroup,
@@ -33,7 +30,6 @@ const GetSinoVnButton = () => {
     return (
         <>
             <Button
-                sx={{ height: "36px" }}
                 variant="outlined"
                 color="success"
                 onClick={() => setOpen(true)}
@@ -44,26 +40,20 @@ const GetSinoVnButton = () => {
 
             <Modal open={open}>
                 <div className="bg-bgc-page absolute top-1/2 left-1/2 w-[800px] -translate-x-1/2 -translate-y-1/2 p-5">
-                    <h1 className="text-tc-primary">
-                        <span className="font-semibold">Nhập dữ liệu.</span>
+                    <h1 className="text-tc-primary font-semibold">
                         Chép và dán dữ liệu vào đây để lấy phiên âm Hán Việt của
                         các từ đó
                     </h1>
 
                     <form action={formAction}>
-                        <div className="my-3 grid grid-cols-2 items-start gap-x-5">
+                        <div className="my-3 grid w-full grid-cols-[2fr_1fr] items-start gap-x-5">
                             <TextField
                                 defaultValue={state && state.kanji.value}
                                 name="kanji"
                                 multiline
                                 rows={20}
-                                placeholder={"Từ 1\nTừ 2\nTừ 3\n..."}
-                                fullWidth
-                                error={
-                                    state && state.kanji.isError
-                                        ? state.kanji.isError
-                                        : false
-                                }
+                                placeholder="Nhập dữ liệu của bạn ở đây..."
+                                error={state != null && state.kanji.isError}
                                 helperText={
                                     <span className="text-tc-error">
                                         {state && state.kanji.errorMessage}
@@ -71,24 +61,14 @@ const GetSinoVnButton = () => {
                                 }
                             />
 
-                            <div className="relative">
-                                <TextField
-                                    multiline
-                                    rows={20}
-                                    placeholder="Kết quả sẽ hiển thị ở đây"
-                                    fullWidth
-                                    disabled
-                                />
-                                <TooltipCustom title="Copy nội dung">
-                                    <IconButton
-                                        size="small"
-                                        disabled
-                                        className="absolute right-2 bottom-2 p-2.5"
-                                    >
-                                        <ContentCopyIcon fontSize="small" />
-                                    </IconButton>
-                                </TooltipCustom>
-                            </div>
+                            <TextField
+                                defaultValue={state?.sinoVn}
+                                fullWidth
+                                multiline
+                                rows={20}
+                                placeholder="Kết quả sẽ hiển thị ở đây"
+                                disabled
+                            />
                         </div>
 
                         <h1 className="text-tc-primary font-semibold">
@@ -127,27 +107,16 @@ const GetSinoVnButton = () => {
                                         onChange={(e) =>
                                             setCustomDivider(e.target.value)
                                         }
-                                        error={
-                                            state && state.customDivider.isError
-                                                ? state.customDivider.isError
-                                                : false
-                                        }
-                                        helperText={
-                                            <span className="text-tc-error">
-                                                {state &&
-                                                    state.customDivider
-                                                        .errorMessage}
-                                            </span>
-                                        }
                                     />
                                 }
                             />
                         </RadioGroup>
 
-                        <div className="mt-3 flex items-center justify-end gap-x-3">
+                        <div className="mt-5 flex items-center justify-end gap-x-3">
                             <Button
+                                disabled={pending}
                                 onClick={() => setOpen(false)}
-                                sx={{ height: "36px", columnGap: "8px" }}
+                                sx={{ columnGap: "8px" }}
                                 variant="contained"
                                 color="secondary"
                             >
@@ -155,7 +124,6 @@ const GetSinoVnButton = () => {
                                 Hủy nhập
                             </Button>
                             <Button
-                                sx={{ height: "36px" }}
                                 type="submit"
                                 variant="contained"
                                 color="primary"

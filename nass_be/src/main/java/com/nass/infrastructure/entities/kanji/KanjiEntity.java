@@ -16,14 +16,20 @@ import java.util.List;
 @Table(name = "kanji")
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class KanjiEntity extends BaseEntity<Integer> {
-    String kanji;
+    @Column(name = "kanji_character")
+    Character kanjiCharacter;
 
     @Column(unique = true, nullable = false)
     String unicode;
 
     Integer grade;
+
+    @Column(name = "stroke_count")
     Integer strokeCount;
+
     Integer frequency;
+
+    @Column(name = "jlpt_level")
     Integer jlptLevel;
 
     @OneToMany(mappedBy = "kanji", cascade = CascadeType.ALL, orphanRemoval = true)

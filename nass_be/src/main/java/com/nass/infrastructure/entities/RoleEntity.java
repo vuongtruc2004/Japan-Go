@@ -19,6 +19,7 @@ import java.util.List;
 public class RoleEntity extends BaseEntity<Integer> {
 
     @Enumerated(EnumType.STRING)
+    @Column(name = "role_name")
     RoleNameEnum roleName;
 
     @OneToMany(mappedBy = "role")

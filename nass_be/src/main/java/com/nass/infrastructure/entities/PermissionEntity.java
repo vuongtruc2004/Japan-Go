@@ -17,9 +17,11 @@ import java.util.List;
 @Table(name = "permission")
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class PermissionEntity extends BaseEntity<Integer> {
+    @Column(name = "api_path")
     String apiPath;
 
     @Enumerated(EnumType.STRING)
+    @Column(name = "api_method")
     ApiMethodEnum apiMethod;
 
     @ManyToMany(mappedBy = "permissions")

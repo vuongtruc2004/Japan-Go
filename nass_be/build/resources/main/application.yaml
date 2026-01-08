@@ -1,6 +1,9 @@
+server:
+  port: 2509
 spring:
   application:
     name: nass_be
+
   servlet:
     multipart:
       max-file-size: 50MB
@@ -13,7 +16,7 @@ spring:
 
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: validate
     properties:
       hibernate:
         dialect: org.hibernate.dialect.MySQLDialect
@@ -26,6 +29,4 @@ spring:
   profiles:
     active: uat
 
-server:
-  port: 2509
 

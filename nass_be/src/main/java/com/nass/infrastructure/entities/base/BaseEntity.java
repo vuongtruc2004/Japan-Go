@@ -18,13 +18,16 @@ public abstract class BaseEntity<TKey> {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     TKey id;
 
-    @Column(nullable = false, updatable = false)
+    @Column(nullable = false, updatable = false, name = "created_by")
     String createdBy;
 
-    @Column(nullable = false, updatable = false)
+    @Column(nullable = false, updatable = false, name = "created_time")
     Instant createdTime;
 
+    @Column(name = "modified_by")
     String modifiedBy;
+
+    @Column(name = "modified_time")
     Instant modifiedTime;
 
     @PrePersist

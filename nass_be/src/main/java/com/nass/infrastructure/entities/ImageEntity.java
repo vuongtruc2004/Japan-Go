@@ -1,6 +1,7 @@
 package com.nass.infrastructure.entities;
 
 import com.nass.infrastructure.entities.base.BaseEntity;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 import lombok.*;
@@ -15,6 +16,9 @@ import lombok.experimental.FieldDefaults;
 @Table(name = "image")
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class ImageEntity extends BaseEntity<Long> {
+    @Column(name = "img_path")
     String imgPath;
+
+    @Column(name = "img_alt")
     String imgAlt;
 }

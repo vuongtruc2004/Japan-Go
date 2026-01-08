@@ -1,5 +1,6 @@
 package com.nass.application_service.services.interfaces;
 
+import com.nass.application_service.dto.request.GetSinoVnRequest;
 import com.nass.application_service.dto.response.JlptGroupKanjiResponse;
 import com.nass.application_service.dto.response.KanjiResponse;
 import org.springframework.web.multipart.MultipartFile;
@@ -16,5 +17,5 @@ public interface IKanjiService {
 
     List<JlptGroupKanjiResponse> getAllJlptGroupKanji();
 
-    List<String> getSinoVietnameseOfKanjiList(String kanjiList, String divider);
+    List<String> getSinoVietnameseOfKanjiList(GetSinoVnRequest getSinoVnRequest);
 }

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DiffGenerationConfig">
+    <option name="snapshotDb" value="false" />
+    <option name="snapshotModelValue" value="NASS.main:NASS.main" />
+    <option name="sourceModelValue" value="NASS.main:NASS.main" />
+    <option name="targetDbValue" value="193435dd-7f23-4f26-8f45-ddc61f99cb82__nass" />
+  </component>
+</project>
