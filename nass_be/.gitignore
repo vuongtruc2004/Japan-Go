@@ -1,0 +1,22 @@
+# ===== Gradle =====
+.gradle/
+build/
+
+# ===== IntelliJ IDEA =====
+.idea/
+*.iml
+out/
+
+# ===== OS =====
+.DS_Store
+Thumbs.db
+
+# ===== Logs =====
+*.log
+
+# ===== Local env =====
+.env
+.env.*
+
+# ===== Kotlin / JVM =====
+*.class
