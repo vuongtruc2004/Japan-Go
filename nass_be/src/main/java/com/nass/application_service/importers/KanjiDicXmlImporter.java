@@ -1,19 +1,20 @@
 package com.nass.application_service.importers;
 
+import com.nass.application_service.dto.entry.KanjiDicEntry;
 import com.nass.application_service.exceptions.FileNotValidException;
 import com.nass.application_service.helpers.ParseHelper;
-import com.nass.application_service.validators.FileValidator;
-import com.nass.contract.constants.FileMessage;
 import com.nass.infrastructure.entities.kanji.KanjiEntity;
+import com.nass.infrastructure.entities.kanji.KanjiMeaningEntity;
 import com.nass.infrastructure.entities.kanji.KunyomiEntity;
-import com.nass.infrastructure.entities.kanji.MeaningEntity;
 import com.nass.infrastructure.entities.kanji.OnyomiEntity;
 import com.nass.infrastructure.repositories.KanjiRepository;
+import com.nass.infrastructure.repositories.KunyomiRepository;
+import com.nass.infrastructure.repositories.MeaningRepository;
+import com.nass.infrastructure.repositories.OnyomiRepository;
 import lombok.RequiredArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
-import tools.jackson.databind.JsonNode;
-import tools.jackson.databind.ObjectMapper;
 
 import javax.xml.namespace.QName;
 import javax.xml.stream.XMLEventReader;
@@ -29,171 +30,197 @@ import java.util.*;
 @Component
 @RequiredArgsConstructor
 public class KanjiDicXmlImporter {
-    private final FileValidator fileValidator;
     private final ParseHelper parseHelper;
     private final KanjiRepository kanjiRepository;
+    private final KunyomiRepository kunyomiRepository;
+    private final OnyomiRepository onyomiRepository;
+    private final MeaningRepository meaningRepository;
+    private final KanjiJlptJsonImporter kanjiJlptJsonImporter;
+    private final ModelMapper modelMapper;
 
-    public List<KanjiEntity> importKanjiFromKanjidic(MultipartFile kanjidicFile, MultipartFile kanjijlptFile) {
+    public List<KanjiEntity> importKanji(MultipartFile kanjidicFile, MultipartFile kanjijlptFile) {
         XMLInputFactory xmlInputFactory = XMLInputFactory.newInstance();
 
         try (InputStream inputStream = kanjidicFile.getInputStream()) {
             XMLEventReader xmlEventReader = xmlInputFactory.createXMLEventReader(inputStream);
 
-            List<KanjiEntity> list = new ArrayList<>();
-            Map<Character, Integer> kanjiInJlpt = getKanjiByJLPTLevel(kanjijlptFile);
-            KanjiEntity kanjiEntity = null;
+            List<KanjiDicEntry> list = new ArrayList<>();
+            Map<String, Integer> kanjiInJlpt = kanjiJlptJsonImporter.importKanjiByJlptLevel(kanjijlptFile);
+            KanjiDicEntry kanjiDicEntry = null;
 
             while (xmlEventReader.hasNext()) {
                 XMLEvent xmlEvent = xmlEventReader.nextEvent();
 
                 if (xmlEvent.isStartElement()) {
                     StartElement startElement = xmlEvent.asStartElement();
-                    kanjiEntity = enrichKanjiProperties(startElement, xmlEventReader, kanjiEntity);
+                    kanjiDicEntry = enrichKanjiProperties(startElement, xmlEventReader, kanjiDicEntry);
                 }
                 if (xmlEvent.isEndElement()) {
                     EndElement endElement = xmlEvent.asEndElement();
                     String tagName = endElement.getName().getLocalPart();
                     if ("character".equals(tagName)) {
-                        addKanjiIntoList(kanjiEntity, list, kanjiInJlpt);
-                        kanjiEntity = null;
+                        addKanjiIntoList(kanjiDicEntry, list, kanjiInJlpt);
+                        kanjiDicEntry = null;
                     }
                 }
             }
-            return list;
+
+            return loadKanjiDicEntryListToDb(list);
         } catch (Exception e) {
             throw new FileNotValidException("Method: getKanjiFromKANJIDIC2File() => " + e.getMessage());
         }
     }
 
-    private KanjiEntity enrichKanjiProperties(StartElement startElement, XMLEventReader xmlEventReader, KanjiEntity kanjiEntity) throws XMLStreamException {
+    private List<KanjiEntity> loadKanjiDicEntryListToDb(List<KanjiDicEntry> kanjiDicEntryList) {
+        Set<String> allKunyomi = new HashSet<>();
+        Set<String> allOnyomi = new HashSet<>();
+        Set<String> allMeaning = new HashSet<>();
+
+        for (KanjiDicEntry kanjiDicEntry : kanjiDicEntryList) {
+            allKunyomi.addAll(kanjiDicEntry.getKunyomiSet());
+            allOnyomi.addAll(kanjiDicEntry.getOnyomiSet());
+            allMeaning.addAll(kanjiDicEntry.getKanjiMeaningSet());
+        }
+
+        // save all kunyomi
+        Map<String, KunyomiEntity> kunyomiEntityMap = new HashMap<>();
+        List<KunyomiEntity> kunyomiEntities = new ArrayList<>();
+        for (String kunyomi : allKunyomi) {
+            KunyomiEntity kunyomiEntity = KunyomiEntity.builder()
+                    .readingText(kunyomi)
+                    .build();
+            kunyomiEntityMap.put(kunyomi, kunyomiEntity);
+            kunyomiEntities.add(kunyomiEntity);
+        }
+        kunyomiRepository.saveAll(kunyomiEntities);
+
+        // save all onyomi
+        Map<String, OnyomiEntity> onyomiEntityMap = new HashMap<>();
+        List<OnyomiEntity> onyomiEntities = new ArrayList<>();
+        for (String onyomi : allOnyomi) {
+            OnyomiEntity onyomiEntity = OnyomiEntity.builder()
+                    .readingText(onyomi)
+                    .build();
+            onyomiEntityMap.put(onyomi, onyomiEntity);
+            onyomiEntities.add(onyomiEntity);
+        }
+        onyomiRepository.saveAll(onyomiEntities);
+
+        // save all meaning
+        Map<String, KanjiMeaningEntity> meaningEntityMap = new HashMap<>();
+        List<KanjiMeaningEntity> meaningEntities = new ArrayList<>();
+        for (String meaning : allMeaning) {
+            KanjiMeaningEntity kanjiMeaningEntity = KanjiMeaningEntity.builder()
+                    .readingText(meaning)
+                    .build();
+            meaningEntityMap.put(meaning, kanjiMeaningEntity);
+            meaningEntities.add(kanjiMeaningEntity);
+        }
+        meaningRepository.saveAll(meaningEntities);
+
+        // save all kanji
+        List<KanjiEntity> kanjiEntities = new ArrayList<>();
+        for (KanjiDicEntry kanjiDicEntry : kanjiDicEntryList) {
+            KanjiEntity kanjiEntity = modelMapper.map(kanjiDicEntry, KanjiEntity.class);
+            for (String kunyomi : kanjiDicEntry.getKunyomiSet()) {
+                kanjiEntity.getKunyomiList().add(kunyomiEntityMap.get(kunyomi));
+            }
+            for (String onyomi : kanjiDicEntry.getOnyomiSet()) {
+                kanjiEntity.getOnyomiList().add(onyomiEntityMap.get(onyomi));
+            }
+            for (String meaning : kanjiDicEntry.getKanjiMeaningSet()) {
+                kanjiEntity.getKanjiMeaningList().add(meaningEntityMap.get(meaning));
+            }
+            kanjiEntities.add(kanjiEntity);
+        }
+
+        return kanjiRepository.saveAll(kanjiEntities);
+    }
+
+    private KanjiDicEntry enrichKanjiProperties(StartElement startElement, XMLEventReader xmlEventReader, KanjiDicEntry kanjiDicEntry) throws XMLStreamException {
         String tag = startElement.getName().getLocalPart();
         switch (tag) {
             case "character":
-                kanjiEntity = new KanjiEntity();
+                kanjiDicEntry = new KanjiDicEntry();
                 break;
             case "literal":
-                if (kanjiEntity != null) {
+                if (kanjiDicEntry != null) {
                     String value = xmlEventReader.getElementText().trim();
                     if (!value.isEmpty()) {
-                        kanjiEntity.setKanjiCharacter(value.charAt(0));
+                        kanjiDicEntry.setKanjiCharacter(value);
                     }
                 }
                 break;
             case "cp_value":
-                handleCpValueTag(kanjiEntity, startElement, xmlEventReader);
+                handleCpValueTag(kanjiDicEntry, startElement, xmlEventReader);
                 break;
             case "grade":
-                if (kanjiEntity != null)
-                    kanjiEntity.setGrade(parseHelper.parseStringToInteger(xmlEventReader.getElementText()));
+                if (kanjiDicEntry != null)
+                    kanjiDicEntry.setGrade(parseHelper.parseStringToInteger(xmlEventReader.getElementText()));
                 break;
             case "stroke_count":
-                if (kanjiEntity != null)
-                    kanjiEntity.setStrokeCount(parseHelper.parseStringToInteger(xmlEventReader.getElementText()));
+                if (kanjiDicEntry != null)
+                    kanjiDicEntry.setStrokeCount(parseHelper.parseStringToInteger(xmlEventReader.getElementText()));
                 break;
             case "freq":
-                if (kanjiEntity != null)
-                    kanjiEntity.setFrequency(parseHelper.parseStringToInteger(xmlEventReader.getElementText()));
+                if (kanjiDicEntry != null)
+                    kanjiDicEntry.setFrequency(parseHelper.parseStringToInteger(xmlEventReader.getElementText()));
                 break;
             case "reading":
-                handleReadingTag(kanjiEntity, startElement, xmlEventReader);
+                handleReadingTag(kanjiDicEntry, startElement, xmlEventReader);
                 break;
             case "meaning":
-                handleMeaningTag(kanjiEntity, startElement, xmlEventReader);
+                handleMeaningTag(kanjiDicEntry, startElement, xmlEventReader);
                 break;
             default:
                 break;
         }
-        return kanjiEntity;
+        return kanjiDicEntry;
     }
 
-    private void handleCpValueTag(KanjiEntity kanjiEntity, StartElement startElement, XMLEventReader xmlEventReader) throws XMLStreamException {
-        if (kanjiEntity != null) {
+    private void handleCpValueTag(KanjiDicEntry kanjiDicEntry, StartElement startElement, XMLEventReader xmlEventReader) throws XMLStreamException {
+        if (kanjiDicEntry != null) {
             Attribute cpType = startElement.getAttributeByName(new QName("cp_type"));
             if ("ucs".equals(cpType.getValue())) {
-                kanjiEntity.setUnicode("U+" + xmlEventReader.getElementText().trim());
+                kanjiDicEntry.setUnicode("U+" + xmlEventReader.getElementText().trim().toUpperCase());
             }
         }
     }
 
-    private void handleReadingTag(KanjiEntity kanjiEntity, StartElement startElement, XMLEventReader xmlEventReader) throws XMLStreamException {
-        if (kanjiEntity != null) {
+    private void handleReadingTag(KanjiDicEntry kanjiDicEntry, StartElement startElement, XMLEventReader xmlEventReader) throws XMLStreamException {
+        if (kanjiDicEntry != null) {
             Attribute readingType = startElement.getAttributeByName(new QName("r_type"));
             String value = xmlEventReader.getElementText().trim();
             if (!value.isEmpty()) {
                 if (readingType.getValue().equals("ja_on")) {
-                    OnyomiEntity onyomi = OnyomiEntity.builder()
-                            .onyomi(value)
-                            .kanji(kanjiEntity)
-                            .build();
-                    kanjiEntity.getOnyomi().add(onyomi);
+                    kanjiDicEntry.getOnyomiSet().add(value);
                 } else if (readingType.getValue().equals("ja_kun")) {
-                    KunyomiEntity kunyomi = KunyomiEntity.builder()
-                            .kunyomi(value)
-                            .kanji(kanjiEntity)
-                            .build();
-                    kanjiEntity.getKunyomi().add(kunyomi);
+                    kanjiDicEntry.getKunyomiSet().add(value);
                 }
             }
         }
     }
 
-    private void handleMeaningTag(KanjiEntity kanjiEntity, StartElement startElement, XMLEventReader xmlEventReader) throws XMLStreamException {
-        if (kanjiEntity != null) {
+    private void handleMeaningTag(KanjiDicEntry kanjiDicEntry, StartElement startElement, XMLEventReader xmlEventReader) throws XMLStreamException {
+        if (kanjiDicEntry != null) {
             Attribute meaningLang = startElement.getAttributeByName(new QName("m_lang"));
-            String value = xmlEventReader.getElementText().trim();
+            String value = xmlEventReader.getElementText().trim().toLowerCase();
             if (meaningLang == null && !value.isEmpty()) {
-                MeaningEntity meaning = MeaningEntity.builder()
-                        .meaning(value)
-                        .kanji(kanjiEntity)
-                        .build();
-                kanjiEntity.getMeanings().add(meaning);
+                kanjiDicEntry.getKanjiMeaningSet().add(value);
             }
         }
     }
 
-    private void addKanjiIntoList(KanjiEntity kanjiEntity, List<KanjiEntity> list, Map<Character, Integer> kanjiInJlpt) {
-        if (kanjiEntity != null && kanjiEntity.getUnicode() != null) {
-            if (kanjiRepository.existsByUnicode(kanjiEntity.getUnicode())) {
-                throw new FileNotValidException("Unicode " + kanjiEntity.getUnicode() + " already exists");
+    private void addKanjiIntoList(KanjiDicEntry kanjiDicEntry, List<KanjiDicEntry> list, Map<String, Integer> kanjiInJlpt) {
+        if (kanjiDicEntry != null && kanjiDicEntry.getUnicode() != null) {
+            if (kanjiRepository.existsByUnicode(kanjiDicEntry.getUnicode())) {
+                throw new FileNotValidException("Unicode " + kanjiDicEntry.getUnicode() + " already exists");
             }
-            Integer jlptLevel = kanjiInJlpt.get(kanjiEntity.getKanjiCharacter());
+            Integer jlptLevel = kanjiInJlpt.get(kanjiDicEntry.getKanjiCharacter());
             if (jlptLevel != null) {
-                kanjiEntity.setJlptLevel(jlptLevel);
+                kanjiDicEntry.setJlptLevel(jlptLevel);
             }
-            list.add(kanjiEntity);
-        }
-    }
-
-    private Map<Character, Integer> getKanjiByJLPTLevel(MultipartFile file) {
-        if (!fileValidator.isJSONFile(file)) {
-            throw new FileNotValidException(
-                    FileMessage.IS_NOT_XML_FILE_DEV,
-                    FileMessage.IS_NOT_XML_FILE_USER
-            );
-        }
-        try (InputStream inputStream = file.getInputStream()) {
-            ObjectMapper objectMapper = new ObjectMapper();
-            JsonNode root = objectMapper.readTree(inputStream);
-
-            if (!root.isObject()) {
-                throw new FileNotValidException("");
-            }
-            Map<Character, Integer> map = new HashMap<>();
-            Set<Map.Entry<String, JsonNode>> fields = root.properties();
-
-            for (Map.Entry<String, JsonNode> field : fields) {
-                String jlptLevel = field.getKey();
-                String[] kanjiChars = field.getValue().asString().split(",");
-                for (String kanjiChar : kanjiChars) {
-                    if (!kanjiChar.isBlank()) {
-                        map.put(kanjiChar.trim().charAt(0), parseHelper.parseStringToInteger(jlptLevel));
-                    }
-                }
-            }
-
-            return map;
-        } catch (Exception e) {
-            throw new FileNotValidException("Method: getKanjiByJLPTLevel() => " + e.getMessage());
+            list.add(kanjiDicEntry);
         }
     }
 }

@@ -17,13 +17,13 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "onyomi")
+@Table(name = "meaning")
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class OnyomiEntity extends BaseEntity<Long> {
+public class KanjiMeaningEntity extends BaseEntity<Long> {
     @Column(name = "reading_text", unique = true, nullable = false)
     String readingText;
 
     @Builder.Default
-    @ManyToMany(mappedBy = "onyomiList")
+    @ManyToMany(mappedBy = "kanjiMeaningList")
     List<KanjiEntity> kanjiList = new ArrayList<>();
 }

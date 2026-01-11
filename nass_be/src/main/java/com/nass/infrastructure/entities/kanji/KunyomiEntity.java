@@ -1,12 +1,15 @@
 package com.nass.infrastructure.entities.kanji;
 
 import com.nass.infrastructure.entities.base.BaseEntity;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @Setter
@@ -17,9 +20,10 @@ import lombok.experimental.FieldDefaults;
 @Table(name = "kunyomi")
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class KunyomiEntity extends BaseEntity<Long> {
-    String kunyomi;
+    @Column(name = "reading_text", unique = true, nullable = false)
+    String readingText;
 
-    @ManyToOne
-    @JoinColumn(name = "kanji_id")
-    KanjiEntity kanji;
+    @Builder.Default
+    @ManyToMany(mappedBy = "kunyomiList")
+    List<KanjiEntity> kanjiList = new ArrayList<>();
 }

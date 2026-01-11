@@ -6,24 +6,26 @@ import lombok.experimental.FieldDefaults;
 
 import java.util.List;
 
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class KanjiResponse extends BaseResponse<Integer> {
-    String kanji;
+    String kanjiCharacter;
     String unicode;
     Integer grade;
     Integer strokeCount;
     Integer frequency;
     Integer jlptLevel;
+    String mainSinoVietnamese;
 
-    List<String> sinoVietnamese;
+    List<SinoVietnameseResponse> sinoVietnameseList;
 
-    List<String> onyomi;
+    List<String> onyomiList;
 
-    List<String> kunyomi;
+    List<String> kunyomiList;
 
-    List<String> meanings;
+    List<String> kanjiMeaningList;
 }

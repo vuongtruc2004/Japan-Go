@@ -5,5 +5,5 @@ import com.nass.infrastructure.repositories.base.IJpaSpecificationRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface IUserRepository extends IJpaSpecificationRepository<UserEntity, Integer> {
+public interface UserRepository extends IJpaSpecificationRepository<UserEntity, Integer> {
 }
