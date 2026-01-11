@@ -12,6 +12,7 @@ import { useTranslations } from "next-intl";
 import { useActionState, useState } from "react";
 import { getSinoVn } from "../actions/get.sino.vn.action";
 import { IGetSinoVn } from "../models/kanji.type";
+import SinoVnResultTextArea from "./sino.vn.result.textarea";
 
 const initialState: IGetSinoVn | null = null;
 
@@ -19,11 +20,13 @@ const GetSinoVnButton = () => {
     const t = useTranslations("Pages.kanji.explore");
 
     const [open, setOpen] = useState(false);
-    const [customDivider, setCustomDivider] = useState("");
+    const [dividerType, setDividerType] = useState<
+        "line" | "whitespace" | "custom"
+    >("line");
 
-    const getSinoVnWithCustomDivider = getSinoVn.bind(null, customDivider);
+    const getSinoVnWithDividerType = getSinoVn.bind(null, dividerType);
     const [state, formAction, pending] = useActionState(
-        getSinoVnWithCustomDivider,
+        getSinoVnWithDividerType,
         initialState,
     );
 
@@ -61,13 +64,8 @@ const GetSinoVnButton = () => {
                                 }
                             />
 
-                            <TextField
-                                defaultValue={state?.sinoVn}
-                                fullWidth
-                                multiline
-                                rows={20}
-                                placeholder="Kết quả sẽ hiển thị ở đây"
-                                disabled
+                            <SinoVnResultTextArea
+                                sinoVn={state?.sinoVn || ""}
                             />
                         </div>
 
@@ -76,8 +74,16 @@ const GetSinoVnButton = () => {
                         </h1>
 
                         <RadioGroup
+                            value={dividerType}
+                            onChange={(e) =>
+                                setDividerType(
+                                    e.target.value as
+                                        | "line"
+                                        | "whitespace"
+                                        | "custom",
+                                )
+                            }
                             name="divider-type"
-                            defaultValue={"line"}
                             sx={{
                                 display: "flex",
                                 flexDirection: "row",
@@ -101,12 +107,10 @@ const GetSinoVnButton = () => {
                                 control={<Radio />}
                                 label={
                                     <TextField
+                                        name="custom-value"
                                         size="small"
                                         placeholder="Tùy chỉnh"
-                                        value={customDivider}
-                                        onChange={(e) =>
-                                            setCustomDivider(e.target.value)
-                                        }
+                                        defaultValue={state?.customValue}
                                     />
                                 }
                             />

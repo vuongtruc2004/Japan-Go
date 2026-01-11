@@ -19,7 +19,7 @@ public class KanjiResponse extends BaseResponse<Integer> {
     Integer strokeCount;
     Integer frequency;
     Integer jlptLevel;
-    String mainSinoVietnamese;
+    SinoVietnameseResponse mainSinoVietnamese;
 
     List<SinoVietnameseResponse> sinoVietnameseList;
 

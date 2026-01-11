@@ -10,11 +10,11 @@ import java.util.Optional;
 
 @Repository
 public interface KanjiRepository extends IJpaSpecificationRepository<KanjiEntity, Integer> {
-    Optional<KanjiEntity> findByUnicode(String unicode);
-
     boolean existsByUnicode(String unicode);
 
-    List<KanjiEntity> findAllByJlptLevel(Integer jlptLevel);
-
     List<KanjiEntity> findAllByUnicodeIn(Collection<String> unicodes);
+
+    List<KanjiEntity> findAllByKanjiCharacterIn(Collection<String> kanjiCharacters);
+
+    Optional<KanjiEntity> findByKanjiCharacter(String kanjiCharacter);
 }

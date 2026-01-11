@@ -1,10 +1,11 @@
 'use server'
+import { sendRequest } from "@/libs/fetch.api";
 import { IGetSinoVn } from "../models/kanji.type";
 
 
-export async function getSinoVn(customDivider: string, initialState: IGetSinoVn | null, formData: FormData): Promise<IGetSinoVn> {
+export async function getSinoVn(dividerType: "line" | "whitespace" | "custom", initialState: IGetSinoVn | null, formData: FormData): Promise<IGetSinoVn> {
     const kanji = formData.get("kanji")?.toString().trim() || "";
-    const dividerType = formData.get("divider-type")?.toString() || "line";
+    const customValue = formData.get("custom-value")?.toString() || "";
 
     const state: IGetSinoVn = {
         kanji: {
@@ -12,8 +13,8 @@ export async function getSinoVn(customDivider: string, initialState: IGetSinoVn 
             errorMessage: '',
             isError: false
         },
-        dividerType: dividerType,
-        customDivider,
+        dividerType,
+        customValue,
         sinoVn: ""
     }
 
@@ -22,32 +23,21 @@ export async function getSinoVn(customDivider: string, initialState: IGetSinoVn 
         state.kanji.errorMessage = "Kanji cannot be blank!"
     }
 
-    let divider;
-    switch (dividerType) {
-        case "whitespace":
-            divider = "\\s+";
-            break;
-        case "custom":
-            divider = customDivider;
-            break;
-        default:
-            divider = "\n"
-    }
-
     if (!state.kanji.isError) {
-        const response = await fetch('http://localhost:2509/api/v1/kanji/sino-vn', {
-            method: 'POST',
+        const response = await sendRequest<ApiResponse<string>>({
+            url: 'http://localhost:2509/api/v1/sino-vietnamese',
             headers: {
-                'Content-Type': 'application/json'
+                "Content-Type": "application/json"
             },
-            body: JSON.stringify({
-                kanjiRaw: kanji,
-                divider
-            })
+            method: 'POST',
+            body: {
+                kanjiArrayRaw: kanji,
+                divider: dividerType === "custom" ? customValue : dividerType
+            }
         });
-        const result: ApiResponse<string[]> = await response.json();
-        if (result.statusCode === 200) {
-            state.sinoVn = result.data.join(divider);
+
+        if (response.statusCode === 200) {
+            state.sinoVn = response.data;
         }
     }
     return state;
