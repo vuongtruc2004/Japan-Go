@@ -10,4 +10,6 @@ public interface IKanjiService {
     List<KanjiResponse> importKanjiFromKanjidic(MultipartFile kanjidicFile, MultipartFile kanjijlptFile);
 
     KanjiResponse getKanjiById(Integer id);
+
+
 }

@@ -14,7 +14,5 @@ public interface KanjiRepository extends IJpaSpecificationRepository<KanjiEntity
 
     List<KanjiEntity> findAllByUnicodeIn(Collection<String> unicodes);
 
-    List<KanjiEntity> findAllByKanjiCharacterIn(Collection<String> kanjiCharacters);
-
     Optional<KanjiEntity> findByKanjiCharacter(String kanjiCharacter);
 }

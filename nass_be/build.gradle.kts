@@ -26,6 +26,7 @@ repositories {
 
 dependencies {
     // implementation
+    implementation("org.mybatis.spring.boot:mybatis-spring-boot-starter:4.0.1")
     implementation("org.springframework.boot:spring-boot-starter-flyway")
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
     implementation("org.springframework.boot:spring-boot-starter-data-redis-reactive")
@@ -36,6 +37,7 @@ dependencies {
     implementation("org.flywaydb:flyway-mysql:11.20.0")
 
     // test
+    testImplementation("org.mybatis.spring.boot:mybatis-spring-boot-starter-test:4.0.1")
     testImplementation("org.springframework.boot:spring-boot-starter-flyway-test")
     testImplementation("org.springframework.boot:spring-boot-starter-data-jpa-test")
     testImplementation("org.springframework.boot:spring-boot-starter-data-redis-reactive-test")
