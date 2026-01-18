@@ -1,6 +1,6 @@
 package com.nass.application_service.importers;
 
-import com.nass.application_service.dto.entry.KanjiDicEntry;
+import com.nass.application_service.dto.entries.KanjiDicEntry;
 import com.nass.application_service.exceptions.FileNotValidException;
 import com.nass.application_service.helpers.ParseHelper;
 import com.nass.infrastructure.entities.kanji.KanjiEntity;

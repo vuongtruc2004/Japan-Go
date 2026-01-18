@@ -48,4 +48,24 @@ public class FileValidator {
                 || "text/json".equalsIgnoreCase(contentType)
                 || "application/octet-stream".equalsIgnoreCase(contentType);
     }
+
+    public boolean isMarkdownFile(MultipartFile file) {
+        if (isEmptyFile(file)) return false;
+
+        String fileName = file.getOriginalFilename();
+        if (fileName == null) return false;
+
+        String lower = fileName.toLowerCase();
+        if (!(lower.endsWith(".md") || lower.endsWith(".markdown"))) {
+            return false;
+        }
+
+        String contentType = file.getContentType();
+
+        return contentType == null
+                || "text/markdown".equalsIgnoreCase(contentType)
+                || "text/plain".equalsIgnoreCase(contentType)
+                || "application/octet-stream".equalsIgnoreCase(contentType);
+    }
+
 }

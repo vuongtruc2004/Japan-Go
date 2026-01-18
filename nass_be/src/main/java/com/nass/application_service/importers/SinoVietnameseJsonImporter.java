@@ -1,7 +1,7 @@
 package com.nass.application_service.importers;
 
-import com.nass.application_service.dto.entry.SinoVietnameseEntry;
-import com.nass.application_service.dto.entry.SinoVietnameseMeaningEntry;
+import com.nass.application_service.dto.entries.SinoVietnameseEntry;
+import com.nass.application_service.dto.entries.SinoVietnameseMeaningEntry;
 import com.nass.application_service.exceptions.FileNotValidException;
 import com.nass.application_service.validators.FileValidator;
 import com.nass.contract.constants.FileMessage;

@@ -1,6 +1,6 @@
 package com.nass.api.middleware;
 
-import com.nass.application_service.dto.response.base.ApiResponse;
+import com.nass.application_service.dto.responses.base.ApiResponse;
 import com.nass.contract.annotations.ApiResponseFormat;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.MethodParameter;

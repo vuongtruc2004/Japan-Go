@@ -1,0 +1,62 @@
+.card {
+  font-family: "Noto Sans JP", "MS Mincho";
+  width: max-content;
+  max-width: 1600px;
+  margin-inline: auto;
+}
+
+.structure {
+  font-weight: bold;
+  font-size: 1.5rem;
+  width: max-content;
+}
+.translation {
+  font-weight: 500;
+  font-size: 1.25rem;
+}
+
+.explanation,
+.vietnamese,
+.attention,
+.example,
+.location {
+  padding: 4px 8px;
+  border-radius: 4px;
+  margin-block: 8px;
+  font-weight: bold;
+  width: max-content;
+}
+
+.location {
+  color: oklch(64.6% 0.222 41.116);
+  background-color: oklch(90.1% 0.076 70.697);
+}
+
+.explanation {
+  color: oklch(54.6% 0.245 262.881);
+  background-color: oklch(88.2% 0.059 254.128);
+}
+
+.attention {
+  color: oklch(62.7% 0.194 149.214);
+  background-color: oklch(92.5% 0.084 155.995);
+}
+
+.example {
+  color: oklch(57.7% 0.245 27.325);
+  background-color: oklch(88.5% 0.062 18.334);
+}
+
+.content {
+  font-weight: 500;
+}
+
+.arrow {
+  padding-inline: 8px;
+  color: oklch(57.7% 0.245 27.325);
+  border-radius: 4px;
+  font-weight: bold;
+  margin-block: 8px;
+  font-size: 12px;
+  display: inline-block;
+}

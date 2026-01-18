@@ -1,9 +1,9 @@
 package com.nass.application_service.services;
 
-import com.nass.application_service.dto.entry.SinoVietnameseEntry;
-import com.nass.application_service.dto.mapper.KanjiMapper;
-import com.nass.application_service.dto.request.GetSinoVietnameseRequest;
-import com.nass.application_service.dto.response.KanjiResponse;
+import com.nass.application_service.dto.entries.SinoVietnameseEntry;
+import com.nass.application_service.dto.mappers.KanjiDtoMapper;
+import com.nass.application_service.dto.requests.GetSinoVietnameseRequest;
+import com.nass.application_service.dto.responses.kanji.KanjiResponse;
 import com.nass.application_service.importers.MainSinoVietnameseXlsxImport;
 import com.nass.application_service.importers.SinoVietnameseJsonImporter;
 import com.nass.application_service.services.interfaces.ISinoVietnameseService;
@@ -25,7 +25,7 @@ import java.util.Map;
 public class SinoVietnameseService implements ISinoVietnameseService {
     private final SinoVietnameseJsonImporter sinoVietnameseJsonImporter;
     private final KanjiRepository kanjiRepository;
-    private final KanjiMapper kanjiMapper;
+    private final KanjiDtoMapper kanjiDTOMapper;
     private final MainSinoVietnameseXlsxImport mainSinoVietnameseXlsxImport;
 
     @Override
@@ -74,7 +74,7 @@ public class SinoVietnameseService implements ISinoVietnameseService {
     public List<KanjiResponse> importMainSinoVietnamese(MultipartFile mainSinoVietnameseFile) {
         Map<String, String> mainSinoVietnameseMap = mainSinoVietnameseXlsxImport.importMainSinoVietnamese(mainSinoVietnameseFile);
         List<KanjiEntity> kanjiEntities = mainSinoVietnameseXlsxImport.updateKanjiWithMainSinoVietnamese(mainSinoVietnameseMap);
-        return kanjiEntities.stream().map(kanjiMapper::kanjiEntityToKanjiResponse).toList();
+        return kanjiEntities.stream().map(kanjiDTOMapper::kanjiEntityToKanjiResponse).toList();
     }
 
     @Override
@@ -85,6 +85,6 @@ public class SinoVietnameseService implements ISinoVietnameseService {
             sinoVietnameseJsonImporter.importSinoVietnamese(sinoVietnameseFile, sinoVietnameseEntryMap);
         }
         List<KanjiEntity> kanjiEntities = sinoVietnameseJsonImporter.updateKanjiWithSinoVietnamese(sinoVietnameseEntryMap);
-        return kanjiEntities.stream().map(kanjiMapper::kanjiEntityToKanjiResponse).toList();
+        return kanjiEntities.stream().map(kanjiDTOMapper::kanjiEntityToKanjiResponse).toList();
     }
 }

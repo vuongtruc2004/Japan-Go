@@ -1,13 +1,15 @@
 server:
   port: 2509
+  tomcat:
+    max-part-count: 20
 spring:
   application:
     name: nass_be
 
   servlet:
     multipart:
-      max-file-size: 50MB
-      max-request-size: 50MB
+      max-file-size: 200MB
+      max-request-size: 200MB
 
   data:
     web:
@@ -29,4 +31,6 @@ spring:
   profiles:
     active: uat
 
-
+mybatis:
+  config-location: classpath:mybatis/mybatis-config.xml
+  mapper-locations: classpath:mybatis/mappers/*.xml

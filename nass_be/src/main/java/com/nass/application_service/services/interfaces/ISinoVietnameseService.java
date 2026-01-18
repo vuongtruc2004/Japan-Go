@@ -1,7 +1,7 @@
 package com.nass.application_service.services.interfaces;
 
-import com.nass.application_service.dto.request.GetSinoVietnameseRequest;
-import com.nass.application_service.dto.response.KanjiResponse;
+import com.nass.application_service.dto.requests.GetSinoVietnameseRequest;
+import com.nass.application_service.dto.responses.kanji.KanjiResponse;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;

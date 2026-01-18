@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.nass.infrastructure.mappers.KanjiMapper">
+    <resultMap id="BaseResultMap" type="KanjiEntity">
+        <id property="id" column="id"/>
+        <result property="createdBy" column="created_by"/>
+        <result property="createdTime" column="created_time"/>
+        <result property="modifiedBy" column="modified_by"/>
+        <result property="modifiedTime" column="modified_time"/>
+    </resultMap>
+
+    <resultMap id="KanjiResultMap" type="KanjiEntity" extends="BaseResultMap">
+        <result property="kanjiCharacter" column="kanji_character"/>
+        <result property="unicode" column="unicode"/>
+        <result property="grade" column="grade"/>
+        <result property="strokeCount" column="stroke_count"/>
+        <result property="frequency" column="frequency"/>
+        <result property="jlptLevel" column="jlpt_level"/>
+    </resultMap>
+
+    <select id="findKanjiById" parameterType="Integer" resultMap="KanjiResultMap">
+        SELECT id,
+               created_by,
+               created_time,
+               modified_by,
+               modified_time,
+               kanji_character,
+               unicode,
+               grade,
+               stroke_count,
+               frequency,
+               jlpt_level
+        FROM kanji
+        WHERE id = #{id}
+    </select>
+</mapper>

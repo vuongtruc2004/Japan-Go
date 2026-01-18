@@ -1,7 +1,7 @@
 package com.nass.api.controllers.v1;
 
-import com.nass.application_service.dto.request.GetSinoVietnameseRequest;
-import com.nass.application_service.dto.response.KanjiResponse;
+import com.nass.application_service.dto.requests.GetSinoVietnameseRequest;
+import com.nass.application_service.dto.responses.kanji.KanjiResponse;
 import com.nass.application_service.services.SinoVietnameseService;
 import com.nass.contract.annotations.ApiResponseFormat;
 import lombok.RequiredArgsConstructor;

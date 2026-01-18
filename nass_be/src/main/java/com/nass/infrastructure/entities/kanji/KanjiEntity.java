@@ -16,7 +16,6 @@ import java.util.List;
 @Entity
 @Table(name = "kanji")
 @FieldDefaults(level = AccessLevel.PRIVATE)
-@ToString
 public class KanjiEntity extends BaseEntity<Integer> {
     @Column(name = "kanji_character", unique = true, nullable = false)
     String kanjiCharacter;

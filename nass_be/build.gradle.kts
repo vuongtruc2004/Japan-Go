@@ -35,6 +35,7 @@ dependencies {
     implementation("org.apache.poi:poi:5.4.1")
     implementation("org.apache.poi:poi-ooxml:5.4.1")
     implementation("org.flywaydb:flyway-mysql:11.20.0")
+    implementation("com.atilika.kuromoji:kuromoji-ipadic:0.9.0")
 
     // test
     testImplementation("org.mybatis.spring.boot:mybatis-spring-boot-starter-test:4.0.1")

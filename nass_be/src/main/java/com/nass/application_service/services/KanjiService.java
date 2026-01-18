@@ -1,7 +1,7 @@
 package com.nass.application_service.services;
 
-import com.nass.application_service.dto.mapper.KanjiMapper;
-import com.nass.application_service.dto.response.KanjiResponse;
+import com.nass.application_service.dto.mappers.KanjiDtoMapper;
+import com.nass.application_service.dto.responses.kanji.KanjiResponse;
 import com.nass.application_service.exceptions.FileNotValidException;
 import com.nass.application_service.exceptions.NotFoundException;
 import com.nass.application_service.importers.KanjiDicXmlImporter;
@@ -9,6 +9,7 @@ import com.nass.application_service.services.interfaces.IKanjiService;
 import com.nass.application_service.validators.FileValidator;
 import com.nass.contract.constants.FileMessage;
 import com.nass.infrastructure.entities.kanji.KanjiEntity;
+import com.nass.infrastructure.mappers.KanjiMapper;
 import com.nass.infrastructure.repositories.KanjiRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -24,14 +25,19 @@ import java.util.List;
 public class KanjiService implements IKanjiService {
     private final FileValidator fileValidator;
     private final KanjiDicXmlImporter kanjiDicXmlImporter;
-    private final KanjiMapper kanjiMapper;
+    private final KanjiDtoMapper kanjiDTOMapper;
     private final KanjiRepository kanjiRepository;
+    private final KanjiMapper kanjiMapper;
 
     @Override
     public KanjiResponse getKanjiById(Integer id) {
-        KanjiEntity kanjiEntity = kanjiRepository.findById(id)
-                .orElseThrow(() -> new NotFoundException("Kanji not found!"));
-        return kanjiMapper.kanjiEntityToKanjiResponse(kanjiEntity);
+//        KanjiEntity kanjiEntity = kanjiRepository.findById(id)
+//                .orElseThrow(() -> new NotFoundException("Kanji not found!"));
+        KanjiEntity kanjiEntity = kanjiMapper.findKanjiById(id);
+        if (kanjiEntity == null) {
+            throw new NotFoundException("Not found kanji with id " + id);
+        }
+        return kanjiDTOMapper.kanjiEntityToKanjiResponse(kanjiEntity);
     }
 
     @Override
@@ -50,6 +56,6 @@ public class KanjiService implements IKanjiService {
             );
         }
         List<KanjiEntity> list = kanjiDicXmlImporter.importKanji(kanjidicFile, kanjijlptFile);
-        return list.stream().map(kanjiMapper::kanjiEntityToKanjiResponse).toList();
+        return list.stream().map(kanjiDTOMapper::kanjiEntityToKanjiResponse).toList();
     }
 }

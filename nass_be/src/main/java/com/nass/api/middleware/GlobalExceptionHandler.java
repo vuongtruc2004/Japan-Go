@@ -1,6 +1,6 @@
 package com.nass.api.middleware;
 
-import com.nass.application_service.dto.response.base.ApiResponse;
+import com.nass.application_service.dto.responses.base.ApiResponse;
 import com.nass.application_service.exceptions.NotFoundException;
 import com.nass.application_service.exceptions.base.BaseException;
 import com.nass.contract.constants.DefaultMessage;
