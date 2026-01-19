@@ -25,11 +25,12 @@ public class GrammarServiceHelper {
     }
 
     public String getGrammarExample(GrammarEntity grammar) {
-        StringJoiner joiner = new StringJoiner("<br>");
+        StringJoiner joiner = new StringJoiner("<br/><br/>");
         int num = 1;
         for (SentenceEntity sentence : grammar.getExample().getSentences()) {
-            joiner.add(num + ". " + sentenceService.enrichFuriganaToKanjiString(sentence.getJapanese()));
-            joiner.add("<div class=\"arrow\">⇒</div>" + sentence.getVietnamese());
+            String content = num + ". " + sentenceService.enrichFuriganaToKanjiString(sentence.getJapanese()) + "<br>"
+                    + "<div class=\"arrow\">⇒</div>" + sentence.getVietnamese();
+            joiner.add(content);
             num++;
         }
         return joiner.toString();
