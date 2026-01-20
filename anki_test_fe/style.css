@@ -1,62 +1,119 @@
 .card {
-  font-family: "Noto Sans JP", "MS Mincho";
-  width: max-content;
-  max-width: 1600px;
-  margin-inline: auto;
-}
+  font-family: "Noto Sans JP", "MS Mincho", sans-serif;
 
-.structure {
-  font-weight: bold;
-  font-size: 1.5rem;
-  width: max-content;
+  max-width: 100%;
+  box-sizing: border-box;
+  margin: 0 auto;
+  padding: 12px 14px;
+
+  white-space: normal;
+  overflow-x: hidden;
+
+  line-height: 1.55;
 }
 .translation {
-  font-weight: 500;
-  font-size: 1.25rem;
+  font-weight: bold;
+}
+.sentence {
+  font-weight: 700;
+  font-size: 1.5rem;
+  max-width: 100%;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+  margin: 6px 0 8px;
 }
 
+.sentence-meaning {
+  font-weight: 600;
+  font-size: 1.25rem;
+  max-width: 100%;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+  margin: 6px 0 8px;
+}
+
+/* Section labels */
 .explanation,
-.vietnamese,
 .attention,
 .example,
-.location {
-  padding: 4px 8px;
-  border-radius: 4px;
-  margin-block: 8px;
-  font-weight: bold;
-  width: max-content;
+.location,
+.structure {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 6px;
+  margin: 10px 0 6px;
+  font-weight: 700;
+
+  max-width: 100%;
+  overflow-wrap: anywhere;
+  word-break: break-word;
 }
 
+/* Keep your palette */
 .location {
   color: oklch(64.6% 0.222 41.116);
   background-color: oklch(90.1% 0.076 70.697);
+}
+
+.structure {
+  color: oklch(59.2% 0.249 0.584);
+  background-color: oklch(90.3% 0.076 319.62);
 }
 
 .explanation {
   color: oklch(54.6% 0.245 262.881);
   background-color: oklch(88.2% 0.059 254.128);
 }
-
-.attention {
+.example {
   color: oklch(62.7% 0.194 149.214);
   background-color: oklch(92.5% 0.084 155.995);
 }
 
-.example {
+.attention {
   color: oklch(57.7% 0.245 27.325);
   background-color: oklch(88.5% 0.062 18.334);
 }
 
+.highlight {
+  color: oklch(49.6% 0.265 301.924);
+  background-color: oklch(90.2% 0.063 306.703);
+  padding: 8px 6px;
+  border-radius: 4px;
+  margin-inline: 3px;
+}
 .content {
   font-weight: 500;
+  margin: 0 0 8px;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+.arrow {
+  display: inline-block;
+  font-weight: 700;
+  color: oklch(57.7% 0.245 27.325);
 }
 
-.arrow {
-  padding-inline: 8px;
-  color: oklch(57.7% 0.245 27.325);
-  border-radius: 4px;
-  font-weight: bold;
-  margin-block: 8px;
-  font-size: 12px;
-  display: inline-block;
+.example-translation {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  column-gap: 6px;
+  margin-top: 6px;
+}
+
+/* Desktop tweak (optional) */
+@media (min-width: 900px) {
+  .card {
+    max-width: 1100px;
+    padding: 18px 22px;
+  }
+
+  .sentence {
+    font-size: 1.65rem;
+  }
+
+  .sentence-meaning {
+    font-size: 1.3rem;
+  }
 }

@@ -1,0 +1,79 @@
+package com.nass.application_service.helpers;
+
+import com.atilika.kuromoji.ipadic.Token;
+import com.atilika.kuromoji.ipadic.Tokenizer;
+import com.nass.application_service.exceptions.FileNotValidException;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Component;
+
+import java.util.List;
+
+@Component
+@RequiredArgsConstructor
+public class SentenceHelper {
+    private final Tokenizer tokenizer = new Tokenizer();
+
+    public String enrichFuriganaToKanjiString(String text) {
+        if (text == null || text.isBlank()) {
+            throw new FileNotValidException("Text is not valid");
+        }
+
+        List<Token> tokens = tokenizer.tokenize(text);
+        StringBuilder result = new StringBuilder();
+
+        for (Token token : tokens) {
+            String surface = token.getSurface();
+            String readingKatakana = token.getReading();
+
+            boolean hasReading = readingKatakana != null
+                    && !readingKatakana.isBlank()
+                    && !"*".equals(readingKatakana);
+
+            // Chỉ furigana cho token có kanji + có reading
+            if (!hasReading || !containsKanji(surface)) {
+                result.append(surface);
+            } else {
+                String readingHiragana = convertKatakanaToHiragana(readingKatakana);
+                result.append("<ruby><rb>")
+                        .append(surface)
+                        .append("</rb><rp>(</rp><rt>")
+                        .append(readingHiragana)
+                        .append("</rt><rp>)</rp></ruby>");
+            }
+        }
+
+        return result.toString();
+    }
+
+    private boolean containsKanji(String s) {
+        for (int i = 0; i < s.length(); i++) {
+            Character.UnicodeBlock b = Character.UnicodeBlock.of(s.charAt(i));
+            if (b == Character.UnicodeBlock.CJK_UNIFIED_IDEOGRAPHS
+                    || b == Character.UnicodeBlock.CJK_UNIFIED_IDEOGRAPHS_EXTENSION_A
+                    || b == Character.UnicodeBlock.CJK_UNIFIED_IDEOGRAPHS_EXTENSION_B) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private String escapeHtml(String s) {
+        return s.replace("&", "&amp;")
+                .replace("<", "&lt;")
+                .replace(">", "&gt;")
+                .replace("\"", "&quot;")
+                .replace("'", "&#39;");
+    }
+
+    private String convertKatakanaToHiragana(String katakana) {
+        if (katakana == null || katakana.isBlank()) return "";
+        StringBuilder hiragana = new StringBuilder(katakana.length());
+        for (int i = 0; i < katakana.length(); i++) {
+            char c = katakana.charAt(i);
+            // ァ(0x30A1) .. ヶ(0x30F6) -> ぁ(0x3041) .. ゖ(0x3096)
+            if (c >= 0x30A1 && c <= 0x30F6) hiragana.append((char) (c - 0x60));
+            else hiragana.append(c);
+        }
+        return hiragana.toString();
+    }
+}

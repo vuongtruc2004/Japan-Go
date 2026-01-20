@@ -1,6 +1,5 @@
 package com.nass.application_service.helpers;
 
-import com.nass.application_service.services.SentenceService;
 import com.nass.infrastructure.entities.grammar.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -10,15 +9,17 @@ import java.util.StringJoiner;
 
 @Component
 @RequiredArgsConstructor
-public class GrammarServiceHelper {
-    private final SentenceService sentenceService;
+public class GrammarExampleHelper {
+    private final ReplaceHelper replaceHelper;
+    private final SentenceHelper sentenceHelper;
 
     public String getGrammarStructure(GrammarEntity grammar) {
         StructureEntity structure = grammar.getStructure();
         StringJoiner joiner = new StringJoiner("<br>");
         int num = 1;
         for (SentenceEntity sentence : structure.getSentences()) {
-            joiner.add(num + ". " + convertStrikethrough(sentenceService.enrichFuriganaToKanjiString(sentence.getVietnamese())));
+            String vietnamese = sentenceHelper.enrichFuriganaToKanjiString(sentence.getVietnamese());
+            joiner.add(num + ". " + replaceHelper.replaceAllSubstringWithHtmlTag(vietnamese, "~~", "<s>", "</s>"));
             num++;
         }
         return joiner.toString();
@@ -28,8 +29,8 @@ public class GrammarServiceHelper {
         StringJoiner joiner = new StringJoiner("<br/><br/>");
         int num = 1;
         for (SentenceEntity sentence : grammar.getExample().getSentences()) {
-            String content = num + ". " + sentenceService.enrichFuriganaToKanjiString(sentence.getJapanese()) + "<br>"
-                    + "<div class=\"arrow\">⇒</div>" + sentence.getVietnamese();
+            String content = num + ". " + sentenceHelper.enrichFuriganaToKanjiString(sentence.getJapanese()) + "<br>"
+                    + "<div class='example-translation'>" + "<div class='arrow'>⇒</div>" + sentence.getVietnamese() + "</div>";
             joiner.add(content);
             num++;
         }
@@ -62,16 +63,4 @@ public class GrammarServiceHelper {
         }
         return joiner.toString();
     }
-
-    private String convertStrikethrough(String text) {
-        if (text == null || !text.contains("~~")) {
-            return text;
-        }
-        while (text.contains("~~")) {
-            text = text.replaceFirst("~~", "<s>");
-            text = text.replaceFirst("~~", "</s>");
-        }
-        return text;
-    }
-
 }

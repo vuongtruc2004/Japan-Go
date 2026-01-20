@@ -1,19 +1,24 @@
 package com.nass.application_service.importers;
 
 import com.nass.application_service.exceptions.FileNotValidException;
+import com.nass.application_service.helpers.ReplaceHelper;
 import com.nass.contract.constants.GrammarPattern;
 import com.nass.contract.enums.GrammarComponentEnum;
 import com.nass.infrastructure.entities.grammar.*;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 import java.util.Arrays;
 import java.util.List;
 import java.util.regex.Matcher;
 
+@Slf4j
 @Component
 @RequiredArgsConstructor
-public class GrammarMarkdownImporter {
+public class LessonMarkdownImporter {
+
+    private final ReplaceHelper replaceHelper;
 
     public LessonEntity importLessonFromNotion(String markdown) {
         List<String> lines = Arrays.stream(markdown
@@ -116,8 +121,13 @@ public class GrammarMarkdownImporter {
                         structure.getSentences().add(sentence);
                         break;
                     case EXAMPLE:
+                        String japanese = replaceHelper.replaceAllSubstringWithHtmlTag(
+                                matcher.group(2),
+                                "**",
+                                "<span class='highlight'>",
+                                "</span>");
                         sentence = SentenceEntity.builder()
-                                .japanese(matcher.group(2))
+                                .japanese(japanese)
                                 .example(example)
                                 .build();
                         example.getSentences().add(sentence);
