@@ -17,23 +17,19 @@ public class GrammarEntity extends BaseEntity<Integer> {
     @Column(name = "grammar_title")
     String grammarTitle;
 
-    @ManyToOne
-    @JoinColumn(name = "lesson_id")
-    LessonEntity lesson;
-
     @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "grammar_meaning_id")
     GrammarMeaningEntity grammarMeaning;
 
     @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name = "structure_id")
-    StructureEntity structure;
+    @JoinColumn(name = "grammar_structure_id")
+    GrammarStructureEntity grammarStructure;
 
     @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name = "example_id")
-    ExampleEntity example;
+    @JoinColumn(name = "grammar_example_id")
+    GrammarExampleEntity grammarExample;
 
     @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name = "additional_note_id")
-    AdditionalNote additionalNote;
+    @JoinColumn(name = "grammar_note_id")
+    GrammarNoteEntity grammarNote;
 }

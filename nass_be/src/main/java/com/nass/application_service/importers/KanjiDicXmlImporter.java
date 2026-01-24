@@ -2,7 +2,11 @@ package com.nass.application_service.importers;
 
 import com.nass.application_service.dto.entries.KanjiDicEntry;
 import com.nass.application_service.exceptions.FileNotValidException;
+import com.nass.application_service.exceptions.KanjiException;
 import com.nass.application_service.helpers.ParseHelper;
+import com.nass.application_service.services.i18n.I18nService;
+import com.nass.contract.enums.messages.FileMessageEnum;
+import com.nass.contract.enums.messages.KanjiMessageEnum;
 import com.nass.infrastructure.entities.kanji.KanjiEntity;
 import com.nass.infrastructure.entities.kanji.KanjiMeaningEntity;
 import com.nass.infrastructure.entities.kanji.KunyomiEntity;
@@ -37,6 +41,7 @@ public class KanjiDicXmlImporter {
     private final MeaningRepository meaningRepository;
     private final KanjiJlptJsonImporter kanjiJlptJsonImporter;
     private final ModelMapper modelMapper;
+    private final I18nService i18nService;
 
     public List<KanjiEntity> importKanji(MultipartFile kanjidicFile, MultipartFile kanjijlptFile) {
         XMLInputFactory xmlInputFactory = XMLInputFactory.newInstance();
@@ -67,7 +72,10 @@ public class KanjiDicXmlImporter {
 
             return loadKanjiDicEntryListToDb(list);
         } catch (Exception e) {
-            throw new FileNotValidException("Method: getKanjiFromKANJIDIC2File() => " + e.getMessage());
+            throw new FileNotValidException(
+                    i18nService.translation(FileMessageEnum.FILE_ERROR.key, e.getMessage()),
+                    i18nService.translation(FileMessageEnum.FILE_ERROR.key, e.getMessage())
+            );
         }
     }
 
@@ -214,7 +222,10 @@ public class KanjiDicXmlImporter {
     private void addKanjiIntoList(KanjiDicEntry kanjiDicEntry, List<KanjiDicEntry> list, Map<String, Integer> kanjiInJlpt) {
         if (kanjiDicEntry != null && kanjiDicEntry.getUnicode() != null) {
             if (kanjiRepository.existsByUnicode(kanjiDicEntry.getUnicode())) {
-                throw new FileNotValidException("Unicode " + kanjiDicEntry.getUnicode() + " already exists");
+                throw new KanjiException(
+                        i18nService.translation(KanjiMessageEnum.KANJI_UNICODE_EXISTED.key, kanjiDicEntry.getUnicode()),
+                        i18nService.translation(KanjiMessageEnum.KANJI_UNICODE_EXISTED.key, kanjiDicEntry.getUnicode())
+                );
             }
             Integer jlptLevel = kanjiInJlpt.get(kanjiDicEntry.getKanjiCharacter());
             if (jlptLevel != null) {

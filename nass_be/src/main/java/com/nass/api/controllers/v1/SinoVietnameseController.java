@@ -1,8 +1,8 @@
 package com.nass.api.controllers.v1;
 
-import com.nass.application_service.dto.requests.GetSinoVietnameseRequest;
+import com.nass.application_service.dto.requests.kanji.GetSinoVietnameseRequest;
 import com.nass.application_service.dto.responses.kanji.KanjiResponse;
-import com.nass.application_service.services.SinoVietnameseService;
+import com.nass.application_service.services.kanji.SinoVietnameseService;
 import com.nass.contract.annotations.ApiResponseFormat;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -21,20 +21,20 @@ import java.util.List;
 public class SinoVietnameseController {
     private final SinoVietnameseService sinoVietnameseService;
 
-    @ApiResponseFormat(devMessage = "", userMessage = "")
+    @ApiResponseFormat(devMessage = "", clientMessage = "")
     @PostMapping
     public ResponseEntity<String> getSinoVietnameseOfKanji(@RequestBody GetSinoVietnameseRequest getSinoVietnameseRequest) {
         return ResponseEntity.ok(sinoVietnameseService.getSinoVietnameseOfKanji(getSinoVietnameseRequest));
     }
 
-    @ApiResponseFormat(devMessage = "", userMessage = "")
+    @ApiResponseFormat(devMessage = "", clientMessage = "")
     @PostMapping(value = "/import/main", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<List<KanjiResponse>> importMainSinoVietnamese(
             @RequestParam("main-sino-vietnamese") MultipartFile mainSinoVietnameseFile) {
         return ResponseEntity.status(HttpStatus.CREATED).body(sinoVietnameseService.importMainSinoVietnamese(mainSinoVietnameseFile));
     }
 
-    @ApiResponseFormat(devMessage = "", userMessage = "")
+    @ApiResponseFormat(devMessage = "", clientMessage = "")
     @PostMapping(value = "/import", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<List<KanjiResponse>> enrichSinoVietnameseToAllKanji(
             @RequestParam("sino-vietnamese") List<MultipartFile> sinoVietnameseFiles) {

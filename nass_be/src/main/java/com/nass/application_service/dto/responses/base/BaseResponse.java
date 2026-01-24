@@ -13,11 +13,14 @@ import java.time.Instant;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class BaseResponse<TKey> {
     TKey id;
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+7")
-    Instant createdTime;
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+7")
-    Instant modifiedTime;
 
     String createdBy;
+
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+7")
+    Instant createdTime;
+
     String modifiedBy;
+
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+7")
+    Instant modifiedTime;
 }

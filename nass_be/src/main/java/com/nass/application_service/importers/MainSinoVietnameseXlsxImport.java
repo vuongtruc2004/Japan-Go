@@ -2,7 +2,10 @@ package com.nass.application_service.importers;
 
 import com.nass.application_service.exceptions.FileNotValidException;
 import com.nass.application_service.exceptions.NotFoundException;
+import com.nass.application_service.services.i18n.I18nService;
 import com.nass.application_service.validators.FileValidator;
+import com.nass.contract.enums.messages.FileMessageEnum;
+import com.nass.contract.enums.messages.SinoVietnameseMessageEnum;
 import com.nass.infrastructure.entities.kanji.KanjiEntity;
 import com.nass.infrastructure.entities.kanji.SinoVietnameseEntity;
 import com.nass.infrastructure.repositories.KanjiRepository;
@@ -23,10 +26,14 @@ public class MainSinoVietnameseXlsxImport {
     private final FileValidator fileValidator;
     private final KanjiRepository kanjiRepository;
     private final SinoVietnameseRepository sinoVietnameseRepository;
+    private final I18nService i18nService;
 
     public Map<String, String> importMainSinoVietnamese(MultipartFile mainSinoVietnameseFile) {
         if (!fileValidator.isExcelFile(mainSinoVietnameseFile)) {
-            throw new FileNotValidException("File lo", "");
+            throw new FileNotValidException(
+                    i18nService.translation(FileMessageEnum.FILE_NOT_EXCEL.key),
+                    i18nService.translation(FileMessageEnum.FILE_NOT_EXCEL.key)
+            );
         }
         try (InputStream inputStream = mainSinoVietnameseFile.getInputStream();
              Workbook workbook = WorkbookFactory.create(inputStream)
@@ -49,14 +56,20 @@ public class MainSinoVietnameseXlsxImport {
                         }
                     }
                     if (kanjiCharacter.isBlank()) {
-                        throw new FileNotValidException("File error at row: " + rowNum);
+                        throw new FileNotValidException(
+                                i18nService.translation(FileMessageEnum.FILE_ERROR_AT_LINE.key, row),
+                                i18nService.translation(FileMessageEnum.FILE_ERROR_AT_LINE.key, row)
+                        );
                     }
                     mainSinoVietnameseMap.putIfAbsent(kanjiCharacter, mainSinoVietnamese);
                 }
             }
             return mainSinoVietnameseMap;
         } catch (Exception e) {
-            throw new FileNotValidException(e.getMessage());
+            throw new FileNotValidException(
+                    i18nService.translation(FileMessageEnum.FILE_ERROR.key, e.getMessage()),
+                    i18nService.translation(FileMessageEnum.FILE_ERROR.key, e.getMessage())
+            );
         }
     }
 
@@ -72,7 +85,8 @@ public class MainSinoVietnameseXlsxImport {
                 SinoVietnameseEntity mainSinoVietnameseEntity = sinoVietnameseRepository
                         .findByKanji_KanjiCharacterAndReadingText(kanjiCharacter, readingText)
                         .orElseThrow(() -> new NotFoundException(
-                                "Main reading text '" + readingText + "' for kanji '" + kanjiCharacter + "' not found!"
+                                i18nService.translation(SinoVietnameseMessageEnum.SINO_VIETNAMESE_IN_KANJI_NOT_FOUND.key, readingText, kanjiCharacter),
+                                i18nService.translation(SinoVietnameseMessageEnum.SINO_VIETNAMESE_IN_KANJI_NOT_FOUND.key, readingText, kanjiCharacter)
                         ));
                 kanjiEntity.setMainSinoVietnamese(mainSinoVietnameseEntity);
             } else {

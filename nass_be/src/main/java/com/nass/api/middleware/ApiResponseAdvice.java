@@ -1,6 +1,7 @@
 package com.nass.api.middleware;
 
 import com.nass.application_service.dto.responses.base.ApiResponse;
+import com.nass.application_service.services.i18n.I18nService;
 import com.nass.contract.annotations.ApiResponseFormat;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.MethodParameter;
@@ -17,14 +18,15 @@ import tools.jackson.databind.ObjectMapper;
 @RequiredArgsConstructor
 public class ApiResponseAdvice implements ResponseBodyAdvice<Object> {
     private final ObjectMapper objectMapper;
+    private final I18nService i18nService;
 
-    private static ApiResponse<Object> getObjectApiResponse(Object body, ServerHttpResponse response, ApiResponseFormat apiResponseFormat) {
+    private ApiResponse<Object> getObjectApiResponse(Object body, ServerHttpResponse response, ApiResponseFormat apiResponseFormat) {
         String devMessage = (apiResponseFormat != null && !apiResponseFormat.devMessage().isBlank())
-                ? apiResponseFormat.devMessage()
+                ? i18nService.translation(apiResponseFormat.devMessage())
                 : "No dev message";
 
-        String userMessage = (apiResponseFormat != null && !apiResponseFormat.userMessage().isBlank())
-                ? apiResponseFormat.userMessage()
+        String clientMessage = (apiResponseFormat != null && !apiResponseFormat.clientMessage().isBlank())
+                ? i18nService.translation(apiResponseFormat.clientMessage())
                 : "Thành công!";
 
         int statusCode = 200;
@@ -32,7 +34,7 @@ public class ApiResponseAdvice implements ResponseBodyAdvice<Object> {
             statusCode = serverHttpResponse.getServletResponse().getStatus();
         }
 
-        return new ApiResponse<>(statusCode, devMessage, userMessage, body);
+        return new ApiResponse<>(statusCode, devMessage, clientMessage, body);
     }
 
     @Override

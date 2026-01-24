@@ -61,4 +61,8 @@ public class KanjiEntity extends BaseEntity<Integer> {
             joinColumns = @JoinColumn(name = "kanji_id"),
             inverseJoinColumns = @JoinColumn(name = "kanji_meaning_id"))
     List<KanjiMeaningEntity> kanjiMeaningList = new ArrayList<>();
+
+    @Builder.Default
+    @OneToMany(mappedBy = "mainKanji")
+    List<KanjiPageEntity> kanjiPages = new ArrayList<>();
 }

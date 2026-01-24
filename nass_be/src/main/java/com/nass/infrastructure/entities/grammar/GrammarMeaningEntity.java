@@ -1,6 +1,7 @@
 package com.nass.infrastructure.entities.grammar;
 
 import com.nass.infrastructure.entities.base.BaseEntity;
+import com.nass.infrastructure.entities.common.SentenceEntity;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
@@ -17,9 +18,6 @@ import java.util.List;
 @Table(name = "grammar_meaning")
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class GrammarMeaningEntity extends BaseEntity<Integer> {
-    @Column(name = "vietnamese_translation")
-    String vietnameseTranslation;
-
     @Builder.Default
     @OneToMany(mappedBy = "grammarMeaning", cascade = CascadeType.ALL, orphanRemoval = true)
     List<SentenceEntity> sentences = new ArrayList<>();

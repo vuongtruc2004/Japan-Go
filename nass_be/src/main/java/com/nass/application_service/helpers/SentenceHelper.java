@@ -2,7 +2,6 @@ package com.nass.application_service.helpers;
 
 import com.atilika.kuromoji.ipadic.Token;
 import com.atilika.kuromoji.ipadic.Tokenizer;
-import com.nass.application_service.exceptions.FileNotValidException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -14,10 +13,6 @@ public class SentenceHelper {
     private final Tokenizer tokenizer = new Tokenizer();
 
     public String enrichFuriganaToKanjiString(String text) {
-        if (text == null || text.isBlank()) {
-            throw new FileNotValidException("Text is not valid");
-        }
-
         List<Token> tokens = tokenizer.tokenize(text);
         StringBuilder result = new StringBuilder();
 
@@ -55,14 +50,6 @@ public class SentenceHelper {
             }
         }
         return false;
-    }
-
-    private String escapeHtml(String s) {
-        return s.replace("&", "&amp;")
-                .replace("<", "&lt;")
-                .replace(">", "&gt;")
-                .replace("\"", "&quot;")
-                .replace("'", "&#39;");
     }
 
     private String convertKatakanaToHiragana(String katakana) {

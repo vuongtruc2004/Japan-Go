@@ -18,8 +18,6 @@ public class KanjiDtoMapper {
 
     public KanjiResponse kanjiEntityToKanjiResponse(KanjiEntity kanjiEntity) {
         KanjiResponse kanjiResponse = modelMapper.map(kanjiEntity, KanjiResponse.class);
-//        KanjiResponse kanjiResponse = new KanjiResponse();
-//        kanjiResponse.setSinoVietnameseList(kanjiEntity.getSinoVietnameseList().stream().map(SinoVietnameseEntity::getReadingText).toList());
         kanjiResponse.setOnyomiList(kanjiEntity.getOnyomiList().stream().map(OnyomiEntity::getReadingText).toList());
         kanjiResponse.setKunyomiList(kanjiEntity.getKunyomiList().stream().map(KunyomiEntity::getReadingText).toList());
         kanjiResponse.setKanjiMeaningList(kanjiEntity.getKanjiMeaningList().stream().map(KanjiMeaningEntity::getReadingText).toList());

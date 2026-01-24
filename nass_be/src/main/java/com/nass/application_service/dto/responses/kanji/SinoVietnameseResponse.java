@@ -14,5 +14,5 @@ import java.util.List;
 public class SinoVietnameseResponse {
     String readingText;
 
-    List<SinoVietnameseMeaningResponse> sinoVietnameseMeaningList;
+    List<String> sinoVietnameseMeaningList;
 }

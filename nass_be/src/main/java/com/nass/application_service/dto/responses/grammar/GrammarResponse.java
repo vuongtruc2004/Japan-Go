@@ -1,5 +1,6 @@
 package com.nass.application_service.dto.responses.grammar;
 
+import com.nass.application_service.dto.responses.base.BaseResponse;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
@@ -9,14 +10,14 @@ import lombok.experimental.FieldDefaults;
 @Getter
 @Setter
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class GrammarResponse {
+public class GrammarResponse extends BaseResponse<Integer> {
     String grammarTitle;
 
     GrammarMeaningResponse grammarMeaning;
 
-    StructureResponse structure;
+    GrammarStructureResponse grammarStructure;
 
-    ExampleResponse example;
+    GrammarExampleResponse grammarExample;
 
-    AdditionalNoteResponse additionalNote;
+    GrammarNoteResponse grammarNote;
 }

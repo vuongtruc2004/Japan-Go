@@ -10,10 +10,9 @@ import lombok.experimental.FieldDefaults;
 @Builder
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class ApiResponse<T> {
-
     @Builder.Default
     Integer statusCode = 200;
     String devMessage;
-    String userMessage;
+    String clientMessage;
     T data;
 }

@@ -3,13 +3,13 @@ package com.nass.application_service.importers;
 import com.nass.application_service.dto.entries.SinoVietnameseEntry;
 import com.nass.application_service.dto.entries.SinoVietnameseMeaningEntry;
 import com.nass.application_service.exceptions.FileNotValidException;
+import com.nass.application_service.services.i18n.I18nService;
 import com.nass.application_service.validators.FileValidator;
-import com.nass.contract.constants.FileMessage;
+import com.nass.contract.enums.messages.FileMessageEnum;
 import com.nass.infrastructure.entities.kanji.KanjiEntity;
 import com.nass.infrastructure.entities.kanji.SinoVietnameseEntity;
 import com.nass.infrastructure.entities.kanji.SinoVietnameseMeaningEntity;
 import com.nass.infrastructure.repositories.KanjiRepository;
-import com.nass.infrastructure.repositories.SinoVietnameseRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -29,13 +29,13 @@ import java.util.Map;
 public class SinoVietnameseJsonImporter {
     private final FileValidator fileValidator;
     private final KanjiRepository kanjiRepository;
-    private final SinoVietnameseRepository sinoVietnameseRepository;
+    private final I18nService i18nService;
 
     public void importSinoVietnamese(MultipartFile sinoVietnameseFile, Map<String, List<SinoVietnameseEntry>> sinoVietnameseEntryMap) {
         if (!fileValidator.isJSONFile(sinoVietnameseFile)) {
             throw new FileNotValidException(
-                    FileMessage.IS_NOT_XML_FILE_DEV,
-                    FileMessage.IS_NOT_XML_FILE_USER
+                    i18nService.translation(FileMessageEnum.FILE_NOT_JSON.key),
+                    i18nService.translation(FileMessageEnum.FILE_NOT_JSON.key)
             );
         }
         try (InputStream inputStream = sinoVietnameseFile.getInputStream()) {
@@ -50,7 +50,10 @@ public class SinoVietnameseJsonImporter {
                         String unicode = lastNode.get("Unicode").asString().trim().toUpperCase();
                         sinoVietnameseEntryMap.compute(unicode, (key, value) -> {
                             if (value != null) {
-                                throw new FileNotValidException("SinoVietnameseEntry already exists");
+                                throw new FileNotValidException(
+                                        i18nService.translation(FileMessageEnum.FILE_ERROR_FORMAT.key),
+                                        i18nService.translation(FileMessageEnum.FILE_ERROR_FORMAT.key)
+                                );
                             }
                             return convertJsonNodeToSinoVietnameseEntryList(node.get(1), node.get(4));
                         });
@@ -58,7 +61,10 @@ public class SinoVietnameseJsonImporter {
                 }
             }
         } catch (Exception e) {
-            throw new FileNotValidException("Method: importSinoVietnamese() => " + e.getMessage());
+            throw new FileNotValidException(
+                    i18nService.translation(FileMessageEnum.FILE_ERROR.key, e.getMessage()),
+                    i18nService.translation(FileMessageEnum.FILE_ERROR_FORMAT.key)
+            );
         }
     }
 
@@ -86,7 +92,10 @@ public class SinoVietnameseJsonImporter {
 
                 }
             } else {
-                throw new FileNotValidException("SinoVietnameseEntry does not exist: " + kanjiEntity.getUnicode());
+                throw new FileNotValidException(
+                        i18nService.translation(FileMessageEnum.FILE_ERROR_FORMAT.key),
+                        i18nService.translation(FileMessageEnum.FILE_ERROR_FORMAT.key)
+                );
             }
 
             kanjiEntity.getSinoVietnameseList().addAll(sinoVietnameseEntities);
@@ -96,23 +105,30 @@ public class SinoVietnameseJsonImporter {
 
     private List<SinoVietnameseEntry> convertJsonNodeToSinoVietnameseEntryList(JsonNode firstNode, JsonNode fourthNode) {
         if (!fourthNode.isArray())
-            throw new FileNotValidException("File is not a good format: array!");
+            throw new FileNotValidException(
+                    i18nService.translation(FileMessageEnum.FILE_ERROR_FORMAT.key),
+                    i18nService.translation(FileMessageEnum.FILE_ERROR_FORMAT.key)
+            );
 
         String[] sinoVietnameseArray = firstNode.asString().toUpperCase().split("\\s+");
         Map<String, List<String>> sinoVietnameseMeaningMap = new HashMap<>();
 
         for (JsonNode node : fourthNode) {
             String value = node.asString().trim();
-            // ^: bắt đầu
-            // \\[: dấu [
-            // [^]]+: bất kì kí từ gì trừ dấu ]
-            // ]: dấu ]
-            // \\s+: khoảng trắng
-            // .+: chuỗi bất kì
-            // $: kết thúc
+            /*
+             ^: bắt đầu
+             \\[: dấu [
+             [^]]+: bất kì kí từ gì trừ dấu ]
+             ]: dấu ]
+             \\s+: khoảng trắng
+             .+: chuỗi bất kì
+             $: kết thúc
+            */
             if (!value.matches("^\\[[^]]+]\\s+.+$")) {
-                log.error("Value is not a valid json node: {}", value);
-                throw new FileNotValidException("File is not a good format: regex!");
+                throw new FileNotValidException(
+                        i18nService.translation(FileMessageEnum.FILE_ERROR_FORMAT.key),
+                        i18nService.translation(FileMessageEnum.FILE_ERROR_FORMAT.key)
+                );
             }
             String[] parts = value.split("]");
             String sinoVietnamese = parts[0].substring(1).trim().toUpperCase();

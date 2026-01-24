@@ -1,5 +1,7 @@
 package com.nass.application_service.dto.responses.grammar;
 
+import com.nass.application_service.dto.responses.base.BaseResponse;
+import com.nass.application_service.dto.responses.common.SentenceResponse;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
@@ -11,8 +13,6 @@ import java.util.List;
 @Getter
 @Setter
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class GrammarMeaningResponse {
-    String vietnameseTranslation;
-
+public class GrammarMeaningResponse extends BaseResponse<Integer> {
     List<SentenceResponse> sentences;
 }
