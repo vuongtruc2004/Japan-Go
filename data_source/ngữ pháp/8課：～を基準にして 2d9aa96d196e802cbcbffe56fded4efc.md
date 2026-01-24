@@ -4,11 +4,11 @@
 
 ### Ý nghĩa:
 
-![image.png](image%2083.png)
+![image.png](image%2082.png)
 
-1. Tạo ra một thứ gì đó dựa trên những nguyên liệu, nền tảng, hay cơ sở nào đó ~.
+1. **～という素材・基礎・土台などからあるものを作り出す。**
 
-⇒ Dịch là: “Dựa trên…/ Trên cơ sở…/ Căn cứ vào…/ Được làm nên, tạo ra từ…”
+⇒ Tạo ra một thứ gì đó dựa trên những nguyên liệu, nền tảng, hay cơ sở nào đó ~.
 
 ### Cấu trúc:
 
@@ -31,10 +31,15 @@
 
 ### Chú ý bổ sung:
 
-![image.png](image%2084.png)
+![image.png](image%2083.png)
 
-1. Không dùng cho nguyên liệu thực tế, vật chất cụ thể.
-2. Phía sau thường đi với các câu có động từ mang nghĩa tạo ra cái mới, hoặc thể hiện việc một thứ gì đó được tạo ra.
+1. **実際の材料などには使わない。**
+
+⇒ Không dùng cho nguyên liệu thực tế, vật chất cụ thể.
+
+1. **後には、何かを新しく作り出す・何かが作り出されるという意味の動詞（作る・デザインする・考え出す・できるなど）の文が来ることが多い。**
+
+⇒ Phía sau thường đi với các câu có động từ mang nghĩa tạo ra cái mới, hoặc thể hiện việc một thứ gì đó được tạo ra.
 
 ---
 
@@ -42,11 +47,11 @@
 
 ### Ý nghĩa:
 
-![image.png](image%2085.png)
+![image.png](image%2084.png)
 
-1. Lấy ~ làm căn cứ / tiêu chuẩn rồi làm gì đó.
+1. **～を基準と考えてあることをする。**
 
-⇒ Dịch là: “Dựa trên…/ Dựa vào…/ Căn cứ vào…/ Dựa theo…”
+⇒ Lấy ~ làm căn cứ / tiêu chuẩn rồi làm gì đó.
 
 ### Cấu trúc:
 
@@ -73,10 +78,15 @@
 
 ### Chú ý bổ sung:
 
-![image.png](image%2086.png)
+![image.png](image%2085.png)
 
-1. Dùng với những từ mang ý nghĩa làm tiêu chuẩn, căn cứ (luật, dữ liệu, kế hoạch, phương châm, kết quả điều tra…).
-2. Sau đó thường là một câu có động từ.
+1. **基準になる意味の言葉（法・データ・計画・方針・調査結果など）につく。**
+
+⇒ Dùng với những từ mang ý nghĩa làm tiêu chuẩn, căn cứ (luật, dữ liệu, kế hoạch, phương châm, kết quả điều tra…).
+
+1. **後には、動詞の文が来る。**
+
+⇒ Sau đó thường là một câu có động từ.
 
 ---
 
@@ -84,11 +94,11 @@
 
 ### Ý nghĩa:
 
-![image.png](image%2087.png)
+![image.png](image%2086.png)
 
-1. Làm một việc gì đó theo cho phù hợp với ~ / không đi lệch khỏi ~ (quy tắc, phương châm, định hướng…).
+1. **～に合うように・～からはずれないようにあることをする。**
 
-⇒ Dịch là: “Dọc theo…/ Men theo…/ Dựa theo…/ Làm theo…/ Theo…”
+⇒ Làm một việc gì đó theo cho phù hợp với ~ / không đi lệch khỏi ~ (quy tắc, phương châm, định hướng…).
 
 ### Cấu trúc:
 
@@ -115,10 +125,15 @@
 
 ### Chú ý bổ sung:
 
-![image.png](image%2088.png)
+![image.png](image%2087.png)
 
-1. Đi với những từ mang ý nghĩa làm chuẩn mực như: quy tắc, phương châm, sổ tay hướng dẫn, cách nghĩ…
-2. Phía sau thường là câu diễn tả hành động mang tính liên tục, tiến triển theo cùng một dòng/định hướng với chuẩn mực đó.
+1. **基準の意味を持つ言葉（ルール・方針・マニュアル・考えなど）につく。**
+
+⇒ Đi với những từ mang ý nghĩa làm chuẩn mực như: quy tắc, phương châm, sổ tay hướng dẫn, cách nghĩ…
+
+1. **後には、その基準を流れのあるものととらえ、一緒に進む一続きの行動を表す文が来る。**
+
+⇒ Phía sau thường là câu diễn tả hành động mang tính liên tục, tiến triển theo cùng một dòng/định hướng với chuẩn mực đó.
 
 ---
 
@@ -126,12 +141,15 @@
 
 ### Ý nghĩa:
 
-![image.png](image%2089.png)
+![image.png](image%2088.png)
 
-1. Làm 1 việc gì đó dưới sự ảnh hưởng của ~.
-2. Làm 1 việc gì đó trong điều kiện, hoàn cảnh ~.
+1. **～の影響を受けてあることをする。**
 
-⇒ Dịch là: “Dưới sự…/ Nhờ vào…/ Dựa vào…”
+⇒ Làm 1 việc gì đó dưới sự ảnh hưởng của ~
+
+1. **～の状況であることをする。**
+
+⇒ Làm 1 việc gì đó trong điều kiện, hoàn cảnh ~
 
 ### Cấu trúc:
 
@@ -161,10 +179,23 @@
 
 ### Chú ý bổ sung:
 
-![image.png](image%2090.png)
+![image.png](image%2089.png)
 
-1. 「～のもとで」：Đi với từ biểu thị con người là chính (như thầy cô giáo, cha mẹ,…) và mang nghĩa “Nhận được sự ảnh hưởng của người đó”. Vế sau thường đi với câu văn biểu thị hành vi (như cố gắng, sinh sống…).
-2. 「～のもとに」： Đi với danh từ chỉ tình huống / điều kiện là chính (như quản lí, sự đồng thuận…) và mang nghĩa “Trong điều kiện / hoàn cảnh đó”. Vế sau thường là câu văn biểu thị trạng thái hoặc câu văn biểu thị hành vi (như tiếp tục, bình đẳng…).
+1. **「～のもとで」は、主に人を表す言葉（先生・両親など）につき、「その人の影響を受けて」という意味。**
+
+⇒ 「～のもとで」：Đi với từ biểu thị con người là chính (như thầy cô giáo, cha mẹ,…) và mang nghĩa “Nhận được sự ảnh hưởng của người đó”.
+
+1. **後には、行為を表す文（励む・暮らすなど）が来ることが多い。**
+
+⇒ 「～のもとで」：Vế sau thường đi với câu văn biểu thị hành vi (như cố gắng, sinh sống…).
+
+1. **「～のもとに」は主に状況を意味する名詞（管理・了解など）につき、「その条件・状況で」という意味。**
+
+⇒ 「～のもとに」： Đi với danh từ chỉ tình huống / điều kiện là chính (như quản lí, sự đồng thuận…) và mang nghĩa “Trong điều kiện / hoàn cảnh đó”.
+
+1. **後には、行為を表す文・状態を表す文（続いている・平等だなど）が来る。**
+
+⇒ 「～のもとに」： Vế sau thường là câu văn biểu thị trạng thái hoặc câu văn biểu thị hành vi (như tiếp tục, bình đẳng…).
 
 ---
 
@@ -172,11 +203,11 @@
 
 ### Ý nghĩa:
 
-![image.png](image%2091.png)
+![image.png](image%2090.png)
 
-1. Được thiết kế / nghĩ ra để phù hợp cho 1 đối tượng cụ thể nào đó.
+1. **～という特定の対象に合うように考えられている。**
 
-⇒ Dịch là: “Dành cho…/ Hướng đến…”
+⇒ Được thiết kế / nghĩ ra để phù hợp cho 1 đối tượng cụ thể nào đó.
 
 ### Cấu trúc:
 
@@ -204,9 +235,14 @@
 
 ### Chú ý bổ sung:
 
-![image.png](image%2092.png)
+![image.png](image%2091.png)
 
-1. Đi với danh từ biểu thị con người là chính.
-2. Vế sau thường là những câu văn chứa động từ nghĩa tạo ra / thiết kế như: làm, thiết kế, design…
+1. **主に人を表す名詞につく。**
+
+⇒ Đi với danh từ biểu thị con người là chính.
+
+1. **後には、「作る・設計する・デザインする」などの動詞の文が来ることが多い。**
+
+⇒ Vế sau thường là những câu văn chứa động từ nghĩa tạo ra / thiết kế như: làm, thiết kế, design…
 
 ---

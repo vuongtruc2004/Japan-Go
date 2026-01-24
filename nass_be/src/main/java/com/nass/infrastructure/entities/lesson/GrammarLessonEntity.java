@@ -22,11 +22,12 @@ public class GrammarLessonEntity extends BaseEntity<Integer> {
     String grammarLessonTitle;
 
     @Builder.Default
-    @ManyToMany
-    @JoinTable(name = "grammar_lesson_grammar", joinColumns = @JoinColumn(name = "grammar_lesson_id"),
+    @ManyToMany(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+    @JoinTable(name = "grammar_lesson_grammar",
+            joinColumns = @JoinColumn(name = "grammar_lesson_id"),
             inverseJoinColumns = @JoinColumn(name = "grammar_id"))
     List<GrammarEntity> grammars = new ArrayList<>();
 
-    @OneToOne(mappedBy = "grammarLesson")
+    @OneToOne(mappedBy = "grammarLesson", cascade = CascadeType.ALL, orphanRemoval = true)
     LessonEntity lesson;
 }

@@ -1,9 +1,13 @@
 package com.nass.infrastructure.entities.grammar;
 
 import com.nass.infrastructure.entities.base.BaseEntity;
+import com.nass.infrastructure.entities.lesson.GrammarLessonEntity;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Builder
 @Getter
@@ -32,4 +36,8 @@ public class GrammarEntity extends BaseEntity<Integer> {
     @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "grammar_note_id")
     GrammarNoteEntity grammarNote;
+
+    @Builder.Default
+    @ManyToMany(mappedBy = "grammars")
+    List<GrammarLessonEntity> grammarLessons = new ArrayList<>();
 }

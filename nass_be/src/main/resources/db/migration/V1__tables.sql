@@ -185,6 +185,7 @@ CREATE TABLE lesson
     lesson_type       VARCHAR(255) NULL,
     grammar_lesson_id INT          NULL,
     kanji_lesson_id   INT          NULL,
+    folder_id         BIGINT       NULL,
     CONSTRAINT pk_lesson PRIMARY KEY (id)
 );
 
@@ -246,9 +247,12 @@ CREATE TABLE sentence
     created_time          datetime     NOT NULL,
     modified_by           VARCHAR(255) NULL,
     modified_time         datetime     NULL,
-    japanese              VARCHAR(255) NULL,
-    vietnamese            VARCHAR(255) NULL,
-    english               VARCHAR(255) NULL,
+    japanese_raw          VARCHAR(255) NULL,
+    vietnamese_raw        VARCHAR(255) NULL,
+    english_raw           VARCHAR(255) NULL,
+    japaneses_html        VARCHAR(255) NULL,
+    vietnamese_html       VARCHAR(255) NULL,
+    english_html          VARCHAR(255) NULL,
     grammar_meaning_id    INT          NULL,
     grammar_structure_id  INT          NULL,
     grammar_example_id    INT          NULL,
@@ -434,6 +438,9 @@ ALTER TABLE kanji
 
 ALTER TABLE kanji_page
     ADD CONSTRAINT FK_KANJI_PAGE_ON_MAIN_KANJI FOREIGN KEY (main_kanji_id) REFERENCES kanji (id);
+
+ALTER TABLE lesson
+    ADD CONSTRAINT FK_LESSON_ON_FOLDER FOREIGN KEY (folder_id) REFERENCES folder (id);
 
 ALTER TABLE lesson
     ADD CONSTRAINT FK_LESSON_ON_GRAMMAR_LESSON FOREIGN KEY (grammar_lesson_id) REFERENCES grammar_lesson (id);

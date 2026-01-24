@@ -7,10 +7,8 @@
   white-space: normal;
   overflow-x: hidden;
 }
-.translation {
-  font-weight: bold;
-}
-.sentence {
+.jp-sentence,
+.grammar {
   font-weight: 700;
   font-size: 1.5rem;
   max-width: 100%;
@@ -20,7 +18,7 @@
   line-height: 2.25;
 }
 
-.sentence-meaning {
+.vn-sentence {
   font-weight: 600;
   font-size: 1.25rem;
   max-width: 100%;
@@ -30,8 +28,8 @@
 }
 
 /* Section labels */
-.explanation,
-.attention,
+.meaning,
+.note,
 .example,
 .location,
 .structure {
@@ -40,7 +38,6 @@
   border-radius: 6px;
   margin: 10px 0 6px;
   font-weight: 700;
-
   max-width: 100%;
   overflow-wrap: anywhere;
   word-break: break-word;
@@ -57,7 +54,7 @@
   background-color: oklch(90.3% 0.076 319.62);
 }
 
-.explanation {
+.meaning {
   color: oklch(54.6% 0.245 262.881);
   background-color: oklch(88.2% 0.059 254.128);
 }
@@ -66,11 +63,7 @@
   background-color: oklch(92.5% 0.084 155.995);
 }
 
-.example + .content {
-  line-height: 2.25;
-}
-
-.attention {
+.note {
   color: oklch(57.7% 0.245 27.325);
   background-color: oklch(88.5% 0.062 18.334);
 }
@@ -95,13 +88,16 @@
   color: oklch(57.7% 0.245 27.325);
 }
 
-.example-translation {
+.jp:has(.highlight) {
+  line-height: 2;
+}
+
+.vn {
   display: flex;
   justify-content: start;
   align-items: center;
   column-gap: 6px;
   margin-top: 6px;
-  line-height: normal !important;
 }
 
 /* Desktop tweak (optional) */
@@ -111,11 +107,11 @@
     padding: 18px 22px;
   }
 
-  .sentence {
+  .jp-sentence {
     font-size: 1.65rem;
   }
 
-  .sentence-meaning {
+  .vn-sentence {
     font-size: 1.3rem;
   }
 }

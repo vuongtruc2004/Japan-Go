@@ -34,9 +34,5 @@ public class GrammarPattern {
 
     public static final Pattern ARROW_LINE =
             Pattern.compile("^\\s*(?:⇒|=>)\\s*(.+?)\\s*$");
-
-    public static final Pattern TRANSLATION_QUOTE =
-            Pattern.compile("⇒\\s*Dịch\\s*là:\\s*[\"“](.+?)[\"”]",
-                    Pattern.CASE_INSENSITIVE | Pattern.UNICODE_CASE | Pattern.CANON_EQ);
 }
 

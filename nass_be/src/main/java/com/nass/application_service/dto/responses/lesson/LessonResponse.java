@@ -1,6 +1,6 @@
 package com.nass.application_service.dto.responses.lesson;
 
-import com.nass.contract.enums.LessonTypeEnum;
+import com.nass.contract.enums.lesson.LessonTypeEnum;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 

@@ -10,8 +10,10 @@ import org.springframework.stereotype.Service;
 public class I18nService {
     private final MessageSource messageSource;
 
-    /*
-    Object... args dùng để truyền 0, 1 hoặc nhiều hơn tham số vào mảng mà không sử dụng array
+    /**
+     * @param key  key of the message (see in the messages.properties file)
+     * @param args Object... is like an array of object
+     * @return string in the current locale
      */
     public String translation(String key, Object... args) {
         return messageSource.getMessage(key, args, LocaleContextHolder.getLocale());

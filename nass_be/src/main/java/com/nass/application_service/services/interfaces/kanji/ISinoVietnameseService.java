@@ -11,5 +11,5 @@ public interface ISinoVietnameseService {
 
     List<KanjiResponse> importMainSinoVietnamese(MultipartFile mainSinoVietnameseFile);
 
-    String getSinoVietnameseOfKanji(GetSinoVietnameseRequest getSinoVietnameseRequest);
+    String getSinoVietnameseOfKanjiList(GetSinoVietnameseRequest getSinoVietnameseRequest);
 }

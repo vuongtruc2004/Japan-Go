@@ -6,10 +6,7 @@ import com.nass.infrastructure.entities.grammar.GrammarMeaningEntity;
 import com.nass.infrastructure.entities.grammar.GrammarNoteEntity;
 import com.nass.infrastructure.entities.grammar.GrammarStructureEntity;
 import com.nass.infrastructure.entities.vocabulary.VocabularyMeaningEntity;
-import jakarta.persistence.Entity;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
@@ -22,9 +19,20 @@ import lombok.experimental.FieldDefaults;
 @Table(name = "sentence")
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class SentenceEntity extends BaseEntity<Long> {
-    String japanese;
-    String vietnamese;
-    String english;
+    @Column(name = "japanese_raw")
+    String japaneseRaw;
+    @Column(name = "vietnamese_raw")
+    String vietnameseRaw;
+    @Column(name = "english_raw")
+    String englishRaw;
+
+    @Column(name = "japaneses_html")
+    String japaneseHtml;
+    @Column(name = "vietnamese_html")
+    String vietnameseHtml;
+    @Column(name = "english_html")
+    String englishHtml;
+
 
     @ManyToOne
     @JoinColumn(name = "grammar_meaning_id")

@@ -24,7 +24,7 @@ public class SinoVietnameseController {
     @ApiResponseFormat(devMessage = "", clientMessage = "")
     @PostMapping
     public ResponseEntity<String> getSinoVietnameseOfKanji(@RequestBody GetSinoVietnameseRequest getSinoVietnameseRequest) {
-        return ResponseEntity.ok(sinoVietnameseService.getSinoVietnameseOfKanji(getSinoVietnameseRequest));
+        return ResponseEntity.ok(sinoVietnameseService.getSinoVietnameseOfKanjiList(getSinoVietnameseRequest));
     }
 
     @ApiResponseFormat(devMessage = "", clientMessage = "")

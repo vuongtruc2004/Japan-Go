@@ -4,7 +4,7 @@ import com.nass.application_service.dto.responses.base.ApiResponse;
 import com.nass.application_service.exceptions.*;
 import com.nass.application_service.exceptions.base.BaseException;
 import com.nass.application_service.services.i18n.I18nService;
-import com.nass.contract.enums.messages.DefaultMessageEnum;
+import com.nass.contract.constants.messages.common.DefaultMessage;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,6 +22,7 @@ public class GlobalExceptionHandler {
             BadRequestException.class,
             FolderException.class,
             KanjiException.class,
+            GrammarLessonException.class,
     })
     public ResponseEntity<ApiResponse<Void>> handleBadRequestBaseException(BaseException exception) {
         ApiResponse<Void> apiResponse = new ApiResponse<>(
@@ -38,7 +39,7 @@ public class GlobalExceptionHandler {
         ApiResponse<Void> apiResponse = new ApiResponse<>(
                 HttpStatus.INTERNAL_SERVER_ERROR.value(),
                 exception.getMessage(),
-                i18nService.translation(DefaultMessageEnum.DEFAULT_ERROR.key),
+                i18nService.translation(DefaultMessage.DEFAULT_ERROR),
                 null
         );
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(apiResponse);

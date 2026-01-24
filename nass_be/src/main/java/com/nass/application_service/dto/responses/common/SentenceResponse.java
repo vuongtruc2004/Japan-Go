@@ -11,7 +11,11 @@ import lombok.experimental.FieldDefaults;
 @Setter
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class SentenceResponse extends BaseResponse<Long> {
-    String japanese;
-    String vietnamese;
-    String english;
+    String japaneseRaw;
+    String vietnameseRaw;
+    String englishRaw;
+
+    String japaneseHtml;
+    String vietnameseHtml;
+    String englishHtml;
 }

@@ -1,7 +1,7 @@
 package com.nass.api.configuration;
 
 import com.nass.application_service.services.i18n.I18nService;
-import com.nass.contract.enums.messages.DefaultMessageEnum;
+import com.nass.contract.constants.messages.common.DefaultMessage;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.domain.AuditorAware;
@@ -15,7 +15,7 @@ public class AuditorAwareConfig implements AuditorAware<String> {
 
     @Override
     public Optional<String> getCurrentAuditor() {
-        String systemName = i18nService.translation(DefaultMessageEnum.DEFAULT_CREATE_BY.key);
+        String systemName = i18nService.translation(DefaultMessage.DEFAULT_CREATE_BY);
         return Optional.ofNullable(systemName);
     }
 
