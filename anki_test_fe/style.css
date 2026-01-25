@@ -3,12 +3,11 @@
   max-width: 100%;
   box-sizing: border-box;
   margin: 0 auto;
-  padding: 12px 14px;
+  padding: 16px 14px;
   white-space: normal;
   overflow-x: hidden;
 }
-.jp-sentence,
-.grammar {
+.jp-sentence {
   font-weight: 700;
   font-size: 1.5rem;
   max-width: 100%;
@@ -19,12 +18,15 @@
 }
 
 .vn-sentence {
-  font-weight: 600;
-  font-size: 1.25rem;
+  font-weight: 500;
   max-width: 100%;
   overflow-wrap: anywhere;
   word-break: break-word;
   margin: 6px 0 8px;
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  column-gap: 8px;
 }
 
 /* Section labels */
@@ -89,7 +91,7 @@
 }
 
 .jp:has(.highlight) {
-  line-height: 2;
+  line-height: 2.25;
 }
 
 .vn {
@@ -108,10 +110,6 @@
   }
 
   .jp-sentence {
-    font-size: 1.65rem;
-  }
-
-  .vn-sentence {
-    font-size: 1.3rem;
+    font-size: 1.5rem;
   }
 }
