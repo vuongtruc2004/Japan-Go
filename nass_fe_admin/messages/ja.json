@@ -23,7 +23,7 @@
         },
         "links": {
             "home": "ホーム",
-            "course": "あなたのコース",
+            "your-folder": "あなたのフォルダ",
             "kanji": "漢字一覧",
             "settings": "設定"
         },
@@ -38,24 +38,28 @@
     "Pages": {
         "kanji": {
             "search": {
-                "placeholder": "漢字、漢越音、意味を入力してください...",
+                "placeholder": "漢字、音読み、または意味を入力してください...",
                 "title": "検索",
                 "drawButton": "漢字を描いて検索"
             },
             "explore": {
-                "title": "レベル別で漢字を探す",
+                "title": "レベル別に漢字を探す",
                 "levels": {
-                    "n5": "N5・基本",
-                    "n4": "N4・初級",
-                    "n3": "N3・中級",
-                    "n2": "N2・中上級",
-                    "n1": "N1・上級"
+                    "n5": "N5 - 初級",
+                    "n4": "N4 - 初級",
+                    "n3": "N3 - 中級",
+                    "n2": "N2 - 中上級",
+                    "n1": "N1 - 上級"
                 },
                 "suggestTitle": "下のボックスをクリックすると、漢字の詳細が表示されます。",
                 "empty": "表示する漢字がありません！",
                 "uploadFile": "データをアップロード",
-                "enrichSinoVietnamese": "漢越音の追加"
+                "enrichSinoVietnamese": "漢越音を追加"
             }
+        },
+        "folder": {
+            "title": "あなたのフォルダ",
+            "create": "新しいフォルダを作成"
         }
     }
 }

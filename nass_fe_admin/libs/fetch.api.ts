@@ -1,41 +1,57 @@
 'use server'
 import queryString from "query-string";
 
+type ResponseType = "json" | "text" | "blob";
+
 interface IProps {
     url: string;
     method?: "GET" | "POST" | "PUT" | "PATCH" | "DELETE";
-    body?: { [key: string]: any };
+    body?: { [key: string]: any } | FormData;
     queryParams?: any;
     useCredentials?: boolean;
-    headers?: any;
-    nextOption?: RequestCache | any;
+    headers?: Record<string, string>;
+    nextOption?: RequestInit;
+    responseType?: ResponseType;
 }
-export const sendRequest = async <T>(props: IProps) => {
-    let url = props.url;
+
+export const sendRequest = async <T = any>(props: IProps): Promise<T> => {
+    let url = "http://localhost:2509/api/v1" + props.url;
     const {
         method = "GET",
         body,
         queryParams,
         useCredentials = false,
         headers,
-        nextOption
+        nextOption,
+        responseType = "json",
     } = props;
 
-    const options = {
-        method: method,
-        headers: {
-            ...headers
-        },
-        body: body instanceof FormData ? body : body ? JSON.stringify(body) : null,
-        ...nextOption
+    const finalHeaders: Record<string, string> = { ...(headers || {}) };
+
+    const options: RequestInit = {
+        method,
+        headers: finalHeaders,
+        body: body instanceof FormData ? body : body ? JSON.stringify(body) : undefined,
+        ...nextOption,
     };
 
-    if (useCredentials) {
-        options.credentials = "include";
+    // Nếu gửi JSON thì set content-type (trừ FormData)
+    if (!(body instanceof FormData) && body && !finalHeaders["Content-Type"]) {
+        finalHeaders["Content-Type"] = "application/json";
     }
 
-    if (queryParams) {
-        url = `${url}?${queryString.stringify(queryParams)}`;
+    if (useCredentials) options.credentials = "include";
+
+    if (queryParams) url = `${url}?${queryString.stringify(queryParams)}`;
+
+    const res = await fetch(url, options);
+
+    if (!res.ok) {
+        const msg = await res.text().catch(() => "");
+        throw new Error(`HTTP ${res.status}: ${msg}`);
     }
-    return fetch(url, options).then(response => response.json() as T);
-}
+
+    if (responseType === "blob") return (await res.blob()) as any;
+    if (responseType === "text") return (await res.text()) as any;
+    return (await res.json()) as any;
+};

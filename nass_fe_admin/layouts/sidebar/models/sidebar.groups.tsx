@@ -1,5 +1,5 @@
+import FolderOpenedIcon from "@/components/icons/folder.opened.icon";
 import HomeIcon from "@/components/icons/home.icon";
-import AutoStoriesOutlinedIcon from "@mui/icons-material/AutoStoriesOutlined";
 import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
 import TranslateIcon from "@mui/icons-material/Translate";
 import LogoutButton from "../features/logout.button";
@@ -21,9 +21,9 @@ export const SIDEBAR_GROUPS: ISidebarGroup[] = [
             {
                 type: "link",
                 id: "e-2",
-                linkKeyTranslation: "course",
-                icon: <AutoStoriesOutlinedIcon />,
-                link: "/course",
+                linkKeyTranslation: "your-folder",
+                icon: <FolderOpenedIcon />,
+                link: "/your-folder",
             },
             {
                 type: "link",

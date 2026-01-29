@@ -1,5 +1,5 @@
-import Kanji from "@/layouts/pages/kanji/kanji";
-
+import KanjiExplore from "@/layouts/pages/kanji/components/kanji.explore";
+import KanjiSearchBox from "@/layouts/pages/kanji/features/kanji.search.box";
 import { getTranslations } from "next-intl/server";
 
 export async function generateMetadata({
@@ -18,7 +18,12 @@ export async function generateMetadata({
 }
 
 const KanjiPage = () => {
-    return <Kanji />;
+    return (
+        <div className="flex flex-col gap-y-5">
+            <KanjiSearchBox />
+            <KanjiExplore />
+        </div>
+    );
 };
 
 export default KanjiPage;

@@ -23,7 +23,7 @@
         },
         "links": {
             "home": "Trang chủ",
-            "course": "Khóa học của bạn",
+            "your-folder": "Thư mục của bạn",
             "kanji": "Danh sách Kanji",
             "settings": "Cài đặt"
         },
@@ -56,6 +56,10 @@
                 "uploadFile": "Tải lên dữ liệu",
                 "enrichSinoVietnamese": "Thêm phiên âm Hán Việt"
             }
+        },
+        "folder": {
+            "title": "Thư mục của bạn",
+            "create": "Tạo thư mục mới"
         }
     }
 }

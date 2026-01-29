@@ -15,10 +15,10 @@ export const routing = defineRouting({
             en: '/home',
             ja: '/ホーム'
         },
-        '/course': {
-            vi: '/khoa-hoc',
-            en: '/course',
-            ja: '/コース'
+        '/your-folder': {
+            vi: '/thu-muc-cua-ban',
+            en: '/your-folder',
+            ja: '/あなたのフォルダ'
         },
         "/kanji": {
             vi: '/chu-han',

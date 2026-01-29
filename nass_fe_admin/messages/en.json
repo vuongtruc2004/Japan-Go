@@ -12,33 +12,33 @@
                 "ja": "Japanese"
             }
         },
-        "registerButton": "Sign up",
-        "loginButton": "Log in"
+        "registerButton": "Register",
+        "loginButton": "Login"
     },
     "AppSidebar": {
-        "projectName": "Project name",
+        "projectName": "Project Name",
         "groupsTitle": {
             "main": "Management",
             "sub": "Others"
         },
         "links": {
             "home": "Home",
-            "course": "Your courses",
-            "kanji": "Kanji list",
+            "your-folder": "Your Folder",
+            "kanji": "Kanji List",
             "settings": "Settings"
         },
         "buttons": {
             "modeButtons": {
-                "lightMode": "Light mode",
-                "darkMode": "Dark mode"
+                "lightMode": "Light Mode",
+                "darkMode": "Dark Mode"
             },
-            "logoutButton": "Log out"
+            "logoutButton": "Logout"
         }
     },
     "Pages": {
         "kanji": {
             "search": {
-                "placeholder": "Enter Kanji, Sino-Vietnamese reading or meaning...",
+                "placeholder": "Enter Kanji, Sino-Vietnamese reading, or meaning...",
                 "title": "Search",
                 "drawButton": "Draw Kanji to search"
             },
@@ -51,11 +51,15 @@
                     "n2": "N2 - Upper Intermediate",
                     "n1": "N1 - Advanced"
                 },
-                "suggestTitle": "You can click on a box below to view detailed Kanji information.",
-                "empty": "No Kanji available to display!",
+                "suggestTitle": "You can click a box below to view Kanji details.",
+                "empty": "No Kanji to display!",
                 "uploadFile": "Upload data",
-                "enrichSinoVietnamese": "Add Sino-Vietnamese reading"
+                "enrichSinoVietnamese": "Add Sino-Vietnamese readings"
             }
+        },
+        "folder": {
+            "title": "Your Folder",
+            "create": "Create new folder"
         }
     }
 }

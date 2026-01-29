@@ -42,14 +42,14 @@ const GetSinoVnButton = () => {
             </Button>
 
             <Modal open={open}>
-                <div className="bg-bgc-page absolute top-1/2 left-1/2 w-[800px] -translate-x-1/2 -translate-y-1/2 p-5">
+                <div className="bg-bgc-page absolute top-1/2 left-1/2 w-[800px] -translate-x-1/2 -translate-y-1/2 rounded-md p-5">
                     <h1 className="text-tc-primary font-semibold">
                         Chép và dán dữ liệu vào đây để lấy phiên âm Hán Việt của
                         các từ đó
                     </h1>
 
-                    <form action={formAction}>
-                        <div className="my-3 grid w-full grid-cols-[2fr_1fr] items-start gap-x-5">
+                    <form action={formAction} className="my-3">
+                        <div className="grid w-full grid-cols-[2fr_1fr] items-start gap-x-5">
                             <TextField
                                 defaultValue={state && state.kanji.value}
                                 name="kanji"

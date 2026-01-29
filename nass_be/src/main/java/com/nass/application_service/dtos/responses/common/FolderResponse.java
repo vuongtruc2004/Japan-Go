@@ -4,8 +4,6 @@ import com.nass.application_service.dtos.responses.base.BaseResponse;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
-import java.util.List;
-
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
@@ -15,7 +13,7 @@ import java.util.List;
 public class FolderResponse extends BaseResponse<Long> {
     String folderName;
 
-    Long parentId;
+//    Long parentId;
 
-    List<FolderResponse> children;
+//    List<FolderResponse> children;
 }
