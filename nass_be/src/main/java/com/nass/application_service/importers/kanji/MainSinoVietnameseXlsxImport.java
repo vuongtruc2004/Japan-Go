@@ -12,7 +12,6 @@ import com.nass.infrastructure.repositories.SinoVietnameseRepository;
 import lombok.RequiredArgsConstructor;
 import org.apache.poi.ss.usermodel.*;
 import org.springframework.stereotype.Component;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.io.InputStream;
 import java.util.HashMap;
@@ -26,10 +25,8 @@ public class MainSinoVietnameseXlsxImport {
     private final SinoVietnameseRepository sinoVietnameseRepository;
     private final I18nService i18nService;
 
-    public Map<String, String> importMainSinoVietnamese(MultipartFile mainSinoVietnameseFile) {
-        try (InputStream inputStream = mainSinoVietnameseFile.getInputStream();
-             Workbook workbook = WorkbookFactory.create(inputStream)
-        ) {
+    public Map<String, String> importMainSinoVietnamese(InputStream mainSinoVietnameseInputstream) {
+        try (Workbook workbook = WorkbookFactory.create(mainSinoVietnameseInputstream)) {
             Map<String, String> mainSinoVietnameseMap = new HashMap<>();
 
             Sheet sheet = workbook.getSheetAt(0);
@@ -66,7 +63,7 @@ public class MainSinoVietnameseXlsxImport {
     }
 
     public List<KanjiEntity> updateKanjiWithMainSinoVietnamese(Map<String, String> mainSinoVietnameseMap) {
-        List<KanjiEntity> kanjiEntities = kanjiRepository.findAll();
+        List<KanjiEntity> kanjiEntities = kanjiRepository.findAllByKanjiCharacterIn(mainSinoVietnameseMap.keySet());
 
         for (KanjiEntity kanjiEntity : kanjiEntities) {
             String kanjiCharacter = kanjiEntity.getKanjiCharacter();

@@ -1,6 +1,6 @@
 package com.nass.application_service.services.interfaces.lesson;
 
-import com.nass.application_service.dto.responses.lesson.LessonResponse;
+import com.nass.application_service.dtos.responses.lesson.LessonResponse;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;

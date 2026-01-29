@@ -1,6 +1,6 @@
 package com.nass.api.controllers.v1.lesson;
 
-import com.nass.application_service.dto.responses.lesson.LessonResponse;
+import com.nass.application_service.dtos.responses.lesson.LessonResponse;
 import com.nass.application_service.services.interfaces.lesson.ILessonService;
 import com.nass.contract.annotations.ApiResponseFormat;
 import com.nass.contract.constants.messages.lesson.LessonMessage;

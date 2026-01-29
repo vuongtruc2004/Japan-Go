@@ -1,6 +1,6 @@
 package com.nass.api.controllers.v1.lesson;
 
-import com.nass.application_service.dto.responses.lesson.GrammarLessonResponse;
+import com.nass.application_service.dtos.responses.lesson.GrammarLessonResponse;
 import com.nass.application_service.services.interfaces.lesson.IGrammarLessonService;
 import com.nass.contract.annotations.ApiResponseFormat;
 import com.nass.contract.constants.messages.lesson.GrammarLessonMessage;

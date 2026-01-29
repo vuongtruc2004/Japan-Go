@@ -1,7 +1,7 @@
 package com.nass.application_service.importers.kanji;
 
-import com.nass.application_service.dto.entries.SinoVietnameseEntry;
-import com.nass.application_service.dto.entries.SinoVietnameseMeaningEntry;
+import com.nass.application_service.dtos.entries.SinoVietnameseEntry;
+import com.nass.application_service.dtos.entries.SinoVietnameseMeaningEntry;
 import com.nass.application_service.exceptions.FileNotValidException;
 import com.nass.application_service.services.i18n.I18nService;
 import com.nass.contract.constants.messages.common.FileMessage;
@@ -12,7 +12,6 @@ import com.nass.infrastructure.repositories.KanjiRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
-import org.springframework.web.multipart.MultipartFile;
 import tools.jackson.databind.JsonNode;
 import tools.jackson.databind.ObjectMapper;
 
@@ -29,34 +28,27 @@ public class SinoVietnameseJsonImporter {
     private final KanjiRepository kanjiRepository;
     private final I18nService i18nService;
 
-    public void importSinoVietnamese(MultipartFile sinoVietnameseFile, Map<String, List<SinoVietnameseEntry>> sinoVietnameseEntryMap) {
-        try (InputStream inputStream = sinoVietnameseFile.getInputStream()) {
-            ObjectMapper objectMapper = new ObjectMapper();
-            JsonNode root = objectMapper.readTree(inputStream);
+    public void importSinoVietnamese(InputStream sinoVietnameseInputstream, Map<String, List<SinoVietnameseEntry>> sinoVietnameseEntryMap) {
+        ObjectMapper objectMapper = new ObjectMapper();
+        JsonNode root = objectMapper.readTree(sinoVietnameseInputstream);
 
-            for (JsonNode node : root) {
-                if (node.isArray() && node.size() >= 6) {
-                    JsonNode lastNode = node.get(node.size() - 1);
+        for (JsonNode node : root) {
+            if (node.isArray() && node.size() >= 6) {
+                JsonNode lastNode = node.get(node.size() - 1);
 
-                    if (lastNode.isObject() && lastNode.has("Unicode")) {
-                        String unicode = lastNode.get("Unicode").asString().trim().toUpperCase();
-                        sinoVietnameseEntryMap.compute(unicode, (key, value) -> {
-                            if (value != null) {
-                                throw new FileNotValidException(
-                                        i18nService.translation(FileMessage.FILE_ERROR_FORMAT),
-                                        i18nService.translation(FileMessage.FILE_ERROR_FORMAT)
-                                );
-                            }
-                            return convertJsonNodeToSinoVietnameseEntryList(node.get(1), node.get(4));
-                        });
-                    }
+                if (lastNode.isObject() && lastNode.has("Unicode")) {
+                    String unicode = lastNode.get("Unicode").asString().trim().toUpperCase();
+                    sinoVietnameseEntryMap.compute(unicode, (key, value) -> {
+                        if (value != null) {
+                            throw new FileNotValidException(
+                                    i18nService.translation(FileMessage.FILE_ERROR_FORMAT),
+                                    i18nService.translation(FileMessage.FILE_ERROR_FORMAT)
+                            );
+                        }
+                        return convertJsonNodeToSinoVietnameseEntryList(node.get(1), node.get(4));
+                    });
                 }
             }
-        } catch (Exception e) {
-            throw new FileNotValidException(
-                    i18nService.translation(FileMessage.FILE_ERROR, e.getMessage()),
-                    i18nService.translation(FileMessage.FILE_ERROR, e.getMessage())
-            );
         }
     }
 

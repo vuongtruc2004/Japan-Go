@@ -1,7 +1,7 @@
 package com.nass.api.controllers.v1.common;
 
-import com.nass.application_service.dto.requests.common.FolderRequest;
-import com.nass.application_service.dto.responses.common.FolderResponse;
+import com.nass.application_service.dtos.requests.common.FolderRequest;
+import com.nass.application_service.dtos.responses.common.FolderResponse;
 import com.nass.application_service.services.interfaces.common.IFolderService;
 import com.nass.contract.annotations.ApiResponseFormat;
 import com.nass.contract.constants.messages.common.FolderMessage;

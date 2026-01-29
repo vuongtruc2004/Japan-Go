@@ -189,7 +189,7 @@ CREATE TABLE lesson
     CONSTRAINT pk_lesson PRIMARY KEY (id)
 );
 
-CREATE TABLE meaning
+CREATE TABLE kanji_meaning
 (
     id            BIGINT       NOT NULL AUTO_INCREMENT,
     created_by    VARCHAR(255) NOT NULL,
@@ -397,7 +397,7 @@ ALTER TABLE lesson
 ALTER TABLE lesson
     ADD CONSTRAINT uc_lesson_kanji_lesson UNIQUE (kanji_lesson_id);
 
-ALTER TABLE meaning
+ALTER TABLE kanji_meaning
     ADD CONSTRAINT uc_meaning_reading_text UNIQUE (reading_text);
 
 ALTER TABLE onyomi
@@ -494,7 +494,7 @@ ALTER TABLE kanji_kanji_meaning
     ADD CONSTRAINT fk_kankanmea_on_kanji_entity FOREIGN KEY (kanji_id) REFERENCES kanji (id);
 
 ALTER TABLE kanji_kanji_meaning
-    ADD CONSTRAINT fk_kankanmea_on_kanji_meaning_entity FOREIGN KEY (kanji_meaning_id) REFERENCES meaning (id);
+    ADD CONSTRAINT fk_kankanmea_on_kanji_meaning_entity FOREIGN KEY (kanji_meaning_id) REFERENCES kanji_meaning (id);
 
 ALTER TABLE kanji_kunyomi
     ADD CONSTRAINT fk_kankun_on_kanji_entity FOREIGN KEY (kanji_id) REFERENCES kanji (id);

@@ -1,8 +1,9 @@
 package com.nass.api.middleware;
 
-import com.nass.application_service.dto.responses.base.ApiResponse;
+import com.nass.application_service.dtos.responses.base.ApiResponse;
 import com.nass.application_service.services.i18n.I18nService;
 import com.nass.contract.annotations.ApiResponseFormat;
+import com.nass.contract.constants.messages.common.DefaultMessage;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.MethodParameter;
 import org.springframework.http.MediaType;
@@ -23,11 +24,11 @@ public class ApiResponseAdvice implements ResponseBodyAdvice<Object> {
     private ApiResponse<Object> getObjectApiResponse(Object body, ServerHttpResponse response, ApiResponseFormat apiResponseFormat) {
         String devMessage = (apiResponseFormat != null && !apiResponseFormat.devMessage().isBlank())
                 ? i18nService.translation(apiResponseFormat.devMessage())
-                : "No dev message";
+                : i18nService.translation(DefaultMessage.DEFAULT_BLANK_DESCRIPTION);
 
         String clientMessage = (apiResponseFormat != null && !apiResponseFormat.clientMessage().isBlank())
                 ? i18nService.translation(apiResponseFormat.clientMessage())
-                : "Thành công!";
+                : i18nService.translation(DefaultMessage.DEFAULT_BLANK_DESCRIPTION);
 
         int statusCode = 200;
         if (response instanceof ServletServerHttpResponse serverHttpResponse) {

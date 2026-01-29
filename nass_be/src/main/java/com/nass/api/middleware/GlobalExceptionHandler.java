@@ -1,6 +1,6 @@
 package com.nass.api.middleware;
 
-import com.nass.application_service.dto.responses.base.ApiResponse;
+import com.nass.application_service.dtos.responses.base.ApiResponse;
 import com.nass.application_service.exceptions.*;
 import com.nass.application_service.exceptions.base.BaseException;
 import com.nass.application_service.services.i18n.I18nService;

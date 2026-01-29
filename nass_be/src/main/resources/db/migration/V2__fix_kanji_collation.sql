@@ -10,7 +10,7 @@ ALTER TABLE kunyomi
     MODIFY reading_text VARCHAR(255)
         CHARACTER SET utf8mb4
         COLLATE utf8mb4_0900_bin;
-ALTER TABLE meaning
+ALTER TABLE kanji_meaning
     MODIFY reading_text VARCHAR(255)
         CHARACTER SET utf8mb4
         COLLATE utf8mb4_0900_bin;

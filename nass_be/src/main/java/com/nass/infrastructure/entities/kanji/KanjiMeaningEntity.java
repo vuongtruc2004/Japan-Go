@@ -17,7 +17,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "meaning")
+@Table(name = "kanji_meaning")
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class KanjiMeaningEntity extends BaseEntity<Long> {
     @Column(name = "reading_text", unique = true, nullable = false)

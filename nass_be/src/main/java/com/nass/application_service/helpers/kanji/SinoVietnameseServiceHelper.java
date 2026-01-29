@@ -1,6 +1,6 @@
 package com.nass.application_service.helpers.kanji;
 
-import com.nass.application_service.dto.requests.kanji.GetSinoVietnameseRequest;
+import com.nass.application_service.dtos.requests.kanji.GetSinoVietnameseRequest;
 import com.nass.infrastructure.entities.kanji.SinoVietnameseEntity;
 import com.nass.infrastructure.repositories.KanjiRepository;
 import lombok.RequiredArgsConstructor;
