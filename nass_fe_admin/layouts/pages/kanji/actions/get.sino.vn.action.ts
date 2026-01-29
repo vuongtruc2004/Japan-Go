@@ -2,7 +2,6 @@
 import { sendRequest } from "@/libs/fetch.api";
 import { IGetSinoVn } from "../models/kanji.type";
 
-
 export async function getSinoVn(dividerType: "line" | "whitespace" | "custom", initialState: IGetSinoVn | null, formData: FormData): Promise<IGetSinoVn> {
     const kanji = formData.get("kanji")?.toString().trim() || "";
     const customValue = formData.get("custom-value")?.toString() || "";
@@ -23,6 +22,11 @@ export async function getSinoVn(dividerType: "line" | "whitespace" | "custom", i
         state.kanji.errorMessage = "Kanji cannot be blank!"
     }
 
+    // const result = kanji
+    //     .split(/\r?\n/)   
+    //     .map(s => s.trim()) 
+    //     .join("\n");     
+    // state.sinoVn = result;
     if (!state.kanji.isError) {
         const response = await sendRequest<ApiResponse<string>>({
             url: 'http://localhost:2509/api/v1/sino-vietnamese',

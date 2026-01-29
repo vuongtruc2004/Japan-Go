@@ -8,7 +8,6 @@ import com.nass.application_service.services.interfaces.lesson.ILessonService;
 import com.nass.application_service.validators.FileValidator;
 import com.nass.contract.constants.messages.common.FileMessage;
 import com.nass.infrastructure.entities.lesson.LessonEntity;
-import com.nass.infrastructure.repositories.lesson.LessonRepository;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
@@ -24,7 +23,6 @@ public class LessonService implements ILessonService {
     private final I18nService i18nService;
     private final LessonXlsxImporter lessonXlsxImporter;
     private final ModelMapper modelMapper;
-    private final LessonRepository lessonRepository;
 
     /**
      * @param file an excel file that contains
@@ -34,14 +32,14 @@ public class LessonService implements ILessonService {
      */
     @Transactional
     @Override
-    public List<LessonResponse> importLessonsFromExcel(MultipartFile file) {
+    public List<LessonResponse> importGrammarLessonsFromExcel(MultipartFile file) {
         if (!fileValidator.isExcelFile(file)) {
             throw new FileNotValidException(
                     i18nService.translation(FileMessage.FILE_NOT_EXCEL),
                     i18nService.translation(FileMessage.FILE_NOT_EXCEL)
             );
         }
-        List<LessonEntity> lessons = lessonXlsxImporter.importLessonsFromExcel(file);
+        List<LessonEntity> lessons = lessonXlsxImporter.importGrammarLessonsFromExcel(file);
         return lessons.stream()
                 .map(lessonEntity -> modelMapper.map(lessonEntity, LessonResponse.class))
                 .toList();

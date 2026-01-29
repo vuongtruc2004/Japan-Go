@@ -11,9 +11,9 @@ import com.nass.infrastructure.entities.kanji.KanjiEntity;
 import com.nass.infrastructure.entities.kanji.KanjiMeaningEntity;
 import com.nass.infrastructure.entities.kanji.KunyomiEntity;
 import com.nass.infrastructure.entities.kanji.OnyomiEntity;
+import com.nass.infrastructure.repositories.KanjiMeaningRepository;
 import com.nass.infrastructure.repositories.KanjiRepository;
 import com.nass.infrastructure.repositories.KunyomiRepository;
-import com.nass.infrastructure.repositories.MeaningRepository;
 import com.nass.infrastructure.repositories.OnyomiRepository;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -37,7 +37,7 @@ public class Kanjidic2XmlImporter {
     private final KanjiRepository kanjiRepository;
     private final KunyomiRepository kunyomiRepository;
     private final OnyomiRepository onyomiRepository;
-    private final MeaningRepository meaningRepository;
+    private final KanjiMeaningRepository kanjiMeaningRepository;
     private final KanjiJlptJsonImporter kanjiJlptJsonImporter;
     private final ModelMapper modelMapper;
     private final I18nService i18nService;
@@ -122,7 +122,7 @@ public class Kanjidic2XmlImporter {
             meaningEntityMap.put(meaning, kanjiMeaningEntity);
             meaningEntities.add(kanjiMeaningEntity);
         }
-        meaningRepository.saveAll(meaningEntities);
+        kanjiMeaningRepository.saveAll(meaningEntities);
 
         // save all kanji
         List<KanjiEntity> kanjiEntities = new ArrayList<>();

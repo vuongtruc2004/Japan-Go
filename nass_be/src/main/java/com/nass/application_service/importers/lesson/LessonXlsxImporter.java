@@ -32,7 +32,7 @@ public class LessonXlsxImporter {
      * @param file excel file to get the lesson name and grammar lesson id
      * @return list of lesson entity and then save it to the database
      */
-    public List<LessonEntity> importLessonsFromExcel(MultipartFile file) {
+    public List<LessonEntity> importGrammarLessonsFromExcel(MultipartFile file) {
         try (InputStream inputStream = file.getInputStream();
              Workbook workbook = new XSSFWorkbook(inputStream)) {
             List<LessonEntity> lessonEntities = new ArrayList<>();

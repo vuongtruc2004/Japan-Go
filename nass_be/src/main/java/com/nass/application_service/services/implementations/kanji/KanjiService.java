@@ -3,7 +3,7 @@ package com.nass.application_service.services.implementations.kanji;
 import com.nass.application_service.dtos.mappers.KanjiDtoMapper;
 import com.nass.application_service.dtos.responses.kanji.KanjiResponse;
 import com.nass.application_service.exceptions.FileNotValidException;
-import com.nass.application_service.importers.kanji.Kanjidic2XmlImporter;
+import com.nass.application_service.helpers.kanji.KanjiServiceHelper;
 import com.nass.application_service.services.i18n.I18nService;
 import com.nass.application_service.services.interfaces.kanji.IKanjiService;
 import com.nass.application_service.validators.FileValidator;
@@ -21,21 +21,14 @@ import java.util.List;
 @RequiredArgsConstructor
 public class KanjiService implements IKanjiService {
     private final FileValidator fileValidator;
-    private final Kanjidic2XmlImporter kanjidic2XmlImporter;
     private final KanjiDtoMapper kanjiDTOMapper;
     private final I18nService i18nService;
+    private final KanjiServiceHelper kanjiServiceHelper;
 
-    /**
-     * Used by function importKanjiFromKanjidic(MultipartFile kanjidicFile, MultipartFile kanjiJlptFile)
-     * and auto (command line runner) kanji import service
-     *
-     * @param kanjidicInputstream  input stream of KANJIDIC xml file
-     * @param kanjiJlptInputstream input stream of KANJI_JLPT json file
-     * @return list of saved kanji entity
-     */
     @Override
-    public List<KanjiEntity> importKanjiFromKanjidicIS(InputStream kanjidicInputstream, InputStream kanjiJlptInputstream) {
-        return kanjidic2XmlImporter.importKanji(kanjidicInputstream, kanjiJlptInputstream);
+    public String getKanjiVgFromKanji(String kanji) {
+        int codePoint = kanji.codePointAt(0);
+        return String.format("%05x.svg", codePoint);
     }
 
     /**
@@ -47,7 +40,7 @@ public class KanjiService implements IKanjiService {
      */
     @Override
     @Transactional
-    public List<KanjiResponse> importKanjiFromKanjidicMF(MultipartFile kanjidicFile, MultipartFile kanjiJlptFile) {
+    public List<KanjiResponse> importKanjiFromKanjidic(MultipartFile kanjidicFile, MultipartFile kanjiJlptFile) {
         if (!fileValidator.isXMLFile(kanjidicFile)) {
             throw new FileNotValidException(
                     i18nService.translation(FileMessage.FILE_NOT_XML),
@@ -62,7 +55,7 @@ public class KanjiService implements IKanjiService {
         }
         try (InputStream kanjidicInputstream = kanjidicFile.getInputStream();
              InputStream kanjijlptInputstream = kanjiJlptFile.getInputStream()) {
-            List<KanjiEntity> kanjiEntities = importKanjiFromKanjidicIS(kanjidicInputstream, kanjijlptInputstream);
+            List<KanjiEntity> kanjiEntities = kanjiServiceHelper.importKanjiFromKanjidic(kanjidicInputstream, kanjijlptInputstream);
             return kanjiEntities.stream().map(kanjiDTOMapper::kanjiEntityToKanjiResponse).toList();
 
         } catch (Exception e) {

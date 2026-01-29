@@ -1,13 +1,10 @@
 package com.nass.application_service.services.implementations.kanji;
 
-import com.nass.application_service.dtos.entries.SinoVietnameseEntry;
 import com.nass.application_service.dtos.mappers.KanjiDtoMapper;
 import com.nass.application_service.dtos.requests.kanji.GetSinoVietnameseRequest;
 import com.nass.application_service.dtos.responses.kanji.KanjiResponse;
 import com.nass.application_service.exceptions.FileNotValidException;
 import com.nass.application_service.helpers.kanji.SinoVietnameseServiceHelper;
-import com.nass.application_service.importers.kanji.MainSinoVietnameseXlsxImport;
-import com.nass.application_service.importers.kanji.SinoVietnameseJsonImporter;
 import com.nass.application_service.services.i18n.I18nService;
 import com.nass.application_service.services.interfaces.kanji.ISinoVietnameseService;
 import com.nass.application_service.validators.FileValidator;
@@ -20,16 +17,12 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Service
 @RequiredArgsConstructor
 public class SinoVietnameseService implements ISinoVietnameseService {
-    private final SinoVietnameseJsonImporter sinoVietnameseJsonImporter;
     private final KanjiDtoMapper kanjiDTOMapper;
-    private final MainSinoVietnameseXlsxImport mainSinoVietnameseXlsxImport;
     private final FileValidator fileValidator;
     private final I18nService i18nService;
     private final SinoVietnameseServiceHelper sinoVietnameseServiceHelper;
@@ -51,21 +44,6 @@ public class SinoVietnameseService implements ISinoVietnameseService {
         return String.join("\n", mainSinoVietnameseList);
     }
 
-    @Override
-    public List<KanjiEntity> importSinoVietnameseIS(List<InputStream> sinoVietnameseInputstreamList) {
-        Map<String, List<SinoVietnameseEntry>> sinoVietnameseEntryMap = new HashMap<>();
-        for (InputStream sinoVietnameseInputstream : sinoVietnameseInputstreamList) {
-            sinoVietnameseJsonImporter.importSinoVietnamese(sinoVietnameseInputstream, sinoVietnameseEntryMap);
-        }
-        return sinoVietnameseJsonImporter.updateKanjiWithSinoVietnamese(sinoVietnameseEntryMap);
-    }
-
-    @Override
-    public List<KanjiEntity> importMainSinoVietnameseIS(InputStream mainSinoVietnameseInputstream) {
-        Map<String, String> mainSinoVietnameseMap = mainSinoVietnameseXlsxImport.importMainSinoVietnamese(mainSinoVietnameseInputstream);
-        return mainSinoVietnameseXlsxImport.updateKanjiWithMainSinoVietnamese(mainSinoVietnameseMap);
-    }
-
     /**
      * @param mainSinoVietnameseFile an excel file that contains some kanji character
      *                               and their main sino vietnamese.
@@ -74,7 +52,7 @@ public class SinoVietnameseService implements ISinoVietnameseService {
      */
     @Override
     @Transactional
-    public List<KanjiResponse> importMainSinoVietnameseMF(MultipartFile mainSinoVietnameseFile) {
+    public List<KanjiResponse> importMainSinoVietnamese(MultipartFile mainSinoVietnameseFile) {
         if (!fileValidator.isExcelFile(mainSinoVietnameseFile)) {
             throw new FileNotValidException(
                     i18nService.translation(FileMessage.FILE_NOT_EXCEL),
@@ -82,7 +60,7 @@ public class SinoVietnameseService implements ISinoVietnameseService {
             );
         }
         try (InputStream mainSinoVietnameseInputstream = mainSinoVietnameseFile.getInputStream()) {
-            List<KanjiEntity> kanjiEntities = importMainSinoVietnameseIS(mainSinoVietnameseInputstream);
+            List<KanjiEntity> kanjiEntities = sinoVietnameseServiceHelper.importMainSinoVietnamese(mainSinoVietnameseInputstream);
             return kanjiEntities.stream().map(kanjiDTOMapper::kanjiEntityToKanjiResponse).toList();
         } catch (Exception e) {
             throw new FileNotValidException(
@@ -98,7 +76,7 @@ public class SinoVietnameseService implements ISinoVietnameseService {
      */
     @Override
     @Transactional
-    public List<KanjiResponse> importSinoVietnameseMF(List<MultipartFile> sinoVietnameseFiles) {
+    public List<KanjiResponse> importSinoVietnamese(List<MultipartFile> sinoVietnameseFiles) {
         List<InputStream> sinoVietnameseInputStreamList = new ArrayList<>();
         for (MultipartFile sinoVietnameseFile : sinoVietnameseFiles) {
             if (!fileValidator.isJSONFile(sinoVietnameseFile)) {
@@ -116,7 +94,7 @@ public class SinoVietnameseService implements ISinoVietnameseService {
                 );
             }
         }
-        List<KanjiEntity> kanjiEntities = importSinoVietnameseIS(sinoVietnameseInputStreamList);
+        List<KanjiEntity> kanjiEntities = sinoVietnameseServiceHelper.importSinoVietnamese(sinoVietnameseInputStreamList);
         return kanjiEntities.stream().map(kanjiDTOMapper::kanjiEntityToKanjiResponse).toList();
     }
 }

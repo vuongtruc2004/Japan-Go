@@ -10,7 +10,10 @@ import com.nass.infrastructure.entities.kanji.SinoVietnameseEntity;
 import com.nass.infrastructure.repositories.KanjiRepository;
 import com.nass.infrastructure.repositories.SinoVietnameseRepository;
 import lombok.RequiredArgsConstructor;
-import org.apache.poi.ss.usermodel.*;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.ss.usermodel.WorkbookFactory;
 import org.springframework.stereotype.Component;
 
 import java.io.InputStream;
@@ -36,20 +39,13 @@ public class MainSinoVietnameseXlsxImport {
                 Row row = sheet.getRow(rowNum);
                 if (row != null) {
                     String kanjiCharacter = row.getCell(1).getStringCellValue().trim();
-                    String mainSinoVietnamese = "";
-                    for (int colNum = 2; colNum < 7; colNum++) {
-                        Cell cell = row.getCell(colNum);
-                        if (cell != null) {
-                            mainSinoVietnamese = cell.getStringCellValue().trim().toUpperCase();
-                            break;
-                        }
-                    }
                     if (kanjiCharacter.isBlank()) {
                         throw new FileNotValidException(
                                 i18nService.translation(FileMessage.FILE_ERROR_AT_LINE, row),
                                 i18nService.translation(FileMessage.FILE_ERROR_AT_LINE, row)
                         );
                     }
+                    String mainSinoVietnamese = row.getCell(2).getStringCellValue().trim().toUpperCase();
                     mainSinoVietnameseMap.putIfAbsent(kanjiCharacter, mainSinoVietnamese);
                 }
             }
@@ -67,26 +63,16 @@ public class MainSinoVietnameseXlsxImport {
 
         for (KanjiEntity kanjiEntity : kanjiEntities) {
             String kanjiCharacter = kanjiEntity.getKanjiCharacter();
+            String readingText = mainSinoVietnameseMap.get(kanjiCharacter);
 
-            if (mainSinoVietnameseMap.containsKey(kanjiCharacter)) {
-                String readingText = mainSinoVietnameseMap.get(kanjiCharacter);
-
-                SinoVietnameseEntity mainSinoVietnameseEntity = sinoVietnameseRepository
-                        .findByKanji_KanjiCharacterAndReadingText(kanjiCharacter, readingText)
-                        .orElseThrow(() -> new NotFoundException(
-                                i18nService.translation(SinoVietnameseMessage.SINO_VIETNAMESE_IN_KANJI_NOT_FOUND, readingText, kanjiCharacter),
-                                i18nService.translation(SinoVietnameseMessage.SINO_VIETNAMESE_IN_KANJI_NOT_FOUND, readingText, kanjiCharacter)
-                        ));
-                kanjiEntity.setMainSinoVietnamese(mainSinoVietnameseEntity);
-            } else {
-                var list = kanjiEntity.getSinoVietnameseList();
-                if (list != null && !list.isEmpty()) {
-                    SinoVietnameseEntity mainSinoVietnameseEntity = list.getFirst();
-                    kanjiEntity.setMainSinoVietnamese(mainSinoVietnameseEntity);
-                }
-            }
+            SinoVietnameseEntity mainSinoVietnameseEntity = sinoVietnameseRepository
+                    .findByKanji_KanjiCharacterAndReadingText(kanjiCharacter, readingText)
+                    .orElseThrow(() -> new NotFoundException(
+                            i18nService.translation(SinoVietnameseMessage.SINO_VIETNAMESE_IN_KANJI_NOT_FOUND, readingText, kanjiCharacter),
+                            i18nService.translation(SinoVietnameseMessage.SINO_VIETNAMESE_IN_KANJI_NOT_FOUND, readingText, kanjiCharacter)
+                    ));
+            kanjiEntity.setMainSinoVietnamese(mainSinoVietnameseEntity);
         }
-
         return kanjiEntities;
     }
 

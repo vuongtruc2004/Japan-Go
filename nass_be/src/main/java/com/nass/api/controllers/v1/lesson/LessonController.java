@@ -24,7 +24,7 @@ public class LessonController {
 
     @ApiResponseFormat(devMessage = LessonMessage.LESSON_IMPORTED, clientMessage = LessonMessage.LESSON_IMPORTED)
     @PostMapping(value = "/import", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public ResponseEntity<List<LessonResponse>> importLessonsFromExcel(@RequestParam MultipartFile file) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(lessonService.importLessonsFromExcel(file));
+    public ResponseEntity<List<LessonResponse>> importGrammarLessonsFromExcel(@RequestParam MultipartFile file) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(lessonService.importGrammarLessonsFromExcel(file));
     }
 }

@@ -82,6 +82,7 @@ public class SinoVietnameseJsonImporter {
                 );
             }
 
+            kanjiEntity.setMainSinoVietnamese(sinoVietnameseEntities.getLast());
             kanjiEntity.getSinoVietnameseList().addAll(sinoVietnameseEntities);
         }
         return kanjiEntities;

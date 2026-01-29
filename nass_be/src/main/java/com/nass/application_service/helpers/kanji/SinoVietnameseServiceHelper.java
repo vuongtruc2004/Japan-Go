@@ -1,16 +1,40 @@
 package com.nass.application_service.helpers.kanji;
 
+import com.nass.application_service.dtos.entries.SinoVietnameseEntry;
 import com.nass.application_service.dtos.requests.kanji.GetSinoVietnameseRequest;
+import com.nass.application_service.importers.kanji.MainSinoVietnameseXlsxImport;
+import com.nass.application_service.importers.kanji.SinoVietnameseJsonImporter;
+import com.nass.infrastructure.entities.kanji.KanjiEntity;
 import com.nass.infrastructure.entities.kanji.SinoVietnameseEntity;
 import com.nass.infrastructure.repositories.KanjiRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
+
+import java.io.InputStream;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Component
 @RequiredArgsConstructor
 public class SinoVietnameseServiceHelper {
 
     private final KanjiRepository kanjiRepository;
+    private final SinoVietnameseJsonImporter sinoVietnameseJsonImporter;
+    private final MainSinoVietnameseXlsxImport mainSinoVietnameseXlsxImport;
+    
+    public List<KanjiEntity> importSinoVietnamese(List<InputStream> sinoVietnameseInputstreamList) {
+        Map<String, List<SinoVietnameseEntry>> sinoVietnameseEntryMap = new HashMap<>();
+        for (InputStream sinoVietnameseInputstream : sinoVietnameseInputstreamList) {
+            sinoVietnameseJsonImporter.importSinoVietnamese(sinoVietnameseInputstream, sinoVietnameseEntryMap);
+        }
+        return sinoVietnameseJsonImporter.updateKanjiWithSinoVietnamese(sinoVietnameseEntryMap);
+    }
+
+    public List<KanjiEntity> importMainSinoVietnamese(InputStream mainSinoVietnameseInputstream) {
+        Map<String, String> mainSinoVietnameseMap = mainSinoVietnameseXlsxImport.importMainSinoVietnamese(mainSinoVietnameseInputstream);
+        return mainSinoVietnameseXlsxImport.updateKanjiWithMainSinoVietnamese(mainSinoVietnameseMap);
+    }
 
     /**
      * @param getSinoVietnameseRequest an object contains kanji list (in string type)
