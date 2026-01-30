@@ -4,14 +4,14 @@ import com.nass.application_service.exceptions.FileNotValidException;
 import com.nass.application_service.helpers.kanji.KanjiServiceHelper;
 import com.nass.application_service.helpers.kanji.SinoVietnameseServiceHelper;
 import com.nass.application_service.services.i18n.I18nService;
-import com.nass.contract.constants.FilePath;
 import com.nass.contract.constants.messages.common.FileMessage;
 import com.nass.infrastructure.repositories.KanjiRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.core.annotation.Order;
-import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.ResourceLoader;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -28,6 +28,10 @@ public class KanjiDataInitializer implements CommandLineRunner {
     private final I18nService i18nService;
     private final KanjiServiceHelper kanjiServiceHelper;
     private final SinoVietnameseServiceHelper sinoVietnameseServiceHelper;
+    private final ResourceLoader resourceLoader;
+
+    @Value("${sources.uri}")
+    private String sourcesUri;
 
     @Override
     @Transactional
@@ -36,15 +40,15 @@ public class KanjiDataInitializer implements CommandLineRunner {
             log.info("Kanji existed!");
         } else {
             try (InputStream kanjidicInputstream =
-                         new ClassPathResource(FilePath.KANJIDIC_XML).getInputStream();
+                         resourceLoader.getResource(sourcesUri + "/kanjidic/kanjidic2.xml").getInputStream();
                  InputStream kanjiJlptInputstream =
-                         new ClassPathResource(FilePath.KANJI_JLPT_JSON).getInputStream();
+                         resourceLoader.getResource(sourcesUri + "/kanjidic/kanji_jlpt.json").getInputStream();
                  InputStream sinoVietnamese1Inputstream =
-                         new ClassPathResource(FilePath.SINO_VIETNAMESE_1_JSON).getInputStream();
+                         resourceLoader.getResource(sourcesUri + "/sino/sino_vietnamese_1.json").getInputStream();
                  InputStream sinoVietnamese2Inputstream =
-                         new ClassPathResource(FilePath.SINO_VIETNAMESE_2_JSON).getInputStream();
+                         resourceLoader.getResource(sourcesUri + "/sino/sino_vietnamese_2.json").getInputStream();
                  InputStream mainSinoVietnameseInputstream =
-                         new ClassPathResource(FilePath.MAIN_SINO_VIETNAMESE_XLSX).getInputStream()
+                         resourceLoader.getResource(sourcesUri + "/sino/main_sino_vietnamese.xlsx").getInputStream()
             ) {
                 log.info("Kanji importing...");
                 kanjiServiceHelper.importKanjiFromKanjidic(kanjidicInputstream, kanjiJlptInputstream);

@@ -17,4 +17,4 @@ spring:
       database: 0
 
 sources:
-  uri: file:///D:/Ki_8/JPD326/NASS_Project/sources
+  uri: file:///D:/JPD326/Nass_Project/sources
