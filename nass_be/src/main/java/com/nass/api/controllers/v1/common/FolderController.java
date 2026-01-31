@@ -29,4 +29,10 @@ public class FolderController {
     public ResponseEntity<List<FolderResponse>> getAllFolders() {
         return ResponseEntity.ok(folderService.getAllFolders());
     }
+
+    @ApiResponseFormat(devMessage = FolderMessage.FOLDER_DELETED, clientMessage = FolderMessage.FOLDER_DELETED)
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Long> deleteFolder(@PathVariable Long id) {
+        return ResponseEntity.ok(folderService.deleteFolder(id));
+    }
 }

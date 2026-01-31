@@ -1,6 +1,6 @@
-import FolderList from "@/layouts/pages/my-folder/components/folder.list";
 import FolderPageHeader from "@/layouts/pages/my-folder/components/folder.page.header";
-import { sendRequest } from "@/libs/fetch.api";
+import FolderTable from "@/layouts/pages/my-folder/components/folder.table";
+import { sendRequest } from "@/utils/fetch.api";
 import { getTranslations } from "next-intl/server";
 
 export async function generateMetadata({
@@ -26,7 +26,7 @@ const MyFolderPage = async () => {
         <div>
             <div className="bg-bgc-app border-bdc-primary rounded-md border p-5">
                 <FolderPageHeader />
-                <FolderList folders={response.data} />
+                <FolderTable folders={response.data} />
             </div>
         </div>
     );

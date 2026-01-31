@@ -24,8 +24,26 @@ public class FolderService implements IFolderService {
     private final I18nService i18nService;
 
     @Override
+    public Long deleteFolder(Long id) {
+        FolderEntity folder = folderRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException(
+                        i18nService.translation(FolderMessage.FOLDER_NOT_FOUND, id),
+                        i18nService.translation(FolderMessage.FOLDER_NOT_FOUND, id)
+                ));
+        folderRepository.delete(folder);
+        return id;
+    }
+
+    @Override
     public FolderResponse createNewFolder(FolderRequest request) {
         String folderName = request.folderName().trim();
+        if (folderName.isEmpty()) {
+            throw new FolderException(
+                    i18nService.translation(FolderMessage.FOLDER_NAME_BLANK, folderName),
+                    i18nService.translation(FolderMessage.FOLDER_NAME_BLANK, folderName)
+            );
+        }
+
         Long parentId = request.parentId();
         FolderEntity folderEntity = FolderEntity.builder()
                 .folderName(folderName)

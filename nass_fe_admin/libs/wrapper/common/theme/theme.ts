@@ -13,6 +13,9 @@ const theme = createTheme({
                 },
                 success: {
                     main: "#00c951",
+                },
+                error: {
+                    main: "#e5383b"
                 }
             },
         },
@@ -26,6 +29,9 @@ const theme = createTheme({
                 },
                 success: {
                     main: "#175a3a",
+                },
+                error: {
+                    main: "#d90429"
                 }
             },
         },

@@ -10,8 +10,8 @@ interface IGroupKanjiTab {
     kanjiTabs: IKanjiTab[];
 }
 
-interface IGetSinoVn {
-    kanji: ValidateFields;
+interface IGetSinoVnState {
+    kanji: ValidateField;
     dividerType: "line" | "whitespace" | "custom";
     customValue: string;
     sinoVn: string;

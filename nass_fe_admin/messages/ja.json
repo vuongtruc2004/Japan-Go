@@ -55,11 +55,26 @@
                 "empty": "表示する漢字がありません！",
                 "uploadFile": "データをアップロード",
                 "enrichSinoVietnamese": "漢越音を追加"
+            },
+            "sinoVietnameseImport": {
+                "title": "ここにテキストを貼り付けて、漢越音を取得してください",
+                "delimiter": "区切り文字：",
+                "cancel": "キャンセル",
+                "confirm": "インポート",
+                "customPlaceholder": "カスタマイズ",
+                "spaceLabel": "空白",
+                "lineLabel": "行",
+                "inputPlaceholder": "ここにデータを入力してください…",
+                "resultPlaceholder": "ここに結果が表示されます",
+                "copied": "コピーしました"
             }
         },
         "folder": {
-            "title": "あなたのフォルダ",
-            "create": "新しいフォルダを作成"
+            "myFoldersTitle": "あなたのフォルダ",
+            "createFolderTitle": "新しいフォルダを作成",
+            "cancel": "キャンセル",
+            "create": "作成",
+            "inputPlaceholder": "フォルダ名を入力してください"
         }
     }
 }

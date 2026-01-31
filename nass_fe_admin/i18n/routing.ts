@@ -20,6 +20,11 @@ export const routing = defineRouting({
             en: '/your-folder',
             ja: '/あなたのフォルダ'
         },
+        "/your-folder/[slug]": {
+            vi: '/thu-muc-cua-ban/[slug]',
+            en: '/your-folder/[slug]',
+            ja: '/あなたのフォルダ/[slug]'
+        },
         "/kanji": {
             vi: '/chu-han',
             en: '/kanji',

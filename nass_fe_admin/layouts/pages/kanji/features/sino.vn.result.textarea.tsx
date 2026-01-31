@@ -1,7 +1,9 @@
 import { Box, TextField } from "@mui/material";
+import { useTranslations } from "next-intl";
 import { useState } from "react";
 
 export default function SinoVnResultTextArea({ sinoVn }: { sinoVn: string }) {
+    const t = useTranslations("Pages.kanji.sinoVietnameseImport");
     const [copied, setCopied] = useState(false);
     const handleCopy = async () => {
         if (copied || sinoVn === "") return;
@@ -27,7 +29,7 @@ export default function SinoVnResultTextArea({ sinoVn }: { sinoVn: string }) {
                         },
                     },
                 }}
-                placeholder="Kết quả sẽ hiển thị ở đây"
+                placeholder={t("resultPlaceholder")}
                 sx={{
                     textarea: {
                         cursor: sinoVn === "" ? "no-drop" : "pointer",
@@ -47,7 +49,7 @@ export default function SinoVnResultTextArea({ sinoVn }: { sinoVn: string }) {
                     color: "var(--color-tc-highlight)",
                 }}
             >
-                Đã sao chép
+                {t("copied")}
             </Box>
         </div>
     );

@@ -9,4 +9,6 @@ public interface IFolderService {
     FolderResponse createNewFolder(FolderRequest request);
 
     List<FolderResponse> getAllFolders();
+
+    Long deleteFolder(Long id);
 }

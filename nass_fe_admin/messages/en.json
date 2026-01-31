@@ -55,11 +55,26 @@
                 "empty": "No Kanji to display!",
                 "uploadFile": "Upload data",
                 "enrichSinoVietnamese": "Add Sino-Vietnamese readings"
+            },
+            "sinoVietnameseImport": {
+                "title": "Paste your text here to get Sino-Vietnamese readings",
+                "delimiter": "Separate words by:",
+                "cancel": "Cancel",
+                "confirm": "Import",
+                "customPlaceholder": "Custom",
+                "spaceLabel": "Space",
+                "lineLabel": "Line",
+                "inputPlaceholder": "Enter your data here...",
+                "resultPlaceholder": "The result will be displayed here",
+                "copied": "Copied"
             }
         },
         "folder": {
-            "title": "Your Folder",
-            "create": "Create new folder"
+            "myFoldersTitle": "Your folders",
+            "createFolderTitle": "Create new folder",
+            "cancel": "Cancel",
+            "create": "Create",
+            "inputPlaceholder": "Enter folder name"
         }
     }
 }

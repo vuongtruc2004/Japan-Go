@@ -1,12 +1,12 @@
 'use server'
-import { sendRequest } from "@/libs/fetch.api";
-import { IGetSinoVn } from "../models/kanji.type";
+import { sendRequest } from "@/utils/fetch.api";
+import { IGetSinoVnState } from "../models/kanji.type";
 
-export async function getSinoVn(dividerType: "line" | "whitespace" | "custom", initialState: IGetSinoVn | null, formData: FormData): Promise<IGetSinoVn> {
+export async function getSinoVn(dividerType: "line" | "whitespace" | "custom", initialState: IGetSinoVnState | null, formData: FormData): Promise<IGetSinoVnState> {
     const kanji = formData.get("kanji")?.toString().trim() || "";
     const customValue = formData.get("custom-value")?.toString() || "";
 
-    const state: IGetSinoVn = {
+    const state: IGetSinoVnState = {
         kanji: {
             value: kanji,
             errorMessage: '',

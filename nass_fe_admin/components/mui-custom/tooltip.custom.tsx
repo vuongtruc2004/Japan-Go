@@ -1,14 +1,20 @@
 "use client";
 import { styled, Tooltip, tooltipClasses, TooltipProps } from "@mui/material";
 
-export const TooltipCustom = styled(({ className, ...props }: TooltipProps) => (
-    <Tooltip {...props} arrow classes={{ popper: className }} />
-))(() => ({
+interface TooltipCustomProps extends TooltipProps {
+    color?: string;
+}
+
+export const TooltipCustom = styled(
+    ({ className, ...props }: TooltipCustomProps) => (
+        <Tooltip {...props} arrow classes={{ popper: className }} />
+    ),
+)(({ color = "--color-bgc-highlight" }) => ({
     [`& .${tooltipClasses.arrow}`]: {
-        color: "var(--color-bgc-highlight)",
+        color: `var(${color})`,
     },
     [`& .${tooltipClasses.tooltip}`]: {
-        backgroundColor: "var(--color-bgc-highlight)",
+        backgroundColor: `var(${color})`,
         fontWeight: "bold",
     },
 }));

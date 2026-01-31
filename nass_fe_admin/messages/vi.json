@@ -55,11 +55,26 @@
                 "empty": "Không có Kanji nào để hiển thị!",
                 "uploadFile": "Tải lên dữ liệu",
                 "enrichSinoVietnamese": "Thêm phiên âm Hán Việt"
+            },
+            "sinoVietnameseImport": {
+                "title": "Chép và dán dữ liệu vào đây để lấy phiên âm Hán Việt của các từ",
+                "delimiter": "Ngăn cách giữa các từ bằng:",
+                "cancel": "Hủy",
+                "confirm": "Nhập",
+                "customPlaceholder": "Tùy chỉnh",
+                "spaceLabel": "Khoảng trắng",
+                "lineLabel": "Dòng",
+                "inputPlaceholder": "Nhập dữ liệu của bạn ở đây...",
+                "resultPlaceholder": "Kết quả sẽ hiển thị ở đây",
+                "copied": "Đã sao chép"
             }
         },
         "folder": {
-            "title": "Thư mục của bạn",
-            "create": "Tạo thư mục mới"
+            "myFoldersTitle": "Thư mục của bạn",
+            "createFolderTitle": "Tạo thư mục mới",
+            "cancel": "Hủy",
+            "create": "Tạo",
+            "inputPlaceholder": "Nhập tên thư mục"
         }
     }
 }

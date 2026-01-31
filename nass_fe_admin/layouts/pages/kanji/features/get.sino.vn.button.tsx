@@ -11,13 +11,13 @@ import {
 import { useTranslations } from "next-intl";
 import { useActionState, useState } from "react";
 import { getSinoVn } from "../actions/get.sino.vn.action";
-import { IGetSinoVn } from "../models/kanji.type";
+import { IGetSinoVnState } from "../models/kanji.type";
 import SinoVnResultTextArea from "./sino.vn.result.textarea";
 
-const initialState: IGetSinoVn | null = null;
+const initialState: IGetSinoVnState | null = null;
 
 const GetSinoVnButton = () => {
-    const t = useTranslations("Pages.kanji.explore");
+    const t = useTranslations("Pages");
 
     const [open, setOpen] = useState(false);
     const [dividerType, setDividerType] = useState<
@@ -38,14 +38,15 @@ const GetSinoVnButton = () => {
                 onClick={() => setOpen(true)}
             >
                 <FileUploadOutlinedIcon fontSize="small" />
-                <p className="ml-1.5 text-sm">{t("enrichSinoVietnamese")}</p>
+                <p className="ml-1.5 text-sm">
+                    {t("kanji.explore.enrichSinoVietnamese")}
+                </p>
             </Button>
 
             <Modal open={open}>
                 <div className="bg-bgc-page absolute top-1/2 left-1/2 w-[800px] -translate-x-1/2 -translate-y-1/2 rounded-md p-5">
                     <h1 className="text-tc-primary font-semibold">
-                        Chép và dán dữ liệu vào đây để lấy phiên âm Hán Việt của
-                        các từ đó
+                        {t("kanji.sinoVietnameseImport.title")}
                     </h1>
 
                     <form action={formAction} className="my-3">
@@ -55,7 +56,9 @@ const GetSinoVnButton = () => {
                                 name="kanji"
                                 multiline
                                 rows={20}
-                                placeholder="Nhập dữ liệu của bạn ở đây..."
+                                placeholder={t(
+                                    "kanji.sinoVietnameseImport.inputPlaceholder",
+                                )}
                                 error={state != null && state.kanji.isError}
                                 helperText={
                                     <span className="text-tc-error">
@@ -70,7 +73,7 @@ const GetSinoVnButton = () => {
                         </div>
 
                         <h1 className="text-tc-primary font-semibold">
-                            Ngăn cách giữa các từ bằng:
+                            {t("kanji.sinoVietnameseImport.delimiter")}
                         </h1>
 
                         <RadioGroup
@@ -95,12 +98,16 @@ const GetSinoVnButton = () => {
                             <FormControlLabel
                                 value="line"
                                 control={<Radio />}
-                                label="Dòng"
+                                label={t(
+                                    "kanji.sinoVietnameseImport.lineLabel",
+                                )}
                             />
                             <FormControlLabel
                                 value="whitespace"
                                 control={<Radio />}
-                                label="Khoảng trắng"
+                                label={t(
+                                    "kanji.sinoVietnameseImport.spaceLabel",
+                                )}
                             />
                             <FormControlLabel
                                 value="custom"
@@ -109,7 +116,9 @@ const GetSinoVnButton = () => {
                                     <TextField
                                         name="custom-value"
                                         size="small"
-                                        placeholder="Tùy chỉnh"
+                                        placeholder={t(
+                                            "kanji.sinoVietnameseImport.customPlaceholder",
+                                        )}
                                         defaultValue={state?.customValue}
                                     />
                                 }
@@ -121,11 +130,11 @@ const GetSinoVnButton = () => {
                                 disabled={pending}
                                 onClick={() => setOpen(false)}
                                 sx={{ columnGap: "8px" }}
-                                variant="contained"
-                                color="secondary"
+                                variant="outlined"
+                                color="error"
                             >
                                 <CloseIcon fontSize="small" />
-                                Hủy nhập
+                                {t("kanji.sinoVietnameseImport.cancel")}
                             </Button>
                             <Button
                                 type="submit"
@@ -133,7 +142,7 @@ const GetSinoVnButton = () => {
                                 color="primary"
                                 loading={pending}
                             >
-                                Nhập
+                                {t("kanji.sinoVietnameseImport.confirm")}
                             </Button>
                         </div>
                     </form>
