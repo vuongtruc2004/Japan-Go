@@ -1,6 +1,6 @@
 package com.nass.application_service.helpers.kanji;
 
-import com.nass.application_service.importers.kanji.Kanjidic2XmlImporter;
+import com.nass.application_service.importers.kanji.KanjiXmlImporter;
 import com.nass.infrastructure.entities.kanji.KanjiEntity;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -11,9 +11,9 @@ import java.util.List;
 @Component
 @RequiredArgsConstructor
 public class KanjiServiceHelper {
-    private final Kanjidic2XmlImporter kanjidic2XmlImporter;
-    
+    private final KanjiXmlImporter kanjiXmlImporter;
+
     public List<KanjiEntity> importKanjiFromKanjidic(InputStream kanjidicInputstream, InputStream kanjiJlptInputstream) {
-        return kanjidic2XmlImporter.importKanji(kanjidicInputstream, kanjiJlptInputstream);
+        return kanjiXmlImporter.importKanji(kanjidicInputstream, kanjiJlptInputstream);
     }
 }

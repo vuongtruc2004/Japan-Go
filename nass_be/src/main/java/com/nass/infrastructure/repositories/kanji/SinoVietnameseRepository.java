@@ -1,4 +1,4 @@
-package com.nass.infrastructure.repositories;
+package com.nass.infrastructure.repositories.kanji;
 
 import com.nass.infrastructure.entities.kanji.KanjiEntity;
 import com.nass.infrastructure.entities.kanji.SinoVietnameseEntity;

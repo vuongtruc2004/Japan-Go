@@ -1,5 +1,4 @@
 "use client";
-import { TooltipCustom } from "@/components/mui-custom/tooltip.custom";
 import { useRouter } from "@/i18n/navigation";
 import { sendRequest } from "@/utils/fetch.api";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
@@ -27,24 +26,19 @@ const FolderDeleteButton = ({ folder }: { folder: FolderResponse }) => {
         if (response.statusCode === 200) {
             refresh();
         }
-        console.log(response);
     };
 
     return (
         <div>
-            <TooltipCustom title="Xóa thư mục" color="--color-tc-error">
-                <Button
-                    onClick={handleClick}
-                    variant="text"
-                    color="error"
-                    sx={{
-                        width: "36px",
-                        minWidth: "36px",
-                    }}
-                >
-                    <DeleteOutlineIcon fontSize="small" />
-                </Button>
-            </TooltipCustom>
+            <Button
+                onClick={handleClick}
+                variant="text"
+                color="error"
+                sx={{ columnGap: "8px" }}
+            >
+                <DeleteOutlineIcon fontSize="small" />
+                <p>Xóa thư mục</p>
+            </Button>
 
             <Popover
                 open={Boolean(anchorEl)}

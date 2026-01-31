@@ -11,13 +11,15 @@ import com.nass.infrastructure.entities.kanji.KanjiEntity;
 import com.nass.infrastructure.entities.kanji.KanjiMeaningEntity;
 import com.nass.infrastructure.entities.kanji.KunyomiEntity;
 import com.nass.infrastructure.entities.kanji.OnyomiEntity;
-import com.nass.infrastructure.repositories.KanjiMeaningRepository;
-import com.nass.infrastructure.repositories.KanjiRepository;
-import com.nass.infrastructure.repositories.KunyomiRepository;
-import com.nass.infrastructure.repositories.OnyomiRepository;
+import com.nass.infrastructure.repositories.kanji.KanjiMeaningRepository;
+import com.nass.infrastructure.repositories.kanji.KanjiRepository;
+import com.nass.infrastructure.repositories.kanji.KunyomiRepository;
+import com.nass.infrastructure.repositories.kanji.OnyomiRepository;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
+import tools.jackson.databind.JsonNode;
+import tools.jackson.databind.ObjectMapper;
 
 import javax.xml.namespace.QName;
 import javax.xml.stream.XMLEventReader;
@@ -32,13 +34,12 @@ import java.util.*;
 
 @Component
 @RequiredArgsConstructor
-public class Kanjidic2XmlImporter {
+public class KanjiXmlImporter {
     private final ParseHelper parseHelper;
     private final KanjiRepository kanjiRepository;
     private final KunyomiRepository kunyomiRepository;
     private final OnyomiRepository onyomiRepository;
     private final KanjiMeaningRepository kanjiMeaningRepository;
-    private final KanjiJlptJsonImporter kanjiJlptJsonImporter;
     private final ModelMapper modelMapper;
     private final I18nService i18nService;
 
@@ -48,7 +49,7 @@ public class Kanjidic2XmlImporter {
             XMLEventReader xmlEventReader = xmlInputFactory.createXMLEventReader(kanjidicInputstream);
 
             List<KanjiDicEntry> list = new ArrayList<>();
-            Map<String, Integer> kanjiInJlpt = kanjiJlptJsonImporter.importKanjiByJlptLevel(kanjijlptInputstream);
+            Map<String, Integer> kanjiInJlpt = importKanjiByJlptLevel(kanjijlptInputstream);
             KanjiDicEntry kanjiDicEntry = null;
 
             while (xmlEventReader.hasNext()) {
@@ -231,5 +232,31 @@ public class Kanjidic2XmlImporter {
             }
             list.add(kanjiDicEntry);
         }
+    }
+
+    private Map<String, Integer> importKanjiByJlptLevel(InputStream inputStream) {
+        ObjectMapper objectMapper = new ObjectMapper();
+        JsonNode root = objectMapper.readTree(inputStream);
+
+        if (!root.isObject()) {
+            throw new FileNotValidException(
+                    i18nService.translation(FileMessage.FILE_ERROR_FORMAT),
+                    i18nService.translation(FileMessage.FILE_ERROR_FORMAT)
+            );
+        }
+        Map<String, Integer> map = new HashMap<>();
+        Set<Map.Entry<String, JsonNode>> fields = root.properties();
+
+        for (Map.Entry<String, JsonNode> field : fields) {
+            String jlptLevel = field.getKey();
+            String[] kanjiCharacters = field.getValue().asString().split(",");
+            for (String kanjiCharacter : kanjiCharacters) {
+                if (!kanjiCharacter.isBlank()) {
+                    map.put(kanjiCharacter.trim(), parseHelper.parseStringToInteger(jlptLevel));
+                }
+            }
+        }
+
+        return map;
     }
 }

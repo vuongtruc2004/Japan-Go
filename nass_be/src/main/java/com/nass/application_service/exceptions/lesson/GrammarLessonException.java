@@ -1,4 +1,4 @@
-package com.nass.application_service.exceptions;
+package com.nass.application_service.exceptions.lesson;
 
 import com.nass.application_service.exceptions.base.BaseException;
 

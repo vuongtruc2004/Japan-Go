@@ -5,7 +5,7 @@ import com.nass.application_service.helpers.kanji.KanjiServiceHelper;
 import com.nass.application_service.helpers.kanji.SinoVietnameseServiceHelper;
 import com.nass.application_service.services.i18n.I18nService;
 import com.nass.contract.constants.messages.common.FileMessage;
-import com.nass.infrastructure.repositories.KanjiRepository;
+import com.nass.infrastructure.repositories.kanji.KanjiRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;

@@ -18,9 +18,6 @@ import java.util.List;
 @Table(name = "kanji_lesson")
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class KanjiLessonEntity extends BaseEntity<Integer> {
-    @Column(name = "kanji_lesson_title", nullable = false)
-    String kanjiLessonTitle;
-
     @Builder.Default
     @ManyToMany
     @JoinTable(name = "kanji_lesson_kanji_page",

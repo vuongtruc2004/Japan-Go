@@ -1,15 +1,15 @@
 package com.nass.application_service.dtos.responses.lesson;
 
-import com.nass.application_service.dtos.responses.base.BaseResponse;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
-@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class GrammarLessonResponse extends BaseResponse<Integer> {
-    String grammarLessonTitle;
+public class LessonDetailsResponse extends LessonResponse {
+    GrammarLessonResponse grammarLesson;
+
+    KanjiLessonResponse kanjiLesson;
 }

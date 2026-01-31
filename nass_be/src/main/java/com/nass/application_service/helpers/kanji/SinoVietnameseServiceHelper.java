@@ -6,7 +6,7 @@ import com.nass.application_service.importers.kanji.MainSinoVietnameseXlsxImport
 import com.nass.application_service.importers.kanji.SinoVietnameseJsonImporter;
 import com.nass.infrastructure.entities.kanji.KanjiEntity;
 import com.nass.infrastructure.entities.kanji.SinoVietnameseEntity;
-import com.nass.infrastructure.repositories.KanjiRepository;
+import com.nass.infrastructure.repositories.kanji.KanjiRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -22,7 +22,7 @@ public class SinoVietnameseServiceHelper {
     private final KanjiRepository kanjiRepository;
     private final SinoVietnameseJsonImporter sinoVietnameseJsonImporter;
     private final MainSinoVietnameseXlsxImport mainSinoVietnameseXlsxImport;
-    
+
     public List<KanjiEntity> importSinoVietnamese(List<InputStream> sinoVietnameseInputstreamList) {
         Map<String, List<SinoVietnameseEntry>> sinoVietnameseEntryMap = new HashMap<>();
         for (InputStream sinoVietnameseInputstream : sinoVietnameseInputstreamList) {

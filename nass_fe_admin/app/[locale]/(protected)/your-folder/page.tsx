@@ -1,5 +1,5 @@
+import FolderList from "@/layouts/pages/my-folder/components/folder.list";
 import FolderPageHeader from "@/layouts/pages/my-folder/components/folder.page.header";
-import FolderTable from "@/layouts/pages/my-folder/components/folder.table";
 import { sendRequest } from "@/utils/fetch.api";
 import { getTranslations } from "next-intl/server";
 
@@ -26,7 +26,7 @@ const MyFolderPage = async () => {
         <div>
             <div className="bg-bgc-app border-bdc-primary rounded-md border p-5">
                 <FolderPageHeader />
-                <FolderTable folders={response.data} />
+                <FolderList folders={response.data} />
             </div>
         </div>
     );

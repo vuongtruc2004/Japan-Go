@@ -24,7 +24,7 @@ public class KanjiPageEntity extends BaseEntity<Integer> {
     KanjiEntity mainKanji;
 
     @Builder.Default
-    @ManyToMany
+    @ManyToMany(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     @JoinTable(name = "kanji_page_vocabulary",
             joinColumns = @JoinColumn(name = "kanji_page_id"),
             inverseJoinColumns = @JoinColumn(name = "vocabulary_id"))

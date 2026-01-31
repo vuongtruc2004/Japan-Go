@@ -1,8 +1,8 @@
 package com.nass.application_service.importers.lesson;
 
 import com.nass.application_service.exceptions.FileNotValidException;
-import com.nass.application_service.exceptions.GrammarLessonException;
 import com.nass.application_service.exceptions.NotFoundException;
+import com.nass.application_service.exceptions.lesson.GrammarLessonException;
 import com.nass.application_service.services.i18n.I18nService;
 import com.nass.contract.constants.messages.common.FileMessage;
 import com.nass.contract.constants.messages.lesson.GrammarLessonMessage;

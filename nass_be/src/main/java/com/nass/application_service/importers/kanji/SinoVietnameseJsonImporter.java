@@ -8,7 +8,7 @@ import com.nass.contract.constants.messages.common.FileMessage;
 import com.nass.infrastructure.entities.kanji.KanjiEntity;
 import com.nass.infrastructure.entities.kanji.SinoVietnameseEntity;
 import com.nass.infrastructure.entities.kanji.SinoVietnameseMeaningEntity;
-import com.nass.infrastructure.repositories.KanjiRepository;
+import com.nass.infrastructure.repositories.kanji.KanjiRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;

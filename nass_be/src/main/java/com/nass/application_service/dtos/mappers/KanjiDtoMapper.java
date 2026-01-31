@@ -1,8 +1,9 @@
 package com.nass.application_service.dtos.mappers;
 
+import com.nass.application_service.dtos.responses.kanji.KanjiPageResponse;
 import com.nass.application_service.dtos.responses.kanji.KanjiResponse;
 import com.nass.infrastructure.entities.kanji.KanjiEntity;
-import com.nass.infrastructure.entities.kanji.KanjiMeaningEntity;
+import com.nass.infrastructure.entities.kanji.KanjiPageEntity;
 import com.nass.infrastructure.entities.kanji.KunyomiEntity;
 import com.nass.infrastructure.entities.kanji.OnyomiEntity;
 import lombok.RequiredArgsConstructor;
@@ -18,9 +19,15 @@ public class KanjiDtoMapper {
 
     public KanjiResponse kanjiEntityToKanjiResponse(KanjiEntity kanjiEntity) {
         KanjiResponse kanjiResponse = modelMapper.map(kanjiEntity, KanjiResponse.class);
+        kanjiResponse.setMainSinoVietnamese(kanjiEntity.getMainSinoVietnamese().getReadingText());
         kanjiResponse.setOnyomiList(kanjiEntity.getOnyomiList().stream().map(OnyomiEntity::getReadingText).toList());
         kanjiResponse.setKunyomiList(kanjiEntity.getKunyomiList().stream().map(KunyomiEntity::getReadingText).toList());
-        kanjiResponse.setKanjiMeaningList(kanjiEntity.getKanjiMeaningList().stream().map(KanjiMeaningEntity::getReadingText).toList());
         return kanjiResponse;
+    }
+
+    public KanjiPageResponse kanjiPageEntityToKanjiPageResponse(KanjiPageEntity kanjiPageEntity) {
+        KanjiPageResponse kanjiPageResponse = modelMapper.map(kanjiPageEntity, KanjiPageResponse.class);
+        kanjiPageResponse.setMainKanji(kanjiEntityToKanjiResponse(kanjiPageEntity.getMainKanji()));
+        return kanjiPageResponse;
     }
 }

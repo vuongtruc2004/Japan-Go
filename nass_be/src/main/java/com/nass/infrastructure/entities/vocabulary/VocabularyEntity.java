@@ -2,7 +2,10 @@ package com.nass.infrastructure.entities.vocabulary;
 
 import com.nass.infrastructure.entities.base.BaseEntity;
 import com.nass.infrastructure.entities.kanji.KanjiPageEntity;
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.Table;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
@@ -18,22 +21,17 @@ import java.util.List;
 @Table(name = "vocabulary")
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class VocabularyEntity extends BaseEntity<Long> {
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false)
     String japanese;
 
-    @Column(name = "sino_vietnamese")
-    String sinoVietnamese;
+    @Column(nullable = false)
+    String reading;
 
-    @Builder.Default
-    @ManyToMany
-    @JoinTable(name = "vocabulary_vocabulary_type",
-            joinColumns = @JoinColumn(name = "vocabulary_id"),
-            inverseJoinColumns = @JoinColumn(name = "vocabulary_type_id"))
-    List<VocabularyTypeEntity> vocabularyTypes = new ArrayList<>();
+    String vietnamese;
 
-    @Builder.Default
-    @OneToMany(mappedBy = "vocabulary")
-    List<VocabularyReadingEntity> vocabularyReadings = new ArrayList<>();
+    String english;
+
+    String note;
 
     @Builder.Default
     @ManyToMany(mappedBy = "vocabularies")

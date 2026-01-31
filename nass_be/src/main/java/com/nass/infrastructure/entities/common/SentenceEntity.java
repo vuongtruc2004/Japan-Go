@@ -5,7 +5,6 @@ import com.nass.infrastructure.entities.grammar.GrammarExampleEntity;
 import com.nass.infrastructure.entities.grammar.GrammarMeaningEntity;
 import com.nass.infrastructure.entities.grammar.GrammarNoteEntity;
 import com.nass.infrastructure.entities.grammar.GrammarStructureEntity;
-import com.nass.infrastructure.entities.vocabulary.VocabularyMeaningEntity;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
@@ -49,8 +48,4 @@ public class SentenceEntity extends BaseEntity<Long> {
     @ManyToOne
     @JoinColumn(name = "grammar_note_id")
     GrammarNoteEntity grammarNote;
-
-    @ManyToOne
-    @JoinColumn(name = "vocabulary_meaning_id")
-    VocabularyMeaningEntity vocabularyMeaning;
 }

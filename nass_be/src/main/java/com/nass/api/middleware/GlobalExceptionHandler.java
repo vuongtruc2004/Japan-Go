@@ -3,6 +3,8 @@ package com.nass.api.middleware;
 import com.nass.application_service.dtos.responses.base.ApiResponse;
 import com.nass.application_service.exceptions.*;
 import com.nass.application_service.exceptions.base.BaseException;
+import com.nass.application_service.exceptions.lesson.GrammarLessonException;
+import com.nass.application_service.exceptions.lesson.KanjiLessonException;
 import com.nass.application_service.services.i18n.I18nService;
 import com.nass.contract.constants.messages.common.DefaultMessage;
 import lombok.RequiredArgsConstructor;
@@ -23,6 +25,7 @@ public class GlobalExceptionHandler {
             FolderException.class,
             KanjiException.class,
             GrammarLessonException.class,
+            KanjiLessonException.class,
     })
     public ResponseEntity<ApiResponse<Void>> handleBadRequestBaseException(BaseException exception) {
         ApiResponse<Void> apiResponse = new ApiResponse<>(
