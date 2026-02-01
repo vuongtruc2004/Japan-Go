@@ -25,7 +25,7 @@ html[data-locale="ja"] {
     /* hover bg color of sidebar element */
     --color-hbgc-app: #f1f3f4;
     /* hover bg color of kanji tabs */
-    --color-hbgc-highlight: #e5e5e5;
+    --color-hbgc-highlight: #f2f3f5;
 
     /* h1 color */
     --color-tc-primary: #303030;

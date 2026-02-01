@@ -1,7 +1,7 @@
 import AppHeader from "@/layouts/header/components/app.header";
 import AppSidebar from "@/layouts/sidebar/components/app.sidebar";
-import { ActiveKanjiTabWrapper } from "@/libs/wrapper/context/active-kanji-tab/active.kanji.tab.wrapper";
-import { SidebarCollapseWrapper } from "@/libs/wrapper/context/sidebar-collapse/sidebar.collapse.wrapper";
+import { ActiveKanjiTabWrapper } from "@/libs/wrapper/context/active.kanji.tab.wrapper";
+import { SidebarCollapseWrapper } from "@/libs/wrapper/context/sidebar.collapse.wrapper";
 import { ReactNode } from "react";
 
 const PublicLayout = ({ children }: Readonly<{ children: ReactNode }>) => {

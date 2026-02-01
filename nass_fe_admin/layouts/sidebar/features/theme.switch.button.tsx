@@ -1,6 +1,6 @@
 "use client";
 import { TooltipCustom } from "@/components/mui-custom/tooltip.custom";
-import { useSidebarCollapse } from "@/libs/wrapper/context/sidebar-collapse/sidebar.collapse.wrapper";
+import { useSidebarCollapse } from "@/libs/wrapper/context/sidebar.collapse.wrapper";
 import DarkModeOutlinedIcon from "@mui/icons-material/DarkModeOutlined";
 import LightModeOutlinedIcon from "@mui/icons-material/LightModeOutlined";
 import { useColorScheme } from "@mui/material";

@@ -1,0 +1,14 @@
+package com.nass.common.util;
+
+import org.springframework.stereotype.Service;
+
+@Service
+public class ParseUtil {
+    public Integer parseStringToInteger(String string) {
+        try {
+            return Integer.parseInt(string.trim());
+        } catch (Exception e) {
+            throw new NumberFormatException(e.getMessage());
+        }
+    }
+}

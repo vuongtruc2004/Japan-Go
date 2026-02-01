@@ -10,6 +10,12 @@ CREATE TABLE folder
     CONSTRAINT pk_folder PRIMARY KEY (id)
 );
 
+CREATE TABLE folder_lesson
+(
+    folder_id BIGINT NOT NULL,
+    lesson_id INT    NOT NULL
+);
+
 CREATE TABLE grammar
 (
     id                   INT          NOT NULL AUTO_INCREMENT,
@@ -195,7 +201,6 @@ CREATE TABLE lesson
     lesson_type       VARCHAR(255) NULL,
     grammar_lesson_id INT          NULL,
     kanji_lesson_id   INT          NULL,
-    folder_id         BIGINT       NULL,
     CONSTRAINT pk_lesson PRIMARY KEY (id)
 );
 
@@ -388,9 +393,6 @@ ALTER TABLE kanji_page
     ADD CONSTRAINT FK_KANJI_PAGE_ON_MAIN_KANJI FOREIGN KEY (main_kanji_id) REFERENCES kanji (id);
 
 ALTER TABLE lesson
-    ADD CONSTRAINT FK_LESSON_ON_FOLDER FOREIGN KEY (folder_id) REFERENCES folder (id);
-
-ALTER TABLE lesson
     ADD CONSTRAINT FK_LESSON_ON_GRAMMAR_LESSON FOREIGN KEY (grammar_lesson_id) REFERENCES grammar_lesson (id);
 
 ALTER TABLE lesson
@@ -422,6 +424,12 @@ ALTER TABLE user
 
 ALTER TABLE user
     ADD CONSTRAINT FK_USER_ON_ROLE FOREIGN KEY (role_id) REFERENCES `role` (id);
+
+ALTER TABLE folder_lesson
+    ADD CONSTRAINT fk_folles_on_folder_entity FOREIGN KEY (folder_id) REFERENCES folder (id);
+
+ALTER TABLE folder_lesson
+    ADD CONSTRAINT fk_folles_on_lesson_entity FOREIGN KEY (lesson_id) REFERENCES lesson (id);
 
 ALTER TABLE grammar_lesson_grammar
     ADD CONSTRAINT fk_gralesgra_on_grammar_entity FOREIGN KEY (grammar_id) REFERENCES grammar (id);

@@ -21,5 +21,5 @@ interface KanjiLessonResponse extends BaseResponse<number> {
 }
 
 interface KanjiLessonDetailsResponse extends KanjiLessonResponse {
-    kanjiPages
+    kanjiPages: KanjiPageResponse[];
 }

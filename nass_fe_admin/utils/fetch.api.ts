@@ -14,7 +14,7 @@ interface IProps {
     responseType?: ResponseType;
 }
 
-export const sendRequest = async <T = any>(props: IProps): Promise<T> => {
+export const sendRequest = async <T>(props: IProps): Promise<T> => {
     let url = "http://localhost:2509/api/v1" + props.url;
     const {
         method = "GET",
@@ -51,7 +51,7 @@ export const sendRequest = async <T = any>(props: IProps): Promise<T> => {
         throw new Error(`HTTP ${res.status}: ${msg}`);
     }
 
-    if (responseType === "blob") return (await res.blob()) as any;
-    if (responseType === "text") return (await res.text()) as any;
-    return (await res.json()) as any;
+    if (responseType === "blob") return (await res.blob()) as T;
+    if (responseType === "text") return (await res.text()) as T;
+    return (await res.json()) as T;
 };

@@ -9,6 +9,14 @@ interface BaseResponse<TKey> {
 interface ApiResponse<T> {
     statusCode: number;
     devMessage: string;
-    userMessage: string;
+    clientMessage: string;
     data: T;
+}
+
+interface PageDetailsResponse<T> {
+    currentPage: number;
+    pageSize: number;
+    totalPages: number;
+    totalElements: number;
+    content: T;
 }

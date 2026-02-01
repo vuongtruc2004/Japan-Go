@@ -20,7 +20,7 @@ const FolderMoreButton = ({ folder }: { folder: FolderResponse }) => {
 
     return (
         <div>
-            <TooltipCustom title="Khác">
+            <TooltipCustom title="Khác" arrow>
                 <Button
                     variant="text"
                     color="primary"

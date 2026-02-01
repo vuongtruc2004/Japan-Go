@@ -1,6 +1,6 @@
 import FolderList from "@/layouts/pages/my-folder/components/folder.list";
 import FolderPageHeader from "@/layouts/pages/my-folder/components/folder.page.header";
-import { sendRequest } from "@/utils/fetch.api";
+import { getAllFolders } from "@/libs/api/folder/folder";
 import { getTranslations } from "next-intl/server";
 
 export async function generateMetadata({
@@ -19,14 +19,13 @@ export async function generateMetadata({
 }
 
 const MyFolderPage = async () => {
-    const response = await sendRequest<ApiResponse<FolderResponse[]>>({
-        url: "/folder/all",
-    });
+    const folders = await getAllFolders();
+
     return (
         <div>
             <div className="bg-bgc-app border-bdc-primary rounded-md border p-5">
                 <FolderPageHeader />
-                <FolderList folders={response.data} />
+                <FolderList folders={folders} />
             </div>
         </div>
     );

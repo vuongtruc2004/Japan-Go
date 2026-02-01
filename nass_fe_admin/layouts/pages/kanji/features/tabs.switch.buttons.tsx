@@ -1,4 +1,4 @@
-import { useActiveKanjiTab } from "@/libs/wrapper/context/active-kanji-tab/active.kanji.tab.wrapper";
+import { useActiveKanjiTab } from "@/libs/wrapper/context/active.kanji.tab.wrapper";
 import { useTranslations } from "next-intl";
 import { GROUP_KANJI_TAB } from "../models/kanji.tabs";
 import { IKanjiTab } from "../models/kanji.type";

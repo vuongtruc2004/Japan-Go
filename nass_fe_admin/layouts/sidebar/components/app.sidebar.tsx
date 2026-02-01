@@ -1,5 +1,5 @@
 "use client";
-import { useSidebarCollapse } from "@/libs/wrapper/context/sidebar-collapse/sidebar.collapse.wrapper";
+import { useSidebarCollapse } from "@/libs/wrapper/context/sidebar.collapse.wrapper";
 import { Box } from "@mui/material";
 import LogoButton from "../features/logo.button";
 import { SIDEBAR_GROUPS } from "../models/sidebar.groups";

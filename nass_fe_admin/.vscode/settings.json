@@ -4,7 +4,10 @@
         "bprogress",
         "Dehaze",
         "hbgc",
+        "jlpt",
+        "kunyomi",
         "noto",
+        "onyomi",
         "Sino"
     ]
 }
