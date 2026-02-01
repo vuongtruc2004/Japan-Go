@@ -6,6 +6,7 @@ interface KanjiResponse extends BaseResponse<number> {
     frequency: number;
     jlptLevel: number;
     mainSinoVietnamese: string;
+    svg: string;
     onyomiList: string[];
     kunyomiList: string[];
 }

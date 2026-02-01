@@ -1,9 +1,11 @@
 "use client";
+import { usePathname } from "@/i18n/navigation";
 import {
     createContext,
     Dispatch,
     SetStateAction,
     useContext,
+    useEffect,
     useState,
 } from "react";
 
@@ -18,12 +20,20 @@ const SidebarCollapseContext = createContext<
 
 export const SidebarCollapseWrapper = ({
     children,
-    initialState,
 }: {
     children: React.ReactNode;
-    initialState: boolean;
 }) => {
+    const pathname = usePathname();
+    const defaultCollapseLinks = ["/lesson"];
+    const initialState = defaultCollapseLinks.some((link) =>
+        pathname.startsWith(link),
+    );
+
     const [isCollapse, setIsCollapse] = useState<boolean>(initialState);
+
+    useEffect(() => {
+        setIsCollapse(initialState);
+    }, [initialState]);
 
     return (
         <SidebarCollapseContext.Provider value={{ isCollapse, setIsCollapse }}>

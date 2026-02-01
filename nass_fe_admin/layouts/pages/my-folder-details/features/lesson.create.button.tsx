@@ -1,27 +1,22 @@
 "use client";
-import { useRouter } from "@/i18n/navigation";
+import { TooltipCustom } from "@/components/mui-custom/tooltip.custom";
+import { useFolderDetails } from "@/libs/wrapper/context/folder.details.wrapper";
 import AddIcon from "@mui/icons-material/Add";
 import CloseIcon from "@mui/icons-material/Close";
 import { Button, Modal } from "@mui/material";
-import { useState } from "react";
 import LessonSelectTabs from "./lesson.select.tabs";
 
 const LessonCreateButton = () => {
-    const [open, setOpen] = useState(false);
-    const { refresh } = useRouter();
-    // const [state, formAction, pending] = useActionState(
-    //     folderCreate,
-    //     initialState,
-    // );
+    const { openCreateModal, setOpenCreateModal } = useFolderDetails();
 
     const handleClose = () => {
-        setOpen(false);
+        setOpenCreateModal(false);
     };
 
     return (
         <>
             <Button
-                onClick={() => setOpen(true)}
+                onClick={() => setOpenCreateModal(true)}
                 variant="outlined"
                 color="success"
                 sx={{ width: "max-content" }}
@@ -30,31 +25,43 @@ const LessonCreateButton = () => {
                 <p>Thêm bài giảng</p>
             </Button>
 
-            <Modal open={open}>
+            <Modal open={openCreateModal}>
                 <div className="bg-bgc-page absolute top-1/2 left-1/2 w-[600px] -translate-x-1/2 -translate-y-1/2 rounded-md p-5">
                     <h1 className="text-tc-primary mb-3 font-semibold">
                         Thêm bài giảng
                     </h1>
 
                     <LessonSelectTabs />
+
                     <div className="mt-3 flex items-center justify-end gap-x-3">
                         <Button
                             onClick={handleClose}
-                            sx={{ columnGap: "8px" }}
-                            variant="outlined"
-                            color="error"
-                        >
-                            <CloseIcon fontSize="small" />
-                            Hủy
-                        </Button>
-                        <Button
                             type="submit"
                             variant="contained"
                             color="primary"
                         >
-                            Thêm
+                            Hoàn tất
                         </Button>
                     </div>
+
+                    <TooltipCustom title="Đóng cửa sổ" arrow>
+                        <Button
+                            onClick={handleClose}
+                            sx={{
+                                columnGap: "8px",
+                                position: "absolute",
+                                top: "12px",
+                                right: "20px",
+                                width: "36px",
+                                minWidth: "36px",
+                                borderRadius: "50%",
+                            }}
+                            variant="text"
+                            color="secondary"
+                        >
+                            <CloseIcon fontSize="small" />
+                        </Button>
+                    </TooltipCustom>
                 </div>
             </Modal>
         </>

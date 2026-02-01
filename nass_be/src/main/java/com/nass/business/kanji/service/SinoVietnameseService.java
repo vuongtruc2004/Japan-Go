@@ -3,7 +3,7 @@ package com.nass.business.kanji.service;
 import com.nass.business.kanji.dto.request.GetSinoVietnameseRequest;
 import com.nass.business.kanji.dto.response.KanjiResponse;
 import com.nass.business.kanji.entity.KanjiEntity;
-import com.nass.business.kanji.helper.SinoVietnameseServiceHelper;
+import com.nass.business.kanji.helper.SinoVietnameseHelper;
 import com.nass.business.kanji.mapper.KanjiDtoMapper;
 import com.nass.common.constant.FileMessage;
 import com.nass.common.exception.FileNotValidException;
@@ -24,7 +24,7 @@ public class SinoVietnameseService {
     private final KanjiDtoMapper kanjiDTOMapper;
     private final FileValidator fileValidator;
     private final I18nService i18nService;
-    private final SinoVietnameseServiceHelper sinoVietnameseServiceHelper;
+    private final SinoVietnameseHelper sinoVietnameseHelper;
 
     /**
      * @param getSinoVietnameseRequest this object contains
@@ -35,8 +35,8 @@ public class SinoVietnameseService {
      */
     public String getSinoVietnameseOfKanjiList(GetSinoVietnameseRequest getSinoVietnameseRequest) {
         List<String> mainSinoVietnameseList = new ArrayList<>();
-        for (String kanji : sinoVietnameseServiceHelper.getKanjiArray(getSinoVietnameseRequest)) {
-            String mainSinoVietnamese = sinoVietnameseServiceHelper.getSinoVietnameseOfKanji(kanji);
+        for (String kanji : sinoVietnameseHelper.getKanjiArray(getSinoVietnameseRequest)) {
+            String mainSinoVietnamese = sinoVietnameseHelper.getSinoVietnameseOfKanji(kanji);
             mainSinoVietnameseList.add(mainSinoVietnamese);
         }
         return String.join("\n", mainSinoVietnameseList);
@@ -57,7 +57,7 @@ public class SinoVietnameseService {
             );
         }
         try (InputStream mainSinoVietnameseInputstream = mainSinoVietnameseFile.getInputStream()) {
-            List<KanjiEntity> kanjiEntities = sinoVietnameseServiceHelper.importMainSinoVietnamese(mainSinoVietnameseInputstream);
+            List<KanjiEntity> kanjiEntities = sinoVietnameseHelper.importMainSinoVietnamese(mainSinoVietnameseInputstream);
             return kanjiEntities.stream().map(kanjiDTOMapper::kanjiEntityToKanjiResponse).toList();
         } catch (Exception e) {
             throw new FileNotValidException(
@@ -90,7 +90,7 @@ public class SinoVietnameseService {
                 );
             }
         }
-        List<KanjiEntity> kanjiEntities = sinoVietnameseServiceHelper.importSinoVietnamese(sinoVietnameseInputStreamList);
+        List<KanjiEntity> kanjiEntities = sinoVietnameseHelper.importSinoVietnamese(sinoVietnameseInputStreamList);
         return kanjiEntities.stream().map(kanjiDTOMapper::kanjiEntityToKanjiResponse).toList();
     }
 }

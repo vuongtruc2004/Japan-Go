@@ -1,5 +1,6 @@
 package com.nass.business.lesson.service;
 
+import com.nass.business.folder.entity.FolderEntity;
 import com.nass.business.lesson.dto.response.LessonDetailsResponse;
 import com.nass.business.lesson.dto.response.LessonResponse;
 import com.nass.business.lesson.entity.LessonEntity;
@@ -13,6 +14,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -30,6 +32,10 @@ public class LessonService {
 
     public Integer deleteLesson(Integer id) {
         LessonEntity lesson = lessonHelper.getLessonById(id);
+        for (FolderEntity folder : new ArrayList<>(lesson.getFolders())) {
+            folder.getLessons().remove(lesson);
+            lesson.getFolders().remove(folder);
+        }
         lessonRepository.delete(lesson);
         return id;
     }

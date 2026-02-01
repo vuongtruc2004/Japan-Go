@@ -1,7 +1,15 @@
 "use client";
-import { createContext, useContext } from "react";
+import {
+    createContext,
+    Dispatch,
+    SetStateAction,
+    useContext,
+    useState,
+} from "react";
 
 interface IFolderDetailsWrapperProps {
+    openCreateModal: boolean;
+    setOpenCreateModal: Dispatch<SetStateAction<boolean>>;
     folder: FolderDetailsResponse;
 }
 
@@ -16,8 +24,12 @@ export const FolderDetailsWrapper = ({
     children: React.ReactNode;
     folder: FolderDetailsResponse;
 }) => {
+    const [openCreateModal, setOpenCreateModal] = useState(false);
+
     return (
-        <FolderDetailsContext.Provider value={{ folder }}>
+        <FolderDetailsContext.Provider
+            value={{ folder, openCreateModal, setOpenCreateModal }}
+        >
             {children}
         </FolderDetailsContext.Provider>
     );

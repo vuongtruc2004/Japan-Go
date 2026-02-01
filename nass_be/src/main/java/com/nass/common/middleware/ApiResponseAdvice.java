@@ -1,9 +1,9 @@
 package com.nass.common.middleware;
 
-import com.nass.common.i18n.I18nService;
 import com.nass.common.annotation.ApiResponseFormat;
 import com.nass.common.constant.DefaultMessage;
 import com.nass.common.dto.ApiResponse;
+import com.nass.common.i18n.I18nService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.MethodParameter;
 import org.springframework.core.io.Resource;
@@ -48,8 +48,7 @@ public class ApiResponseAdvice implements ResponseBodyAdvice<Object> {
 
     @Override
     public Object beforeBodyWrite(Object body, MethodParameter returnType, MediaType selectedContentType, Class<? extends HttpMessageConverter<?>> selectedConverterType, ServerHttpRequest request, ServerHttpResponse response) {
-        if (body == null
-                || body instanceof byte[]
+        if (body instanceof byte[]
                 || body instanceof Resource
                 || body instanceof ApiResponse<?>) {
             return body;

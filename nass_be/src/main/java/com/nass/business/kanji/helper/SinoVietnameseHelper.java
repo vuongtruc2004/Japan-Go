@@ -17,7 +17,7 @@ import java.util.Map;
 
 @Component
 @RequiredArgsConstructor
-public class SinoVietnameseServiceHelper {
+public class SinoVietnameseHelper {
 
     private final KanjiRepository kanjiRepository;
     private final SinoVietnameseJsonImporter sinoVietnameseJsonImporter;

@@ -1,0 +1,60 @@
+"use client";
+import { TooltipCustom } from "@/components/mui-custom/tooltip.custom";
+import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
+import { Button, Popover } from "@mui/material";
+import { useState } from "react";
+import LessonDeleteButton from "./lesson.delete.button";
+
+const LessonMoreButton = ({ lesson }: { lesson: LessonResponse }) => {
+    const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
+
+    const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+        event.stopPropagation();
+        event.preventDefault();
+        setAnchorEl(event.currentTarget);
+    };
+
+    const handleClose = () => {
+        setAnchorEl(null);
+    };
+
+    return (
+        <div>
+            <TooltipCustom title="Khác" arrow>
+                <Button
+                    variant="text"
+                    color="primary"
+                    onClick={handleClick}
+                    sx={{
+                        width: "36px",
+                        minWidth: "36px",
+                        height: "36px",
+                        borderRadius: "50%",
+                    }}
+                >
+                    <MoreHorizIcon />
+                </Button>
+            </TooltipCustom>
+
+            <Popover
+                open={Boolean(anchorEl)}
+                anchorEl={anchorEl}
+                onClose={handleClose}
+                anchorOrigin={{
+                    vertical: "bottom",
+                    horizontal: "right",
+                }}
+                transformOrigin={{
+                    vertical: "top",
+                    horizontal: "right",
+                }}
+            >
+                <div>
+                    <LessonDeleteButton lesson={lesson} />
+                </div>
+            </Popover>
+        </div>
+    );
+};
+
+export default LessonMoreButton;

@@ -2,8 +2,8 @@
 import Empty from "@/components/common/empty";
 import { getAllLessons } from "@/libs/api/lesson/lesson";
 import { useEffect, useState } from "react";
-import SingleLesson from "../components/single.lesson";
 import { LESSON_LIST_SELECT_TABS } from "../models/lesson.list.select.tabs";
+import AddLessonToFolderButton from "./add.lesson.to.folder.button";
 
 const LessonSelectTabs = () => {
     const [activeTab, setActiveTab] = useState<ILessonSelectTab>(
@@ -28,13 +28,13 @@ const LessonSelectTabs = () => {
     }, [activeTab]);
 
     return (
-        <div>
+        <>
             <div className="flex items-center gap-x-3">
                 {LESSON_LIST_SELECT_TABS.map((tab) => {
                     const activeClass =
                         activeTab === tab
                             ? "text-green-700 dark:text-green-500 bg-green-500/10 border-green-500/20"
-                            : "hover:bg-hbgc-highlight transition-all duration-150 border-bdc-primary hover:border-bdc-primary";
+                            : "hover:bg-hbgc-app transition-all duration-150 border-bdc-primary hover:border-bdc-primary";
                     return (
                         <div
                             key={tab.id}
@@ -46,16 +46,29 @@ const LessonSelectTabs = () => {
                     );
                 })}
             </div>
-            <div>
+
+            <div className="mb-3">
                 {lessons && lessons.length > 0 ? (
                     lessons.map((lesson) => {
-                        return <SingleLesson key={lesson.id} lesson={lesson} />;
+                        return (
+                            <div
+                                key={lesson.id}
+                                className="flex items-center justify-between px-4 py-2"
+                            >
+                                <div>
+                                    <div>
+                                        <p>{lesson.lessonName}</p>
+                                    </div>
+                                </div>
+                                <AddLessonToFolderButton lesson={lesson} />
+                            </div>
+                        );
                     })
                 ) : (
                     <Empty text="Không có bài giảng nào để hiển thị" />
                 )}
             </div>
-        </div>
+        </>
     );
 };
 

@@ -1,6 +1,5 @@
 package com.nass.business.kanji.importer;
 
-import com.nass.common.i18n.I18nService;
 import com.nass.business.kanji.constant.messages.KanjiMessage;
 import com.nass.business.kanji.entity.KanjiEntity;
 import com.nass.business.kanji.entity.KanjiPageEntity;
@@ -10,6 +9,7 @@ import com.nass.business.vocabulary.entity.VocabularyEntity;
 import com.nass.common.constant.FileMessage;
 import com.nass.common.exception.FileNotValidException;
 import com.nass.common.exception.NotFoundException;
+import com.nass.common.i18n.I18nService;
 import lombok.RequiredArgsConstructor;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
@@ -36,7 +36,7 @@ public class KanjiPageXlsxImporter {
             int lastRowNum = sheet.getLastRowNum();
 
             Map<String, KanjiPageEntity> map = new LinkedHashMap<>();
-            for (int rowNum = 1; rowNum <= lastRowNum; rowNum++) {
+            for (int rowNum = 0; rowNum <= lastRowNum; rowNum++) {
                 Row row = sheet.getRow(rowNum);
                 String mainKanjiCharacter = row.getCell(0).getStringCellValue().trim();
                 String japanese = row.getCell(1).getStringCellValue().trim();

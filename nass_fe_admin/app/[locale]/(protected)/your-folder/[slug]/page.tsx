@@ -25,7 +25,6 @@ const FolderDetailsPage = async ({
 }) => {
     const slug = (await params).slug;
     const id = slug.split("-").pop() || "";
-
     const folder = await getFolderById(id);
 
     return (

@@ -6,6 +6,7 @@ import com.nass.business.kanji.entity.KanjiEntity;
 import com.nass.business.kanji.entity.KanjiPageEntity;
 import com.nass.business.kanji.entity.KunyomiEntity;
 import com.nass.business.kanji.entity.OnyomiEntity;
+import com.nass.business.kanji.helper.KanjiHelper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
@@ -16,12 +17,14 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class KanjiDtoMapper {
     private final ModelMapper modelMapper;
+    private final KanjiHelper kanjiHelper;
 
     public KanjiResponse kanjiEntityToKanjiResponse(KanjiEntity kanjiEntity) {
         KanjiResponse kanjiResponse = modelMapper.map(kanjiEntity, KanjiResponse.class);
         kanjiResponse.setMainSinoVietnamese(kanjiEntity.getMainSinoVietnamese().getReadingText());
         kanjiResponse.setOnyomiList(kanjiEntity.getOnyomiList().stream().map(OnyomiEntity::getReadingText).toList());
         kanjiResponse.setKunyomiList(kanjiEntity.getKunyomiList().stream().map(KunyomiEntity::getReadingText).toList());
+        kanjiResponse.setSvg(kanjiHelper.getSvgOfKanjiCharacter(kanjiEntity.getKanjiCharacter()));
         return kanjiResponse;
     }
 

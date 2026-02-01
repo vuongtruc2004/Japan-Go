@@ -2,7 +2,7 @@ package com.nass.business.kanji.service;
 
 import com.nass.business.kanji.dto.response.KanjiResponse;
 import com.nass.business.kanji.entity.KanjiEntity;
-import com.nass.business.kanji.helper.KanjiServiceHelper;
+import com.nass.business.kanji.helper.KanjiHelper;
 import com.nass.business.kanji.mapper.KanjiDtoMapper;
 import com.nass.common.constant.FileMessage;
 import com.nass.common.exception.FileNotValidException;
@@ -22,7 +22,7 @@ public class KanjiService {
     private final FileValidator fileValidator;
     private final KanjiDtoMapper kanjiDTOMapper;
     private final I18nService i18nService;
-    private final KanjiServiceHelper kanjiServiceHelper;
+    private final KanjiHelper kanjiServiceHelper;
 
     public String getKanjiVgFromKanji(String kanji) {
         int codePoint = kanji.codePointAt(0);

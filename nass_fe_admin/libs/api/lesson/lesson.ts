@@ -16,13 +16,12 @@ export const getAllLessons = async (): Promise<PageDetailsResponse<LessonRespons
     return response.data;
 }
 
-export const addLessonToFolder = async (request: FolderLessonRequest): Promise<FolderResponse> => {
-    const response = await sendRequest<ApiResponse<FolderResponse>>({
-        url: "/folder/lesson",
-        method: "POST",
-        body: request
+export const getLessonById = async (id: string): Promise<LessonDetailsResponse> => {
+    const response = await sendRequest<ApiResponse<LessonDetailsResponse>>({
+        url: `/lesson/${id}`,
+        method: "GET"
     });
-    if (response.statusCode !== 201) {
+    if (response.statusCode !== 200) {
         throw new Error(response.clientMessage);
     }
     return response.data;

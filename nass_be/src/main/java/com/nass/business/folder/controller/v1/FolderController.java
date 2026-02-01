@@ -46,7 +46,15 @@ public class FolderController {
 
     @ApiResponseFormat(devMessage = FolderMessage.FOLDER_ADDED_LESSON, clientMessage = FolderMessage.FOLDER_ADDED_LESSON)
     @PostMapping("/lesson")
-    public ResponseEntity<FolderResponse> addLessonToFolder(@RequestBody FolderLessonRequest request) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(folderService.addLessonToFolder(request));
+    public ResponseEntity<Void> addLessonToFolder(@RequestBody FolderLessonRequest request) {
+        folderService.addLessonToFolder(request);
+        return ResponseEntity.status(HttpStatus.CREATED).build();
+    }
+
+    @ApiResponseFormat(devMessage = FolderMessage.FOLDER_REMOVED_LESSON, clientMessage = FolderMessage.FOLDER_REMOVED_LESSON)
+    @DeleteMapping("/lesson")
+    public ResponseEntity<Void> removeLessonFromFolder(@RequestBody FolderLessonRequest request) {
+        folderService.removeLessonFromFolder(request);
+        return ResponseEntity.ok().build();
     }
 }

@@ -20,3 +20,27 @@ export const getAllFolders = async (): Promise<FolderResponse[]> => {
     }
     return response.data;
 }
+
+export const addLessonToFolder = async (request: FolderLessonRequest): Promise<void> => {
+    const response = await sendRequest<ApiResponse<void>>({
+        url: "/folder/lesson",
+        method: "POST",
+        body: request
+    });
+    if (response.statusCode !== 201) {
+        throw new Error(response.clientMessage);
+    }
+    return response.data;
+}
+
+export const removeLessonFromFolder = async (request: FolderLessonRequest): Promise<void> => {
+    const response = await sendRequest<ApiResponse<void>>({
+        url: "/folder/lesson",
+        method: "DELETE",
+        body: request
+    });
+    if (response.statusCode !== 200) {
+        throw new Error(response.clientMessage);
+    }
+    return response.data;
+}

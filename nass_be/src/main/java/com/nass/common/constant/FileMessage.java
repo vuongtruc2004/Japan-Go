@@ -1,6 +1,7 @@
 package com.nass.common.constant;
 
 public final class FileMessage {
+    public static final String FILE_NOT_FOUND = "file.not.found";
     public static final String FILE_EMPTY = "file.empty";
     public static final String FILE_ERROR = "file.error";
     public static final String FILE_NOT_EXCEL = "file.not.excel";

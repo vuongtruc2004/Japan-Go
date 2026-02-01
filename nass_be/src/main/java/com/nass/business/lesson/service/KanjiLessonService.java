@@ -12,6 +12,7 @@ import com.nass.common.exception.FileNotValidException;
 import com.nass.common.i18n.I18nService;
 import com.nass.common.validator.FileValidator;
 import lombok.RequiredArgsConstructor;
+import org.apache.commons.io.FilenameUtils;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -37,6 +38,7 @@ public class KanjiLessonService {
                     i18nService.translation(FileMessage.FILE_NOT_EXCEL)
             );
         }
+        
         try (InputStream inputStream = file.getInputStream()) {
             List<KanjiPageEntity> kanjiPages = kanjiPageXlsxImporter.importKanjiPage(inputStream);
             KanjiLessonEntity kanjiLesson = KanjiLessonEntity.builder()
@@ -45,7 +47,7 @@ public class KanjiLessonService {
 
             LessonEntity lesson = LessonEntity.builder()
                     .lessonType(LessonTypeEnum.KANJI)
-                    .lessonName(file.getOriginalFilename())
+                    .lessonName(FilenameUtils.getBaseName(file.getOriginalFilename()))
                     .kanjiLesson(kanjiLesson)
                     .build();
             kanjiLesson.setLesson(lesson);

@@ -20,6 +20,7 @@ public class KanjiResponse extends BaseResponse<Integer> {
     Integer frequency;
     Integer jlptLevel;
     String mainSinoVietnamese;
+    String svg;
     List<String> onyomiList;
     List<String> kunyomiList;
 }

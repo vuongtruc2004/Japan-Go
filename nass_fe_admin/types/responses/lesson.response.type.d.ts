@@ -17,9 +17,5 @@ interface GrammarLessonDetailsResponse extends GrammarLessonResponse {
 }
 
 interface KanjiLessonResponse extends BaseResponse<number> {
-    kanjiLessonTitle: string;
-}
-
-interface KanjiLessonDetailsResponse extends KanjiLessonResponse {
     kanjiPages: KanjiPageResponse[];
 }

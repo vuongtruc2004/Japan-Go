@@ -7,7 +7,7 @@ export const routing = defineRouting({
     // Used when no locale matches
     defaultLocale: 'vi',
     // Hide all prefix in the url such as /en, /vi, /ja
-    localePrefix: 'never',
+    // localePrefix: 'never',
 
     pathnames: {
         '/home': {
@@ -24,6 +24,11 @@ export const routing = defineRouting({
             vi: '/thu-muc-cua-ban/[slug]',
             en: '/your-folder/[slug]',
             ja: '/あなたのフォルダ/[slug]'
+        },
+        "/lesson/kanji/[slug]": {
+            vi: "/bai-giang/chu-han/[slug]",
+            en: "/lesson/kanji/[slug]",
+            ja: "/レッスン/漢字/[slug]"
         },
         "/kanji": {
             vi: '/chu-han',

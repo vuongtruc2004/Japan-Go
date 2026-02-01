@@ -16,6 +16,7 @@ import com.nass.common.i18n.I18nService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -30,7 +31,25 @@ public class FolderService {
     private final LessonHelper lessonHelper;
     private final LessonRepository lessonRepository;
 
-    public FolderResponse addLessonToFolder(FolderLessonRequest request) {
+    @Transactional
+    public void removeLessonFromFolder(FolderLessonRequest request) {
+        Long folderId = request.folderId();
+        Integer lessonId = request.lessonId();
+        FolderEntity folder = folderHelper.getFolderById(folderId);
+        LessonEntity lesson = lessonHelper.getLessonById(lessonId);
+
+        if (!lessonRepository.existsByLessonIdAndFolderId(lessonId, folderId)) {
+            throw new FolderException(
+                    i18nService.translation(FolderMessage.FOLDER_CONTAINS_LESSON, folder.getFolderName()),
+                    i18nService.translation(FolderMessage.FOLDER_CONTAINS_LESSON, folder.getFolderName())
+            );
+        }
+        folder.getLessons().remove(lesson);
+        lesson.getFolders().remove(folder);
+    }
+
+    @Transactional
+    public void addLessonToFolder(FolderLessonRequest request) {
         Long folderId = request.folderId();
         Integer lessonId = request.lessonId();
         FolderEntity folder = folderHelper.getFolderById(folderId);
@@ -44,8 +63,6 @@ public class FolderService {
         }
 
         folder.getLessons().add(lesson);
-        FolderEntity savedFolder = folderRepository.save(folder);
-        return modelMapper.map(savedFolder, FolderResponse.class);
     }
 
     public FolderDetailsResponse getFolderById(Long id) {

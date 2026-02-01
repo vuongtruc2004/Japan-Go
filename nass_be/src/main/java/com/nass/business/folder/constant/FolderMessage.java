@@ -11,6 +11,7 @@ public final class FolderMessage {
     public static final String FOLDER_GET_BY_ID = "folder.get.by.id";
     public static final String FOLDER_CONTAINS_LESSON = "folder.contains.lesson";
     public static final String FOLDER_ADDED_LESSON = "folder.added.lesson";
+    public static final String FOLDER_REMOVED_LESSON = "folder.removed.lesson";
 
     private FolderMessage() {
     }

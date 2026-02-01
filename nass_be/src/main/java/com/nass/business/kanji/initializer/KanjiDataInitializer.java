@@ -1,11 +1,11 @@
 package com.nass.business.kanji.initializer;
 
-import com.nass.common.i18n.I18nService;
-import com.nass.business.kanji.helper.KanjiServiceHelper;
-import com.nass.business.kanji.helper.SinoVietnameseServiceHelper;
+import com.nass.business.kanji.helper.KanjiHelper;
+import com.nass.business.kanji.helper.SinoVietnameseHelper;
 import com.nass.business.kanji.repository.KanjiRepository;
 import com.nass.common.constant.FileMessage;
 import com.nass.common.exception.FileNotValidException;
+import com.nass.common.i18n.I18nService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -26,8 +26,8 @@ public class KanjiDataInitializer implements CommandLineRunner {
 
     private final KanjiRepository kanjiRepository;
     private final I18nService i18nService;
-    private final KanjiServiceHelper kanjiServiceHelper;
-    private final SinoVietnameseServiceHelper sinoVietnameseServiceHelper;
+    private final KanjiHelper kanjiServiceHelper;
+    private final SinoVietnameseHelper sinoVietnameseHelper;
     private final ResourceLoader resourceLoader;
 
     @Value("${sources.uri}")
@@ -55,11 +55,11 @@ public class KanjiDataInitializer implements CommandLineRunner {
                 log.info("Kanji imported!");
 
                 log.info("Sino Vietnamese importing...");
-                sinoVietnameseServiceHelper.importSinoVietnamese(List.of(sinoVietnamese1Inputstream, sinoVietnamese2Inputstream));
+                sinoVietnameseHelper.importSinoVietnamese(List.of(sinoVietnamese1Inputstream, sinoVietnamese2Inputstream));
                 log.info("Sino Vietnamese imported!");
 
                 log.info("Main SinoVietnamese importing...");
-                sinoVietnameseServiceHelper.importMainSinoVietnamese(mainSinoVietnameseInputstream);
+                sinoVietnameseHelper.importMainSinoVietnamese(mainSinoVietnameseInputstream);
                 log.info("Main SinoVietnamese imported!");
             } catch (Exception e) {
                 throw new FileNotValidException(

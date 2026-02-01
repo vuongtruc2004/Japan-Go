@@ -25,7 +25,7 @@ html[data-locale="ja"] {
     /* hover bg color of sidebar element */
     --color-hbgc-app: #f1f3f4;
     /* hover bg color of kanji tabs */
-    --color-hbgc-highlight: #f2f3f5;
+    --color-hbgc-highlight: #eeeeee;
 
     /* h1 color */
     --color-tc-primary: #303030;
@@ -84,4 +84,25 @@ html[data-locale="ja"] {
         --color-empty-icon-g-stroke: #3e3e3e;
         --color-empty-icon-path-fill: #1d1d1d;
     }
+}
+
+/* width của scrollbar */
+::-webkit-scrollbar {
+    width: 4px;
+}
+
+/* track (nền phía sau) */
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+/* thumb (thanh kéo) */
+::-webkit-scrollbar-thumb {
+    background-color: var(--color-bgc-highlight);
+    border-radius: 12px;
+}
+
+/* hover thumb */
+::-webkit-scrollbar-thumb:hover {
+    opacity: 0.8;
 }
