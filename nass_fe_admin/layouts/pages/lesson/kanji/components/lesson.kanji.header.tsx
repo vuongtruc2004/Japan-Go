@@ -1,14 +1,14 @@
 "use client";
 import { useRouter } from "@/i18n/navigation";
-import { useActiveKanjiSlide } from "@/libs/wrapper/context/active.kanji.slide.wrapper";
+import { useKanjiSlide } from "@/libs/wrapper/context/kanji.slide.wrapper";
 import TranslateIcon from "@mui/icons-material/Translate";
 
 const LessonKanjiHeader = () => {
     const { back } = useRouter();
-    const { lesson } = useActiveKanjiSlide();
+    const { lesson } = useKanjiSlide();
 
     return (
-        <div className="bg-bgc-app border-bdc-primary mb-3 rounded-md border p-5">
+        <div className="bg-bgc-app border-bdc-primary rounded-md border p-5">
             <div
                 onClick={() => back()}
                 className="group flex w-max flex-1 cursor-pointer items-center gap-x-3"

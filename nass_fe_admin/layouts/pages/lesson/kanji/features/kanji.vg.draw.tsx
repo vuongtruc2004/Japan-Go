@@ -3,81 +3,89 @@ import { Box, Button } from "@mui/material";
 import { useCallback, useEffect, useRef } from "react";
 import { STROKE_COLORS } from "../models/stroke.colors";
 
+interface KanjiVgDrawProps {
+    svg: string;
+    durationPerStroke?: number;
+    durationBetweenEachStroke?: number;
+}
+
 const KanjiVgDraw = ({
     svg,
     durationPerStroke = 250,
     durationBetweenEachStroke = 50,
-}: {
-    svg: string;
-    durationPerStroke?: number;
-    durationBetweenEachStroke?: number;
-}) => {
+}: KanjiVgDrawProps) => {
     const containerRef = useRef<HTMLDivElement>(null);
 
-    const runAnimation = useCallback(async () => {
-        if (!containerRef.current) return;
+    const hasAnimatedRef = useRef(false);
 
-        const svgElement: SVGSVGElement | null =
-            containerRef.current.querySelector("svg");
+    const runAnimation = useCallback(
+        async (forceReset = false) => {
+            if (!containerRef.current) return;
 
-        if (!svgElement) return;
+            const svgElement =
+                containerRef.current.querySelector<SVGSVGElement>("svg");
+            if (!svgElement) return;
 
-        const pathElements: SVGPathElement[] = Array.from(
-            svgElement.querySelectorAll("path"),
-        );
-        const numberElements: SVGTextElement[] = Array.from(
-            svgElement.querySelectorAll("text"),
-        );
+            const pathElements = Array.from(
+                svgElement.querySelectorAll<SVGPathElement>("path"),
+            );
+            const numberElements = Array.from(
+                svgElement.querySelectorAll<SVGTextElement>("text"),
+            );
 
-        // ===== RESET =====
-        pathElements.forEach((path) => {
-            const length = path.getTotalLength();
+            // ===== RESET (chỉ khi replay hoặc lần đầu) =====
+            if (forceReset || !hasAnimatedRef.current) {
+                pathElements.forEach((path) => {
+                    const length = path.getTotalLength();
 
-            path.style.stroke = "#000";
-            path.style.strokeWidth = "3";
-            path.style.fill = "none";
-            path.style.strokeDasharray = `${length}`;
-            path.style.strokeDashoffset = `${length}`;
-            path.style.transition = "none";
-        });
+                    path.style.strokeDasharray = `${length}`;
+                    path.style.strokeDashoffset = `${length}`;
+                    path.style.strokeWidth = "3";
+                    path.style.fill = "none";
+                    path.style.transition = "none";
+                });
 
-        numberElements.forEach((text) => {
-            text.style.opacity = "0";
-            text.style.fill = "#000";
-        });
+                numberElements.forEach((text) => {
+                    text.style.opacity = "0";
+                });
 
-        // force reflow để browser apply reset
-        svgElement.getBoundingClientRect();
-
-        // ===== ANIMATE STROKES =====
-        for (let i = 0; i < pathElements.length; i++) {
-            const path = pathElements[i];
-            const text = numberElements[i];
-
-            const color = STROKE_COLORS[i % STROKE_COLORS.length];
-
-            path.style.stroke = color;
-            path.style.transition = `stroke-dashoffset ${durationPerStroke}ms linear`;
-
-            if (text) {
-                text.style.opacity = "1";
-                text.style.fill = color;
+                // force reflow
+                svgElement.getBoundingClientRect();
             }
 
-            requestAnimationFrame(() => {
-                path.style.strokeDashoffset = "0";
-            });
+            // ===== ANIMATE STROKES =====
+            for (let i = 0; i < pathElements.length; i++) {
+                const path = pathElements[i];
+                const text = numberElements[i];
+                const color = STROKE_COLORS[i % STROKE_COLORS.length];
 
-            await new Promise((resolve) =>
-                setTimeout(
-                    resolve,
-                    durationPerStroke + durationBetweenEachStroke,
-                ),
-            );
-        }
-    }, [durationBetweenEachStroke, durationPerStroke]);
+                path.style.stroke = color;
+                path.style.transition = `stroke-dashoffset ${durationPerStroke}ms linear`;
+
+                if (text) {
+                    text.style.opacity = "1";
+                    text.style.fill = color;
+                }
+
+                requestAnimationFrame(() => {
+                    path.style.strokeDashoffset = "0";
+                });
+
+                await new Promise((resolve) =>
+                    setTimeout(
+                        resolve,
+                        durationPerStroke + durationBetweenEachStroke,
+                    ),
+                );
+            }
+
+            hasAnimatedRef.current = true;
+        },
+        [durationPerStroke, durationBetweenEachStroke],
+    );
 
     useEffect(() => {
+        hasAnimatedRef.current = false;
         runAnimation();
     }, [svg, runAnimation]);
 
@@ -100,6 +108,7 @@ const KanjiVgDraw = ({
             <Button
                 variant="text"
                 color="primary"
+                size="small"
                 sx={{
                     width: "36px",
                     minWidth: "36px",
@@ -108,8 +117,7 @@ const KanjiVgDraw = ({
                     top: "8px",
                     right: "8px",
                 }}
-                size="small"
-                onClick={runAnimation}
+                onClick={() => runAnimation(true)}
             >
                 <ReplayIcon fontSize="small" />
             </Button>

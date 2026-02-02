@@ -1,8 +1,13 @@
+"use client";
+import { useKanjiSlide } from "@/libs/wrapper/context/kanji.slide.wrapper";
 import KanjiVgDraw from "../features/kanji.vg.draw";
 
-const MainKanji = ({ kanji }: { kanji: KanjiResponse }) => {
+const MainKanji = () => {
+    const { activeSlideIndex, lesson } = useKanjiSlide();
+    const kanji = lesson.kanjiLesson.kanjiPages[activeSlideIndex].mainKanji;
+
     return (
-        <div>
+        <div className="bg-bgc-app border-bdc-primary w-max rounded-md border p-5">
             <div className="border-bdc-primary bg-bgc-page relative mb-3 flex items-center justify-center rounded-md border">
                 <KanjiVgDraw svg={kanji.svg} />
                 <span className="text-tc-highlight absolute bottom-0 left-1/2 -translate-x-1/2 text-lg font-semibold">

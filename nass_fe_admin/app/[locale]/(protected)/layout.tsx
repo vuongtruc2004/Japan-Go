@@ -9,9 +9,9 @@ const SidebarOpenLayout = ({ children }: Readonly<{ children: ReactNode }>) => {
             <div className="relative flex">
                 <AppSidebar />
 
-                <div className="flex flex-1 flex-col">
+                <div className="flex min-w-0 flex-1 flex-col">
                     <AppHeader />
-                    <div className="bg-bgc-page w-full flex-1 overflow-x-hidden p-5">
+                    <div className="bg-bgc-page w-full flex-1 p-5">
                         {children}
                     </div>
                 </div>

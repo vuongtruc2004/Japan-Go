@@ -89,6 +89,7 @@ html[data-locale="ja"] {
 /* width của scrollbar */
 ::-webkit-scrollbar {
     width: 4px;
+    height: 4px;
 }
 
 /* track (nền phía sau) */

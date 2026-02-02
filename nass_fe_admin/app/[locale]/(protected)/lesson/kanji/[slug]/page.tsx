@@ -1,8 +1,10 @@
 import LessonKanjiHeader from "@/layouts/pages/lesson/kanji/components/lesson.kanji.header";
 import LessonKanjiSlide from "@/layouts/pages/lesson/kanji/components/lesson.kanji.slide";
+import MainKanji from "@/layouts/pages/lesson/kanji/components/main.kanji";
 import SlideSwitchButtons from "@/layouts/pages/lesson/kanji/features/kanji.slide.switch.buttons";
 import { getLessonById } from "@/libs/api/lesson/lesson";
-import { ActiveKanjiSlideWrapper } from "@/libs/wrapper/context/active.kanji.slide.wrapper";
+import { KanjiSlideWrapper } from "@/libs/wrapper/context/kanji.slide.wrapper";
+import { VocabularyVisibilityWrapper } from "@/libs/wrapper/context/vocabulary.visibility.wrapper";
 import { Metadata } from "next";
 
 export async function generateMetadata({
@@ -29,13 +31,16 @@ const KanjiLessonDetailsPage = async ({
     const lesson = await getLessonById(id);
 
     return (
-        <ActiveKanjiSlideWrapper lesson={lesson}>
-            <LessonKanjiHeader />
-            <div className="flex items-start gap-x-3">
+        <KanjiSlideWrapper lesson={lesson}>
+            <VocabularyVisibilityWrapper>
+                <LessonKanjiHeader />
                 <SlideSwitchButtons />
-                <LessonKanjiSlide />
-            </div>
-        </ActiveKanjiSlideWrapper>
+                <div className="flex items-start gap-x-3">
+                    <MainKanji />
+                    <LessonKanjiSlide />
+                </div>
+            </VocabularyVisibilityWrapper>
+        </KanjiSlideWrapper>
     );
 };
 
