@@ -23,13 +23,13 @@ export async function getSinoVn(dividerType: "line" | "whitespace" | "custom", i
     }
 
     // const result = kanji
-    //     .split(/\r?\n/)   
-    //     .map(s => s.trim()) 
-    //     .join("\n");     
+    //     .split(/\r?\n/)
+    //     .map(s => s.trim().toLowerCase())
+    //     .join("\n");
     // state.sinoVn = result;
     if (!state.kanji.isError) {
         const response = await sendRequest<ApiResponse<string>>({
-            url: 'http://localhost:2509/api/v1/sino-vietnamese',
+            url: '/sino-vietnamese',
             headers: {
                 "Content-Type": "application/json"
             },
