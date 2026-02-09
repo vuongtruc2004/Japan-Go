@@ -1,0 +1,101 @@
+{
+    "Common": {
+        "open": "Mở",
+        "close": "Đóng",
+        "cancel": "Hủy",
+        "create": "Tạo",
+        "confirm": "Nhập",
+        "search": "Tìm kiếm",
+        "links": {
+            "home": "Trang chủ",
+            "yourLibrary": "Thư viện của bạn",
+            "kanji": "Danh sách Kanji",
+            "setting": "Cài đặt",
+            "achievement": "Thành tựu"
+        },
+        "folder": {
+            "title": "Thư mục",
+            "create": "Tạo thư mục",
+            "placeholder": "Nhập tên thư mục"
+        },
+        "class": {
+            "title": "Lớp học",
+            "create": "Tạo lớp học",
+            "placeholder": "Nhập tên lớp học"
+        },
+        "course": "Học phần"
+    },
+    "AppHeader": {
+        "appSearchPlaceholder": "Tìm kiếm bất cứ gì",
+        "switchLanguageButton": {
+            "label": {
+                "vi": "Tiếng Việt",
+                "en": "Tiếng Anh",
+                "ja": "Tiếng Nhật"
+            }
+        },
+        "registerButton": "Đăng kí",
+        "loginButton": "Đăng nhập",
+        "logoutButton": "Đăng xuất",
+        "settingLink": "Cài đặt",
+        "notification": "Thông báo",
+        "appCreate": "Chọn bất cứ gì bạn muốn tạo"
+    },
+    "AppSidebar": {
+        "projectName": "JapanGo",
+        "groupsTitle": {
+            "main": "Quản lí",
+            "sub": "Khác"
+        },
+        "buttons": {
+            "modeButtons": {
+                "lightMode": "Chế độ sáng",
+                "darkMode": "Chế độ tối"
+            },
+            "logoutButton": "Đăng xuất"
+        }
+    },
+    "Pages": {
+        "kanji": {
+            "search": {
+                "placeholder": "Nhập Kanji, phiên âm Hán Việt hoặc nghĩa...",
+                "drawButton": "Vẽ Kanji cần tìm"
+            },
+            "explore": {
+                "title": "Khám phá Kanji theo trình độ",
+                "levels": {
+                    "n5": "N5 - Cơ bản",
+                    "n4": "N4 - Sơ cấp",
+                    "n3": "N3 - Trung cấp",
+                    "n2": "N2 - Trung cao cấp",
+                    "n1": "N1 - Cao cấp"
+                },
+                "suggestTitle": "Bạn có thể nhấp vào 1 ô dưới đây để xem chi tiết Kanji.",
+                "empty": "Không có Kanji nào để hiển thị!",
+                "uploadFile": "Tải lên dữ liệu",
+                "enrichSinoVietnamese": "Thêm phiên âm Hán Việt"
+            },
+            "sinoVietnameseImport": {
+                "title": "Chép và dán dữ liệu vào đây để lấy phiên âm Hán Việt của các từ",
+                "delimiter": "Ngăn cách giữa các từ bằng:",
+                "customPlaceholder": "Tùy chỉnh",
+                "spaceLabel": "Khoảng trắng",
+                "lineLabel": "Dòng",
+                "inputPlaceholder": "Nhập dữ liệu của bạn ở đây...",
+                "resultPlaceholder": "Kết quả sẽ hiển thị ở đây",
+                "copied": "Đã sao chép"
+            }
+        },
+        "yourLibrary": {
+            "title": "Thư viện của bạn",
+            "class": {
+                "noClasses": "Không có lớp học nào để hiển thị",
+                "createClass": "Tạo lớp học"
+            },
+            "folder": {
+                "noFolders": "Không có thư mục nào để hiển thị",
+                "createFolder": "Tạo thư mục"
+            }
+        }
+    }
+}
