@@ -10,7 +10,7 @@
             "home": "Trang chủ",
             "yourLibrary": "Thư viện của bạn",
             "kanji": "Danh sách Kanji",
-            "setting": "Cài đặt",
+            "settings": "Cài đặt",
             "achievement": "Thành tựu"
         },
         "folder": {
@@ -37,7 +37,7 @@
         "registerButton": "Đăng kí",
         "loginButton": "Đăng nhập",
         "logoutButton": "Đăng xuất",
-        "settingLink": "Cài đặt",
+        "settingsLink": "Cài đặt",
         "notification": "Thông báo",
         "appCreate": "Chọn bất cứ gì bạn muốn tạo"
     },

@@ -28,7 +28,7 @@ export const routing = defineRouting({
         "/kanji": {
             vi: '/chu-han',
         },
-        "/setting": {
+        "/settings": {
             vi: '/cai-dat',
         },
         "/achievement": {

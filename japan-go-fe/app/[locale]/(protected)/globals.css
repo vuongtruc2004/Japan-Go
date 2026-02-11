@@ -1,0 +1,105 @@
+@layer theme, base, mui, components, utilities;
+@import "tailwindcss";
+
+/* APP FONT */
+:root {
+    --app-font: var(--font-quicksand), sans-serif;
+}
+html[data-locale="ja"] {
+    --app-font: var(--font-noto-sans-jp), sans-serif;
+}
+
+/* APP LIGHT & DARK MODE */
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+    --font-noto-sans-jp: var(--font-noto-sans-jp), sans-serif;
+
+    /* LIGHT MODE */
+    /* header and sidebar bg */
+    --color-bgc-app: #ffffff;
+    /* page body bg color */
+    --color-bgc-page: #f7f7f7;
+    --color-bgc-highlight: #175a3a;
+
+    /* hover bg color of sidebar element */
+    --color-hbgc-app: #f1f3f4;
+    /* hover bg color of kanji tabs */
+    --color-hbgc-highlight: #eeeeee;
+
+    /* sidebar p tag color */
+    --color-tc-muted: #a7a7a7;
+    /* hover text color of sidebar items */
+    --color-tc-highlight: #175a3a;
+
+    --color-tc-error: #d90429;
+
+    /* border color of sidebar, header */
+    --color-bdc-primary: #e9e9e9;
+    /* Textfield border color */
+    --color-bdc-muted: #ced4da;
+    /* Kanji box border color */
+    --color-bdc-highlight: #175a3a;
+
+    /* color for empty icon */
+    --color-empty-icon-ellipse-fill: #f5f5f5;
+    --color-empty-icon-g-stroke: #d9d9d9;
+    --color-empty-icon-path-fill: #fafafa;
+}
+
+/* DARK MODE */
+@layer base {
+    .dark {
+        /* header and sidebar bg */
+        --color-bgc-app: #000000;
+        /* page body bg color */
+        --color-bgc-page: #090909;
+        --color-bgc-highlight: #016630;
+
+        /* hover bg color of sidebar element */
+        --color-hbgc-app: #161615;
+        /* hover bg color of kanji tabs */
+        --color-hbgc-highlight: #222222;
+
+        /* sidebar p tag color */
+        --color-tc-muted: #7c7c7c;
+        /* hover text color of sidebar items */
+        --color-tc-highlight: #00c951;
+
+        --color-tc-error: #e5383b;
+
+        /* border color of sidebar, header */
+        --color-bdc-primary: #242322;
+        /* Textfield border color */
+        --color-bdc-muted: #ffffff3b;
+        /* Kanji box border color */
+        --color-bdc-highlight: #016630;
+
+        /* color for empty icon */
+        --color-empty-icon-ellipse-fill: #272727;
+        --color-empty-icon-g-stroke: #3e3e3e;
+        --color-empty-icon-path-fill: #1d1d1d;
+    }
+}
+
+/* width của scrollbar */
+::-webkit-scrollbar {
+    width: 4px;
+    height: 4px;
+}
+
+/* track (nền phía sau) */
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+/* thumb (thanh kéo) */
+::-webkit-scrollbar-thumb {
+    background-color: var(--color-bgc-highlight);
+    border-radius: 12px;
+}
+
+/* hover thumb */
+::-webkit-scrollbar-thumb:hover {
+    opacity: 0.8;
+}
