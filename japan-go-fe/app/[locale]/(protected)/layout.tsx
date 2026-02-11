@@ -1,47 +1,23 @@
-import AppThemeProvider from "@/components/providers/app.theme.provider";
-import BProgressProvider from "@/components/providers/bprogress.provider";
-import { routing } from "@/i18n/routing";
-import { fontNotoSansJP, fontQuicksand } from "@/styles/font";
-import { InitColorSchemeScript } from "@mui/material";
-import { AppRouterCacheProvider } from "@mui/material-nextjs/v13-appRouter";
-import "flag-icons/css/flag-icons.min.css";
-import { hasLocale, NextIntlClientProvider } from "next-intl";
-import { notFound } from "next/navigation";
-import "./globals.css";
+import AppHeader from "@/components/layouts/header/components/app.header";
+import AppSidebar from "@/components/layouts/sidebar/components/app.sidebar";
+import { SidebarCollapseProvider } from "@/components/layouts/sidebar/context/sidebar.collapse";
+import { ReactNode } from "react";
 
-type Props = {
-    children: React.ReactNode;
-    params: Promise<{ locale: string }>;
+const SidebarOpenLayout = ({ children }: Readonly<{ children: ReactNode }>) => {
+    return (
+        <SidebarCollapseProvider>
+            <div className="relative flex">
+                <AppSidebar />
+
+                <div className="flex min-w-0 flex-1 flex-col">
+                    <AppHeader />
+                    <div className="bg-bgc-page w-full flex-1 p-5">
+                        {children}
+                    </div>
+                </div>
+            </div>
+        </SidebarCollapseProvider>
+    );
 };
 
-export default async function LocaleLayout({ children, params }: Props) {
-    const { locale } = await params;
-    if (!hasLocale(routing.locales, locale)) {
-        notFound();
-    }
-
-    return (
-        <html
-            lang={locale}
-            data-locale={locale}
-            className={`${fontQuicksand.variable} ${fontNotoSansJP.variable}`}
-            suppressHydrationWarning
-        >
-            <body>
-                <NextIntlClientProvider>
-                    <AppRouterCacheProvider options={{ enableCssLayer: true }}>
-                        <BProgressProvider>
-                            <AppThemeProvider>
-                                <InitColorSchemeScript
-                                    attribute="class"
-                                    defaultMode="light"
-                                />
-                                <main>{children}</main>
-                            </AppThemeProvider>
-                        </BProgressProvider>
-                    </AppRouterCacheProvider>
-                </NextIntlClientProvider>
-            </body>
-        </html>
-    );
-}
+export default SidebarOpenLayout;
