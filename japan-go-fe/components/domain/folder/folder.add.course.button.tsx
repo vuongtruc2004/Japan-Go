@@ -6,10 +6,14 @@ import {
     ButtonHTMLAttributes,
     cloneElement,
     ReactElement,
+    useEffect,
     useState,
 } from "react";
 import { TooltipCustom } from "@/components/ui/mui-custom/tooltip.custom";
-import AddOutlinedIcon from "@mui/icons-material/AddOutlined";
+import { LessonResponse } from "@/types/api/responses/lesson.response";
+import SingleCourseToAdd from "@/features/your-library/components/course/single.course.to.add";
+import Empty from "@/components/ui/empty";
+import CourseCreateButton from "@/features/your-library/components/course/course.create.button";
 
 const FolderAddCourseButton = ({
     buttonElement,
@@ -17,19 +21,28 @@ const FolderAddCourseButton = ({
     buttonElement: ReactElement<ButtonHTMLAttributes<HTMLButtonElement>>;
 }) => {
     const t = useTranslations();
+    const [lessons, setLessons] = useState<LessonResponse[]>([]);
     const [open, setOpen] = useState(false);
 
     const handleClose = () => {
         setOpen(false);
     };
 
+    useEffect(() => {
+        // const fetch = async () => {
+        //     const page = await getAllLessons();
+        //     setLessons(page.content);
+        // };
+        // fetch();
+    }, []);
+
     return (
         <>
             {cloneElement(buttonElement, { onClick: () => setOpen(true) })}
 
             <Modal open={open}>
-                <div className="bg-bgc-page absolute top-1/2 left-1/2 w-150 -translate-x-1/2 -translate-y-1/2 rounded-md p-5">
-                    <h1 className="mb-3 font-semibold">
+                <div className="bg-bgc-page absolute top-1/2 left-1/2 flex w-150 -translate-x-1/2 -translate-y-1/2 flex-col gap-y-3 rounded-md p-5">
+                    <h1 className="font-semibold">
                         {t("Pages.yourLibrary.folder.addCourse")}
                     </h1>
 
@@ -37,10 +50,7 @@ const FolderAddCourseButton = ({
                         <p className="text-sm font-semibold">
                             {t("Common.course.title")}
                         </p>
-                        <div className="text-tc-highlight hover:text-tc-highlight-darker flex cursor-pointer items-center gap-x-0.5 text-sm font-semibold transition-all duration-150">
-                            <AddOutlinedIcon fontSize="small" />
-                            {t("Common.course.create")}
-                        </div>
+                        <CourseCreateButton />
                     </div>
 
                     <TooltipCustom
@@ -48,11 +58,30 @@ const FolderAddCourseButton = ({
                         color={"--color-tc-error"}
                         placement="right"
                     >
-                        <span className="hover:bg-hbgc-app hover:text-tc-error absolute top-3 right-3 flex h-9 w-9 cursor-pointer items-center justify-center rounded-full transition-all duration-150">
+                        <button
+                            className="hover:bg-hbgc-app hover:text-tc-error absolute top-3 right-3 flex h-9 w-9 cursor-pointer items-center justify-center rounded-full transition-all duration-150"
+                            onClick={handleClose}
+                        >
                             <CloseOutlinedIcon fontSize="small" />
-                        </span>
+                        </button>
                     </TooltipCustom>
 
+                    <div>
+                        {lessons.length === 0 ? (
+                            <Empty
+                                text={t("Pages.yourLibrary.course.noCourses")}
+                            />
+                        ) : (
+                            lessons.map((lesson) => {
+                                return (
+                                    <SingleCourseToAdd
+                                        lesson={lesson}
+                                        key={lesson.id}
+                                    />
+                                );
+                            })
+                        )}
+                    </div>
                     <div className="flex justify-end">
                         <Button
                             variant="contained"

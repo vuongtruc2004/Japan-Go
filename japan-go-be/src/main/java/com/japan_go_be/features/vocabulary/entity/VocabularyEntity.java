@@ -29,9 +29,9 @@ public class VocabularyEntity extends BaseEntity {
 
     String vietnamese;
 
-    String english;
-
     String note;
+
+    String english;
 
     @Builder.Default
     @ManyToMany(mappedBy = "vocabularies")

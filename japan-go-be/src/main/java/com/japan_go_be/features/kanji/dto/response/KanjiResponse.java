@@ -15,6 +15,7 @@ import java.util.List;
 public class KanjiResponse extends BaseResponse {
     String kanjiCharacter;
     String unicode;
+    String kanjiVg;
     Integer grade;
     Integer strokeCount;
     Integer frequency;

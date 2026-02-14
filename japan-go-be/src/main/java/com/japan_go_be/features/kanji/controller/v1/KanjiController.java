@@ -20,8 +20,7 @@ import java.util.List;
 @RequestMapping("/api/v1/kanji")
 public class KanjiController {
     private final KanjiService kanjiService;
-
-
+    
     @ApiResponseFormat(devMessage = "", clientMessage = "")
     @PostMapping(value = "/import", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<List<KanjiResponse>> importKanjiFromKanjidic(

@@ -19,9 +19,10 @@ import java.util.List;
 @Table(name = "lesson")
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class LessonEntity extends BaseEntity {
-    // like a file name
     @Column(name = "lesson_name", nullable = false)
     String lessonName;
+    
+    String description;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "lesson_type")

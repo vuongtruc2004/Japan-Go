@@ -107,6 +107,11 @@
                 "folderList": "Danh sách thư mục",
                 "searchCourseInThisFolderPlaceholder": "Tìm kiếm học phần trong thư mục này",
                 "addCourse": "Thêm học phần"
+            },
+            "course": {
+                "noCourses": "Không có học phần nào để hiển thị",
+                "grammarCourse": "Học phần ngữ pháp",
+                "kanjiCourse": "Học phần chữ Hán"
             }
         }
     }

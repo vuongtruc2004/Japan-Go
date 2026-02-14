@@ -7,7 +7,10 @@ import com.japan_go_be.common.validator.FileValidator;
 import com.japan_go_be.features.kanji.dto.request.GetSinoVietnameseRequest;
 import com.japan_go_be.features.kanji.dto.response.KanjiResponse;
 import com.japan_go_be.features.kanji.entity.KanjiEntity;
+import com.japan_go_be.features.kanji.entry.SinoVietnameseEntry;
 import com.japan_go_be.features.kanji.helper.SinoVietnameseHelper;
+import com.japan_go_be.features.kanji.importer.MainSinoVietnameseXlsxImport;
+import com.japan_go_be.features.kanji.importer.SinoVietnameseJsonImporter;
 import com.japan_go_be.features.kanji.mapper.KanjiDtoMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -16,7 +19,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 @RequiredArgsConstructor
@@ -25,6 +30,8 @@ public class SinoVietnameseService {
     private final FileValidator fileValidator;
     private final I18nService i18nService;
     private final SinoVietnameseHelper sinoVietnameseHelper;
+    private final SinoVietnameseJsonImporter sinoVietnameseJsonImporter;
+    private final MainSinoVietnameseXlsxImport mainSinoVietnameseXlsxImport;
 
     /**
      * @param getSinoVietnameseRequest this object contains
@@ -57,8 +64,10 @@ public class SinoVietnameseService {
             );
         }
         try (InputStream mainSinoVietnameseInputstream = mainSinoVietnameseFile.getInputStream()) {
-            List<KanjiEntity> kanjiEntities = sinoVietnameseHelper.importMainSinoVietnamese(mainSinoVietnameseInputstream);
+            Map<String, String> mainSinoVietnameseMap = mainSinoVietnameseXlsxImport.importMainSinoVietnamese(mainSinoVietnameseInputstream);
+            List<KanjiEntity> kanjiEntities = mainSinoVietnameseXlsxImport.updateKanjiWithMainSinoVietnamese(mainSinoVietnameseMap);
             return kanjiEntities.stream().map(kanjiDTOMapper::kanjiEntityToKanjiResponse).toList();
+            
         } catch (Exception e) {
             throw new FileNotValidException(
                     i18nService.translation(FileMessage.FILE_ERROR, e.getMessage()),
@@ -90,7 +99,11 @@ public class SinoVietnameseService {
                 );
             }
         }
-        List<KanjiEntity> kanjiEntities = sinoVietnameseHelper.importSinoVietnamese(sinoVietnameseInputStreamList);
+        Map<String, List<SinoVietnameseEntry>> sinoVietnameseEntryMap = new HashMap<>();
+        for (InputStream sinoVietnameseInputstream : sinoVietnameseInputStreamList) {
+            sinoVietnameseJsonImporter.importSinoVietnamese(sinoVietnameseInputstream, sinoVietnameseEntryMap);
+        }
+        List<KanjiEntity> kanjiEntities = sinoVietnameseJsonImporter.updateKanjiWithSinoVietnamese(sinoVietnameseEntryMap);
         return kanjiEntities.stream().map(kanjiDTOMapper::kanjiEntityToKanjiResponse).toList();
     }
 }

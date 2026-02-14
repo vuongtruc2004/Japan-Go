@@ -3,11 +3,13 @@ package com.japan_go_be.features.lesson.controller.v1;
 import com.japan_go_be.common.annotation.ApiResponseFormat;
 import com.japan_go_be.common.dto.PageDetailsResponse;
 import com.japan_go_be.features.lesson.constant.messages.LessonMessage;
+import com.japan_go_be.features.lesson.dto.request.LessonRequest;
 import com.japan_go_be.features.lesson.dto.response.LessonDetailsResponse;
 import com.japan_go_be.features.lesson.dto.response.LessonResponse;
 import com.japan_go_be.features.lesson.service.LessonService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,6 +20,12 @@ import java.util.List;
 @RequestMapping("/api/v1/lesson")
 public class LessonController {
     private final LessonService lessonService;
+
+    @ApiResponseFormat(devMessage = LessonMessage.LESSON_CREATE_SUCCESS, clientMessage = LessonMessage.LESSON_CREATE_SUCCESS)
+    @PostMapping
+    public ResponseEntity<LessonResponse> createLesson(@RequestBody LessonRequest lessonRequest) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(lessonService.createLesson(lessonRequest));
+    }
 
     @ApiResponseFormat(devMessage = LessonMessage.LESSON_DELETED, clientMessage = LessonMessage.LESSON_DELETED)
     @DeleteMapping("/{id}")

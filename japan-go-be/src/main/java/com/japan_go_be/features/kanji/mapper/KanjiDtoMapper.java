@@ -2,10 +2,7 @@ package com.japan_go_be.features.kanji.mapper;
 
 import com.japan_go_be.features.kanji.dto.response.KanjiPageResponse;
 import com.japan_go_be.features.kanji.dto.response.KanjiResponse;
-import com.japan_go_be.features.kanji.entity.KanjiEntity;
-import com.japan_go_be.features.kanji.entity.KanjiPageEntity;
-import com.japan_go_be.features.kanji.entity.KunyomiEntity;
-import com.japan_go_be.features.kanji.entity.OnyomiEntity;
+import com.japan_go_be.features.kanji.entity.*;
 import com.japan_go_be.features.kanji.helper.KanjiHelper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -21,7 +18,9 @@ public class KanjiDtoMapper {
 
     public KanjiResponse kanjiEntityToKanjiResponse(KanjiEntity kanjiEntity) {
         KanjiResponse kanjiResponse = modelMapper.map(kanjiEntity, KanjiResponse.class);
-        kanjiResponse.setMainSinoVietnamese(kanjiEntity.getMainSinoVietnamese().getReadingText());
+        SinoVietnameseEntity mainSinoVietnamese = kanjiEntity.getMainSinoVietnamese();
+        if (mainSinoVietnamese != null) kanjiResponse.setMainSinoVietnamese(mainSinoVietnamese.getReadingText());
+        
         kanjiResponse.setOnyomiList(kanjiEntity.getOnyomiList().stream().map(OnyomiEntity::getReadingText).toList());
         kanjiResponse.setKunyomiList(kanjiEntity.getKunyomiList().stream().map(KunyomiEntity::getReadingText).toList());
         kanjiResponse.setSvg(kanjiHelper.getSvgOfKanjiCharacter(kanjiEntity.getKanjiCharacter()));

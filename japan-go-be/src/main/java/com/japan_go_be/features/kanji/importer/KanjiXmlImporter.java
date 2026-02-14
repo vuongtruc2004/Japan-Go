@@ -11,6 +11,7 @@ import com.japan_go_be.features.kanji.entity.KunyomiEntity;
 import com.japan_go_be.features.kanji.entity.OnyomiEntity;
 import com.japan_go_be.features.kanji.entry.KanjiDicEntry;
 import com.japan_go_be.features.kanji.exception.KanjiException;
+import com.japan_go_be.features.kanji.helper.KanjiHelper;
 import com.japan_go_be.features.kanji.repository.KanjiMeaningRepository;
 import com.japan_go_be.features.kanji.repository.KanjiRepository;
 import com.japan_go_be.features.kanji.repository.KunyomiRepository;
@@ -42,6 +43,7 @@ public class KanjiXmlImporter {
     private final KanjiMeaningRepository kanjiMeaningRepository;
     private final ModelMapper modelMapper;
     private final I18nService i18nService;
+    private final KanjiHelper kanjiHelper;
 
     public List<KanjiEntity> importKanji(InputStream kanjidicInputstream, InputStream kanjijlptInputstream) {
         try {
@@ -154,6 +156,7 @@ public class KanjiXmlImporter {
                 if (kanjiDicEntry != null) {
                     String value = xmlEventReader.getElementText().trim();
                     if (!value.isEmpty()) {
+                        kanjiDicEntry.setKanjiVg(kanjiHelper.getSvgOfKanjiCharacter(value));
                         kanjiDicEntry.setKanjiCharacter(value);
                     }
                 }

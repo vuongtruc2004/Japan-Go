@@ -14,6 +14,7 @@ import java.util.Set;
 public class KanjiDicEntry {
     String kanjiCharacter;
     String unicode;
+    String kanjiVg;
     Integer grade;
     Integer strokeCount;
     Integer frequency;

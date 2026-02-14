@@ -3,17 +3,19 @@ package com.japan_go_be.features.kanji.initializer;
 import com.japan_go_be.common.constant.FileMessage;
 import com.japan_go_be.common.exception.FileNotValidException;
 import com.japan_go_be.common.i18n.I18nService;
-import com.japan_go_be.features.kanji.helper.KanjiHelper;
-import com.japan_go_be.features.kanji.helper.SinoVietnameseHelper;
 import com.japan_go_be.features.kanji.repository.KanjiRepository;
+import com.japan_go_be.features.kanji.service.KanjiService;
+import com.japan_go_be.features.kanji.service.SinoVietnameseService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.core.annotation.Order;
 import org.springframework.core.io.ResourceLoader;
+import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.io.InputStream;
 import java.util.List;
@@ -26,9 +28,9 @@ public class KanjiDataInitializer implements CommandLineRunner {
 
     private final KanjiRepository kanjiRepository;
     private final I18nService i18nService;
-    private final KanjiHelper kanjiServiceHelper;
-    private final SinoVietnameseHelper sinoVietnameseHelper;
     private final ResourceLoader resourceLoader;
+    private final KanjiService kanjiService;
+    private final SinoVietnameseService sinoVietnameseService;
 
     @Value("${sources.uri}")
     private String sourcesUri;
@@ -50,17 +52,53 @@ public class KanjiDataInitializer implements CommandLineRunner {
                  InputStream mainSinoVietnameseInputstream =
                          resourceLoader.getResource(sourcesUri + "/sino/main_sino_vietnamese.xlsx").getInputStream()
             ) {
+                MultipartFile kanjidicFile = new MockMultipartFile(
+                        "kanjidicFile",
+                        "kanjidic2.xml",
+                        "application/xml",
+                        kanjidicInputstream
+                );
+
+                MultipartFile kanjiJlptFile = new MockMultipartFile(
+                        "kanjiJlptFile",
+                        "kanji_jlpt.json",
+                        "application/json",
+                        kanjiJlptInputstream
+                );
+
+                MultipartFile sinoVietnamese1File = new MockMultipartFile(
+                        "sinoVietnamese1File",
+                        "sino_vietnamese_1.json",
+                        "application/json",
+                        sinoVietnamese1Inputstream
+                );
+
+                MultipartFile sinoVietnamese2File = new MockMultipartFile(
+                        "sinoVietnamese2File",
+                        "sino_vietnamese_2.json",
+                        "application/json",
+                        sinoVietnamese2Inputstream
+                );
+
+                MultipartFile mainSinoVietnameseFile = new MockMultipartFile(
+                        "mainSinoVietnameseFile",
+                        "main_sino_vietnamese.xlsx",
+                        "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+                        mainSinoVietnameseInputstream
+                );
+
                 log.info("Kanji importing...");
-                kanjiServiceHelper.importKanjiFromKanjidic(kanjidicInputstream, kanjiJlptInputstream);
+                kanjiService.importKanjiFromKanjidic(kanjidicFile, kanjiJlptFile);
                 log.info("Kanji imported!");
 
                 log.info("Sino Vietnamese importing...");
-                sinoVietnameseHelper.importSinoVietnamese(List.of(sinoVietnamese1Inputstream, sinoVietnamese2Inputstream));
+                sinoVietnameseService.importSinoVietnamese(List.of(sinoVietnamese1File, sinoVietnamese2File));
                 log.info("Sino Vietnamese imported!");
 
                 log.info("Main SinoVietnamese importing...");
-                sinoVietnameseHelper.importMainSinoVietnamese(mainSinoVietnameseInputstream);
+                sinoVietnameseService.importMainSinoVietnamese(mainSinoVietnameseFile);
                 log.info("Main SinoVietnamese imported!");
+
             } catch (Exception e) {
                 throw new FileNotValidException(
                         i18nService.translation(FileMessage.FILE_ERROR, e.getMessage()),

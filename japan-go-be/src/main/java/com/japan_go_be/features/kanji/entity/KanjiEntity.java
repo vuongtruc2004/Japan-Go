@@ -23,6 +23,18 @@ public class KanjiEntity extends BaseEntity {
     @Column(unique = true, nullable = false)
     String unicode;
 
+    /*
+     * LONGTEXT: là kiểu dữ liệu ở tầng database (MySQL) để lưu text rất lớn.
+     * @Lob:     là annotation ở tầng JPA/Hibernate, báo cho ORM (Object Relational Mapping) rằng
+     *           đây là "Large Object" (CLOB) để xử lý đúng cách.
+     *
+     * => Cần @Lob để Hibernate map chính xác và tránh bị giới hạn
+     *    mặc định như VARCHAR(255).
+     */
+    @Lob
+    @Column(name = "kanji_vg", columnDefinition = "LONGTEXT")
+    String kanjiVg;
+
     Integer grade;
 
     @Column(name = "stroke_count")

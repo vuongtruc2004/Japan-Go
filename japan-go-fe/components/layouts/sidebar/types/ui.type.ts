@@ -1,4 +1,5 @@
 import { AppLinkKeys, StaticRoutes } from "@/types/app/i18n.type";
+import React from "react";
 
 export type SidebarItem = {
     id: string;
@@ -7,4 +8,3 @@ export type SidebarItem = {
     link: StaticRoutes;
     hasBadge?: boolean;
 };
-

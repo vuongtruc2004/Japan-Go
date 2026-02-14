@@ -6,7 +6,7 @@ import com.japan_go_be.common.i18n.I18nService;
 import com.japan_go_be.common.validator.FileValidator;
 import com.japan_go_be.features.kanji.dto.response.KanjiResponse;
 import com.japan_go_be.features.kanji.entity.KanjiEntity;
-import com.japan_go_be.features.kanji.helper.KanjiHelper;
+import com.japan_go_be.features.kanji.importer.KanjiXmlImporter;
 import com.japan_go_be.features.kanji.mapper.KanjiDtoMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -22,12 +22,7 @@ public class KanjiService {
     private final FileValidator fileValidator;
     private final KanjiDtoMapper kanjiDTOMapper;
     private final I18nService i18nService;
-    private final KanjiHelper kanjiServiceHelper;
-
-    public String getKanjiVgFromKanji(String kanji) {
-        int codePoint = kanji.codePointAt(0);
-        return String.format("%05x.svg", codePoint);
-    }
+    private final KanjiXmlImporter kanjiXmlImporter;
 
     /**
      * Import all kanji characters (13,100 kanji) from KANJIDIC library
@@ -52,7 +47,7 @@ public class KanjiService {
         }
         try (InputStream kanjidicInputstream = kanjidicFile.getInputStream();
              InputStream kanjijlptInputstream = kanjiJlptFile.getInputStream()) {
-            List<KanjiEntity> kanjiEntities = kanjiServiceHelper.importKanjiFromKanjidic(kanjidicInputstream, kanjijlptInputstream);
+            List<KanjiEntity> kanjiEntities = kanjiXmlImporter.importKanji(kanjidicInputstream, kanjijlptInputstream);
             return kanjiEntities.stream().map(kanjiDTOMapper::kanjiEntityToKanjiResponse).toList();
 
         } catch (Exception e) {

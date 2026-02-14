@@ -109,6 +109,7 @@ CREATE TABLE kanji
     modified_time           datetime              NULL,
     kanji_character         VARCHAR(255)          NOT NULL,
     unicode                 VARCHAR(255)          NOT NULL,
+    kanji_vg                LONGTEXT              NULL,
     grade                   INT                   NULL,
     stroke_count            INT                   NULL,
     frequency               INT                   NULL,
@@ -198,6 +199,7 @@ CREATE TABLE lesson
     modified_by       VARCHAR(255)          NULL,
     modified_time     datetime              NULL,
     lesson_name       VARCHAR(255)          NOT NULL,
+    `description`     VARCHAR(255)          NULL,
     lesson_type       VARCHAR(255)          NULL,
     grammar_lesson_id BIGINT                NULL,
     kanji_lesson_id   BIGINT                NULL,
@@ -327,8 +329,8 @@ CREATE TABLE vocabulary
     japanese      VARCHAR(255)          NOT NULL,
     reading       VARCHAR(255)          NOT NULL,
     vietnamese    VARCHAR(255)          NULL,
-    english       VARCHAR(255)          NULL,
     note          VARCHAR(255)          NULL,
+    english       VARCHAR(255)          NULL,
     CONSTRAINT pk_vocabulary PRIMARY KEY (id)
 );
 

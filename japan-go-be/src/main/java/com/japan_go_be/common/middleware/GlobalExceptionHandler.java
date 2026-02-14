@@ -11,6 +11,7 @@ import com.japan_go_be.features.folder.exception.FolderException;
 import com.japan_go_be.features.kanji.exception.KanjiException;
 import com.japan_go_be.features.lesson.exception.GrammarLessonException;
 import com.japan_go_be.features.lesson.exception.KanjiLessonException;
+import com.japan_go_be.features.lesson.exception.LessonException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -30,6 +31,7 @@ public class GlobalExceptionHandler {
             KanjiException.class,
             GrammarLessonException.class,
             KanjiLessonException.class,
+            LessonException.class
     })
     public ResponseEntity<ApiResponse<Void>> handleBadRequestBaseException(BaseException exception) {
         ApiResponse<Void> apiResponse = new ApiResponse<>(

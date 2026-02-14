@@ -13,6 +13,6 @@ import lombok.experimental.FieldDefaults;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class LessonResponse extends BaseResponse {
     String lessonName;
-
+    String description;
     LessonTypeEnum lessonType;
 }

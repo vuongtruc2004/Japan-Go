@@ -25,6 +25,12 @@ export const routing = defineRouting({
         "/your-library/course": {
             vi: "/thu-vien-cua-ban/hoc-phan",
         },
+        "/create-course/grammar": {
+            vi: "/tao-hoc-phan/ngu-phap",
+        },
+        "/create-course/kanji": {
+            vi: "/tao-hoc-phan/chu-han",
+        },
         "/kanji": {
             vi: "/chu-han",
         },
