@@ -5,7 +5,10 @@
         "cancel": "Hủy",
         "create": "Tạo",
         "confirm": "Nhập",
+        "complete": "Hoàn tất",
         "search": "Tìm kiếm",
+        "viewMore": "Xem thêm",
+        "closeWindow": "Đóng cửa sổ",
         "links": {
             "home": "Trang chủ",
             "yourLibrary": "Thư viện của bạn",
@@ -23,7 +26,10 @@
             "create": "Tạo lớp học",
             "placeholder": "Nhập tên lớp học"
         },
-        "course": "Học phần"
+        "course": {
+            "title": "Học phần",
+            "create": "Tạo học phần"
+        }
     },
     "AppHeader": {
         "appSearchPlaceholder": "Tìm kiếm bất cứ gì",
@@ -88,13 +94,19 @@
         },
         "yourLibrary": {
             "title": "Thư viện của bạn",
+            "invalidPath": "Đường dẫn không hợp lệ. Vui lòng kiểm tra lại liên kết!",
             "class": {
                 "noClasses": "Không có lớp học nào để hiển thị",
                 "createClass": "Tạo lớp học"
             },
             "folder": {
                 "noFolders": "Không có thư mục nào để hiển thị",
-                "createFolder": "Tạo thư mục"
+                "createFolder": "Tạo thư mục",
+                "lessonCount": "{lessonCount} mục",
+                "searchPlaceholder": "Tìm kiếm thư mục",
+                "folderList": "Danh sách thư mục",
+                "searchCourseInThisFolderPlaceholder": "Tìm kiếm học phần trong thư mục này",
+                "addCourse": "Thêm học phần"
             }
         }
     }

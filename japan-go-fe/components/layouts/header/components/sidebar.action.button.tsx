@@ -1,4 +1,4 @@
-import { TooltipCustom } from "@/components/ui/tooltip.custom";
+import { TooltipCustom } from "@/components/ui/mui-custom/tooltip.custom";
 import DehazeOutlinedIcon from "@mui/icons-material/DehazeOutlined";
 import { Button } from "@mui/material";
 import { useTranslations } from "next-intl";
@@ -23,4 +23,3 @@ const SidebarActionButton = () => {
 };
 
 export default SidebarActionButton;
-

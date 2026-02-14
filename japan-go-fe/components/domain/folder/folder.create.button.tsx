@@ -2,16 +2,25 @@
 import { useFolderCreate } from "@/hooks/folder/use.create.folder";
 import { useRouter } from "@/i18n/navigation";
 import CloseIcon from "@mui/icons-material/Close";
-import FolderOutlinedIcon from "@mui/icons-material/FolderOutlined";
 import { Button, Modal, TextField } from "@mui/material";
 import { useTranslations } from "next-intl";
-import { useEffect, useState } from "react";
+import {
+    ButtonHTMLAttributes,
+    cloneElement,
+    ReactElement,
+    useEffect,
+    useState,
+} from "react";
 
-const FolderCreateButton = () => {
+const FolderAddCourse = ({
+    buttonElement,
+}: {
+    buttonElement: ReactElement<ButtonHTMLAttributes<HTMLButtonElement>>;
+}) => {
     const t = useTranslations("Common");
     const [open, setOpen] = useState(false);
     const { refresh } = useRouter();
-    const {state, pending, formAction}  = useFolderCreate();
+    const { state, pending, formAction } = useFolderCreate();
 
     const handleClose = () => {
         setOpen(false);
@@ -29,15 +38,7 @@ const FolderCreateButton = () => {
 
     return (
         <>
-            <button
-                className="hover:bg-hbgc-app flex w-full min-w-62.5 cursor-pointer items-center gap-x-3 px-3.5 py-3 transition-all duration-150"
-                onClick={() => setOpen(true)}
-            >
-                <FolderOutlinedIcon />
-                <p className="text-sm font-semibold whitespace-nowrap">
-                    {t("folder.title")}
-                </p>
-            </button>
+            {cloneElement(buttonElement, { onClick: () => setOpen(true) })}
 
             <Modal open={open}>
                 <div className="bg-bgc-page absolute top-1/2 left-1/2 w-150 -translate-x-1/2 -translate-y-1/2 rounded-md p-5">
@@ -90,5 +91,4 @@ const FolderCreateButton = () => {
     );
 };
 
-export default FolderCreateButton;
-
+export default FolderAddCourse;

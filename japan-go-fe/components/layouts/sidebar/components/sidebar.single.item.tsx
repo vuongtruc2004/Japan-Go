@@ -1,5 +1,5 @@
 "use client";
-import { TooltipCustom } from "@/components/ui/tooltip.custom";
+import { TooltipCustom } from "@/components/ui/mui-custom/tooltip.custom";
 import { Link, usePathname } from "@/i18n/navigation";
 import { Badge } from "@mui/material";
 import { useTranslations } from "next-intl";
@@ -63,4 +63,3 @@ const SidebarSingleItem = ({ item }: { item: SidebarItem }) => {
 };
 
 export default SidebarSingleItem;
-

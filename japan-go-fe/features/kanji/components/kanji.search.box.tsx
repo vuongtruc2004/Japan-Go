@@ -1,7 +1,8 @@
-import { TooltipCustom } from "@/components/ui/tooltip.custom";
+import { TooltipCustom } from "@/components/ui/mui-custom/tooltip.custom";
 import DrawOutlinedIcon from "@mui/icons-material/DrawOutlined";
-import { Button, TextField } from "@mui/material";
+import { Button } from "@mui/material";
 import { useTranslations } from "next-intl";
+import { TextFieldCustom } from "@/components/ui/mui-custom/text.field.custom";
 
 const KanjiSearchBox = () => {
     const t = useTranslations();
@@ -12,21 +13,8 @@ const KanjiSearchBox = () => {
                 action=""
                 className="flex items-center justify-between gap-x-3"
             >
-                <TextField
-                    slotProps={{
-                        input: {
-                            sx: {
-                                height: "36px",
-                                borderRadius: "6px",
-                                fieldset: {
-                                    border: "1px solid var(--color-bdc-muted)",
-                                },
-                                "input::placeholder": {
-                                    fontSize: "15.2px",
-                                },
-                            },
-                        },
-                    }}
+                <TextFieldCustom
+                    name="kanji-search"
                     size="small"
                     variant="outlined"
                     placeholder={t("Pages.kanji.search.placeholder")}
@@ -58,4 +46,3 @@ const KanjiSearchBox = () => {
 };
 
 export default KanjiSearchBox;
-

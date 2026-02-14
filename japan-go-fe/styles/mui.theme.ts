@@ -14,11 +14,11 @@ export const muiTheme = createTheme({
                     main: "#00c951",
                 },
                 error: {
-                    main: "#e5383b"
+                    main: "#e5383b",
                 },
                 text: {
-                    primary: "#e5e5e5"
-                }
+                    primary: "#e5e5e5",
+                },
             },
         },
         light: {
@@ -33,11 +33,11 @@ export const muiTheme = createTheme({
                     main: "#175a3a",
                 },
                 error: {
-                    main: "#d90429"
+                    main: "#d90429",
                 },
                 text: {
-                    primary: "#303030"
-                }
+                    primary: "#303030",
+                },
             },
         },
     },
@@ -45,7 +45,7 @@ export const muiTheme = createTheme({
         colorSchemeSelector: "class",
     },
     typography: {
-        fontFamily: "var(--app-font)"
+        fontFamily: "var(--app-font)",
     },
     components: {
         MuiButton: {
@@ -53,21 +53,36 @@ export const muiTheme = createTheme({
                 root: {
                     textTransform: "none",
                     borderRadius: "6px",
-                    height: '36px'
+                    height: "36px",
                 },
                 contained: {
                     color: "white",
                 },
                 text: {
-                    ':hover': {
-                        backgroundColor: 'var(--color-hbgc-app)'
-                    }
+                    ":hover": {
+                        backgroundColor: "var(--color-hbgc-app)",
+                    },
                 },
-                outlined: {
-                }
+                outlined: {},
             },
-        }
+        },
+        MuiTextField: {
+            defaultProps: {
+                slotProps: {
+                    input: {
+                        sx: {
+                            height: "36px",
+                            borderRadius: "6px",
+                            fieldset: {
+                                border: "1px solid var(--color-bdc-muted)",
+                            },
+                            "input::placeholder": {
+                                fontSize: "15.2px",
+                            },
+                        },
+                    },
+                },
+            },
+        },
     },
 });
-
-

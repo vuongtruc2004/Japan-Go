@@ -1,13 +1,21 @@
 "use client";
-import { Link } from "@/i18n/navigation";
+import { Link, usePathname } from "@/i18n/navigation";
 import { Box, Tab, Tabs } from "@mui/material";
 import { useTranslations } from "next-intl";
-import { useState } from "react";
+import React, { useState } from "react";
 import { LIBRARY_TABS } from "../constants/constants";
+import { getActiveLibraryTab } from "@/features/your-library/utils/utils";
 
 const LibraryTabs = () => {
     const t = useTranslations();
-    const [value, setValue] = useState(0);
+
+    const pathname = usePathname();
+    const currentActiveTabIndex = getActiveLibraryTab(pathname);
+
+    if (currentActiveTabIndex === -1) {
+        throw new Error(t("Pages.yourLibrary.invalidPath"));
+    }
+    const [value, setValue] = useState(currentActiveTabIndex);
 
     const handleChange = (event: React.SyntheticEvent, newValue: number) => {
         setValue(newValue);
@@ -54,4 +62,3 @@ const LibraryTabs = () => {
 };
 
 export default LibraryTabs;
-

@@ -4,6 +4,7 @@ import { LessonResponse } from "./lesson.response";
 export interface FolderResponse extends BaseResponse<number> {
     folderName: string;
     parentId: number;
+    lessonCount: number;
 }
 
 export interface FolderDetailsResponse extends FolderResponse {

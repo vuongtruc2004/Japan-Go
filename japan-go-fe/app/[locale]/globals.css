@@ -5,6 +5,7 @@
 :root {
     --app-font: var(--font-quicksand), sans-serif;
 }
+
 html[data-locale="ja"] {
     --app-font: var(--font-noto-sans-jp), sans-serif;
 }
@@ -31,6 +32,7 @@ html[data-locale="ja"] {
     --color-tc-muted: #a7a7a7;
     /* hover text color of sidebar items */
     --color-tc-highlight: #175a3a;
+    --color-tc-highlight-darker: #132a13;
 
     --color-tc-error: #d90429;
 
@@ -65,6 +67,7 @@ html[data-locale="ja"] {
         --color-tc-muted: #7c7c7c;
         /* hover text color of sidebar items */
         --color-tc-highlight: #00c951;
+        --color-tc-highlight-darker: #004b23;
 
         --color-tc-error: #e5383b;
 

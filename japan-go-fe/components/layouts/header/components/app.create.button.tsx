@@ -1,11 +1,12 @@
-import { TooltipCustom } from "@/components/ui/tooltip.custom";
+import FolderCreateButton from "@/components/domain/folder/folder.create.button";
+import { TooltipCustom } from "@/components/ui/mui-custom/tooltip.custom";
 import AddCircleOutlineOutlinedIcon from "@mui/icons-material/AddCircleOutlineOutlined";
 import { Button, Divider, Popover } from "@mui/material";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
 import ClassCreateButton from "./class.create.button";
 import CourseCreateButton from "./course.create.button";
-import FolderCreateButton from "./folder.create.button";
+import FolderOutlinedIcon from "@mui/icons-material/FolderOutlined";
 
 const AppCreateButton = () => {
     const t = useTranslations();
@@ -56,7 +57,16 @@ const AppCreateButton = () => {
                     </p>
                     <Divider />
                     <ClassCreateButton />
-                    <FolderCreateButton />
+                    <FolderCreateButton
+                        buttonElement={
+                            <button className="hover:bg-hbgc-app flex w-full min-w-62.5 cursor-pointer items-center gap-x-3 px-3.5 py-3 transition-all duration-150">
+                                <FolderOutlinedIcon />
+                                <p className="text-sm font-semibold whitespace-nowrap">
+                                    {t("Common.folder.title")}
+                                </p>
+                            </button>
+                        }
+                    />
                     <CourseCreateButton />
                 </div>
             </Popover>
@@ -65,4 +75,3 @@ const AppCreateButton = () => {
 };
 
 export default AppCreateButton;
-

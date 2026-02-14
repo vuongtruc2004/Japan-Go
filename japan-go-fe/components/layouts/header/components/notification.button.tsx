@@ -1,4 +1,4 @@
-import { TooltipCustom } from "@/components/ui/tooltip.custom";
+import { TooltipCustom } from "@/components/ui/mui-custom/tooltip.custom";
 import NotificationsNoneOutlinedIcon from "@mui/icons-material/NotificationsNoneOutlined";
 import { Button } from "@mui/material";
 import { useTranslations } from "next-intl";
@@ -24,4 +24,3 @@ const NotificationButton = () => {
 };
 
 export default NotificationButton;
-

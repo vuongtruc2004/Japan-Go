@@ -1,14 +1,15 @@
 "use client";
 import SearchIcon from "@mui/icons-material/Search";
-import { InputAdornment, TextField } from "@mui/material";
+import { InputAdornment } from "@mui/material";
 import { useTranslations } from "next-intl";
+import { TextFieldCustom } from "@/components/ui/mui-custom/text.field.custom";
 
 const AppSearchBox = () => {
     const t = useTranslations("AppHeader");
 
     return (
         <form>
-            <TextField
+            <TextFieldCustom
                 slotProps={{
                     input: {
                         startAdornment: (
@@ -18,14 +19,6 @@ const AppSearchBox = () => {
                         ),
                         sx: {
                             width: "400px",
-                            height: "36px",
-                            borderRadius: "6px",
-                            fieldset: {
-                                border: "1px solid var(--color-bdc-muted)",
-                            },
-                            "input::placeholder": {
-                                fontSize: "15.2px",
-                            },
                         },
                     },
                 }}
@@ -38,4 +31,3 @@ const AppSearchBox = () => {
 };
 
 export default AppSearchBox;
-

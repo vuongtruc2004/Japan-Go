@@ -14,7 +14,6 @@ export const LIBRARY_TABS: ILibraryTab[] = [
     {
         id: "tab-3",
         link: "/your-library/course",
-        nameKey: "Common.course",
+        nameKey: "Common.course.title",
     },
 ];
-

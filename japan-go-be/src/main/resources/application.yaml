@@ -1,0 +1,35 @@
+server:
+  port: 2509
+  tomcat:
+    max-part-count: 20
+spring:
+  application:
+    name: japan-go-be
+
+  servlet:
+    multipart:
+      max-file-size: 200MB
+      max-request-size: 200MB
+
+  data:
+    web:
+      pageable:
+        one-indexed-parameters: true
+
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQLDialect
+        enable_lazy_load_no_trans: true
+        format_sql: true
+        jdbc:
+          batch_size: 1000
+    show-sql: false
+
+  profiles:
+    active: uat
+  messages:
+    basename: i18n/messages
+    encoding: UTF-8
