@@ -7,21 +7,19 @@ import { useTranslations } from "next-intl";
 const FolderMoreButton = () => {
     const t = useTranslations();
     return (
-        <div>
-            <TooltipCustom title={t("Common.viewMore")}>
-                <Button
-                    variant="text"
-                    color="primary"
-                    sx={{
-                        minWidth: "40px",
-                        width: "40px",
-                        borderRadius: "50%",
-                    }}
-                >
-                    <MoreHorizOutlinedIcon />
-                </Button>
-            </TooltipCustom>
-        </div>
+        <TooltipCustom title={t("Common.viewMore")}>
+            <Button
+                variant="text"
+                color="primary"
+                sx={{
+                    minWidth: "40px",
+                    width: "40px",
+                    borderRadius: "50%",
+                }}
+            >
+                <MoreHorizOutlinedIcon />
+            </Button>
+        </TooltipCustom>
     );
 };
 

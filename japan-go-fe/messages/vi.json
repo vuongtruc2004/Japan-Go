@@ -12,6 +12,9 @@
         "description": "Mô tả",
         "importData": "Nhập dữ liệu",
         "importDataFrom": "Chép và dán dữ liệu ở đây (từ Word, Excel, Google Docs, v.v.)",
+        "author": "Tác giả",
+        "kanjiPage": "trang chữ Hán",
+        "grammar": "ngữ pháp",
         "scope": {
             "public": "Công khai"
         },
