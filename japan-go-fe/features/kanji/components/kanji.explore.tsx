@@ -3,12 +3,13 @@ import AutoAwesomeIcon from "@mui/icons-material/AutoAwesome";
 import { useTranslations } from "next-intl";
 import KanjiToolsBox from "./kanji.tools.box";
 import SingleKanjiTab from "./single.kanji.tab";
+import WrapBox from "@/components/ui/wrap.box";
 
 const KanjiExplore = () => {
     const t = useTranslations("Pages.kanji.explore");
 
     return (
-        <div className="bg-bgc-app border-bdc-primary rounded-md border p-5">
+        <WrapBox>
             <h1 className="mb-3 font-semibold">{t("title")}</h1>
             <KanjiToolsBox />
             <p className="my-3 flex items-center gap-x-1.5 text-sm">
@@ -16,9 +17,8 @@ const KanjiExplore = () => {
                 <span>{t("suggestTitle")}</span>
             </p>
             <SingleKanjiTab />
-        </div>
+        </WrapBox>
     );
 };
 
 export default KanjiExplore;
-

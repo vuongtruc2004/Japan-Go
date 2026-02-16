@@ -1,4 +1,4 @@
-package com.japan_go_be.common.constant;
+package com.japan_go_be.common.constant.message;
 
 public final class DefaultMessage {
 

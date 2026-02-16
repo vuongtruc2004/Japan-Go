@@ -53,7 +53,7 @@ const FolderAddCourse = ({
                             slotProps={{
                                 input: {
                                     style: {
-                                        height: "36px",
+                                        height: "40px",
                                     },
                                 },
                             }}

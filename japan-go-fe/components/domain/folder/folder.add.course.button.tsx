@@ -13,7 +13,8 @@ import { TooltipCustom } from "@/components/ui/mui-custom/tooltip.custom";
 import { LessonResponse } from "@/types/api/responses/lesson.response";
 import SingleCourseToAdd from "@/features/your-library/components/course/single.course.to.add";
 import Empty from "@/components/ui/empty";
-import CourseCreateButton from "@/features/your-library/components/course/course.create.button";
+import CourseCreateButton from "@/components/domain/create-course/course.create.button";
+import AddOutlinedIcon from "@mui/icons-material/AddOutlined";
 
 const FolderAddCourseButton = ({
     buttonElement,
@@ -50,7 +51,16 @@ const FolderAddCourseButton = ({
                         <p className="text-sm font-semibold">
                             {t("Common.course.title")}
                         </p>
-                        <CourseCreateButton />
+                        <CourseCreateButton
+                            buttonElement={
+                                <Button variant={"text"} color={"primary"}>
+                                    <AddOutlinedIcon fontSize="small" />
+                                    <p className="font-semibold">
+                                        {t("Common.course.create")}
+                                    </p>
+                                </Button>
+                            }
+                        />
                     </div>
 
                     <TooltipCustom
@@ -59,7 +69,7 @@ const FolderAddCourseButton = ({
                         placement="right"
                     >
                         <button
-                            className="hover:bg-hbgc-app hover:text-tc-error absolute top-3 right-3 flex h-9 w-9 cursor-pointer items-center justify-center rounded-full transition-all duration-150"
+                            className="hover:bg-hbgc-app hover:text-tc-error absolute top-3 right-3 flex h-10 w-10 cursor-pointer items-center justify-center rounded-full transition-all duration-150"
                             onClick={handleClose}
                         >
                             <CloseOutlinedIcon fontSize="small" />

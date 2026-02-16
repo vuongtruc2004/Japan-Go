@@ -1,6 +1,6 @@
 package com.japan_go_be.features.kanji.importer;
 
-import com.japan_go_be.common.constant.FileMessage;
+import com.japan_go_be.common.constant.message.FileMessage;
 import com.japan_go_be.common.exception.FileNotValidException;
 import com.japan_go_be.common.exception.NotFoundException;
 import com.japan_go_be.common.i18n.I18nService;

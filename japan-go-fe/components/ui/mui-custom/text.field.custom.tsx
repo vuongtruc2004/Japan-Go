@@ -2,7 +2,6 @@ import TextField, { TextFieldProps } from "@mui/material/TextField";
 
 export function TextFieldCustom(props: TextFieldProps) {
     const defaultInputSx = {
-        height: "36px",
         borderRadius: "6px",
         fieldset: { border: "1px solid var(--color-bdc-muted)" },
         "input::placeholder": { fontSize: "15.2px" },

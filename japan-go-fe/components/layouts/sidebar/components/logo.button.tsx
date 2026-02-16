@@ -10,13 +10,13 @@ const LogoButton = () => {
         <div className="flex items-center justify-center py-3.5">
             <Link
                 href={"/home"}
-                className="flex items-center gap-x-3 select-none"
+                className="flex items-center gap-x-1 select-none"
             >
                 <Image
                     src={"/logo.png"}
                     alt="app-logo"
-                    width={36}
-                    height={36}
+                    width={40}
+                    height={40}
                 />
                 {!isCollapse && (
                     <h1 className="font-bold whitespace-nowrap">
@@ -29,4 +29,3 @@ const LogoButton = () => {
 };
 
 export default LogoButton;
-

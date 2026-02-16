@@ -3,11 +3,12 @@ import DrawOutlinedIcon from "@mui/icons-material/DrawOutlined";
 import { Button } from "@mui/material";
 import { useTranslations } from "next-intl";
 import { TextFieldCustom } from "@/components/ui/mui-custom/text.field.custom";
+import WrapBox from "@/components/ui/wrap.box";
 
 const KanjiSearchBox = () => {
     const t = useTranslations();
     return (
-        <div className="bg-bgc-app border-bdc-primary rounded-md border p-5">
+        <WrapBox>
             <h1 className="mb-3 font-semibold">{t("Common.search")}</h1>
             <form
                 action=""
@@ -26,7 +27,7 @@ const KanjiSearchBox = () => {
                         <Button
                             variant="outlined"
                             color="success"
-                            sx={{ minWidth: "36px", width: "36px" }}
+                            sx={{ minWidth: "40px", width: "40px" }}
                         >
                             <DrawOutlinedIcon fontSize="medium" />
                         </Button>
@@ -41,7 +42,7 @@ const KanjiSearchBox = () => {
                     </Button>
                 </div>
             </form>
-        </div>
+        </WrapBox>
     );
 };
 

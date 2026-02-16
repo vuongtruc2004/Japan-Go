@@ -1,6 +1,6 @@
 package com.japan_go_be.features.kanji.helper;
 
-import com.japan_go_be.common.constant.FileMessage;
+import com.japan_go_be.common.constant.message.FileMessage;
 import com.japan_go_be.common.exception.FileNotValidException;
 import com.japan_go_be.common.i18n.I18nService;
 import lombok.RequiredArgsConstructor;
@@ -20,7 +20,7 @@ public class KanjiHelper {
 
     @Value("${sources.uri}")
     private String sourcesUri;
-    
+
     /**
      * Returns the SVG content of a given Kanji character.
      * This method finds the corresponding SVG file (based on the Unicode

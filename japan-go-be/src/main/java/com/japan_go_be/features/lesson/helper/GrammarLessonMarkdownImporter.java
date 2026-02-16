@@ -1,6 +1,6 @@
 package com.japan_go_be.features.lesson.helper;
 
-import com.japan_go_be.common.constant.FileMessage;
+import com.japan_go_be.common.constant.message.FileMessage;
 import com.japan_go_be.common.exception.FileNotValidException;
 import com.japan_go_be.common.i18n.I18nService;
 import com.japan_go_be.common.util.StringUtil;

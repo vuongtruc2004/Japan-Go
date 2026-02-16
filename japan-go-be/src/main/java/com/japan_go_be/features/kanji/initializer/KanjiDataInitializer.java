@@ -1,6 +1,7 @@
 package com.japan_go_be.features.kanji.initializer;
 
-import com.japan_go_be.common.constant.FileMessage;
+import com.japan_go_be.common.constant.ContentType;
+import com.japan_go_be.common.constant.message.FileMessage;
 import com.japan_go_be.common.exception.FileNotValidException;
 import com.japan_go_be.common.i18n.I18nService;
 import com.japan_go_be.features.kanji.repository.KanjiRepository;
@@ -55,35 +56,35 @@ public class KanjiDataInitializer implements CommandLineRunner {
                 MultipartFile kanjidicFile = new MockMultipartFile(
                         "kanjidicFile",
                         "kanjidic2.xml",
-                        "application/xml",
+                        ContentType.APPLICATION_XML,
                         kanjidicInputstream
                 );
 
                 MultipartFile kanjiJlptFile = new MockMultipartFile(
                         "kanjiJlptFile",
                         "kanji_jlpt.json",
-                        "application/json",
+                        ContentType.APPLICATION_JSON,
                         kanjiJlptInputstream
                 );
 
                 MultipartFile sinoVietnamese1File = new MockMultipartFile(
                         "sinoVietnamese1File",
                         "sino_vietnamese_1.json",
-                        "application/json",
+                        ContentType.APPLICATION_JSON,
                         sinoVietnamese1Inputstream
                 );
 
                 MultipartFile sinoVietnamese2File = new MockMultipartFile(
                         "sinoVietnamese2File",
                         "sino_vietnamese_2.json",
-                        "application/json",
+                        ContentType.APPLICATION_JSON,
                         sinoVietnamese2Inputstream
                 );
 
                 MultipartFile mainSinoVietnameseFile = new MockMultipartFile(
                         "mainSinoVietnameseFile",
                         "main_sino_vietnamese.xlsx",
-                        "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+                        ContentType.APPLICATION_XLSX,
                         mainSinoVietnameseInputstream
                 );
 

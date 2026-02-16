@@ -9,12 +9,19 @@
         "search": "Tìm kiếm",
         "viewMore": "Xem thêm",
         "closeWindow": "Đóng cửa sổ",
+        "description": "Mô tả",
+        "importData": "Nhập dữ liệu",
+        "importDataFrom": "Chép và dán dữ liệu ở đây (từ Word, Excel, Google Docs, v.v.)",
         "links": {
             "home": "Trang chủ",
             "yourLibrary": "Thư viện của bạn",
             "kanji": "Danh sách Kanji",
             "settings": "Cài đặt",
-            "achievement": "Thành tựu"
+            "achievement": "Thành tựu",
+            "create-course": {
+                "kanji": "Tạo học phần chữ Hán",
+                "grammar": "Tạo học phần ngữ pháp"
+            }
         },
         "folder": {
             "title": "Thư mục",
@@ -111,7 +118,11 @@
             "course": {
                 "noCourses": "Không có học phần nào để hiển thị",
                 "grammarCourse": "Học phần ngữ pháp",
-                "kanjiCourse": "Học phần chữ Hán"
+                "kanjiCourse": "Học phần chữ Hán",
+                "createNewKanjiCourse": "Tạo học phần chữ Hán mới",
+                "inputLessonNamePlaceholder": "Nhập tên học phần",
+                "addDescriptionPlaceholder": "Thêm mô tả cho học phần này...",
+                "importKanjiDataPlaceholder": "Chữ Hán\t\tTừ ghép\t\tPhiên âm\t\tNghĩa\t\tChú ý\n細\t\t細部\t\tさいぶ\t\tchi tiết\t\tbộ phận nhỏ bên trong toàn thể\n細\t\t明細\t\tめいさい\t\tchi tiết rõ ràng\t\tgiải thích chi tiết từng phần rõ ràng, hay dùng liên quan đến tiền bạc\n..."
             }
         }
     }

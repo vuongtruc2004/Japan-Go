@@ -29,7 +29,7 @@ const SwitchLanguageSelect = () => {
             defaultValue={currentLocale}
             size="small"
             sx={{
-                height: "36px",
+                height: "40px",
                 fontSize: "14px",
             }}
         >
@@ -52,4 +52,3 @@ const SwitchLanguageSelect = () => {
 };
 
 export default SwitchLanguageSelect;
-

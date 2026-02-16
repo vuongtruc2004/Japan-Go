@@ -53,7 +53,7 @@ export const muiTheme = createTheme({
                 root: {
                     textTransform: "none",
                     borderRadius: "6px",
-                    height: "36px",
+                    height: "40px",
                 },
                 contained: {
                     color: "white",
@@ -61,25 +61,6 @@ export const muiTheme = createTheme({
                 text: {
                     ":hover": {
                         backgroundColor: "var(--color-hbgc-app)",
-                    },
-                },
-                outlined: {},
-            },
-        },
-        MuiTextField: {
-            defaultProps: {
-                slotProps: {
-                    input: {
-                        sx: {
-                            height: "36px",
-                            borderRadius: "6px",
-                            fieldset: {
-                                border: "1px solid var(--color-bdc-muted)",
-                            },
-                            "input::placeholder": {
-                                fontSize: "15.2px",
-                            },
-                        },
                     },
                 },
             },

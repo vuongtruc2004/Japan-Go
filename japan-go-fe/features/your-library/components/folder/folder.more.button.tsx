@@ -13,8 +13,8 @@ const FolderMoreButton = () => {
                     variant="text"
                     color="primary"
                     sx={{
-                        minWidth: "36px",
-                        width: "36px",
+                        minWidth: "40px",
+                        width: "40px",
                         borderRadius: "50%",
                     }}
                 >

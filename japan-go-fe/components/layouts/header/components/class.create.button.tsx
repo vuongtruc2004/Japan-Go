@@ -36,7 +36,7 @@ const ClassCreateButton = () => {
                             slotProps={{
                                 input: {
                                     style: {
-                                        height: "36px",
+                                        height: "40px",
                                     },
                                 },
                             }}
@@ -75,4 +75,3 @@ const ClassCreateButton = () => {
 };
 
 export default ClassCreateButton;
-

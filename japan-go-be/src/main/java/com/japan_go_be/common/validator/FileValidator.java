@@ -1,5 +1,6 @@
 package com.japan_go_be.common.validator;
 
+import com.japan_go_be.common.constant.ContentType;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -18,9 +19,9 @@ public class FileValidator {
 
         String contentType = file.getContentType();
         return contentType == null
-                || "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet".equalsIgnoreCase(contentType)
-                || "application/vnd.ms-excel".equalsIgnoreCase(contentType)
-                || "application/octet-stream".equalsIgnoreCase(contentType);
+                || ContentType.APPLICATION_XLSX.equalsIgnoreCase(contentType)
+                || ContentType.APPLICATION_XLS.equalsIgnoreCase(contentType)
+                || ContentType.APPLICATION_OCTET_STREAM.equalsIgnoreCase(contentType);
     }
 
     public boolean isXMLFile(MultipartFile file) {
@@ -31,9 +32,9 @@ public class FileValidator {
 
         String contentType = file.getContentType();
         return contentType == null
-                || "application/xml".equalsIgnoreCase(contentType)
-                || "text/xml".equalsIgnoreCase(contentType)
-                || "application/octet-stream".equalsIgnoreCase(contentType);
+                || ContentType.APPLICATION_XML.equalsIgnoreCase(contentType)
+                || ContentType.TEXT_XML.equalsIgnoreCase(contentType)
+                || ContentType.APPLICATION_OCTET_STREAM.equalsIgnoreCase(contentType);
     }
 
     public boolean isJSONFile(MultipartFile file) {
@@ -44,9 +45,9 @@ public class FileValidator {
 
         String contentType = file.getContentType();
         return contentType == null
-                || "application/json".equalsIgnoreCase(contentType)
-                || "text/json".equalsIgnoreCase(contentType)
-                || "application/octet-stream".equalsIgnoreCase(contentType);
+                || ContentType.APPLICATION_JSON.equalsIgnoreCase(contentType)
+                || ContentType.TEXT_JSON.equalsIgnoreCase(contentType)
+                || ContentType.APPLICATION_OCTET_STREAM.equalsIgnoreCase(contentType);
     }
 
     public boolean isMarkdownFile(MultipartFile file) {
@@ -63,9 +64,9 @@ public class FileValidator {
         String contentType = file.getContentType();
 
         return contentType == null
-                || "text/markdown".equalsIgnoreCase(contentType)
-                || "text/plain".equalsIgnoreCase(contentType)
-                || "application/octet-stream".equalsIgnoreCase(contentType);
+                || ContentType.TEXT_MARKDOWN.equalsIgnoreCase(contentType)
+                || ContentType.TEXT_PLAIN.equalsIgnoreCase(contentType)
+                || ContentType.APPLICATION_OCTET_STREAM.equalsIgnoreCase(contentType);
     }
 
 }

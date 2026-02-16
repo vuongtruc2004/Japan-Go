@@ -5,6 +5,7 @@ import { useTranslations } from "next-intl";
 import React, { useState } from "react";
 import { LIBRARY_TABS } from "../constants/constants";
 import { getActiveLibraryTab } from "@/features/your-library/utils/utils";
+import WrapBox from "@/components/ui/wrap.box";
 
 const LibraryTabs = () => {
     const t = useTranslations();
@@ -22,7 +23,7 @@ const LibraryTabs = () => {
     };
 
     return (
-        <div className="bg-bgc-app border-bdc-primary rounded-md border p-5">
+        <WrapBox>
             <h1 className="mb-3 font-semibold">
                 {t("Pages.yourLibrary.title")}
             </h1>
@@ -57,7 +58,7 @@ const LibraryTabs = () => {
                     })}
                 </Tabs>
             </Box>
-        </div>
+        </WrapBox>
     );
 };
 

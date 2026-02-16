@@ -1,4 +1,4 @@
-package com.japan_go_be.common.constant;
+package com.japan_go_be.common.constant.message;
 
 public final class FileMessage {
     public static final String FILE_NOT_FOUND = "file.not.found";

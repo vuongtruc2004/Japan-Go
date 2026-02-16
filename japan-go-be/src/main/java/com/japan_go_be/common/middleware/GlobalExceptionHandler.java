@@ -1,6 +1,6 @@
 package com.japan_go_be.common.middleware;
 
-import com.japan_go_be.common.constant.DefaultMessage;
+import com.japan_go_be.common.constant.message.DefaultMessage;
 import com.japan_go_be.common.dto.ApiResponse;
 import com.japan_go_be.common.exception.BadRequestException;
 import com.japan_go_be.common.exception.BaseException;

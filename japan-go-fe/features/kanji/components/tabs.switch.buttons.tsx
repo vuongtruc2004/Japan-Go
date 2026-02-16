@@ -22,11 +22,14 @@ const TabsSwitchButtons = () => {
                             key={group.id}
                         >
                             {group.kanjiTabs.map((tab) => {
-                                const activeClass = getKanjiTabClassName(activeTab, tab);
+                                const activeClass = getKanjiTabClassName(
+                                    activeTab,
+                                    tab,
+                                );
                                 return (
                                     <div
                                         key={tab.id}
-                                        className={`${activeClass} bg-bgc-page flex h-9 w-max cursor-pointer items-center justify-center rounded-md border px-3 text-sm font-semibold`}
+                                        className={`${activeClass} bg-bgc-page flex h-10 w-max cursor-pointer items-center justify-center rounded-md border px-3 text-sm font-semibold`}
                                         onClick={() => handleChangeTab(tab)}
                                     >
                                         {t(`levels.${tab.tabKeyTranslation}`)}
@@ -42,4 +45,3 @@ const TabsSwitchButtons = () => {
 };
 
 export default TabsSwitchButtons;
-

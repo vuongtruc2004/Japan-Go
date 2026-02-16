@@ -11,9 +11,9 @@ const NotificationButton = () => {
                 variant="text"
                 color="success"
                 sx={{
-                    width: "36px",
-                    minWidth: "36px",
-                    height: "36px",
+                    width: "40px",
+                    minWidth: "40px",
+                    height: "40px",
                     borderRadius: "50%",
                 }}
             >

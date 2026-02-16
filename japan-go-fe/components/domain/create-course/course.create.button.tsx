@@ -1,11 +1,18 @@
-import React from "react";
-import AddOutlinedIcon from "@mui/icons-material/AddOutlined";
+import React, { ButtonHTMLAttributes, cloneElement, ReactElement } from "react";
 import { useTranslations } from "next-intl";
-import { Button, Popover } from "@mui/material";
+import { Popover, PopoverOrigin } from "@mui/material";
 import { COURSE_CREATE_LINK_ITEMS } from "@/features/your-library/constants/constants";
 import { Link } from "@/i18n/navigation";
 
-const CourseCreateButton = () => {
+const CourseCreateButton = ({
+    buttonElement,
+    anchorOrigin,
+    transformOrigin,
+}: {
+    buttonElement: ReactElement<ButtonHTMLAttributes<HTMLButtonElement>>;
+    anchorOrigin?: PopoverOrigin;
+    transformOrigin?: PopoverOrigin;
+}) => {
     const t = useTranslations();
 
     const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(
@@ -22,23 +29,28 @@ const CourseCreateButton = () => {
 
     return (
         <div>
-            <Button variant={"text"} color={"primary"} onClick={handleClick}>
-                <AddOutlinedIcon fontSize="small" />
-                <p className="font-semibold">{t("Common.course.create")}</p>
-            </Button>
+            {cloneElement(buttonElement, { onClick: handleClick })}
 
             <Popover
                 open={Boolean(anchorEl)}
                 anchorEl={anchorEl}
                 onClose={handleClose}
-                anchorOrigin={{
-                    vertical: "bottom",
-                    horizontal: "right",
-                }}
-                transformOrigin={{
-                    vertical: "top",
-                    horizontal: "right",
-                }}
+                anchorOrigin={
+                    anchorOrigin
+                        ? anchorOrigin
+                        : {
+                              vertical: "bottom",
+                              horizontal: "right",
+                          }
+                }
+                transformOrigin={
+                    transformOrigin
+                        ? transformOrigin
+                        : {
+                              vertical: "top",
+                              horizontal: "right",
+                          }
+                }
             >
                 <div>
                     {COURSE_CREATE_LINK_ITEMS.map((item) => {

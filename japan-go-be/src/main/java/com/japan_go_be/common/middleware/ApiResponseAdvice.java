@@ -1,7 +1,7 @@
 package com.japan_go_be.common.middleware;
 
 import com.japan_go_be.common.annotation.ApiResponseFormat;
-import com.japan_go_be.common.constant.DefaultMessage;
+import com.japan_go_be.common.constant.message.DefaultMessage;
 import com.japan_go_be.common.dto.ApiResponse;
 import com.japan_go_be.common.i18n.I18nService;
 import lombok.RequiredArgsConstructor;

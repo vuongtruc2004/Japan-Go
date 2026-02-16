@@ -1,6 +1,6 @@
 package com.japan_go_be.features.kanji.service;
 
-import com.japan_go_be.common.constant.FileMessage;
+import com.japan_go_be.common.constant.message.FileMessage;
 import com.japan_go_be.common.exception.FileNotValidException;
 import com.japan_go_be.common.i18n.I18nService;
 import com.japan_go_be.common.validator.FileValidator;
@@ -67,7 +67,7 @@ public class SinoVietnameseService {
             Map<String, String> mainSinoVietnameseMap = mainSinoVietnameseXlsxImport.importMainSinoVietnamese(mainSinoVietnameseInputstream);
             List<KanjiEntity> kanjiEntities = mainSinoVietnameseXlsxImport.updateKanjiWithMainSinoVietnamese(mainSinoVietnameseMap);
             return kanjiEntities.stream().map(kanjiDTOMapper::kanjiEntityToKanjiResponse).toList();
-            
+
         } catch (Exception e) {
             throw new FileNotValidException(
                     i18nService.translation(FileMessage.FILE_ERROR, e.getMessage()),

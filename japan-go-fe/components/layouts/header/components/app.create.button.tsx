@@ -3,10 +3,11 @@ import { TooltipCustom } from "@/components/ui/mui-custom/tooltip.custom";
 import AddCircleOutlineOutlinedIcon from "@mui/icons-material/AddCircleOutlineOutlined";
 import { Button, Divider, Popover } from "@mui/material";
 import { useTranslations } from "next-intl";
-import { useState } from "react";
+import React, { useState } from "react";
 import ClassCreateButton from "./class.create.button";
-import CourseCreateButton from "./course.create.button";
 import FolderOutlinedIcon from "@mui/icons-material/FolderOutlined";
+import CourseCreateButton from "@/components/domain/create-course/course.create.button";
+import StyleOutlinedIcon from "@mui/icons-material/StyleOutlined";
 
 const AppCreateButton = () => {
     const t = useTranslations();
@@ -28,9 +29,9 @@ const AppCreateButton = () => {
                     variant="text"
                     color="success"
                     sx={{
-                        width: "36px",
-                        minWidth: "36px",
-                        height: "36px",
+                        width: "40px",
+                        minWidth: "40px",
+                        height: "40px",
                         borderRadius: "50%",
                     }}
                 >
@@ -55,8 +56,11 @@ const AppCreateButton = () => {
                     <p className="text-tc-muted px-3.5 py-3 text-sm font-semibold">
                         {t("AppHeader.appCreate")}
                     </p>
+
                     <Divider />
+
                     <ClassCreateButton />
+
                     <FolderCreateButton
                         buttonElement={
                             <button className="hover:bg-hbgc-app flex w-full min-w-62.5 cursor-pointer items-center gap-x-3 px-3.5 py-3 transition-all duration-150">
@@ -67,7 +71,25 @@ const AppCreateButton = () => {
                             </button>
                         }
                     />
-                    <CourseCreateButton />
+
+                    <CourseCreateButton
+                        anchorOrigin={{
+                            vertical: "center",
+                            horizontal: "left",
+                        }}
+                        transformOrigin={{
+                            vertical: "center",
+                            horizontal: "right",
+                        }}
+                        buttonElement={
+                            <button className="hover:bg-hbgc-app flex w-full min-w-62.5 cursor-pointer items-center gap-x-3 px-3.5 py-3 transition-all duration-150">
+                                <StyleOutlinedIcon />
+                                <p className="text-sm font-semibold whitespace-nowrap">
+                                    {t("Common.course.title")}
+                                </p>
+                            </button>
+                        }
+                    />
                 </div>
             </Popover>
         </>

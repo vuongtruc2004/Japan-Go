@@ -17,8 +17,8 @@ const UserAvatar = () => {
             >
                 <Avatar
                     sx={{
-                        width: "36px",
-                        height: "36px",
+                        width: "40px",
+                        height: "40px",
                     }}
                 >
                     T
@@ -31,4 +31,3 @@ const UserAvatar = () => {
 };
 
 export default UserAvatar;
-
