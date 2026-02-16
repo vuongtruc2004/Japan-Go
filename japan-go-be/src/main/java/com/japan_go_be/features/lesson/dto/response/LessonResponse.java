@@ -4,8 +4,9 @@ import com.japan_go_be.common.dto.BaseResponse;
 import com.japan_go_be.features.lesson.constant.LessonTypeEnum;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
+import lombok.experimental.SuperBuilder;
 
-@Builder
+@SuperBuilder
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
@@ -15,4 +16,6 @@ public class LessonResponse extends BaseResponse {
     String lessonName;
     String description;
     LessonTypeEnum lessonType;
+    GrammarLessonResponse grammarLesson;
+    KanjiLessonResponse kanjiLesson;
 }

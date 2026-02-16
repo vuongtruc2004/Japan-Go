@@ -5,16 +5,13 @@ import { useTranslations } from "next-intl";
 import CloseIcon from "@mui/icons-material/Close";
 import { TextFieldCustom } from "@/components/ui/mui-custom/text.field.custom";
 import AddOutlinedIcon from "@mui/icons-material/AddOutlined";
-import { KanjiPageRequest } from "@/types/api/requests/kanji.request";
-import { importKanjiDataActions } from "@/features/create-course/actions/create.course.actions";
-import { IImportKanjiDataState } from "@/features/create-course/types/create.course.state.type";
+import { importKanjiDataActions } from "@/features/create-lesson/actions/create.lesson.actions";
+import { IImportKanjiDataState } from "@/features/create-lesson/types/create.lesson.state.type";
+import { useKanjiData } from "@/features/create-lesson/contexts/kanji.data";
 
-const KanjiDataImportButton = ({
-    setKanjiPages,
-}: {
-    setKanjiPages: React.Dispatch<React.SetStateAction<KanjiPageRequest[]>>;
-}) => {
+const KanjiDataImportButton = () => {
     const t = useTranslations();
+    const { setKanjiPages } = useKanjiData();
     const [open, setOpen] = useState(false);
 
     const [formState, setFormState] = useState<IImportKanjiDataState | null>(
@@ -29,13 +26,15 @@ const KanjiDataImportButton = ({
 
     const formAction = (formData: FormData) => {
         startTransition(async () => {
-            const formState = await importKanjiDataActions(formData);
-            if (formState && formState.success) {
-                startTransition(() => {
-                    setKanjiPages(formState.kanjiPages);
-                    setOpen(false);
-                });
-            }
+            const result = await importKanjiDataActions(formData);
+            startTransition(() => {
+                if (result && result.success) {
+                    setKanjiPages(result.kanjiPages);
+                    handleClose();
+                } else {
+                    setFormState(result);
+                }
+            });
         });
     };
 
@@ -62,7 +61,7 @@ const KanjiDataImportButton = ({
                         <TextFieldCustom
                             name="kanji-data"
                             placeholder={t(
-                                "Pages.yourLibrary.course.importKanjiDataPlaceholder",
+                                "Pages.yourLibrary.lesson.importKanjiDataPlaceholder",
                             )}
                             fullWidth
                             multiline

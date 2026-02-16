@@ -6,8 +6,8 @@ import { useTranslations } from "next-intl";
 import React, { useState } from "react";
 import ClassCreateButton from "./class.create.button";
 import FolderOutlinedIcon from "@mui/icons-material/FolderOutlined";
-import CourseCreateButton from "@/components/domain/create-course/course.create.button";
 import StyleOutlinedIcon from "@mui/icons-material/StyleOutlined";
+import LessonCreateButton from "@/components/domain/create-lesson/lesson.create.button";
 
 const AppCreateButton = () => {
     const t = useTranslations();
@@ -72,7 +72,7 @@ const AppCreateButton = () => {
                         }
                     />
 
-                    <CourseCreateButton
+                    <LessonCreateButton
                         anchorOrigin={{
                             vertical: "center",
                             horizontal: "left",
@@ -85,7 +85,7 @@ const AppCreateButton = () => {
                             <button className="hover:bg-hbgc-app flex w-full min-w-62.5 cursor-pointer items-center gap-x-3 px-3.5 py-3 transition-all duration-150">
                                 <StyleOutlinedIcon />
                                 <p className="text-sm font-semibold whitespace-nowrap">
-                                    {t("Common.course.title")}
+                                    {t("Common.lesson.title")}
                                 </p>
                             </button>
                         }

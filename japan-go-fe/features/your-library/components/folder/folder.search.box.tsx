@@ -2,14 +2,15 @@ import React from "react";
 import { useTranslations } from "next-intl";
 import { TextFieldCustom } from "@/components/ui/mui-custom/text.field.custom";
 import FolderCreateButton from "@/components/domain/folder/folder.create.button";
-import { Button, Divider, InputAdornment } from "@mui/material";
+import { Button, InputAdornment } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
+import WrapBox from "@/components/ui/wrap.box";
 
 const FolderSearchBox = () => {
     const t = useTranslations();
     return (
-        <div className="mb-3 flex flex-col gap-y-3">
-            <h1 className="font-semibold">{t("Common.search")}</h1>
+        <WrapBox>
+            <h1 className="mb-3 font-semibold">{t("Common.search")}</h1>
 
             <div className="flex items-center justify-between gap-x-3">
                 <form action="" className="flex-1">
@@ -53,8 +54,7 @@ const FolderSearchBox = () => {
             {/*        </Button>*/}
             {/*    }*/}
             {/*/>*/}
-            <Divider />
-        </div>
+        </WrapBox>
     );
 };
 

@@ -22,13 +22,13 @@ export const routing = defineRouting({
         "/your-library/folder/[slug]": {
             vi: "/thu-vien-cua-ban/thu-muc/[slug]",
         },
-        "/your-library/course": {
+        "/your-library/lesson": {
             vi: "/thu-vien-cua-ban/hoc-phan",
         },
-        "/create-course/grammar": {
+        "/create-lesson/grammar": {
             vi: "/tao-hoc-phan/ngu-phap",
         },
-        "/create-course/kanji": {
+        "/create-lesson/kanji": {
             vi: "/tao-hoc-phan/chu-han",
         },
         "/kanji": {

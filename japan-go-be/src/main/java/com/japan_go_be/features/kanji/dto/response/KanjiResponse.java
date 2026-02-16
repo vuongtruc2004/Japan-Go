@@ -3,10 +3,11 @@ package com.japan_go_be.features.kanji.dto.response;
 import com.japan_go_be.common.dto.BaseResponse;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
+import lombok.experimental.SuperBuilder;
 
 import java.util.List;
 
-@Builder
+@SuperBuilder
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
@@ -21,7 +22,6 @@ public class KanjiResponse extends BaseResponse {
     Integer frequency;
     Integer jlptLevel;
     String mainSinoVietnamese;
-    String svg;
     List<String> onyomiList;
     List<String> kunyomiList;
 }

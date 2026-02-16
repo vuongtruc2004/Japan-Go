@@ -2,7 +2,7 @@
 import { Button, Modal } from "@mui/material";
 import { useTranslations } from "next-intl";
 import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
-import {
+import React, {
     ButtonHTMLAttributes,
     cloneElement,
     ReactElement,
@@ -11,17 +11,20 @@ import {
 } from "react";
 import { TooltipCustom } from "@/components/ui/mui-custom/tooltip.custom";
 import { LessonResponse } from "@/types/api/responses/lesson.response";
-import SingleCourseToAdd from "@/features/your-library/components/course/single.course.to.add";
 import Empty from "@/components/ui/empty";
-import CourseCreateButton from "@/components/domain/create-course/course.create.button";
+import LessonCreateButton from "@/components/domain/create-lesson/lesson.create.button";
 import AddOutlinedIcon from "@mui/icons-material/AddOutlined";
+import SingleLessonToAdd from "@/features/your-library/components/lesson/single.lesson.to.add";
+import { useFolderDetails } from "@/features/your-library/contexts/folder.details";
 
-const FolderAddCourseButton = ({
+const FolderAddLessonButton = ({
     buttonElement,
 }: {
     buttonElement: ReactElement<ButtonHTMLAttributes<HTMLButtonElement>>;
 }) => {
     const t = useTranslations();
+    const { folder } = useFolderDetails();
+
     const [lessons, setLessons] = useState<LessonResponse[]>([]);
     const [open, setOpen] = useState(false);
 
@@ -44,19 +47,20 @@ const FolderAddCourseButton = ({
             <Modal open={open}>
                 <div className="bg-bgc-page absolute top-1/2 left-1/2 flex w-150 -translate-x-1/2 -translate-y-1/2 flex-col gap-y-3 rounded-md p-5">
                     <h1 className="font-semibold">
-                        {t("Pages.yourLibrary.folder.addCourse")}
+                        {t("Pages.yourLibrary.folder.addLesson")}
                     </h1>
 
                     <div className="flex items-center justify-between">
                         <p className="text-sm font-semibold">
-                            {t("Common.course.title")}
+                            {t("Common.lesson.title")}
                         </p>
-                        <CourseCreateButton
+                        <LessonCreateButton
+                            folder={folder}
                             buttonElement={
                                 <Button variant={"text"} color={"primary"}>
                                     <AddOutlinedIcon fontSize="small" />
                                     <p className="font-semibold">
-                                        {t("Common.course.create")}
+                                        {t("Common.lesson.create")}
                                     </p>
                                 </Button>
                             }
@@ -79,12 +83,12 @@ const FolderAddCourseButton = ({
                     <div>
                         {lessons.length === 0 ? (
                             <Empty
-                                text={t("Pages.yourLibrary.course.noCourses")}
+                                text={t("Pages.yourLibrary.lesson.noLessons")}
                             />
                         ) : (
                             lessons.map((lesson) => {
                                 return (
-                                    <SingleCourseToAdd
+                                    <SingleLessonToAdd
                                         lesson={lesson}
                                         key={lesson.id}
                                     />
@@ -92,6 +96,7 @@ const FolderAddCourseButton = ({
                             })
                         )}
                     </div>
+
                     <div className="flex justify-end">
                         <Button
                             variant="contained"
@@ -107,4 +112,4 @@ const FolderAddCourseButton = ({
     );
 };
 
-export default FolderAddCourseButton;
+export default FolderAddLessonButton;

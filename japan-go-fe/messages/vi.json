@@ -12,13 +12,16 @@
         "description": "Mô tả",
         "importData": "Nhập dữ liệu",
         "importDataFrom": "Chép và dán dữ liệu ở đây (từ Word, Excel, Google Docs, v.v.)",
+        "scope": {
+            "public": "Công khai"
+        },
         "links": {
             "home": "Trang chủ",
             "yourLibrary": "Thư viện của bạn",
             "kanji": "Danh sách Kanji",
             "settings": "Cài đặt",
             "achievement": "Thành tựu",
-            "create-course": {
+            "create-lesson": {
                 "kanji": "Tạo học phần chữ Hán",
                 "grammar": "Tạo học phần ngữ pháp"
             }
@@ -33,7 +36,7 @@
             "create": "Tạo lớp học",
             "placeholder": "Nhập tên lớp học"
         },
-        "course": {
+        "lesson": {
             "title": "Học phần",
             "create": "Tạo học phần"
         }
@@ -112,18 +115,21 @@
                 "lessonCount": "{lessonCount} mục",
                 "searchPlaceholder": "Tìm kiếm thư mục",
                 "folderList": "Danh sách thư mục",
-                "searchCourseInThisFolderPlaceholder": "Tìm kiếm học phần trong thư mục này",
-                "addCourse": "Thêm học phần"
+                "searchLessonInThisFolderPlaceholder": "Tìm kiếm học phần trong thư mục này",
+                "addLesson": "Thêm học phần"
             },
-            "course": {
-                "noCourses": "Không có học phần nào để hiển thị",
-                "grammarCourse": "Học phần ngữ pháp",
-                "kanjiCourse": "Học phần chữ Hán",
-                "createNewKanjiCourse": "Tạo học phần chữ Hán mới",
+            "lesson": {
+                "noLessons": "Không có học phần nào để hiển thị",
+                "grammarLesson": "Học phần ngữ pháp",
+                "kanjiLesson": "Học phần chữ Hán",
+                "createNewKanjiLesson": "Tạo học phần chữ Hán mới",
                 "inputLessonNamePlaceholder": "Nhập tên học phần",
                 "addDescriptionPlaceholder": "Thêm mô tả cho học phần này...",
                 "importKanjiDataPlaceholder": "Chữ Hán chính\t\tChữ Hán\t\tPhiên âm\t\tNghĩa\t\tChú ý\n細\t\t細部\t\tさいぶ\t\tchi tiết\t\tbộ phận nhỏ bên trong toàn thể\n細\t\t明細\t\tめいさい\t\tchi tiết rõ ràng\t\tgiải thích chi tiết từng phần rõ ràng, hay dùng liên quan đến tiền bạc\n..."
             }
+        },
+        "createLesson": {
+            "noKanjiDataToPreview": "Không có dữ liệu chữ Hán nào để hiển thị"
         }
     }
 }

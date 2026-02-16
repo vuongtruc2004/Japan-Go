@@ -11,12 +11,12 @@ export async function generateMetadata({
     const t = await getTranslations({ locale, namespace: "Common" });
 
     return {
-        title: t("course"),
+        title: t("lesson"),
     };
 }
 
-const CoursePage = () => {
-    return <div>CoursePage</div>;
+const LessonPage = () => {
+    return <div>LessonPage</div>;
 };
 
-export default CoursePage;
+export default LessonPage;

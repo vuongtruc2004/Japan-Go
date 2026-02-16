@@ -4,7 +4,6 @@ import com.japan_go_be.common.annotation.ApiResponseFormat;
 import com.japan_go_be.features.folder.constant.FolderMessage;
 import com.japan_go_be.features.folder.dto.request.FolderLessonRequest;
 import com.japan_go_be.features.folder.dto.request.FolderRequest;
-import com.japan_go_be.features.folder.dto.response.FolderDetailsResponse;
 import com.japan_go_be.features.folder.dto.response.FolderResponse;
 import com.japan_go_be.features.folder.service.FolderService;
 import lombok.RequiredArgsConstructor;
@@ -40,7 +39,7 @@ public class FolderController {
 
     @ApiResponseFormat(devMessage = FolderMessage.FOLDER_GET_BY_ID, clientMessage = FolderMessage.FOLDER_GET_BY_ID)
     @GetMapping("/{id}")
-    public ResponseEntity<FolderDetailsResponse> getFolderById(@PathVariable Long id) {
+    public ResponseEntity<FolderResponse> getFolderById(@PathVariable Long id) {
         return ResponseEntity.ok(folderService.getFolderById(id));
     }
 

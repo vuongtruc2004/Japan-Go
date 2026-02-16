@@ -7,14 +7,14 @@ export interface ILibraryTab {
     nameKey:
         | "Common.class.title"
         | "Common.folder.title"
-        | "Common.course.title";
+        | "Common.lesson.title";
 }
 
-export interface ICourseCreateLink {
+export interface ILessonCreateLink {
     readonly id: string;
     link: StaticRoutes;
     icon: React.ReactNode;
     nameKey:
-        | "Pages.yourLibrary.course.grammarCourse"
-        | "Pages.yourLibrary.course.kanjiCourse";
+        | "Pages.yourLibrary.lesson.grammarLesson"
+        | "Pages.yourLibrary.lesson.kanjiLesson";
 }

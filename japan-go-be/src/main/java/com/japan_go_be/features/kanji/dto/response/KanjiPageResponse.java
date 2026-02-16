@@ -4,11 +4,12 @@ import com.japan_go_be.common.dto.BaseResponse;
 import com.japan_go_be.features.vocabulary.dto.response.VocabularyResponse;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
+import lombok.experimental.SuperBuilder;
 
 import java.util.ArrayList;
 import java.util.List;
 
-@Builder
+@SuperBuilder
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter

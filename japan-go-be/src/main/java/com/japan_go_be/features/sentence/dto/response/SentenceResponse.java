@@ -3,8 +3,9 @@ package com.japan_go_be.features.sentence.dto.response;
 import com.japan_go_be.common.dto.BaseResponse;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
+import lombok.experimental.SuperBuilder;
 
-@Builder
+@SuperBuilder
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter

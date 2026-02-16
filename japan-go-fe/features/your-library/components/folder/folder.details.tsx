@@ -1,11 +1,12 @@
 import React from "react";
-import { FolderDetailsResponse } from "@/types/api/responses/common.response";
 import FolderDetailsHeader from "@/features/your-library/components/folder/folder.details.header";
+import FolderLessonList from "@/features/your-library/components/folder/folder.lesson.list";
 
-const FolderDetails = ({ folder }: { folder: FolderDetailsResponse }) => {
+const FolderDetails = () => {
     return (
-        <div>
-            <FolderDetailsHeader folder={folder} />
+        <div className="flex flex-col gap-y-5">
+            <FolderDetailsHeader />
+            <FolderLessonList />
         </div>
     );
 };

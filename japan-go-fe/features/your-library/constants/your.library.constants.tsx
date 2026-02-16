@@ -1,4 +1,4 @@
-import { ICourseCreateLink, ILibraryTab } from "../types/your.library.ui.type";
+import { ILessonCreateLink, ILibraryTab } from "../types/your.library.ui.type";
 import TranslateIcon from "@mui/icons-material/Translate";
 import AbcIcon from "@mui/icons-material/Abc";
 
@@ -15,22 +15,22 @@ export const LIBRARY_TABS: ILibraryTab[] = [
     },
     {
         id: "tab-3",
-        link: "/your-library/course",
-        nameKey: "Common.course.title",
+        link: "/your-library/lesson",
+        nameKey: "Common.lesson.title",
     },
 ];
 
-export const COURSE_CREATE_LINK_ITEMS: ICourseCreateLink[] = [
+export const COURSE_CREATE_LINK_ITEMS: ILessonCreateLink[] = [
     {
         id: "link-1",
-        link: "/create-course/grammar",
-        nameKey: "Pages.yourLibrary.course.grammarCourse",
+        link: "/create-lesson/grammar",
+        nameKey: "Pages.yourLibrary.lesson.grammarLesson",
         icon: <AbcIcon />,
     },
     {
         id: "link-2",
-        link: "/create-course/kanji",
-        nameKey: "Pages.yourLibrary.course.kanjiCourse",
+        link: "/create-lesson/kanji",
+        nameKey: "Pages.yourLibrary.lesson.kanjiLesson",
         icon: <TranslateIcon />,
     },
 ];

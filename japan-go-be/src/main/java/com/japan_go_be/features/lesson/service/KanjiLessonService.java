@@ -16,18 +16,17 @@ import com.japan_go_be.features.lesson.dto.request.KanjiLessonRequest;
 import com.japan_go_be.features.lesson.dto.response.LessonResponse;
 import com.japan_go_be.features.lesson.entity.KanjiLessonEntity;
 import com.japan_go_be.features.lesson.entity.LessonEntity;
+import com.japan_go_be.features.lesson.mapper.LessonDtoMapper;
 import com.japan_go_be.features.lesson.repository.LessonRepository;
 import com.japan_go_be.features.vocabulary.dto.request.VocabularyRequest;
 import com.japan_go_be.features.vocabulary.entity.VocabularyEntity;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.io.FilenameUtils;
-import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.InputStream;
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -36,9 +35,9 @@ public class KanjiLessonService {
     private final FileValidator fileValidator;
     private final I18nService i18nService;
     private final KanjiPageXlsxImporter kanjiPageXlsxImporter;
-    private final ModelMapper modelMapper;
     private final LessonRepository lessonRepository;
     private final KanjiRepository kanjiRepository;
+    private final LessonDtoMapper lessonDtoMapper;
 
     /**
      * Create kanji lesson (use by the create lesson method in lesson service)
@@ -47,7 +46,8 @@ public class KanjiLessonService {
      * @return kanji lesson entity to used by the create lesson method
      */
     public KanjiLessonEntity createKanjiLesson(KanjiLessonRequest kanjiLessonRequest) {
-        List<KanjiPageEntity> kanjiPageEntities = new ArrayList<>();
+        KanjiLessonEntity kanjiLessonEntity = new KanjiLessonEntity();
+
         for (KanjiPageRequest kanjiPageRequest : kanjiLessonRequest.kanjiPages()) {
             String mainKanjiCharacter = kanjiPageRequest.mainKanjiCharacter();
 
@@ -56,24 +56,26 @@ public class KanjiLessonService {
                             i18nService.translation(KanjiMessage.KANJI_CHARACTER_NOT_FOUND, mainKanjiCharacter),
                             i18nService.translation(KanjiMessage.KANJI_CHARACTER_NOT_FOUND, mainKanjiCharacter)
                     ));
-            KanjiPageEntity kanjiPage = KanjiPageEntity.builder()
+            KanjiPageEntity kanjiPageEntity = KanjiPageEntity.builder()
                     .mainKanji(mainKanji)
                     .build();
 
-            List<VocabularyEntity> vocabularyEntities = new ArrayList<>();
-
             for (VocabularyRequest vocabularyRequest : kanjiPageRequest.vocabularies()) {
-                VocabularyEntity vocabularyEntity = modelMapper.map(vocabularyRequest, VocabularyEntity.class);
-                vocabularyEntities.add(vocabularyEntity);
-                vocabularyEntity.getKanjiPages().add(kanjiPage);
+                VocabularyEntity vocabularyEntity = VocabularyEntity.builder()
+                        .japanese(vocabularyRequest.japanese())
+                        .reading(vocabularyRequest.reading())
+                        .meaning(vocabularyRequest.meaning())
+                        .note(vocabularyRequest.note())
+                        .build();
+
+                vocabularyEntity.getKanjiPages().add(kanjiPageEntity);
+                kanjiPageEntity.getVocabularies().add(vocabularyEntity);
             }
 
-            kanjiPage.setVocabularies(vocabularyEntities);
-            kanjiPageEntities.add(kanjiPage);
+            kanjiPageEntity.getKanjiLessons().add(kanjiLessonEntity);
+            kanjiLessonEntity.getKanjiPages().add(kanjiPageEntity);
         }
-        return KanjiLessonEntity.builder()
-                .kanjiPages(kanjiPageEntities)
-                .build();
+        return kanjiLessonEntity;
     }
 
     @Transactional
@@ -99,7 +101,7 @@ public class KanjiLessonService {
             kanjiLesson.setLesson(lesson);
 
             LessonEntity savedLesson = lessonRepository.save(lesson);
-            return modelMapper.map(savedLesson, LessonResponse.class);
+            return lessonDtoMapper.lessonEntityToLessonResponseSummary(savedLesson);
 
         } catch (Exception e) {
             throw new FileNotValidException(

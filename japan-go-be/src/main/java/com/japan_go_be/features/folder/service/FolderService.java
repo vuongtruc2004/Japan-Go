@@ -4,18 +4,16 @@ import com.japan_go_be.common.i18n.I18nService;
 import com.japan_go_be.features.folder.constant.FolderMessage;
 import com.japan_go_be.features.folder.dto.request.FolderLessonRequest;
 import com.japan_go_be.features.folder.dto.request.FolderRequest;
-import com.japan_go_be.features.folder.dto.response.FolderDetailsResponse;
 import com.japan_go_be.features.folder.dto.response.FolderResponse;
 import com.japan_go_be.features.folder.entity.FolderEntity;
 import com.japan_go_be.features.folder.exception.FolderException;
 import com.japan_go_be.features.folder.helper.FolderHelper;
-import com.japan_go_be.features.folder.mapper.FolderMapper;
+import com.japan_go_be.features.folder.mapper.FolderDtoMapper;
 import com.japan_go_be.features.folder.repository.FolderRepository;
 import com.japan_go_be.features.lesson.entity.LessonEntity;
 import com.japan_go_be.features.lesson.helper.LessonHelper;
 import com.japan_go_be.features.lesson.repository.LessonRepository;
 import lombok.RequiredArgsConstructor;
-import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -26,12 +24,11 @@ import java.util.List;
 public class FolderService {
 
     private final FolderRepository folderRepository;
-    private final ModelMapper modelMapper;
     private final I18nService i18nService;
     private final FolderHelper folderHelper;
     private final LessonHelper lessonHelper;
     private final LessonRepository lessonRepository;
-    private final FolderMapper folderMapper;
+    private final FolderDtoMapper folderDtoMapper;
 
     @Transactional
     public void removeLessonFromFolder(FolderLessonRequest request) {
@@ -67,9 +64,9 @@ public class FolderService {
         folder.getLessons().add(lesson);
     }
 
-    public FolderDetailsResponse getFolderById(Long id) {
+    public FolderResponse getFolderById(Long id) {
         FolderEntity folder = folderHelper.getFolderById(id);
-        return modelMapper.map(folder, FolderDetailsResponse.class);
+        return folderDtoMapper.folderEntityToFolderResponseDetails(folder);
     }
 
     public Long deleteFolder(Long id) {
@@ -109,11 +106,11 @@ public class FolderService {
             );
         }
         FolderEntity savedFolder = folderRepository.save(folderEntity);
-        return folderMapper.mapFolderEntityToFolderResponse(savedFolder);
+        return folderDtoMapper.folderEntityToFolderResponseSummary(savedFolder);
     }
 
     public List<FolderResponse> getAllFolders() {
         List<FolderEntity> folders = folderRepository.findAll();
-        return folders.stream().map(folderMapper::mapFolderEntityToFolderResponse).toList();
+        return folders.stream().map(folderDtoMapper::folderEntityToFolderResponseSummary).toList();
     }
 }

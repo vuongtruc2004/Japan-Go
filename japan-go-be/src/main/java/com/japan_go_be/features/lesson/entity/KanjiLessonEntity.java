@@ -19,7 +19,7 @@ import java.util.List;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class KanjiLessonEntity extends BaseEntity {
     @Builder.Default
-    @ManyToMany
+    @ManyToMany(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     @JoinTable(name = "kanji_lesson_kanji_page",
             joinColumns = @JoinColumn(name = "kanji_lesson_id"),
             inverseJoinColumns = @JoinColumn(name = "kanji_page_id"))

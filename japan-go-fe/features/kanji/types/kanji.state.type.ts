@@ -1,8 +1,9 @@
-import { ValidateField } from "@/types/share.type";
+import { ValidateField } from "@/types/app/share.type";
+import { DividerType } from "@/features/kanji/types/kanji.enum";
 
 export interface IGetSinoVietnameseState {
     kanji: ValidateField;
-    dividerType: "line" | "whitespace" | "custom";
+    dividerType: DividerType;
     customValue: string;
     sinoVietnamese: string;
 }

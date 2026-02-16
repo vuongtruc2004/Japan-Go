@@ -3,12 +3,13 @@ package com.japan_go_be.features.lesson.mapper;
 import com.japan_go_be.features.kanji.dto.response.KanjiPageResponse;
 import com.japan_go_be.features.kanji.mapper.KanjiDtoMapper;
 import com.japan_go_be.features.lesson.constant.LessonTypeEnum;
+import com.japan_go_be.features.lesson.dto.response.GrammarLessonResponse;
 import com.japan_go_be.features.lesson.dto.response.KanjiLessonResponse;
-import com.japan_go_be.features.lesson.dto.response.LessonDetailsResponse;
+import com.japan_go_be.features.lesson.dto.response.LessonResponse;
+import com.japan_go_be.features.lesson.entity.GrammarLessonEntity;
 import com.japan_go_be.features.lesson.entity.KanjiLessonEntity;
 import com.japan_go_be.features.lesson.entity.LessonEntity;
 import lombok.RequiredArgsConstructor;
-import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -17,22 +18,46 @@ import java.util.List;
 @RequiredArgsConstructor
 public class LessonDtoMapper {
 
-    private final ModelMapper modelMapper;
     private final KanjiDtoMapper kanjiDtoMapper;
 
-    public LessonDetailsResponse lessonEntityToLessonDetailsResponse(LessonEntity lessonEntity) {
-        LessonDetailsResponse lessonDetailsResponse = modelMapper.map(lessonEntity, LessonDetailsResponse.class);
-        if (lessonEntity.getLessonType().equals(LessonTypeEnum.KANJI)) {
-            lessonDetailsResponse.setKanjiLesson(kanjiLessonEntityToKanjiLessonResponse(lessonEntity.getKanjiLesson()));
+    public LessonResponse lessonEntityToLessonResponseDetails(LessonEntity lessonEntity) {
+        LessonResponse lessonResponse = lessonEntityToLessonResponseSummary(lessonEntity);
+
+        if (lessonEntity.getLessonType() == LessonTypeEnum.KANJI) {
+            lessonResponse.setKanjiLesson(kanjiLessonEntityToKanjiLessonResponseDetails(lessonEntity.getKanjiLesson()));
+        } else if (lessonEntity.getLessonType() == LessonTypeEnum.GRAMMAR) {
+            lessonResponse.setGrammarLesson(grammarLessonEntityToGrammarLessonResponseSummary(lessonEntity.getGrammarLesson()));
         }
-        return lessonDetailsResponse;
+
+        return lessonResponse;
     }
 
-    public KanjiLessonResponse kanjiLessonEntityToKanjiLessonResponse(KanjiLessonEntity kanjiLessonEntity) {
-        KanjiLessonResponse kanjiLessonResponse = modelMapper.map(kanjiLessonEntity, KanjiLessonResponse.class);
+    public LessonResponse lessonEntityToLessonResponseSummary(LessonEntity lessonEntity) {
+        return LessonResponse.builder()
+                .id(lessonEntity.getId())
+                .lessonName(lessonEntity.getLessonName())
+                .description(lessonEntity.getDescription())
+                .lessonType(lessonEntity.getLessonType())
+                .build();
+    }
+
+    public KanjiLessonResponse kanjiLessonEntityToKanjiLessonResponseDetails(KanjiLessonEntity kanjiLessonEntity) {
+        KanjiLessonResponse kanjiLessonResponse = KanjiLessonResponse.builder()
+                .id(kanjiLessonEntity.getId())
+                .build();
+
         List<KanjiPageResponse> kanjiPageResponses = kanjiLessonEntity.getKanjiPages().stream()
                 .map(kanjiDtoMapper::kanjiPageEntityToKanjiPageResponse).toList();
+
         kanjiLessonResponse.setKanjiPages(kanjiPageResponses);
+
         return kanjiLessonResponse;
+    }
+
+    public GrammarLessonResponse grammarLessonEntityToGrammarLessonResponseSummary(GrammarLessonEntity grammarLessonEntity) {
+        return GrammarLessonResponse.builder()
+                .id(grammarLessonEntity.getId())
+                .grammarLessonTitle(grammarLessonEntity.getGrammarLessonTitle())
+                .build();
     }
 }

@@ -12,12 +12,12 @@ import com.japan_go_be.features.kanji.entity.OnyomiEntity;
 import com.japan_go_be.features.kanji.entry.KanjiDicEntry;
 import com.japan_go_be.features.kanji.exception.KanjiException;
 import com.japan_go_be.features.kanji.helper.KanjiHelper;
+import com.japan_go_be.features.kanji.mapper.KanjiDtoMapper;
 import com.japan_go_be.features.kanji.repository.KanjiMeaningRepository;
 import com.japan_go_be.features.kanji.repository.KanjiRepository;
 import com.japan_go_be.features.kanji.repository.KunyomiRepository;
 import com.japan_go_be.features.kanji.repository.OnyomiRepository;
 import lombok.RequiredArgsConstructor;
-import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
 import tools.jackson.databind.JsonNode;
 import tools.jackson.databind.ObjectMapper;
@@ -41,9 +41,9 @@ public class KanjiXmlImporter {
     private final KunyomiRepository kunyomiRepository;
     private final OnyomiRepository onyomiRepository;
     private final KanjiMeaningRepository kanjiMeaningRepository;
-    private final ModelMapper modelMapper;
     private final I18nService i18nService;
     private final KanjiHelper kanjiHelper;
+    private final KanjiDtoMapper kanjiDtoMapper;
 
     public List<KanjiEntity> importKanji(InputStream kanjidicInputstream, InputStream kanjijlptInputstream) {
         try {
@@ -130,7 +130,7 @@ public class KanjiXmlImporter {
         // save all kanji
         List<KanjiEntity> kanjiEntities = new ArrayList<>();
         for (KanjiDicEntry kanjiDicEntry : kanjiDicEntryList) {
-            KanjiEntity kanjiEntity = modelMapper.map(kanjiDicEntry, KanjiEntity.class);
+            KanjiEntity kanjiEntity = kanjiDtoMapper.kanjiDicEntryToKanjiEntity(kanjiDicEntry);
             for (String kunyomi : kanjiDicEntry.getKunyomiSet()) {
                 kanjiEntity.getKunyomiList().add(kunyomiEntityMap.get(kunyomi));
             }

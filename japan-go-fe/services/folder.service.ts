@@ -1,15 +1,10 @@
 import { FolderLessonRequest } from "@/types/api/requests/lesson.request";
 import { ApiResponse } from "@/types/api/responses/base.response";
-import {
-    FolderDetailsResponse,
-    FolderResponse,
-} from "@/types/api/responses/common.response";
+import { FolderResponse } from "@/types/api/responses/common.response";
 import { sendRequest } from "@/lib/send.request";
 
-export const getFolderById = async (
-    id: string,
-): Promise<FolderDetailsResponse> => {
-    const response = await sendRequest<ApiResponse<FolderDetailsResponse>>({
+export const getFolderById = async (id: string): Promise<FolderResponse> => {
+    const response = await sendRequest<ApiResponse<FolderResponse>>({
         url: `/folder/${id}`,
         method: "GET",
     });

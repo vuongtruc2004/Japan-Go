@@ -3,9 +3,11 @@ package com.japan_go_be.common.dto;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
+import lombok.experimental.SuperBuilder;
 
 import java.time.Instant;
 
+@SuperBuilder
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter

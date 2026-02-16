@@ -12,7 +12,7 @@ import {
     useState,
 } from "react";
 
-const FolderAddCourse = ({
+const FolderAddLesson = ({
     buttonElement,
 }: {
     buttonElement: ReactElement<ButtonHTMLAttributes<HTMLButtonElement>>;
@@ -91,4 +91,4 @@ const FolderAddCourse = ({
     );
 };
 
-export default FolderAddCourse;
+export default FolderAddLesson;

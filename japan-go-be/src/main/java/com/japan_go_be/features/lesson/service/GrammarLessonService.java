@@ -10,9 +10,9 @@ import com.japan_go_be.features.lesson.entity.GrammarLessonEntity;
 import com.japan_go_be.features.lesson.entity.LessonEntity;
 import com.japan_go_be.features.lesson.helper.GrammarLessonMarkdownImporter;
 import com.japan_go_be.features.lesson.helper.GrammarLessonXlsxImporter;
+import com.japan_go_be.features.lesson.mapper.LessonDtoMapper;
 import com.japan_go_be.features.lesson.repository.GrammarLessonRepository;
 import lombok.RequiredArgsConstructor;
-import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -28,8 +28,8 @@ public class GrammarLessonService {
     private final I18nService i18nService;
     private final GrammarLessonMarkdownImporter grammarLessonMarkdownImporter;
     private final GrammarLessonRepository grammarLessonRepository;
-    private final ModelMapper modelMapper;
     private final GrammarLessonXlsxImporter grammarLessonXlsxImporter;
+    private final LessonDtoMapper lessonDtoMapper;
 
     /**
      * @param files list of markdown files by export from the notion (I use for noting grammars)
@@ -63,7 +63,7 @@ public class GrammarLessonService {
         }
         List<GrammarLessonEntity> savedGrammarLessonEntities = grammarLessonRepository.saveAll(grammarLessonEntities);
         return savedGrammarLessonEntities.stream()
-                .map(grammarLessonEntity -> modelMapper.map(grammarLessonEntity, GrammarLessonResponse.class))
+                .map(lessonDtoMapper::grammarLessonEntityToGrammarLessonResponseSummary)
                 .toList();
     }
 
@@ -83,7 +83,7 @@ public class GrammarLessonService {
         }
         List<LessonEntity> lessons = grammarLessonXlsxImporter.importGrammarLessonsFromExcel(file);
         return lessons.stream()
-                .map(lessonEntity -> modelMapper.map(lessonEntity, LessonResponse.class))
+                .map(lessonDtoMapper::lessonEntityToLessonResponseSummary)
                 .toList();
     }
 }

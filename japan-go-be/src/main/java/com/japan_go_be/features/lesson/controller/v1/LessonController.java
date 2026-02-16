@@ -4,7 +4,6 @@ import com.japan_go_be.common.annotation.ApiResponseFormat;
 import com.japan_go_be.common.dto.PageDetailsResponse;
 import com.japan_go_be.features.lesson.constant.messages.LessonMessage;
 import com.japan_go_be.features.lesson.dto.request.LessonRequest;
-import com.japan_go_be.features.lesson.dto.response.LessonDetailsResponse;
 import com.japan_go_be.features.lesson.dto.response.LessonResponse;
 import com.japan_go_be.features.lesson.service.LessonService;
 import lombok.RequiredArgsConstructor;
@@ -35,7 +34,7 @@ public class LessonController {
 
     @ApiResponseFormat(devMessage = LessonMessage.LESSON_GET_BY_ID, clientMessage = LessonMessage.LESSON_GET_BY_ID)
     @GetMapping("/{id}")
-    public ResponseEntity<LessonDetailsResponse> getLessonById(@PathVariable Long id) {
+    public ResponseEntity<LessonResponse> getLessonById(@PathVariable Long id) {
         return ResponseEntity.ok(lessonService.getLessonById(id));
     }
 
