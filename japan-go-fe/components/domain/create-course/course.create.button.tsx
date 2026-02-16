@@ -1,7 +1,7 @@
 import React, { ButtonHTMLAttributes, cloneElement, ReactElement } from "react";
 import { useTranslations } from "next-intl";
 import { Popover, PopoverOrigin } from "@mui/material";
-import { COURSE_CREATE_LINK_ITEMS } from "@/features/your-library/constants/constants";
+import { COURSE_CREATE_LINK_ITEMS } from "@/features/your-library/constants/your.library.constants";
 import { Link } from "@/i18n/navigation";
 
 const CourseCreateButton = ({

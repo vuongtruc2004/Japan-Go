@@ -13,7 +13,6 @@ import lombok.experimental.FieldDefaults;
 public class VocabularyResponse extends BaseResponse {
     String japanese;
     String reading;
-    String vietnamese;
-    String english;
+    String meaning;
     String note;
 }

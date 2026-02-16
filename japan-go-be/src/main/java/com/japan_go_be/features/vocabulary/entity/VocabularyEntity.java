@@ -27,12 +27,10 @@ public class VocabularyEntity extends BaseEntity {
     @Column(nullable = false)
     String reading;
 
-    String vietnamese;
+    String meaning;
 
     String note;
-
-    String english;
-
+    
     @Builder.Default
     @ManyToMany(mappedBy = "vocabularies")
     List<KanjiPageEntity> kanjiPages = new ArrayList<>();

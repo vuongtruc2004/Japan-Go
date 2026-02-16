@@ -1,14 +1,14 @@
 "use client";
 import { useActionState } from "react";
-import { IImportKanjiDataState } from "@/features/create-course/types/state.type";
-import { importKanjiData } from "@/features/create-course/actions/create.course.actions";
+import { IImportKanjiDataState } from "@/features/create-course/types/create.course.state.type";
+import { importKanjiDataActions } from "@/features/create-course/actions/create.course.actions";
 
 const initialState: IImportKanjiDataState | null = null;
 
 export function useImportKanjiData() {
-    const [state, formAction, pending] = useActionState(
-        importKanjiData,
+    const [state, dispatchAction, isPending] = useActionState(
+        importKanjiDataActions,
         initialState,
     );
-    return { state, formAction, pending };
+    return { state, dispatchAction, isPending };
 }

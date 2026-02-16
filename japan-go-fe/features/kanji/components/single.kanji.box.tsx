@@ -1,4 +1,4 @@
-import { IKanjiTab } from "../types/ui.type";
+import { IKanjiTab } from "../types/kanji.ui.type";
 
 const SingleKanjiBox = ({ activeTab }: { activeTab: IKanjiTab }) => {
     return (
@@ -13,4 +13,3 @@ const SingleKanjiBox = ({ activeTab }: { activeTab: IKanjiTab }) => {
 };
 
 export default SingleKanjiBox;
-

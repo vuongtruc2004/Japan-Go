@@ -1,16 +1,43 @@
 "use client";
-import React from "react";
+import React, { useState, useTransition } from "react";
 import { Button, Divider, Modal } from "@mui/material";
 import { useTranslations } from "next-intl";
 import CloseIcon from "@mui/icons-material/Close";
 import { TextFieldCustom } from "@/components/ui/mui-custom/text.field.custom";
-import { useImportKanjiData } from "@/hooks/create-course/use.import.kanji.data";
 import AddOutlinedIcon from "@mui/icons-material/AddOutlined";
+import { KanjiPageRequest } from "@/types/api/requests/kanji.request";
+import { importKanjiDataActions } from "@/features/create-course/actions/create.course.actions";
+import { IImportKanjiDataState } from "@/features/create-course/types/create.course.state.type";
 
-const KanjiDataImportButton = () => {
+const KanjiDataImportButton = ({
+    setKanjiPages,
+}: {
+    setKanjiPages: React.Dispatch<React.SetStateAction<KanjiPageRequest[]>>;
+}) => {
     const t = useTranslations();
-    const [open, setOpen] = React.useState(false);
-    const { state, formAction, pending } = useImportKanjiData();
+    const [open, setOpen] = useState(false);
+
+    const [formState, setFormState] = useState<IImportKanjiDataState | null>(
+        null,
+    );
+    const [isPending, startTransition] = useTransition();
+
+    const handleClose = () => {
+        setFormState(null);
+        setOpen(false);
+    };
+
+    const formAction = (formData: FormData) => {
+        startTransition(async () => {
+            const formState = await importKanjiDataActions(formData);
+            if (formState && formState.success) {
+                startTransition(() => {
+                    setKanjiPages(formState.kanjiPages);
+                    setOpen(false);
+                });
+            }
+        });
+    };
 
     return (
         <div>
@@ -31,7 +58,7 @@ const KanjiDataImportButton = () => {
                         </span>
                         {t("Common.importDataFrom")}
                     </h1>
-                    <form action={formAction}>
+                    <form action={formAction} key="kanji-data-import-form">
                         <TextFieldCustom
                             name="kanji-data"
                             placeholder={t(
@@ -40,6 +67,9 @@ const KanjiDataImportButton = () => {
                             fullWidth
                             multiline
                             rows={10}
+                            defaultValue={
+                                formState ? formState.kanjiData.value : ""
+                            }
                             sx={{
                                 padding: "20px",
                             }}
@@ -49,20 +79,21 @@ const KanjiDataImportButton = () => {
 
                         <div className="flex items-center justify-end gap-x-3 p-5">
                             <Button
-                                onClick={() => setOpen(false)}
+                                onClick={handleClose}
                                 sx={{ columnGap: "8px" }}
                                 variant="outlined"
                                 color="error"
-                                disabled={pending}
+                                disabled={isPending}
                             >
                                 <CloseIcon fontSize="small" />
                                 {t("Common.cancel")}
                             </Button>
+
                             <Button
                                 type="submit"
                                 variant="contained"
                                 color="primary"
-                                loading={pending}
+                                loading={isPending}
                             >
                                 {t("Common.confirm")}
                             </Button>

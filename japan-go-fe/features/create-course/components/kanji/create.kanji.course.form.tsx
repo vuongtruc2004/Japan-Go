@@ -1,13 +1,23 @@
-import React from "react";
+"use client";
+import React, { useEffect, useState } from "react";
 import { useTranslations } from "next-intl";
 import { Button } from "@mui/material";
 import WrapBox from "@/components/ui/wrap.box";
 import { TextFieldCustom } from "@/components/ui/mui-custom/text.field.custom";
 import PublicOutlinedIcon from "@mui/icons-material/PublicOutlined";
 import KanjiDataImportButton from "@/features/create-course/components/kanji/kanji.data.import.button";
+import { KanjiPageRequest } from "@/types/api/requests/kanji.request";
 
 const CreateKanjiCourseForm = () => {
     const t = useTranslations();
+    const [kanjiPages, setKanjiPages] = useState<KanjiPageRequest[]>([]);
+
+    useEffect(() => {
+        if (kanjiPages.length !== 0) {
+            console.log(kanjiPages);
+        }
+    }, [kanjiPages]);
+
     return (
         <WrapBox>
             <form action="" className="flex flex-col gap-y-3">
@@ -43,7 +53,7 @@ const CreateKanjiCourseForm = () => {
                 />
 
                 <div className="flex items-center gap-x-3">
-                    <KanjiDataImportButton />
+                    <KanjiDataImportButton setKanjiPages={setKanjiPages} />
 
                     <Button
                         variant="outlined"

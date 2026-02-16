@@ -41,13 +41,13 @@ public class KanjiPageXlsxImporter {
                 String mainKanjiCharacter = row.getCell(0).getStringCellValue().trim();
                 String japanese = row.getCell(1).getStringCellValue().trim();
                 String reading = row.getCell(3).getStringCellValue().trim();
-                String vietnamese = row.getCell(4).getStringCellValue().trim();
+                String meaning = row.getCell(4).getStringCellValue().trim();
                 String note = row.getCell(5).getStringCellValue().trim();
 
                 if (mainKanjiCharacter.isEmpty()
                         || japanese.isEmpty()
                         || reading.isEmpty()
-                        || vietnamese.isEmpty()) {
+                        || meaning.isEmpty()) {
                     throw new FileNotValidException(
                             i18nService.translation(FileMessage.FILE_ERROR_AT_LINE, rowNum),
                             i18nService.translation(FileMessage.FILE_ERROR_AT_LINE, rowNum)
@@ -56,7 +56,7 @@ public class KanjiPageXlsxImporter {
                 VocabularyEntity vocabulary = VocabularyEntity.builder()
                         .japanese(japanese)
                         .reading(reading)
-                        .vietnamese(vietnamese)
+                        .meaning(meaning)
                         .note(note)
                         .build();
 

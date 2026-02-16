@@ -328,9 +328,8 @@ CREATE TABLE vocabulary
     modified_time datetime              NULL,
     japanese      VARCHAR(255)          NOT NULL,
     reading       VARCHAR(255)          NOT NULL,
-    vietnamese    VARCHAR(255)          NULL,
+    meaning       VARCHAR(255)          NULL,
     note          VARCHAR(255)          NULL,
-    english       VARCHAR(255)          NULL,
     CONSTRAINT pk_vocabulary PRIMARY KEY (id)
 );
 

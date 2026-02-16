@@ -1,8 +1,8 @@
 import { useTranslations } from "next-intl";
-import { GROUP_KANJI_TAB } from "../constants/constants";
+import { GROUP_KANJI_TAB } from "../constants/kanji.constants";
 import { useActiveKanjiTab } from "../contexts/active.kanji.tab";
-import { IKanjiTab } from "../types/ui.type";
-import { getKanjiTabClassName } from "../utils/utils";
+import { IKanjiTab } from "../types/kanji.ui.type";
+import { getKanjiTabClassName } from "../utils/kanji.utils";
 
 const TabsSwitchButtons = () => {
     const { activeTab, setActiveTab } = useActiveKanjiTab();

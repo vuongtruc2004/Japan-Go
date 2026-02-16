@@ -1,26 +1,30 @@
-'use server'
+"use server";
 import { sendRequest } from "@/lib/send.request";
 import { ApiResponse } from "@/types/api/responses/base.response";
-import { IGetSinoVietnameseState } from "../types/state.type";
+import { IGetSinoVietnameseState } from "../types/kanji.state.type";
 
-export async function getSinoVietnamese(dividerType: "line" | "whitespace" | "custom", initialState: IGetSinoVietnameseState | null, formData: FormData): Promise<IGetSinoVietnameseState> {
+export async function getSinoVietnamese(
+    dividerType: "line" | "whitespace" | "custom",
+    initialState: IGetSinoVietnameseState | null,
+    formData: FormData,
+): Promise<IGetSinoVietnameseState> {
     const kanji = formData.get("kanji")?.toString().trim() || "";
     const customValue = formData.get("custom-value")?.toString() || "";
 
     const state: IGetSinoVietnameseState = {
         kanji: {
             value: kanji,
-            errorMessage: '',
-            isError: false
+            errorMessage: "",
+            isError: false,
         },
         dividerType,
         customValue,
-        sinoVietnamese: ""
-    }
+        sinoVietnamese: "",
+    };
 
     if (kanji === "") {
         state.kanji.isError = true;
-        state.kanji.errorMessage = "Kanji cannot be blank!"
+        state.kanji.errorMessage = "Kanji cannot be blank!";
     }
 
     // const result = kanji
@@ -30,15 +34,15 @@ export async function getSinoVietnamese(dividerType: "line" | "whitespace" | "cu
     // state.sinoVietnamese = result;
     if (!state.kanji.isError) {
         const response = await sendRequest<ApiResponse<string>>({
-            url: '/sino-vietnamese',
+            url: "/sino-vietnamese",
             headers: {
-                "Content-Type": "application/json"
+                "Content-Type": "application/json",
             },
-            method: 'POST',
+            method: "POST",
             body: {
                 kanjiArrayRaw: kanji,
-                divider: dividerType === "custom" ? customValue : dividerType
-            }
+                divider: dividerType === "custom" ? customValue : dividerType,
+            },
         });
 
         if (response.statusCode === 200) {
@@ -47,4 +51,3 @@ export async function getSinoVietnamese(dividerType: "line" | "whitespace" | "cu
     }
     return state;
 }
-

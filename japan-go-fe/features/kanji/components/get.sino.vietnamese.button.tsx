@@ -10,8 +10,8 @@ import {
 } from "@mui/material";
 import { useTranslations } from "next-intl";
 import { useActionState, useState } from "react";
-import { getSinoVietnamese } from "../actions/actions";
-import { IGetSinoVietnameseState } from "../types/state.type";
+import { getSinoVietnamese } from "../actions/kanji.actions";
+import { IGetSinoVietnameseState } from "../types/kanji.state.type";
 import SinoVietnameseResultTextArea from "./sino.vietnamese.result.textarea";
 
 const initialState: IGetSinoVietnameseState | null = null;
@@ -24,7 +24,10 @@ const GetSinoVietnameseButton = () => {
         "line" | "whitespace" | "custom"
     >("line");
 
-    const getSinoVietnameseWithDividerType = getSinoVietnamese.bind(null, dividerType);
+    const getSinoVietnameseWithDividerType = getSinoVietnamese.bind(
+        null,
+        dividerType,
+    );
     const [state, formAction, pending] = useActionState(
         getSinoVietnameseWithDividerType,
         initialState,
@@ -56,7 +59,9 @@ const GetSinoVietnameseButton = () => {
                                 name="kanji"
                                 multiline
                                 rows={20}
-                                placeholder={t("Pages.kanji.sinoVietnameseImport.inputPlaceholder")}
+                                placeholder={t(
+                                    "Pages.kanji.sinoVietnameseImport.inputPlaceholder",
+                                )}
                                 error={state != null && state.kanji.isError}
                                 helperText={
                                     <span className="text-tc-error">
@@ -96,12 +101,16 @@ const GetSinoVietnameseButton = () => {
                             <FormControlLabel
                                 value="line"
                                 control={<Radio />}
-                                label={t("Pages.kanji.sinoVietnameseImport.lineLabel")}
+                                label={t(
+                                    "Pages.kanji.sinoVietnameseImport.lineLabel",
+                                )}
                             />
                             <FormControlLabel
                                 value="whitespace"
                                 control={<Radio />}
-                                label={t("Pages.kanji.sinoVietnameseImport.spaceLabel")}
+                                label={t(
+                                    "Pages.kanji.sinoVietnameseImport.spaceLabel",
+                                )}
                             />
                             <FormControlLabel
                                 value="custom"
@@ -110,7 +119,9 @@ const GetSinoVietnameseButton = () => {
                                     <TextField
                                         name="custom-value"
                                         size="small"
-                                        placeholder={t("Pages.kanji.sinoVietnameseImport.customPlaceholder")}
+                                        placeholder={t(
+                                            "Pages.kanji.sinoVietnameseImport.customPlaceholder",
+                                        )}
                                         defaultValue={state?.customValue}
                                     />
                                 }
@@ -145,4 +156,3 @@ const GetSinoVietnameseButton = () => {
 };
 
 export default GetSinoVietnameseButton;
-

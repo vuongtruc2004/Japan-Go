@@ -6,8 +6,8 @@ import {
     useContext,
     useState,
 } from "react";
-import { GROUP_KANJI_TAB } from "../constants/constants";
-import { IKanjiTab } from "../types/ui.type";
+import { GROUP_KANJI_TAB } from "../constants/kanji.constants";
+import { IKanjiTab } from "../types/kanji.ui.type";
 
 interface IActiveKanjiTabProviderProps {
     activeTab: IKanjiTab;
@@ -40,4 +40,3 @@ export const useActiveKanjiTab = () => {
     }
     return context;
 };
-

@@ -3,8 +3,8 @@ import { Link, usePathname } from "@/i18n/navigation";
 import { Box, Tab, Tabs } from "@mui/material";
 import { useTranslations } from "next-intl";
 import React, { useState } from "react";
-import { LIBRARY_TABS } from "../constants/constants";
-import { getActiveLibraryTab } from "@/features/your-library/utils/utils";
+import { LIBRARY_TABS } from "../constants/your.library.constants";
+import { getActiveLibraryTab } from "@/features/your-library/utils/your.library.utils";
 import WrapBox from "@/components/ui/wrap.box";
 
 const LibraryTabs = () => {
