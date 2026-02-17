@@ -128,7 +128,13 @@
                 "createNewKanjiLesson": "Tạo học phần chữ Hán mới",
                 "inputLessonNamePlaceholder": "Nhập tên học phần",
                 "addDescriptionPlaceholder": "Thêm mô tả cho học phần này...",
-                "importKanjiDataPlaceholder": "Chữ Hán chính\t\tChữ Hán\t\tPhiên âm\t\tNghĩa\t\tChú ý\n細\t\t細部\t\tさいぶ\t\tchi tiết\t\tbộ phận nhỏ bên trong toàn thể\n細\t\t明細\t\tめいさい\t\tchi tiết rõ ràng\t\tgiải thích chi tiết từng phần rõ ràng, hay dùng liên quan đến tiền bạc\n..."
+                "importKanjiDataPlaceholder": "Chữ Hán chính\t\tChữ Hán\t\tPhiên âm\t\tNghĩa\t\tChú ý\n細\t\t細部\t\tさいぶ\t\tchi tiết\t\tbộ phận nhỏ bên trong toàn thể\n細\t\t明細\t\tめいさい\t\tchi tiết rõ ràng\t\tgiải thích chi tiết từng phần rõ ràng, hay dùng liên quan đến tiền bạc\n...",
+                "removeFromFolder": "Xóa khỏi thư mục"
+            }
+        },
+        "lesson": {
+            "kanji": {
+                "noKanjiPages": "Không có trang chữ Hán nào để hiển thị"
             }
         },
         "createLesson": {

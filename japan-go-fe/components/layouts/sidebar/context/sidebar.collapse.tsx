@@ -24,7 +24,7 @@ export const SidebarCollapseProvider = ({
     children: React.ReactNode;
 }) => {
     const pathname = usePathname();
-    const defaultCollapseLinks = ["/lesson"];
+    const defaultCollapseLinks = ["/lesson/kanji", "/lesson/grammar"];
     const initialState = defaultCollapseLinks.some((link) =>
         pathname.startsWith(link),
     );
@@ -51,4 +51,3 @@ export const useSidebarCollapse = () => {
     }
     return context;
 };
-

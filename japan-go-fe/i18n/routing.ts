@@ -31,6 +31,9 @@ export const routing = defineRouting({
         "/create-lesson/kanji": {
             vi: "/tao-hoc-phan/chu-han",
         },
+        "/lesson/kanji/[slug]": {
+            vi: "/hoc-phan/chu-han/[slug]",
+        },
         "/kanji": {
             vi: "/chu-han",
         },

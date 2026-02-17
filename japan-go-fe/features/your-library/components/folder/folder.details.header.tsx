@@ -10,6 +10,7 @@ import { AddOutlined } from "@mui/icons-material";
 import FolderAddLessonButton from "@/components/domain/folder/folder.add.course.button";
 import WrapBox from "@/components/ui/wrap.box";
 import { useFolderDetails } from "@/features/your-library/contexts/folder.details";
+import { Link } from "@/i18n/navigation";
 
 const FolderDetailsHeader = () => {
     const t = useTranslations();
@@ -18,14 +19,18 @@ const FolderDetailsHeader = () => {
     return (
         <WrapBox>
             <div className="flex items-center justify-between">
-                <div className="flex items-center gap-x-3">
+                <Link
+                    href={"/your-library/folder"}
+                    className="hover:text-tc-highlight flex items-center gap-x-3 hover:underline"
+                >
                     <span className="bg-bgc-page flex h-12 w-12 items-center justify-center rounded-md">
                         <FolderOutlinedIcon />
                     </span>
                     <h1 className="font-semibold">{folder.folderName}</h1>
-                </div>
+                </Link>
                 <FolderMoreButton />
             </div>
+
             <div className="mt-3 flex items-center justify-between gap-x-3">
                 <TextFieldCustom
                     slotProps={{

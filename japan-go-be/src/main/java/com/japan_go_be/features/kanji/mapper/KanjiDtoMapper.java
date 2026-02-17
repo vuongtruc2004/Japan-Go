@@ -49,6 +49,7 @@ public class KanjiDtoMapper {
 
     public KanjiPageResponse kanjiPageEntityToKanjiPageResponse(KanjiPageEntity kanjiPageEntity) {
         KanjiPageResponse kanjiPageResponse = KanjiPageResponse.builder()
+                .id(kanjiPageEntity.getId())
                 .build();
 
         kanjiPageResponse.setMainKanji(kanjiEntityToKanjiResponse(kanjiPageEntity.getMainKanji()));

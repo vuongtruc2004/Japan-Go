@@ -5,6 +5,7 @@ import FolderCreateButton from "@/components/domain/folder/folder.create.button"
 import { Button, InputAdornment } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import WrapBox from "@/components/ui/wrap.box";
+import AddOutlinedIcon from "@mui/icons-material/AddOutlined";
 
 const FolderSearchBox = () => {
     const t = useTranslations();
@@ -36,6 +37,7 @@ const FolderSearchBox = () => {
                 <FolderCreateButton
                     buttonElement={
                         <Button variant="contained" color="primary">
+                            <AddOutlinedIcon fontSize="small" />
                             {t("Pages.yourLibrary.folder.createFolder")}
                         </Button>
                     }
