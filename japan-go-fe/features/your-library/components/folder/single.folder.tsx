@@ -16,7 +16,7 @@ const SingleFolder = ({ folder }: { folder: FolderResponse }) => {
                     slug: slugifyText(folder.folderName + "-" + folder.id),
                 },
             }}
-            className="border-bdc-muted group relative rounded-md border px-4 py-2"
+            className="border-bdc-primary group relative rounded-md border px-4 py-2"
         >
             <p className="text-tc-muted mb-1 text-sm font-semibold">
                 {t("lessonCount", { lessonCount: folder.lessonCount })}

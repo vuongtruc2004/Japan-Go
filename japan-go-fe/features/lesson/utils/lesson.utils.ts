@@ -4,5 +4,5 @@ export const getKanjiPageMoveButtonClassname = (
 ): string => {
     if (activeIndex === index)
         return "border-green-500/20 bg-green-500/10 py-2 text-green-700 dark:text-green-500";
-    return "hover:bg-hbgc-highlight transition-all duration-150 border-bdc-primary hover:border-bdc-primary";
+    return "hover:bg-hbgc-highlight transition-all duration-150 border-bdc-primary";
 };

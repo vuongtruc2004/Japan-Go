@@ -1,24 +1,16 @@
 import React from "react";
 import MoreHorizOutlinedIcon from "@mui/icons-material/MoreHorizOutlined";
-import { Button } from "@mui/material";
 import { TooltipCustom } from "@/components/ui/mui-custom/tooltip.custom";
 import { useTranslations } from "next-intl";
+import IconButtonCustom from "@/components/ui/mui-custom/icon.button.custom";
 
 const FolderMoreButton = () => {
     const t = useTranslations();
     return (
         <TooltipCustom title={t("Common.viewMore")}>
-            <Button
-                variant="text"
-                color="primary"
-                sx={{
-                    minWidth: "40px",
-                    width: "40px",
-                    borderRadius: "50%",
-                }}
-            >
+            <IconButtonCustom>
                 <MoreHorizOutlinedIcon />
-            </Button>
+            </IconButtonCustom>
         </TooltipCustom>
     );
 };

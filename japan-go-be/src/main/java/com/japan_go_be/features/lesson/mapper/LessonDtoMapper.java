@@ -29,16 +29,26 @@ public class LessonDtoMapper {
             lessonResponse.setGrammarLesson(grammarLessonEntityToGrammarLessonResponseSummary(lessonEntity.getGrammarLesson()));
         }
 
+        if (!lessonEntity.getFolders().isEmpty()) {
+
+        }
+
         return lessonResponse;
     }
 
     public LessonResponse lessonEntityToLessonResponseSummary(LessonEntity lessonEntity) {
-        return LessonResponse.builder()
+        LessonResponse lessonResponse = LessonResponse.builder()
                 .id(lessonEntity.getId())
                 .lessonName(lessonEntity.getLessonName())
                 .description(lessonEntity.getDescription())
                 .lessonType(lessonEntity.getLessonType())
                 .build();
+        if (lessonEntity.getLessonType() == LessonTypeEnum.KANJI) {
+            lessonResponse.setPageCount((long) lessonEntity.getKanjiLesson().getKanjiPages().size());
+        } else if (lessonEntity.getLessonType() == LessonTypeEnum.GRAMMAR) {
+            lessonResponse.setPageCount((long) lessonEntity.getGrammarLesson().getGrammars().size());
+        }
+        return lessonResponse;
     }
 
     public KanjiLessonResponse kanjiLessonEntityToKanjiLessonResponseDetails(KanjiLessonEntity kanjiLessonEntity) {

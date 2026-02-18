@@ -16,6 +16,7 @@ public class LessonResponse extends BaseResponse {
     String lessonName;
     String description;
     LessonTypeEnum lessonType;
+    Long pageCount;
     GrammarLessonResponse grammarLesson;
     KanjiLessonResponse kanjiLesson;
 }

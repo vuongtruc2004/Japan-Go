@@ -8,8 +8,8 @@ const SingleKanjiDataPreview = ({
     kanjiPage: KanjiPageRequest;
 }) => {
     return (
-        <div className="border-bdc-muted flex items-center gap-x-5 rounded-md border p-5">
-            <span className="border-bdc-muted flex aspect-square h-20 w-20 items-center justify-center rounded-md border text-3xl">
+        <div className="border-bdc-primary flex items-center gap-x-5 rounded-md border p-5">
+            <span className="border-bdc-primary flex aspect-square h-20 w-20 items-center justify-center rounded-md border text-3xl">
                 {kanjiPage.mainKanjiCharacter}
             </span>
 

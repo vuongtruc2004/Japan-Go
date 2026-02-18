@@ -13,6 +13,9 @@
         "importData": "Nhập dữ liệu",
         "importDataFrom": "Chép và dán dữ liệu ở đây (từ Word, Excel, Google Docs, v.v.)",
         "author": "Tác giả",
+        "share": "Chia sẻ",
+        "save": "Lưu",
+        "copied": "Đã sao chép",
         "kanjiPage": "trang chữ Hán",
         "grammar": "ngữ pháp",
         "scope": {
@@ -134,8 +137,13 @@
         },
         "lesson": {
             "kanji": {
-                "noKanjiPages": "Không có trang chữ Hán nào để hiển thị"
-            }
+                "noKanjiPages": "Không có trang chữ Hán nào để hiển thị",
+                "onyomi": "Âm On",
+                "kunyomi": "Âm Kun",
+                "searchByMazii": "Mazii",
+                "searchByWeblio": "Weblio"
+            },
+            "saveToQuickAccess": "Lưu vào mục truy cập nhanh"
         },
         "createLesson": {
             "noKanjiDataToPreview": "Không có dữ liệu chữ Hán nào để hiển thị"

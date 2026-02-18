@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 import { LessonResponse } from "@/types/api/responses/lesson.response";
 import { TooltipCustom } from "@/components/ui/mui-custom/tooltip.custom";
@@ -5,6 +6,7 @@ import { Button, Popover } from "@mui/material";
 import MoreHorizOutlinedIcon from "@mui/icons-material/MoreHorizOutlined";
 import { useTranslations } from "next-intl";
 import RemoveIcon from "@mui/icons-material/Remove";
+import IconButtonCustom from "@/components/ui/mui-custom/icon.button.custom";
 
 const LessonMoreButton = ({ lesson }: { lesson: LessonResponse }) => {
     const t = useTranslations();
@@ -24,18 +26,9 @@ const LessonMoreButton = ({ lesson }: { lesson: LessonResponse }) => {
     return (
         <div>
             <TooltipCustom title={t("Common.viewMore")}>
-                <Button
-                    onClick={handleClick}
-                    variant="text"
-                    color="primary"
-                    sx={{
-                        minWidth: "40px",
-                        width: "40px",
-                        borderRadius: "50%",
-                    }}
-                >
+                <IconButtonCustom onClick={handleClick}>
                     <MoreHorizOutlinedIcon />
-                </Button>
+                </IconButtonCustom>
             </TooltipCustom>
 
             <Popover
@@ -53,7 +46,7 @@ const LessonMoreButton = ({ lesson }: { lesson: LessonResponse }) => {
             >
                 <div>
                     <Button variant="text" color="error">
-                        <RemoveIcon fontSize="small" />
+                        <RemoveIcon fontSize="small" sx={{ mr: "4px" }} />
                         {t("Pages.yourLibrary.lesson.removeFromFolder")}
                     </Button>
                 </div>

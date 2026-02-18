@@ -49,6 +49,7 @@ const FolderDetailsHeader = () => {
                     )}
                     fullWidth
                 />
+
                 <FolderAddLessonButton
                     buttonElement={
                         <Button

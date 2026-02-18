@@ -8,6 +8,7 @@ import "flag-icons/css/flag-icons.min.css";
 import { hasLocale, NextIntlClientProvider } from "next-intl";
 import { notFound } from "next/navigation";
 import "./globals.css";
+import { ToastContainer } from "react-toastify";
 
 type Props = {
     children: React.ReactNode;
@@ -37,6 +38,7 @@ export default async function LocaleLayout({ children, params }: Props) {
                                     defaultMode="light"
                                 />
                                 <main>{children}</main>
+                                <ToastContainer />
                             </AppThemeProvider>
                         </BProgressProvider>
                     </AppRouterCacheProvider>

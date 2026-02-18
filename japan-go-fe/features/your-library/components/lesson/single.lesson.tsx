@@ -4,11 +4,14 @@ import TranslateIcon from "@mui/icons-material/Translate";
 import { LessonResponse } from "@/types/api/responses/lesson.response";
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
-import LessonMoreButton from "@/features/your-library/components/lesson/lesson.more.button";
+import LessonMoreButton from "@/components/domain/create-lesson/lesson.more.button";
 import { slugifyText } from "@/utils/slugify.text";
+import { useFolderDetails } from "@/features/your-library/contexts/folder.details";
 
 const SingleLesson = ({ lesson }: { lesson: LessonResponse }) => {
     const t = useTranslations();
+    const { folder } = useFolderDetails();
+
     return (
         <div className="hover:bg-bgc-page flex cursor-pointer items-center justify-between rounded-md px-4 py-2 transition-all duration-150">
             <Link
@@ -16,6 +19,10 @@ const SingleLesson = ({ lesson }: { lesson: LessonResponse }) => {
                     pathname: "/lesson/kanji/[slug]",
                     params: {
                         slug: slugifyText(lesson.lessonName + "-" + lesson.id),
+                    },
+                    query: {
+                        folderId: folder.id,
+                        folderName: folder.folderName,
                     },
                 }}
                 className="flex w-full flex-1 items-center gap-x-3 pr-4"
@@ -37,7 +44,7 @@ const SingleLesson = ({ lesson }: { lesson: LessonResponse }) => {
                         </p>
                         ・
                         <p>
-                            {lesson.kanjiLesson?.kanjiPages.length ?? 34}{" "}
+                            {lesson.pageCount}{" "}
                             {lesson.lessonType === "GRAMMAR"
                                 ? t("Common.grammar")
                                 : t("Common.kanjiPage")}
