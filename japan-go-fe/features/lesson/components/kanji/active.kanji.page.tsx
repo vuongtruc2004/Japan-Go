@@ -81,9 +81,7 @@ const ActiveKanjiPage = ({
                                     />
                                 )}
                                 {showReading && (
-                                    <JapaneseView
-                                        japanese={vocabulary.reading}
-                                    />
+                                    <TextLargeView text={vocabulary.reading} />
                                 )}
 
                                 {showMeaning && (

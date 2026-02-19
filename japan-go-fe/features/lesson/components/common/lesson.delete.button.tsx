@@ -8,6 +8,7 @@ import { deleteLesson } from "@/services/lesson.service";
 import { useRouter } from "@/i18n/navigation";
 import { useSearchParams } from "next/navigation";
 import { slugifyText } from "@/utils/slugify.text";
+import BasicButton from "@/components/ui/buttons/basic.button";
 
 const LessonDeleteButton = ({ lesson }: { lesson: LessonResponse }) => {
     const t = useTranslations();
@@ -34,15 +35,12 @@ const LessonDeleteButton = ({ lesson }: { lesson: LessonResponse }) => {
 
     return (
         <>
-            <button
+            <BasicButton
+                icon={<DeleteOutlineOutlinedIcon />}
+                text={t("Pages.lesson.deleteLesson")}
+                textColor="text-tc-error"
                 onClick={(event) => setAnchorEl(event.currentTarget)}
-                className="text-tc-error hover:bg-hbgc-app flex w-full min-w-62.5 cursor-pointer items-center gap-x-3 px-3.5 py-3 transition-all duration-150"
-            >
-                <DeleteOutlineOutlinedIcon />
-                <p className={`text-sm font-semibold whitespace-nowrap`}>
-                    {t("Pages.lesson.deleteLesson")}
-                </p>
-            </button>
+            />
 
             <Popover
                 open={Boolean(anchorEl)}

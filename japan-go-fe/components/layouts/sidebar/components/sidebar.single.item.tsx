@@ -4,7 +4,7 @@ import { Link, usePathname } from "@/i18n/navigation";
 import { Badge } from "@mui/material";
 import { useTranslations } from "next-intl";
 import { useSidebarCollapse } from "../context/sidebar.collapse";
-import { SidebarItem } from "../types/ui.type";
+import { SidebarItem } from "../types/sidebar.ui.type";
 
 const SidebarSingleItem = ({ item }: { item: SidebarItem }) => {
     const t = useTranslations("Common.links");

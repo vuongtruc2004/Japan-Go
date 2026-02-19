@@ -1,9 +1,10 @@
 "use client";
-import { Box } from "@mui/material";
+import { Box, Divider } from "@mui/material";
 import { SIDEBAR_ITEMS } from "../constants/constants";
 import { useSidebarCollapse } from "../context/sidebar.collapse";
 import LogoButton from "./logo.button";
 import SidebarSingleItem from "./sidebar.single.item";
+import QuickAccess from "@/components/layouts/sidebar/components/quick.access";
 
 const AppSidebar = () => {
     const { isCollapse } = useSidebarCollapse();
@@ -25,14 +26,17 @@ const AppSidebar = () => {
             }}
         >
             <LogoButton />
-            <ul className="mt-6 flex w-max flex-col gap-y-3">
-                {SIDEBAR_ITEMS.map((item) => {
-                    return <SidebarSingleItem key={item.id} item={item} />;
-                })}
-            </ul>
+            <div className="mt-5">
+                <ul className="flex w-max flex-col gap-y-3">
+                    {SIDEBAR_ITEMS.map((item) => {
+                        return <SidebarSingleItem key={item.id} item={item} />;
+                    })}
+                </ul>
+                <Divider sx={{ my: 3 }} />
+                <QuickAccess />
+            </div>
         </Box>
     );
 };
 
 export default AppSidebar;
-

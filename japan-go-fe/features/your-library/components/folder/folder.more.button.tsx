@@ -3,11 +3,15 @@ import MoreHorizOutlinedIcon from "@mui/icons-material/MoreHorizOutlined";
 import { TooltipCustom } from "@/components/ui/mui-custom/tooltip.custom";
 import { useTranslations } from "next-intl";
 import IconButtonCustom from "@/components/ui/mui-custom/icon.button.custom";
-import { Button, Popover } from "@mui/material";
-import RemoveIcon from "@mui/icons-material/Remove";
+import { Divider, Popover } from "@mui/material";
 import { useFolderDetails } from "@/features/your-library/contexts/folder.details";
 import { deleteFolder } from "@/services/folder.service";
 import { useRouter } from "@/i18n/navigation";
+import BasicButton from "@/components/ui/buttons/basic.button";
+import PushPinOutlinedIcon from "@mui/icons-material/PushPinOutlined";
+import IosShareOutlinedIcon from "@mui/icons-material/IosShareOutlined";
+import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
+import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
 
 const FolderMoreButton = () => {
     const t = useTranslations();
@@ -44,15 +48,34 @@ const FolderMoreButton = () => {
                     horizontal: "right",
                 }}
             >
-                <div>
-                    <Button
-                        variant="text"
-                        color="error"
+                <div className="flex flex-col">
+                    <BasicButton
+                        width={50}
+                        icon={<EditOutlinedIcon />}
+                        text={t("Common.edit")}
+                    />
+
+                    <BasicButton
+                        width={50}
+                        icon={<IosShareOutlinedIcon />}
+                        text={t("Common.share")}
+                    />
+
+                    <BasicButton
+                        width={50}
+                        icon={<PushPinOutlinedIcon />}
+                        text={t("Common.pinToSidebar")}
+                    />
+
+                    <Divider />
+
+                    <BasicButton
+                        width={50}
+                        icon={<DeleteOutlineOutlinedIcon />}
+                        text={t("Pages.yourLibrary.folder.deleteFolder")}
                         onClick={handleDeleteFolder}
-                    >
-                        <RemoveIcon fontSize="small" sx={{ mr: "4px" }} />
-                        {t("Pages.yourLibrary.folder.deleteFolder")}
-                    </Button>
+                        textColor="text-tc-error"
+                    />
                 </div>
             </Popover>
         </>

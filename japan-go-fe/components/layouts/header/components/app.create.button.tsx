@@ -1,13 +1,9 @@
-import FolderCreateButton from "@/components/domain/folder/folder.create.button";
 import { TooltipCustom } from "@/components/ui/mui-custom/tooltip.custom";
 import AddCircleOutlineOutlinedIcon from "@mui/icons-material/AddCircleOutlineOutlined";
-import { Button, Divider, Popover } from "@mui/material";
+import { Button } from "@mui/material";
 import { useTranslations } from "next-intl";
 import React, { useState } from "react";
-import ClassCreateButton from "./class.create.button";
-import FolderOutlinedIcon from "@mui/icons-material/FolderOutlined";
-import StyleOutlinedIcon from "@mui/icons-material/StyleOutlined";
-import LessonCreateButton from "@/components/domain/create-lesson/lesson.create.button";
+import AppCreatePopover from "@/components/ui/popovers/app.create.popover";
 
 const AppCreateButton = () => {
     const t = useTranslations();
@@ -15,10 +11,6 @@ const AppCreateButton = () => {
 
     const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
         setAnchorEl(event.currentTarget);
-    };
-
-    const handleClose = () => {
-        setAnchorEl(null);
     };
 
     return (
@@ -39,59 +31,7 @@ const AppCreateButton = () => {
                 </Button>
             </TooltipCustom>
 
-            <Popover
-                open={Boolean(anchorEl)}
-                anchorEl={anchorEl}
-                onClose={handleClose}
-                anchorOrigin={{
-                    vertical: "bottom",
-                    horizontal: "right",
-                }}
-                transformOrigin={{
-                    vertical: "top",
-                    horizontal: "right",
-                }}
-            >
-                <div>
-                    <p className="text-tc-muted px-3.5 py-3 text-sm font-semibold">
-                        {t("AppHeader.appCreate")}
-                    </p>
-
-                    <Divider />
-
-                    <ClassCreateButton />
-
-                    <FolderCreateButton
-                        buttonElement={
-                            <button className="hover:bg-hbgc-app flex w-full min-w-62.5 cursor-pointer items-center gap-x-3 px-3.5 py-3 transition-all duration-150">
-                                <FolderOutlinedIcon />
-                                <p className="text-sm font-semibold whitespace-nowrap">
-                                    {t("Common.folder.title")}
-                                </p>
-                            </button>
-                        }
-                    />
-
-                    <LessonCreateButton
-                        anchorOrigin={{
-                            vertical: "center",
-                            horizontal: "left",
-                        }}
-                        transformOrigin={{
-                            vertical: "center",
-                            horizontal: "right",
-                        }}
-                        buttonElement={
-                            <button className="hover:bg-hbgc-app flex w-full min-w-62.5 cursor-pointer items-center gap-x-3 px-3.5 py-3 transition-all duration-150">
-                                <StyleOutlinedIcon />
-                                <p className="text-sm font-semibold whitespace-nowrap">
-                                    {t("Common.lesson.title")}
-                                </p>
-                            </button>
-                        }
-                    />
-                </div>
-            </Popover>
+            <AppCreatePopover anchorEl={anchorEl} setAnchorEl={setAnchorEl} />
         </>
     );
 };

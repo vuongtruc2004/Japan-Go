@@ -7,6 +7,7 @@ import { Divider, Popover } from "@mui/material";
 import { useTranslations } from "next-intl";
 import { LESSON_DETAILS_MORE_BUTTON_ITEMS } from "@/features/lesson/constants/lesson.constants";
 import LessonDeleteButton from "@/features/lesson/components/common/lesson.delete.button";
+import BasicButton from "@/components/ui/buttons/basic.button";
 
 const LessonDetailsMoreButton = ({ lesson }: { lesson: LessonResponse }) => {
     const t = useTranslations();
@@ -45,17 +46,13 @@ const LessonDetailsMoreButton = ({ lesson }: { lesson: LessonResponse }) => {
 
                     {LESSON_DETAILS_MORE_BUTTON_ITEMS.map((item) => {
                         return (
-                            <button
+                            <BasicButton
+                                icon={item.icon}
                                 key={item.id}
-                                className="hover:bg-hbgc-app flex w-full min-w-62.5 cursor-pointer items-center gap-x-3 px-3.5 py-3 transition-all duration-150"
-                            >
-                                {item.icon}
-                                <p className="text-sm font-semibold whitespace-nowrap">
-                                    {t(
-                                        `Pages.lesson.lessonDetailsMoreButtons.${item.textKey}`,
-                                    )}
-                                </p>
-                            </button>
+                                text={t(
+                                    `Pages.lesson.lessonDetailsMoreButtons.${item.textKey}`,
+                                )}
+                            />
                         );
                     })}
 

@@ -30,7 +30,7 @@ const JapaneseView = ({ japanese }: { japanese: string }) => {
     return (
         <>
             <p
-                className={`${DecoratorClassName.PRIMARY} font-noto-sans-jp cursor-pointer rounded-md border px-4 py-2 text-xl transition-all duration-150`}
+                className={`${DecoratorClassName.PRIMARY} font-noto-sans-jp cursor-pointer rounded-md border px-4 py-2 text-4xl text-nowrap transition-all duration-150`}
                 onClick={handleOpen}
             >
                 {japanese}

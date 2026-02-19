@@ -18,7 +18,7 @@ const TextLargeView = ({
     return (
         <>
             <p
-                className={`${DecoratorClassName.PRIMARY} ${isJapanese && "font-noto-sans-jp"} ${isSemibold && "font-semibold"} duration-150" cursor-pointer rounded-md border px-4 py-2 text-xl transition-all`}
+                className={`${DecoratorClassName.PRIMARY} ${isJapanese && "font-noto-sans-jp"} ${isSemibold && "font-semibold"} duration-150" cursor-pointer rounded-md border px-4 py-2 transition-all`}
                 onClick={handleOpen}
             >
                 {text}

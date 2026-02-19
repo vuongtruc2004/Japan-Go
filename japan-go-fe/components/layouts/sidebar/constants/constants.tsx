@@ -1,7 +1,7 @@
 import FolderOpenedIcon from "@/components/ui/icons/folder.opened.icon";
 import HomeIcon from "@/components/ui/icons/home.icon";
 import TranslateIcon from "@mui/icons-material/Translate";
-import { SidebarItem } from "../types/ui.type";
+import { SidebarItem } from "../types/sidebar.ui.type";
 
 export const SIDEBAR_ITEMS: SidebarItem[] = [
     {
@@ -23,4 +23,3 @@ export const SIDEBAR_ITEMS: SidebarItem[] = [
         link: "/kanji",
     },
 ];
-

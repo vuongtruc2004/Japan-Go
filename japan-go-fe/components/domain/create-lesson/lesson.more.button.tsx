@@ -2,13 +2,14 @@
 import React, { useState } from "react";
 import { LessonResponse } from "@/types/api/responses/lesson.response";
 import { TooltipCustom } from "@/components/ui/mui-custom/tooltip.custom";
-import { Button, Popover } from "@mui/material";
+import { Popover } from "@mui/material";
 import MoreHorizOutlinedIcon from "@mui/icons-material/MoreHorizOutlined";
 import { useTranslations } from "next-intl";
-import RemoveIcon from "@mui/icons-material/Remove";
 import IconButtonCustom from "@/components/ui/mui-custom/icon.button.custom";
 import { removeLessonFromFolder } from "@/services/folder.service";
 import { useRouter } from "@/i18n/navigation";
+import BasicButton from "@/components/ui/buttons/basic.button";
+import RemoveIcon from "@mui/icons-material/Remove";
 
 const LessonMoreButton = ({
     lesson,
@@ -56,14 +57,15 @@ const LessonMoreButton = ({
             >
                 <div>
                     {folderId && (
-                        <Button
-                            variant="text"
-                            color="error"
+                        <BasicButton
+                            icon={<RemoveIcon />}
+                            text={t(
+                                "Pages.yourLibrary.lesson.removeFromFolder",
+                            )}
+                            textColor="text-tc-error"
                             onClick={handleRemoveFromFolder}
-                        >
-                            <RemoveIcon fontSize="small" sx={{ mr: "4px" }} />
-                            {t("Pages.yourLibrary.lesson.removeFromFolder")}
-                        </Button>
+                            width={50}
+                        />
                     )}
                 </div>
             </Popover>
