@@ -6,9 +6,6 @@ import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
-import java.util.ArrayList;
-import java.util.List;
-
 @Builder
 @Getter
 @Setter
@@ -37,7 +34,7 @@ public class GrammarEntity extends BaseEntity {
     @JoinColumn(name = "grammar_note_id")
     GrammarNoteEntity grammarNote;
 
-    @Builder.Default
-    @ManyToMany(mappedBy = "grammars")
-    List<GrammarLessonEntity> grammarLessons = new ArrayList<>();
+    @ManyToOne
+    @JoinColumn(name = "grammar_lesson_id")
+    GrammarLessonEntity grammarLesson;
 }

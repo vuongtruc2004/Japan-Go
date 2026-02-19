@@ -6,6 +6,7 @@ import ContentCopyOutlinedIcon from "@mui/icons-material/ContentCopyOutlined";
 import Link from "next/link";
 import IconButtonCustom from "@/components/ui/mui-custom/icon.button.custom";
 import { toast } from "react-toastify";
+import { DecoratorClassName } from "@/types/enums/share.enum";
 
 const JapaneseView = ({ japanese }: { japanese: string }) => {
     const t = useTranslations();
@@ -29,19 +30,19 @@ const JapaneseView = ({ japanese }: { japanese: string }) => {
     return (
         <>
             <p
-                className={`border-bdc-primary hover:border-bdc-primary font-noto-sans-jp hover:bg-hbgc-highlight duration-150" cursor-pointer rounded-md border px-4 py-2 text-lg transition-all`}
+                className={`${DecoratorClassName.PRIMARY} font-noto-sans-jp cursor-pointer rounded-md border px-4 py-2 text-xl transition-all duration-150`}
                 onClick={handleOpen}
             >
                 {japanese}
             </p>
 
             <Modal open={open} onClose={handleClose}>
-                <div className="bg-bgc-app border-bdc-primary absolute top-1/2 left-1/2 flex -translate-x-1/2 -translate-y-1/2 flex-col items-center rounded-md border p-8">
+                <div className="bg-bgc-app border-bdc-primary absolute top-1/2 left-1/2 flex -translate-x-1/2 -translate-y-1/2 flex-col items-center rounded-md border px-8 py-10">
                     <h1 className="text-8xl select-none">{japanese}</h1>
 
                     <div className="mt-8 flex items-center gap-x-3">
                         <Link
-                            className="border-bdc-primary hover:bg-hbgc-highlight flex w-28 items-center gap-x-1.5 rounded-md border px-4 py-2 transition-all duration-150"
+                            className={`${DecoratorClassName.PRIMARY} flex w-28 items-center gap-x-1.5 rounded-md border px-4 py-2 transition-all duration-150`}
                             href={`https://mazii.net/vi-VN/search/word/javi/${japanese}`}
                             target="_blank"
                         >
@@ -50,7 +51,7 @@ const JapaneseView = ({ japanese }: { japanese: string }) => {
                         </Link>
 
                         <Link
-                            className="border-bdc-primary hover:bg-hbgc-highlight flex w-28 items-center gap-x-1.5 rounded-md border px-4 py-2 transition-all duration-150"
+                            className={`${DecoratorClassName.PRIMARY} flex w-28 items-center gap-x-1.5 rounded-md border px-4 py-2 transition-all duration-150`}
                             href={`https://www.google.com/search?q=${encodeURIComponent(japanese)}+意味`}
                             target="_blank"
                         >

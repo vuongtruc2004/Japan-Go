@@ -2,7 +2,7 @@ import { Link } from "@/i18n/navigation";
 import { Avatar, Divider, Popover } from "@mui/material";
 import { useTranslations } from "next-intl";
 import { Dispatch, SetStateAction } from "react";
-import { ACCOUNT_MENU_ITEMS } from "../constants/constants";
+import { ACCOUNT_MENU_ITEMS } from "../constants/header.constants";
 import LogoutButton from "./logout.button";
 import ThemeSwitchButton from "./theme.switch.button";
 
@@ -77,4 +77,3 @@ const AccountMenu = ({
 };
 
 export default AccountMenu;
-

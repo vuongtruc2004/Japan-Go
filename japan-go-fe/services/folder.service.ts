@@ -24,6 +24,17 @@ export const getAllFolders = async (): Promise<FolderResponse[]> => {
     return response.data;
 };
 
+export const deleteFolder = async (id: string | number): Promise<number> => {
+    const response = await sendRequest<ApiResponse<number>>({
+        url: `/folder/${id}`,
+        method: "DELETE",
+    });
+    if (response.statusCode !== 200) {
+        throw new Error(response.clientMessage);
+    }
+    return response.data;
+};
+
 export const addLessonToFolder = async (
     request: FolderLessonRequest,
 ): Promise<void> => {

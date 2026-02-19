@@ -2,7 +2,6 @@ package com.japan_go_be.features.grammar.helper;
 
 import com.japan_go_be.common.util.StringUtil;
 import com.japan_go_be.features.grammar.entity.GrammarEntity;
-import com.japan_go_be.features.lesson.entity.GrammarLessonEntity;
 import com.japan_go_be.features.sentence.entity.SentenceEntity;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -36,14 +35,6 @@ public class GrammarHelper {
 
     public String getGrammarNote(GrammarEntity grammarEntity) {
         return joinSentences(grammarEntity.getGrammarNote().getSentences());
-    }
-
-    public String getGrammarLessons(GrammarEntity grammarEntity) {
-        StringJoiner joiner = new StringJoiner("<br/>");
-        for (GrammarLessonEntity lesson : grammarEntity.getGrammarLessons()) {
-            joiner.add(lesson.getGrammarLessonTitle());
-        }
-        return joiner.toString();
     }
 
     private String joinSentences(List<SentenceEntity> sentences) {

@@ -4,7 +4,8 @@ import { getLessonById } from "@/services/lesson.service";
 import KanjiPageMoveButtons from "@/features/lesson/components/kanji/kanji.page.move.buttons";
 import { ActiveKanjiPageProvider } from "@/features/lesson/contexts/active.kanji.page";
 import ActiveKanjiPage from "@/features/lesson/components/kanji/active.kanji.page";
-import LessonHeader from "@/features/lesson/components/lesson.header";
+import LessonHeader from "@/features/lesson/components/common/lesson.header";
+import { VocabularyVisibilityProvider } from "@/features/lesson/contexts/vocabulary.visibility";
 
 const getKanjiLessonFromParams = async (params: Promise<{ slug: string }>) => {
     const { slug } = await params;
@@ -32,16 +33,21 @@ const KanjiLessonPage = async ({
     params: Promise<{ slug: string }>;
 }) => {
     const lesson = await getKanjiLessonFromParams(params);
+
     return (
-        <ActiveKanjiPageProvider>
-            <div className="flex flex-col gap-y-5">
-                <LessonHeader lesson={lesson} />
-                <KanjiPageMoveButtons
-                    kanjiPages={lesson.kanjiLesson.kanjiPages}
-                />
-                <ActiveKanjiPage kanjiPages={lesson.kanjiLesson.kanjiPages} />
-            </div>
-        </ActiveKanjiPageProvider>
+        <VocabularyVisibilityProvider>
+            <ActiveKanjiPageProvider>
+                <div className="flex flex-col gap-y-5">
+                    <LessonHeader lesson={lesson} />
+                    <KanjiPageMoveButtons
+                        kanjiPages={lesson.kanjiLesson.kanjiPages}
+                    />
+                    <ActiveKanjiPage
+                        kanjiPages={lesson.kanjiLesson.kanjiPages}
+                    />
+                </div>
+            </ActiveKanjiPageProvider>
+        </VocabularyVisibilityProvider>
     );
 };
 

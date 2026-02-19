@@ -28,6 +28,7 @@ CREATE TABLE grammar
     grammar_structure_id BIGINT                NULL,
     grammar_example_id   BIGINT                NULL,
     grammar_note_id      BIGINT                NULL,
+    grammar_lesson_id    BIGINT                NULL,
     CONSTRAINT pk_grammar PRIMARY KEY (id)
 );
 
@@ -50,12 +51,6 @@ CREATE TABLE grammar_lesson
     modified_time        datetime              NULL,
     grammar_lesson_title VARCHAR(255)          NOT NULL,
     CONSTRAINT pk_grammar_lesson PRIMARY KEY (id)
-);
-
-CREATE TABLE grammar_lesson_grammar
-(
-    grammar_id        BIGINT NOT NULL,
-    grammar_lesson_id BIGINT NOT NULL
 );
 
 CREATE TABLE grammar_meaning
@@ -140,12 +135,6 @@ CREATE TABLE kanji_lesson
     CONSTRAINT pk_kanji_lesson PRIMARY KEY (id)
 );
 
-CREATE TABLE kanji_lesson_kanji_page
-(
-    kanji_lesson_id BIGINT NOT NULL,
-    kanji_page_id   BIGINT NOT NULL
-);
-
 CREATE TABLE kanji_meaning
 (
     id            BIGINT AUTO_INCREMENT NOT NULL,
@@ -165,19 +154,14 @@ CREATE TABLE kanji_onyomi
 
 CREATE TABLE kanji_page
 (
-    id            BIGINT AUTO_INCREMENT NOT NULL,
-    created_by    VARCHAR(255)          NOT NULL,
-    created_time  datetime              NOT NULL,
-    modified_by   VARCHAR(255)          NULL,
-    modified_time datetime              NULL,
-    main_kanji_id BIGINT                NULL,
+    id              BIGINT AUTO_INCREMENT NOT NULL,
+    created_by      VARCHAR(255)          NOT NULL,
+    created_time    datetime              NOT NULL,
+    modified_by     VARCHAR(255)          NULL,
+    modified_time   datetime              NULL,
+    main_kanji_id   BIGINT                NULL,
+    kanji_lesson_id BIGINT                NULL,
     CONSTRAINT pk_kanji_page PRIMARY KEY (id)
-);
-
-CREATE TABLE kanji_page_vocabulary
-(
-    kanji_page_id BIGINT NOT NULL,
-    vocabulary_id BIGINT NOT NULL
 );
 
 CREATE TABLE kunyomi
@@ -330,6 +314,7 @@ CREATE TABLE vocabulary
     reading       VARCHAR(255)          NOT NULL,
     meaning       VARCHAR(255)          NULL,
     note          VARCHAR(255)          NULL,
+    kanji_page_id BIGINT                NULL,
     CONSTRAINT pk_vocabulary PRIMARY KEY (id)
 );
 
@@ -379,6 +364,9 @@ ALTER TABLE grammar
     ADD CONSTRAINT FK_GRAMMAR_ON_GRAMMAR_EXAMPLE FOREIGN KEY (grammar_example_id) REFERENCES grammar_example (id);
 
 ALTER TABLE grammar
+    ADD CONSTRAINT FK_GRAMMAR_ON_GRAMMAR_LESSON FOREIGN KEY (grammar_lesson_id) REFERENCES grammar_lesson (id);
+
+ALTER TABLE grammar
     ADD CONSTRAINT FK_GRAMMAR_ON_GRAMMAR_MEANING FOREIGN KEY (grammar_meaning_id) REFERENCES grammar_meaning (id);
 
 ALTER TABLE grammar
@@ -389,6 +377,9 @@ ALTER TABLE grammar
 
 ALTER TABLE kanji
     ADD CONSTRAINT FK_KANJI_ON_MAIN_SINO_VIETNAMESE FOREIGN KEY (main_sino_vietnamese_id) REFERENCES sino_vietnamese (id);
+
+ALTER TABLE kanji_page
+    ADD CONSTRAINT FK_KANJI_PAGE_ON_KANJI_LESSON FOREIGN KEY (kanji_lesson_id) REFERENCES kanji_lesson (id);
 
 ALTER TABLE kanji_page
     ADD CONSTRAINT FK_KANJI_PAGE_ON_MAIN_KANJI FOREIGN KEY (main_kanji_id) REFERENCES kanji (id);
@@ -426,17 +417,14 @@ ALTER TABLE user
 ALTER TABLE user
     ADD CONSTRAINT FK_USER_ON_ROLE FOREIGN KEY (role_id) REFERENCES `role` (id);
 
+ALTER TABLE vocabulary
+    ADD CONSTRAINT FK_VOCABULARY_ON_KANJI_PAGE FOREIGN KEY (kanji_page_id) REFERENCES kanji_page (id);
+
 ALTER TABLE folder_lesson
     ADD CONSTRAINT fk_folles_on_folder_entity FOREIGN KEY (folder_id) REFERENCES folder (id);
 
 ALTER TABLE folder_lesson
     ADD CONSTRAINT fk_folles_on_lesson_entity FOREIGN KEY (lesson_id) REFERENCES lesson (id);
-
-ALTER TABLE grammar_lesson_grammar
-    ADD CONSTRAINT fk_gralesgra_on_grammar_entity FOREIGN KEY (grammar_id) REFERENCES grammar (id);
-
-ALTER TABLE grammar_lesson_grammar
-    ADD CONSTRAINT fk_gralesgra_on_grammar_lesson_entity FOREIGN KEY (grammar_lesson_id) REFERENCES grammar_lesson (id);
 
 ALTER TABLE kanji_kanji_meaning
     ADD CONSTRAINT fk_kankanmea_on_kanji_entity FOREIGN KEY (kanji_id) REFERENCES kanji (id);
@@ -450,23 +438,11 @@ ALTER TABLE kanji_kunyomi
 ALTER TABLE kanji_kunyomi
     ADD CONSTRAINT fk_kankun_on_kunyomi_entity FOREIGN KEY (kunyomi_id) REFERENCES kunyomi (id);
 
-ALTER TABLE kanji_lesson_kanji_page
-    ADD CONSTRAINT fk_kanleskanpag_on_kanji_lesson_entity FOREIGN KEY (kanji_lesson_id) REFERENCES kanji_lesson (id);
-
-ALTER TABLE kanji_lesson_kanji_page
-    ADD CONSTRAINT fk_kanleskanpag_on_kanji_page_entity FOREIGN KEY (kanji_page_id) REFERENCES kanji_page (id);
-
 ALTER TABLE kanji_onyomi
     ADD CONSTRAINT fk_kanony_on_kanji_entity FOREIGN KEY (kanji_id) REFERENCES kanji (id);
 
 ALTER TABLE kanji_onyomi
     ADD CONSTRAINT fk_kanony_on_onyomi_entity FOREIGN KEY (onyomi_id) REFERENCES onyomi (id);
-
-ALTER TABLE kanji_page_vocabulary
-    ADD CONSTRAINT fk_kanpagvoc_on_kanji_page_entity FOREIGN KEY (kanji_page_id) REFERENCES kanji_page (id);
-
-ALTER TABLE kanji_page_vocabulary
-    ADD CONSTRAINT fk_kanpagvoc_on_vocabulary_entity FOREIGN KEY (vocabulary_id) REFERENCES vocabulary (id);
 
 ALTER TABLE role_permission
     ADD CONSTRAINT fk_rolper_on_permission_entity FOREIGN KEY (permission_id) REFERENCES permission (id);

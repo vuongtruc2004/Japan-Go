@@ -54,6 +54,7 @@ export const muiTheme = createTheme({
                     textTransform: "none",
                     borderRadius: "6px",
                     height: "40px",
+                    minWidth: "max-content",
                 },
                 contained: {
                     color: "white",

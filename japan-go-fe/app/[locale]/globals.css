@@ -23,6 +23,7 @@ html[data-locale="ja"] {
     /* page body bg color */
     --color-bgc-page: #f7f7f7;
     --color-bgc-highlight: #175a3a;
+    --color-bgc-error: #d90429;
 
     /* hover bg color of sidebar element */
     --color-hbgc-app: #f1f3f4;
@@ -30,11 +31,11 @@ html[data-locale="ja"] {
     --color-hbgc-highlight: #eeeeee;
 
     /* sidebar p tag color */
+    --color-tc-pure: #ffffff;
     --color-tc-muted: #a7a7a7;
     /* hover text color of sidebar items */
     --color-tc-highlight: #175a3a;
     --color-tc-highlight-darker: #10451d;
-
     --color-tc-error: #d90429;
 
     /* border color of sidebar, header */
@@ -58,6 +59,7 @@ html[data-locale="ja"] {
         /* page body bg color */
         --color-bgc-page: #090909;
         --color-bgc-highlight: #016630;
+        --color-bgc-error: #e5383b;
 
         /* hover bg color of sidebar element */
         --color-hbgc-app: #161615;
@@ -65,6 +67,7 @@ html[data-locale="ja"] {
         --color-hbgc-highlight: #222222;
 
         /* sidebar p tag color */
+        --color-tc-pure: #000000;
         --color-tc-muted: #7c7c7c;
         /* hover text color of sidebar items */
         --color-tc-highlight: #00c951;

@@ -66,7 +66,7 @@ const KanjiPageMoveButtons = ({
                             }}
                             key={kanjiPage.id}
                             onClick={() => setActiveIndex(index)}
-                            className={`relative flex w-28 shrink-0 cursor-pointer items-center justify-center gap-x-1 rounded-md border py-2 select-none ${activeClass}`}
+                            className={`relative flex w-28 shrink-0 cursor-pointer items-center justify-center gap-x-1 rounded-md border py-2 transition-all duration-150 select-none ${activeClass}`}
                         >
                             <p className="absolute top-0.5 left-1.5 text-[12px] font-semibold">
                                 {index + 1}

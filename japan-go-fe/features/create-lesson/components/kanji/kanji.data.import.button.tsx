@@ -50,7 +50,7 @@ const KanjiDataImportButton = () => {
             </Button>
 
             <Modal open={open}>
-                <div className="bg-bgc-page f absolute top-1/2 left-1/2 w-200 -translate-x-1/2 -translate-y-1/2 rounded-md">
+                <div className="bg-bgc-app absolute top-1/2 left-1/2 w-200 -translate-x-1/2 -translate-y-1/2 rounded-md">
                     <h1 className="px-5 pt-5">
                         <span className="mr-1 font-semibold">
                             {t("Common.importData")}.

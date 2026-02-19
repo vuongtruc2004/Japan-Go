@@ -42,6 +42,8 @@ public class LessonDtoMapper {
                 .lessonName(lessonEntity.getLessonName())
                 .description(lessonEntity.getDescription())
                 .lessonType(lessonEntity.getLessonType())
+                .createdTime(lessonEntity.getCreatedTime())
+                .modifiedTime(lessonEntity.getModifiedTime())
                 .build();
         if (lessonEntity.getLessonType() == LessonTypeEnum.KANJI) {
             lessonResponse.setPageCount((long) lessonEntity.getKanjiLesson().getKanjiPages().size());

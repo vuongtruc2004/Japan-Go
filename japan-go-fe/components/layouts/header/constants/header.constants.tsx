@@ -1,7 +1,7 @@
 import { AppLocales } from "@/types/app/i18n.type";
 import EmojiEventsOutlinedIcon from "@mui/icons-material/EmojiEventsOutlined";
 import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
-import { AccountMenuItem } from "../types/ui.type";
+import { AccountMenuItem } from "../types/header.ui.type";
 
 export const LOCALES_META: Record<AppLocales, { flag: string }> = {
     vi: {
@@ -29,4 +29,3 @@ export const ACCOUNT_MENU_ITEMS: AccountMenuItem[] = [
         linkKey: "settings",
     },
 ];
-

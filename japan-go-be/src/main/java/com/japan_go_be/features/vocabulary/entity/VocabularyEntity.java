@@ -2,15 +2,9 @@ package com.japan_go_be.features.vocabulary.entity;
 
 import com.japan_go_be.common.persistence.BaseEntity;
 import com.japan_go_be.features.kanji.entity.KanjiPageEntity;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.ManyToMany;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @Getter
 @Setter
@@ -30,8 +24,8 @@ public class VocabularyEntity extends BaseEntity {
     String meaning;
 
     String note;
-    
-    @Builder.Default
-    @ManyToMany(mappedBy = "vocabularies")
-    List<KanjiPageEntity> kanjiPages = new ArrayList<>();
+
+    @ManyToOne
+    @JoinColumn(name = "kanji_page_id")
+    KanjiPageEntity kanjiPage;
 }

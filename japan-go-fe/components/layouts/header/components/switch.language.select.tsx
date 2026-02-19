@@ -4,7 +4,7 @@ import { routing } from "@/i18n/routing";
 import { MenuItem, Select, SelectChangeEvent } from "@mui/material";
 import { useLocale, useTranslations } from "next-intl";
 import { useParams } from "next/navigation";
-import { LOCALES_META } from "../constants/constants";
+import { LOCALES_META } from "../constants/header.constants";
 
 const SwitchLanguageSelect = () => {
     const currentLocale = useLocale();

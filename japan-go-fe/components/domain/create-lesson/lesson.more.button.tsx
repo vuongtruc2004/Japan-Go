@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import { LessonResponse } from "@/types/api/responses/lesson.response";
 import { TooltipCustom } from "@/components/ui/mui-custom/tooltip.custom";
 import { Button, Popover } from "@mui/material";
@@ -7,26 +7,36 @@ import MoreHorizOutlinedIcon from "@mui/icons-material/MoreHorizOutlined";
 import { useTranslations } from "next-intl";
 import RemoveIcon from "@mui/icons-material/Remove";
 import IconButtonCustom from "@/components/ui/mui-custom/icon.button.custom";
+import { removeLessonFromFolder } from "@/services/folder.service";
+import { useRouter } from "@/i18n/navigation";
 
-const LessonMoreButton = ({ lesson }: { lesson: LessonResponse }) => {
+const LessonMoreButton = ({
+    lesson,
+    folderId,
+}: {
+    lesson: LessonResponse;
+    folderId: string | number | null;
+}) => {
     const t = useTranslations();
+    const { refresh } = useRouter();
 
-    const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(
-        null,
-    );
+    const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
 
-    const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-        setAnchorEl(event.currentTarget);
-    };
-
-    const handleClose = () => {
-        setAnchorEl(null);
+    const handleRemoveFromFolder = async () => {
+        if (!folderId) return;
+        await removeLessonFromFolder({
+            lessonId: lesson.id,
+            folderId: folderId,
+        });
+        refresh();
     };
 
     return (
-        <div>
+        <>
             <TooltipCustom title={t("Common.viewMore")}>
-                <IconButtonCustom onClick={handleClick}>
+                <IconButtonCustom
+                    onClick={(event) => setAnchorEl(event.currentTarget)}
+                >
                     <MoreHorizOutlinedIcon />
                 </IconButtonCustom>
             </TooltipCustom>
@@ -34,7 +44,7 @@ const LessonMoreButton = ({ lesson }: { lesson: LessonResponse }) => {
             <Popover
                 open={Boolean(anchorEl)}
                 anchorEl={anchorEl}
-                onClose={handleClose}
+                onClose={() => setAnchorEl(null)}
                 anchorOrigin={{
                     vertical: "bottom",
                     horizontal: "right",
@@ -45,13 +55,19 @@ const LessonMoreButton = ({ lesson }: { lesson: LessonResponse }) => {
                 }}
             >
                 <div>
-                    <Button variant="text" color="error">
-                        <RemoveIcon fontSize="small" sx={{ mr: "4px" }} />
-                        {t("Pages.yourLibrary.lesson.removeFromFolder")}
-                    </Button>
+                    {folderId && (
+                        <Button
+                            variant="text"
+                            color="error"
+                            onClick={handleRemoveFromFolder}
+                        >
+                            <RemoveIcon fontSize="small" sx={{ mr: "4px" }} />
+                            {t("Pages.yourLibrary.lesson.removeFromFolder")}
+                        </Button>
+                    )}
                 </div>
             </Popover>
-        </div>
+        </>
     );
 };
 

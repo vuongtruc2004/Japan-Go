@@ -3,6 +3,7 @@
         "open": "Mở",
         "close": "Đóng",
         "cancel": "Hủy",
+        "delete": "Xóa",
         "create": "Tạo",
         "confirm": "Nhập",
         "complete": "Hoàn tất",
@@ -27,10 +28,10 @@
             "kanji": "Danh sách Kanji",
             "settings": "Cài đặt",
             "achievement": "Thành tựu",
-            "create-lesson": {
-                "kanji": "Tạo học phần chữ Hán",
-                "grammar": "Tạo học phần ngữ pháp"
-            }
+            "create-lesson/kanji": "Tạo học phần chữ Hán",
+            "create-lesson/grammar": "Tạo học phần ngữ pháp",
+            "lesson/kanji": "Học phần chữ Hán",
+            "lesson/grammar": "Học phần ngữ pháp"
         },
         "folder": {
             "title": "Thư mục",
@@ -122,7 +123,8 @@
                 "searchPlaceholder": "Tìm kiếm thư mục",
                 "folderList": "Danh sách thư mục",
                 "searchLessonInThisFolderPlaceholder": "Tìm kiếm học phần trong thư mục này",
-                "addLesson": "Thêm học phần"
+                "addLesson": "Thêm học phần",
+                "deleteFolder": "Xóa thư mục"
             },
             "lesson": {
                 "noLessons": "Không có học phần nào để hiển thị",
@@ -132,7 +134,8 @@
                 "inputLessonNamePlaceholder": "Nhập tên học phần",
                 "addDescriptionPlaceholder": "Thêm mô tả cho học phần này...",
                 "importKanjiDataPlaceholder": "Chữ Hán chính\t\tChữ Hán\t\tPhiên âm\t\tNghĩa\t\tChú ý\n細\t\t細部\t\tさいぶ\t\tchi tiết\t\tbộ phận nhỏ bên trong toàn thể\n細\t\t明細\t\tめいさい\t\tchi tiết rõ ràng\t\tgiải thích chi tiết từng phần rõ ràng, hay dùng liên quan đến tiền bạc\n...",
-                "removeFromFolder": "Xóa khỏi thư mục"
+                "removeFromFolder": "Xóa khỏi thư mục",
+                "lessonList": "Danh sách các học phần"
             }
         },
         "lesson": {
@@ -141,9 +144,31 @@
                 "onyomi": "Âm On",
                 "kunyomi": "Âm Kun",
                 "searchByMazii": "Mazii",
-                "searchByWeblio": "Weblio"
+                "searchByWeblio": "Weblio",
+                "showVocabularyLabels": {
+                    "japanese": "Hiện tiếng Nhật",
+                    "sinoVietnamese": "Hiện phiên âm Hán Việt",
+                    "reading": "Hiện cách đọc",
+                    "meaning": "Hiện nghĩa",
+                    "note": "Hiện chú ý"
+                },
+                "hideVocabularyLabels": {
+                    "japanese": "Ẩn tiếng Nhật",
+                    "sinoVietnamese": "Ẩn phiên âm Hán Việt",
+                    "reading": "Ẩn cách đọc",
+                    "meaning": "Ẩn nghĩa",
+                    "note": "Ẩn chú ý"
+                }
             },
-            "saveToQuickAccess": "Lưu vào mục truy cập nhanh"
+            "saveToQuickAccess": "Lưu vào mục truy cập nhanh",
+            "lessonDetailsMoreButtons": {
+                "edit": "Sửa học phần",
+                "addToClass": "Thêm vào lớp học",
+                "export": "Xuất ra file Excel"
+            },
+            "deleteLesson": "Xóa học phần",
+            "lessonAction": "Thao tác với học phần này",
+            "areYouSureToDeleteLesson": "Bạn có chắc chắn muốn xóa học phần này không?"
         },
         "createLesson": {
             "noKanjiDataToPreview": "Không có dữ liệu chữ Hán nào để hiển thị"

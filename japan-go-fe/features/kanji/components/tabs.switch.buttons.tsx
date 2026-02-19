@@ -29,7 +29,7 @@ const TabsSwitchButtons = () => {
                                 return (
                                     <div
                                         key={tab.id}
-                                        className={`${activeClass} bg-bgc-page flex h-10 w-max cursor-pointer items-center justify-center rounded-md border px-3 text-sm font-semibold`}
+                                        className={`${activeClass} bg-bgc-page flex h-10 w-max cursor-pointer items-center justify-center rounded-md border px-3 text-sm font-semibold transition-all duration-150`}
                                         onClick={() => handleChangeTab(tab)}
                                     >
                                         {t(`levels.${tab.tabKeyTranslation}`)}

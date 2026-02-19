@@ -35,3 +35,14 @@ export const getLessonById = async (id: string): Promise<LessonResponse> => {
     }
     return response.data;
 };
+
+export const deleteLesson = async (id: string | number): Promise<number> => {
+    const response = await sendRequest<ApiResponse<number>>({
+        url: `/lesson/${id}`,
+        method: "DELETE",
+    });
+    if (response.statusCode !== 200) {
+        throw new Error(response.clientMessage);
+    }
+    return response.data;
+};

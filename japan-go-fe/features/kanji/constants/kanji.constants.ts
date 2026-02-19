@@ -1,4 +1,5 @@
 import { IGroupKanjiTab } from "../types/kanji.ui.type";
+import { DecoratorClassName } from "@/types/enums/share.enum";
 
 export const GROUP_KANJI_TAB: IGroupKanjiTab[] = [
     {
@@ -7,20 +8,17 @@ export const GROUP_KANJI_TAB: IGroupKanjiTab[] = [
             {
                 id: "tab-1",
                 tabKeyTranslation: "n5",
-                colorStyle:
-                    "text-green-700 dark:text-green-500 bg-green-500/10 border-green-500/20",
+                colorStyle: DecoratorClassName.GREEN,
             },
             {
                 id: "tab-2",
                 tabKeyTranslation: "n4",
-                colorStyle:
-                    "text-blue-700 dark:text-blue-500 bg-blue-500/10 border-blue-500/20",
+                colorStyle: DecoratorClassName.BLUE,
             },
             {
                 id: "tab-3",
                 tabKeyTranslation: "n3",
-                colorStyle:
-                    "text-yellow-700 dark:text-yellow-500 bg-yellow-500/10 border-yellow-500/20",
+                colorStyle: DecoratorClassName.YELLOW,
             },
         ],
     },
@@ -30,14 +28,12 @@ export const GROUP_KANJI_TAB: IGroupKanjiTab[] = [
             {
                 id: "tab-4",
                 tabKeyTranslation: "n2",
-                colorStyle:
-                    "text-orange-700 dark:text-orange-500 bg-orange-500/10 border-orange-500/20",
+                colorStyle: DecoratorClassName.ORANGE,
             },
             {
                 id: "tab-5",
                 tabKeyTranslation: "n1",
-                colorStyle:
-                    "text-red-700 dark:text-red-500 bg-red-500/10 border-red-500/20",
+                colorStyle: DecoratorClassName.RED,
             },
         ],
     },

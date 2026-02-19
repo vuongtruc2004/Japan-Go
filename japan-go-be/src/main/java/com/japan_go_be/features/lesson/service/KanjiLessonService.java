@@ -68,11 +68,11 @@ public class KanjiLessonService {
                         .note(vocabularyRequest.note())
                         .build();
 
-                vocabularyEntity.getKanjiPages().add(kanjiPageEntity);
+                vocabularyEntity.setKanjiPage(kanjiPageEntity);
                 kanjiPageEntity.getVocabularies().add(vocabularyEntity);
             }
 
-            kanjiPageEntity.getKanjiLessons().add(kanjiLessonEntity);
+            kanjiPageEntity.setKanjiLesson(kanjiLessonEntity);
             kanjiLessonEntity.getKanjiPages().add(kanjiPageEntity);
         }
         return kanjiLessonEntity;

@@ -17,6 +17,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -71,6 +72,11 @@ public class FolderService {
 
     public Long deleteFolder(Long id) {
         FolderEntity folder = folderHelper.getFolderById(id);
+
+        for (LessonEntity lesson : new ArrayList<>(folder.getLessons())) {
+            lesson.getFolders().remove(folder);
+        }
+        folder.setLessons(new ArrayList<>());
         folderRepository.delete(folder);
         return id;
     }

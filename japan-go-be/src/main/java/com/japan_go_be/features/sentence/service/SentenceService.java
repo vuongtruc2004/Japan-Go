@@ -49,7 +49,7 @@ public class SentenceService implements ISentenceService {
                 row.createCell(4).setCellValue(grammarHelper.getGrammarStructure(grammar));
                 row.createCell(5).setCellValue(grammarHelper.getGrammarExample(grammar));
                 row.createCell(6).setCellValue(grammarHelper.getGrammarNote(grammar));
-                row.createCell(7).setCellValue(grammarHelper.getGrammarLessons(grammar));
+                row.createCell(7).setCellValue(grammar.getGrammarLesson().getGrammarLessonTitle());
             }
 
             ByteArrayOutputStream outputStream = new ByteArrayOutputStream();

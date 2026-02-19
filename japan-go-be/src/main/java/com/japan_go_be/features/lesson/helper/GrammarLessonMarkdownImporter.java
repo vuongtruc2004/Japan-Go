@@ -74,7 +74,7 @@ public class GrammarLessonMarkdownImporter {
                         .grammarNote(grammarNote)
                         .build();
 
-                grammar.getGrammarLessons().add(grammarLesson);
+                grammar.setGrammarLesson(grammarLesson);
                 grammarLesson.getGrammars().add(grammar);
                 continue;
             }

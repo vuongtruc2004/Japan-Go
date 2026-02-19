@@ -4,16 +4,16 @@ import TranslateIcon from "@mui/icons-material/Translate";
 import { LessonResponse } from "@/types/api/responses/lesson.response";
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
-import LessonMoreButton from "@/components/domain/create-lesson/lesson.more.button";
 import { slugifyText } from "@/utils/slugify.text";
 import { useFolderDetails } from "@/features/your-library/contexts/folder.details";
+import LessonMoreButton from "@/components/domain/create-lesson/lesson.more.button";
 
 const SingleLesson = ({ lesson }: { lesson: LessonResponse }) => {
     const t = useTranslations();
     const { folder } = useFolderDetails();
 
     return (
-        <div className="hover:bg-bgc-page flex cursor-pointer items-center justify-between rounded-md px-4 py-2 transition-all duration-150">
+        <div className="hover:bg-bgc-page flex cursor-pointer items-center justify-between rounded-md p-2 transition-all duration-150">
             <Link
                 href={{
                     pathname: "/lesson/kanji/[slug]",
@@ -56,7 +56,8 @@ const SingleLesson = ({ lesson }: { lesson: LessonResponse }) => {
                     </div>
                 </div>
             </Link>
-            <LessonMoreButton lesson={lesson} />
+
+            <LessonMoreButton lesson={lesson} folderId={folder.id} />
         </div>
     );
 };

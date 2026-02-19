@@ -1,4 +1,9 @@
-import React, { ButtonHTMLAttributes, cloneElement, ReactElement } from "react";
+import React, {
+    ButtonHTMLAttributes,
+    cloneElement,
+    ReactElement,
+    useState,
+} from "react";
 import { useTranslations } from "next-intl";
 import { Popover, PopoverOrigin } from "@mui/material";
 import { COURSE_CREATE_LINK_ITEMS } from "@/features/your-library/constants/your.library.constants";
@@ -19,26 +24,18 @@ const LessonCreateButton = ({
 }) => {
     const t = useTranslations();
 
-    const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(
-        null,
-    );
-
-    const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-        setAnchorEl(event.currentTarget);
-    };
-
-    const handleClose = () => {
-        setAnchorEl(null);
-    };
+    const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
 
     return (
         <div>
-            {cloneElement(buttonElement, { onClick: handleClick })}
+            {cloneElement(buttonElement, {
+                onClick: (event) => setAnchorEl(event.currentTarget),
+            })}
 
             <Popover
                 open={Boolean(anchorEl)}
                 anchorEl={anchorEl}
-                onClose={handleClose}
+                onClose={() => setAnchorEl(null)}
                 anchorOrigin={
                     anchorOrigin
                         ? anchorOrigin

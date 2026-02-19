@@ -2,7 +2,6 @@
 import React from "react";
 import { LessonResponse } from "@/types/api/responses/lesson.response";
 import FolderOutlinedIcon from "@mui/icons-material/FolderOutlined";
-import LessonMoreButton from "@/components/domain/create-lesson/lesson.more.button";
 import WrapBox from "@/components/ui/wrap.box";
 import { TooltipCustom } from "@/components/ui/mui-custom/tooltip.custom";
 import IconButtonCustom from "@/components/ui/mui-custom/icon.button.custom";
@@ -13,6 +12,7 @@ import ButtonCustom from "@/components/ui/mui-custom/button.custom";
 import { useSearchParams } from "next/navigation";
 import { Link } from "@/i18n/navigation";
 import { slugifyText } from "@/utils/slugify.text";
+import LessonDetailsMoreButton from "@/features/lesson/components/common/lesson.details.more.button";
 
 const LessonHeader = ({ lesson }: { lesson: LessonResponse }) => {
     const t = useTranslations();
@@ -42,7 +42,7 @@ const LessonHeader = ({ lesson }: { lesson: LessonResponse }) => {
                     <TooltipCustom title={t("Pages.lesson.saveToQuickAccess")}>
                         <ButtonCustom>
                             <BookmarkBorderOutlinedIcon fontSize="small" />
-                            {t("Common.save")}
+                            <p className="font-semibold">{t("Common.save")}</p>
                         </ButtonCustom>
                     </TooltipCustom>
 
@@ -52,7 +52,7 @@ const LessonHeader = ({ lesson }: { lesson: LessonResponse }) => {
                         </IconButtonCustom>
                     </TooltipCustom>
 
-                    <LessonMoreButton lesson={lesson} />
+                    <LessonDetailsMoreButton lesson={lesson} />
                 </div>
             </div>
             <h1 className="mt-3 text-3xl font-semibold">{lesson.lessonName}</h1>

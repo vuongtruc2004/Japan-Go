@@ -8,14 +8,16 @@ import React, {
     ReactElement,
     useEffect,
     useState,
+    useTransition,
 } from "react";
 import { TooltipCustom } from "@/components/ui/mui-custom/tooltip.custom";
 import { LessonResponse } from "@/types/api/responses/lesson.response";
 import Empty from "@/components/ui/empty";
 import LessonCreateButton from "@/components/domain/create-lesson/lesson.create.button";
 import AddOutlinedIcon from "@mui/icons-material/AddOutlined";
-import SingleLessonToAdd from "@/features/your-library/components/lesson/single.lesson.to.add";
 import { useFolderDetails } from "@/features/your-library/contexts/folder.details";
+import { getAllLessons } from "@/services/lesson.service";
+import SingleLessonToAdd from "@/features/your-library/components/lesson/single.lesson.to.add";
 
 const FolderAddLessonButton = ({
     buttonElement,
@@ -27,17 +29,18 @@ const FolderAddLessonButton = ({
 
     const [lessons, setLessons] = useState<LessonResponse[]>([]);
     const [open, setOpen] = useState(false);
+    const [isPending, startTransition] = useTransition();
 
     const handleClose = () => {
         setOpen(false);
     };
 
     useEffect(() => {
-        // const fetch = async () => {
-        //     const page = await getAllLessons();
-        //     setLessons(page.content);
-        // };
-        // fetch();
+        startTransition(() => {
+            getAllLessons().then((page) => {
+                setLessons(page.content);
+            });
+        });
     }, []);
 
     return (
@@ -45,12 +48,12 @@ const FolderAddLessonButton = ({
             {cloneElement(buttonElement, { onClick: () => setOpen(true) })}
 
             <Modal open={open}>
-                <div className="bg-bgc-page absolute top-1/2 left-1/2 flex w-150 -translate-x-1/2 -translate-y-1/2 flex-col gap-y-3 rounded-md p-5">
-                    <h1 className="font-semibold">
+                <div className="bg-bgc-app absolute top-1/2 left-1/2 flex w-200 -translate-x-1/2 -translate-y-1/2 flex-col gap-y-3 rounded-md p-5">
+                    <h1 className="pl-2 font-semibold">
                         {t("Pages.yourLibrary.folder.addLesson")}
                     </h1>
 
-                    <div className="flex items-center justify-between">
+                    <div className="flex items-center justify-between px-2">
                         <p className="text-sm font-semibold">
                             {t("Common.lesson.title")}
                         </p>
@@ -81,7 +84,9 @@ const FolderAddLessonButton = ({
                     </TooltipCustom>
 
                     <div>
-                        {lessons.length === 0 ? (
+                        {isPending ? (
+                            <p>Loading...</p>
+                        ) : lessons.length === 0 ? (
                             <Empty
                                 text={t("Pages.yourLibrary.lesson.noLessons")}
                             />

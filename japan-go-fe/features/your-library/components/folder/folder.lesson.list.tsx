@@ -7,14 +7,15 @@ import WrapBox from "@/components/ui/wrap.box";
 import SingleLesson from "@/features/your-library/components/lesson/single.lesson";
 
 const FolderLessonList = () => {
-    const t = useTranslations();
+    const t = useTranslations("Pages.yourLibrary.lesson");
     const { folder } = useFolderDetails();
 
     return (
         <WrapBox>
+            <h1 className="mb-3 font-semibold">{t("lessonList")}</h1>
             <div className="flex flex-col gap-y-3">
                 {folder.lessons.length === 0 ? (
-                    <Empty text={t("Pages.yourLibrary.lesson.noLessons")} />
+                    <Empty text={t("noLessons")} />
                 ) : (
                     folder.lessons.map((lesson) => {
                         return <SingleLesson lesson={lesson} key={lesson.id} />;

@@ -2,8 +2,8 @@ import { KanjiPageRequest } from "@/types/api/requests/kanji.request";
 import { LessonType } from "@/types/enums/lesson.enum";
 
 export interface FolderLessonRequest {
-    folderId: number;
-    lessonId: number;
+    folderId: number | string;
+    lessonId: number | string;
 }
 
 export interface LessonRequest {

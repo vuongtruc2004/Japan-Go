@@ -43,19 +43,6 @@ const FolderSearchBox = () => {
                     }
                 />
             </div>
-
-            {/*<FolderCreateButton*/}
-            {/*    buttonElement={*/}
-            {/*        <Button*/}
-            {/*            variant="outlined"*/}
-            {/*            color="primary"*/}
-            {/*            sx={{ width: "max-content", borderStyle: "dashed" }}*/}
-            {/*        >*/}
-            {/*            <AddIcon fontSize="small" />*/}
-            {/*            {t("Pages.yourLibrary.folder.createFolder")}*/}
-            {/*        </Button>*/}
-            {/*    }*/}
-            {/*/>*/}
         </WrapBox>
     );
 };

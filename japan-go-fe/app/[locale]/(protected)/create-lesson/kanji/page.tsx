@@ -14,7 +14,7 @@ export async function generateMetadata({
     const t = await getTranslations({ locale, namespace: "Common.links" });
 
     return {
-        title: t("create-lesson.kanji"),
+        title: t("create-lesson/kanji"),
     };
 }
 

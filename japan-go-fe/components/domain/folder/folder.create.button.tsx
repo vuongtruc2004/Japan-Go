@@ -41,7 +41,7 @@ const FolderAddLesson = ({
             {cloneElement(buttonElement, { onClick: () => setOpen(true) })}
 
             <Modal open={open}>
-                <div className="bg-bgc-page absolute top-1/2 left-1/2 w-150 -translate-x-1/2 -translate-y-1/2 rounded-md p-5">
+                <div className="bg-bgc-app absolute top-1/2 left-1/2 w-150 -translate-x-1/2 -translate-y-1/2 rounded-md p-5">
                     <h1 className="mb-3 font-semibold">{t("folder.create")}</h1>
 
                     <form action={formAction}>
