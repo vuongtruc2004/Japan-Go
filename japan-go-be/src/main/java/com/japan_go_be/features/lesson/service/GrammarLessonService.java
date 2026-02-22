@@ -4,14 +4,13 @@ import com.japan_go_be.common.constant.message.FileMessage;
 import com.japan_go_be.common.exception.FileNotValidException;
 import com.japan_go_be.common.i18n.I18nService;
 import com.japan_go_be.common.validator.FileValidator;
-import com.japan_go_be.features.lesson.dto.response.GrammarLessonResponse;
+import com.japan_go_be.features.folder.entity.FolderEntity;
+import com.japan_go_be.features.folder.helper.FolderHelper;
 import com.japan_go_be.features.lesson.dto.response.LessonResponse;
-import com.japan_go_be.features.lesson.entity.GrammarLessonEntity;
 import com.japan_go_be.features.lesson.entity.LessonEntity;
 import com.japan_go_be.features.lesson.helper.GrammarLessonMarkdownImporter;
-import com.japan_go_be.features.lesson.helper.GrammarLessonXlsxImporter;
 import com.japan_go_be.features.lesson.mapper.LessonDtoMapper;
-import com.japan_go_be.features.lesson.repository.GrammarLessonRepository;
+import com.japan_go_be.features.lesson.repository.LessonRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -27,17 +26,25 @@ public class GrammarLessonService {
     private final FileValidator fileValidator;
     private final I18nService i18nService;
     private final GrammarLessonMarkdownImporter grammarLessonMarkdownImporter;
-    private final GrammarLessonRepository grammarLessonRepository;
-    private final GrammarLessonXlsxImporter grammarLessonXlsxImporter;
     private final LessonDtoMapper lessonDtoMapper;
+    private final LessonRepository lessonRepository;
+    private final FolderHelper folderHelper;
 
     /**
-     * @param files list of markdown files by export from the notion (I use for noting grammars)
-     * @return list of grammar after inserted to the database
+     *
+     * @param folderId folder id to add these lessons into
+     * @param files    list of markdown files, each file is a lesson
+     * @return List of lesson response summary
      */
     @Transactional
-    public List<GrammarLessonResponse> importGrammarLessonsFromNotion(List<MultipartFile> files) {
-        List<GrammarLessonEntity> grammarLessonEntities = new ArrayList<>();
+    public List<LessonResponse> createGrammarLessons(Long folderId, List<MultipartFile> files) {
+        List<LessonEntity> lessons = new ArrayList<>();
+
+        FolderEntity folderEntity = null;
+        if (folderId != null) {
+            folderEntity = folderHelper.getFolderById(folderId);
+        }
+
         for (MultipartFile file : files) {
             if (!fileValidator.isMarkdownFile(file)) {
                 throw new FileNotValidException(
@@ -53,7 +60,13 @@ public class GrammarLessonService {
                             i18nService.translation(FileMessage.FILE_EMPTY)
                     );
                 }
-                grammarLessonEntities.add(grammarLessonMarkdownImporter.importGrammarLessonFromNotion(markdown));
+                LessonEntity lesson = grammarLessonMarkdownImporter.getLessonFromMarkdown(markdown);
+                lessons.add(lesson);
+                if (folderEntity != null) {
+                    folderEntity.getLessons().add(lesson);
+                    lesson.getFolders().add(folderEntity);
+                }
+
             } catch (Exception e) {
                 throw new FileNotValidException(
                         i18nService.translation(FileMessage.FILE_ERROR, e.getMessage()),
@@ -61,28 +74,8 @@ public class GrammarLessonService {
                 );
             }
         }
-        List<GrammarLessonEntity> savedGrammarLessonEntities = grammarLessonRepository.saveAll(grammarLessonEntities);
-        return savedGrammarLessonEntities.stream()
-                .map(lessonDtoMapper::grammarLessonEntityToGrammarLessonResponseSummary)
-                .toList();
-    }
-
-    /**
-     * @param file an excel file that contains
-     *             column 1: lesson name
-     *             column 2: grammar lesson id
-     * @return list of lesson response after inserted lesson to the database
-     */
-    @Transactional
-    public List<LessonResponse> importGrammarLessonsFromExcel(MultipartFile file) {
-        if (!fileValidator.isExcelFile(file)) {
-            throw new FileNotValidException(
-                    i18nService.translation(FileMessage.FILE_NOT_EXCEL),
-                    i18nService.translation(FileMessage.FILE_NOT_EXCEL)
-            );
-        }
-        List<LessonEntity> lessons = grammarLessonXlsxImporter.importGrammarLessonsFromExcel(file);
-        return lessons.stream()
+        List<LessonEntity> savedLessons = lessonRepository.saveAll(lessons);
+        return savedLessons.stream()
                 .map(lessonDtoMapper::lessonEntityToLessonResponseSummary)
                 .toList();
     }

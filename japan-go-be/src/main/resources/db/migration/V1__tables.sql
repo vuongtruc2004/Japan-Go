@@ -1,12 +1,13 @@
 CREATE TABLE folder
 (
-    id               BIGINT AUTO_INCREMENT NOT NULL,
-    created_by       VARCHAR(255)          NOT NULL,
-    created_time     datetime              NOT NULL,
-    modified_by      VARCHAR(255)          NULL,
-    modified_time    datetime              NULL,
-    folder_name      VARCHAR(255)          NOT NULL,
-    parent_folder_id BIGINT                NULL,
+    id                   BIGINT AUTO_INCREMENT NOT NULL,
+    created_by           VARCHAR(255)          NOT NULL,
+    created_time         datetime              NOT NULL,
+    modified_by          VARCHAR(255)          NULL,
+    modified_time        datetime              NULL,
+    folder_name          VARCHAR(255)          NOT NULL,
+    parent_folder_id     BIGINT                NULL,
+    is_pinned_to_sidebar BIT(1)                NULL,
     CONSTRAINT pk_folder PRIMARY KEY (id)
 );
 
@@ -44,12 +45,11 @@ CREATE TABLE grammar_example
 
 CREATE TABLE grammar_lesson
 (
-    id                   BIGINT AUTO_INCREMENT NOT NULL,
-    created_by           VARCHAR(255)          NOT NULL,
-    created_time         datetime              NOT NULL,
-    modified_by          VARCHAR(255)          NULL,
-    modified_time        datetime              NULL,
-    grammar_lesson_title VARCHAR(255)          NOT NULL,
+    id            BIGINT AUTO_INCREMENT NOT NULL,
+    created_by    VARCHAR(255)          NOT NULL,
+    created_time  datetime              NOT NULL,
+    modified_by   VARCHAR(255)          NULL,
+    modified_time datetime              NULL,
     CONSTRAINT pk_grammar_lesson PRIMARY KEY (id)
 );
 
@@ -237,12 +237,12 @@ CREATE TABLE sentence
     created_time         datetime              NOT NULL,
     modified_by          VARCHAR(255)          NULL,
     modified_time        datetime              NULL,
-    japanese_raw         VARCHAR(255)          NULL,
-    vietnamese_raw       VARCHAR(255)          NULL,
-    english_raw          VARCHAR(255)          NULL,
-    japaneses_html       VARCHAR(255)          NULL,
-    vietnamese_html      VARCHAR(255)          NULL,
-    english_html         VARCHAR(255)          NULL,
+    japanese_raw         MEDIUMTEXT            NULL,
+    vietnamese_raw       MEDIUMTEXT            NULL,
+    english_raw          MEDIUMTEXT            NULL,
+    japaneses_html       MEDIUMTEXT            NULL,
+    vietnamese_html      MEDIUMTEXT            NULL,
+    english_html         MEDIUMTEXT            NULL,
     grammar_meaning_id   BIGINT                NULL,
     grammar_structure_id BIGINT                NULL,
     grammar_example_id   BIGINT                NULL,

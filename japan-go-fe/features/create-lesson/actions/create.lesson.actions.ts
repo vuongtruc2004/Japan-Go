@@ -6,11 +6,9 @@ import {
     ICreateKanjiLessonState,
     IImportKanjiDataState,
 } from "@/features/create-lesson/types/create.lesson.state.type";
-import { sendRequest } from "@/lib/send.request";
-import { ApiResponse } from "@/types/api/responses/base.response";
-import { LessonRequest } from "@/types/api/requests/lesson.request";
+import { KanjiLessonRequest } from "@/types/api/requests/lesson.request";
 import { LessonType } from "@/types/enums/lesson.enum";
-import { LessonResponse } from "@/types/api/responses/lesson.response";
+import { createKanjiLesson } from "@/services/lesson.service";
 
 export async function importKanjiDataActions(
     formData: FormData | null,
@@ -59,11 +57,28 @@ export async function importKanjiDataActions(
     return formState;
 }
 
-export async function createKanjiLesson(
+export async function submitCreateKanjiLesson(
     formData: FormData,
     kanjiPages: KanjiPageRequest[],
     folderId: number | null,
 ): Promise<ICreateKanjiLessonState> {
+    const formState = buildCreateLessonState(formData);
+
+    const body: KanjiLessonRequest = {
+        folderId,
+        lessonName: formState.lessonName.value,
+        description: formState.description.value,
+        lessonType: LessonType.KANJI,
+        kanjiPages,
+    };
+
+    const lesson = await createKanjiLesson(body);
+    formState.success = true;
+    formState.lesson = lesson;
+    return formState;
+}
+
+function buildCreateLessonState(formData: FormData): ICreateKanjiLessonState {
     const lessonName = formData.get("lesson-name")?.toString().trim() || "";
     const description = formData.get("description")?.toString().trim() || "";
 
@@ -73,27 +88,13 @@ export async function createKanjiLesson(
         success: false,
     };
 
-    const body: LessonRequest = {
-        folderId,
-        lessonName,
-        description,
-        lessonType: LessonType.KANJI,
-        kanjiLesson: {
-            kanjiPages,
-        },
-    };
+    if (lessonName.length === 0) formState.lessonName.isError = true;
 
-    const response = await sendRequest<ApiResponse<LessonResponse>>({
-        url: "/lesson",
-        method: "POST",
-        body,
-    });
-
-    formState.apiResponse = response;
-    if (response.statusCode === 201) {
-        formState.success = true;
-    } else {
-        throw new Error(formState.apiResponse.clientMessage);
+    if (formState.lessonName.isError) {
+        throw new Error(formState.lessonName.errorMessage);
     }
-    return formState;
+
+    return {
+        ...formState,
+    };
 }

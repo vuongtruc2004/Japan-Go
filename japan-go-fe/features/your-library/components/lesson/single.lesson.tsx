@@ -1,35 +1,43 @@
 import React from "react";
-import AbcIcon from "@mui/icons-material/Abc";
 import TranslateIcon from "@mui/icons-material/Translate";
 import { LessonResponse } from "@/types/api/responses/lesson.response";
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import { slugifyText } from "@/utils/slugify.text";
-import { useFolderDetails } from "@/features/your-library/contexts/folder.details";
-import LessonMoreButton from "@/components/domain/create-lesson/lesson.more.button";
+import LibraryBooksOutlinedIcon from "@mui/icons-material/LibraryBooksOutlined";
+import { FolderResponse } from "@/types/api/responses/common.response";
 
-const SingleLesson = ({ lesson }: { lesson: LessonResponse }) => {
+const SingleLesson = ({
+    moreButton,
+    lesson,
+    folder,
+}: {
+    moreButton: React.ReactNode;
+    lesson: LessonResponse;
+    folder?: FolderResponse;
+}) => {
     const t = useTranslations();
-    const { folder } = useFolderDetails();
 
     return (
         <div className="hover:bg-bgc-page flex cursor-pointer items-center justify-between rounded-md p-2 transition-all duration-150">
             <Link
                 href={{
-                    pathname: "/lesson/kanji/[slug]",
+                    pathname: `/lesson/${lesson.lessonType === "GRAMMAR" ? "grammar" : "kanji"}/[slug]`,
                     params: {
-                        slug: slugifyText(lesson.lessonName + "-" + lesson.id),
+                        slug: slugifyText(`${lesson.lessonName}-${lesson.id}`),
                     },
-                    query: {
-                        folderId: folder.id,
-                        folderName: folder.folderName,
-                    },
+                    ...(folder && {
+                        query: {
+                            folderId: folder.id,
+                            folderName: folder.folderName,
+                        },
+                    }),
                 }}
                 className="flex w-full flex-1 items-center gap-x-3 pr-4"
             >
                 <span className="bg-bgc-page text-tc-highlight flex h-10 w-10 items-center justify-center rounded-md">
                     {lesson.lessonType === "GRAMMAR" ? (
-                        <AbcIcon fontSize="small" />
+                        <LibraryBooksOutlinedIcon fontSize="small" />
                     ) : (
                         <TranslateIcon fontSize="small" />
                     )}
@@ -56,8 +64,7 @@ const SingleLesson = ({ lesson }: { lesson: LessonResponse }) => {
                     </div>
                 </div>
             </Link>
-
-            <LessonMoreButton lesson={lesson} folderId={folder.id} />
+            {moreButton}
         </div>
     );
 };

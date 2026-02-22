@@ -2,6 +2,7 @@ import Empty from "@/components/ui/empty";
 import { Button } from "@mui/material";
 
 import { getTranslations } from "next-intl/server";
+import WrapBox from "@/components/ui/wrap.box";
 
 export async function generateMetadata({
     params,
@@ -22,14 +23,14 @@ const ClassPage = async () => {
     const t = await getTranslations("Pages.yourLibrary");
 
     return (
-        <div>
+        <WrapBox>
             <div className="flex flex-col items-center">
                 <Empty text={t("class.noClasses")} />
                 <Button variant="contained" color="primary">
                     {t("class.createClass")}
                 </Button>
             </div>
-        </div>
+        </WrapBox>
     );
 };
 

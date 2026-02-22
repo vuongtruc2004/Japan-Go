@@ -6,20 +6,16 @@ export interface FolderLessonRequest {
     lessonId: number | string;
 }
 
-export interface LessonRequest {
+export interface KanjiLessonRequest {
     lessonId?: number;
     folderId: number | null;
     lessonType: LessonType;
     lessonName: string;
     description: string;
-    grammarLesson?: GrammarLessonRequest;
-    kanjiLesson?: KanjiLessonRequest;
-}
-
-export interface KanjiLessonRequest {
     kanjiPages: KanjiPageRequest[];
 }
 
 export interface GrammarLessonRequest {
-    ok: string;
+    folderId: number | string | null;
+    files: File[];
 }

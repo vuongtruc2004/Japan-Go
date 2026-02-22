@@ -1,6 +1,8 @@
 package com.japan_go_be.features.folder.controller.v1;
 
 import com.japan_go_be.common.annotation.ApiResponseFormat;
+import com.japan_go_be.common.dto.ApiResponse;
+import com.japan_go_be.common.i18n.I18nService;
 import com.japan_go_be.features.folder.constant.FolderMessage;
 import com.japan_go_be.features.folder.dto.request.FolderLessonRequest;
 import com.japan_go_be.features.folder.dto.request.FolderRequest;
@@ -18,6 +20,7 @@ import java.util.List;
 @RequestMapping("/api/v1/folder")
 public class FolderController {
     private final FolderService folderService;
+    private final I18nService i18nService;
 
     @ApiResponseFormat(devMessage = FolderMessage.FOLDER_CREATED, clientMessage = FolderMessage.FOLDER_CREATED)
     @PostMapping
@@ -55,5 +58,29 @@ public class FolderController {
     public ResponseEntity<Void> removeLessonFromFolder(@RequestBody FolderLessonRequest request) {
         folderService.removeLessonFromFolder(request);
         return ResponseEntity.ok().build();
+    }
+
+    @PatchMapping("/pin-and-unpin/{folderId}")
+    public ResponseEntity<ApiResponse<FolderResponse>> pinAndUnpinFolderFromSidebar(@PathVariable Long folderId) {
+        FolderResponse folderResponse = folderService.pinAndUnpinFolderFromSidebar(folderId);
+        ApiResponse<FolderResponse> apiResponse = ApiResponse.<FolderResponse>builder()
+                .statusCode(HttpStatus.OK.value())
+                .data(folderResponse)
+                .build();
+
+        if (Boolean.TRUE.equals(folderResponse.getIsPinnedToSidebar())) {
+            apiResponse.setDevMessage(i18nService.translation(FolderMessage.FOLDER_PIN_SUCCESS));
+            apiResponse.setClientMessage(i18nService.translation(FolderMessage.FOLDER_PIN_SUCCESS));
+        } else {
+            apiResponse.setDevMessage(i18nService.translation(FolderMessage.FOLDER_UNPIN_SUCCESS));
+            apiResponse.setClientMessage(i18nService.translation(FolderMessage.FOLDER_UNPIN_SUCCESS));
+        }
+        return ResponseEntity.ok(apiResponse);
+    }
+
+    @ApiResponseFormat(devMessage = FolderMessage.FOLDER_GET_ALL_PIN, clientMessage = FolderMessage.FOLDER_GET_ALL_PIN)
+    @GetMapping("/pin")
+    public ResponseEntity<List<FolderResponse>> getAllPinFolders() {
+        return ResponseEntity.ok(folderService.getAllPinFolders());
     }
 }

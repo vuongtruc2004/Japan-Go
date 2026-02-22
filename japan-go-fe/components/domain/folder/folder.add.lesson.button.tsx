@@ -37,8 +37,8 @@ const FolderAddLessonButton = ({
 
     useEffect(() => {
         startTransition(() => {
-            getAllLessons().then((page) => {
-                setLessons(page.content);
+            getAllLessons().then((response) => {
+                setLessons(response.data.content);
             });
         });
     }, []);
@@ -83,7 +83,7 @@ const FolderAddLessonButton = ({
                         </button>
                     </TooltipCustom>
 
-                    <div>
+                    <div className="flex max-h-65 flex-col gap-y-3 overflow-y-auto">
                         {isPending ? (
                             <p>Loading...</p>
                         ) : lessons.length === 0 ? (

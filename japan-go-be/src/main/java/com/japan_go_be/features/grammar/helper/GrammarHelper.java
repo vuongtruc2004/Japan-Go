@@ -23,7 +23,7 @@ public class GrammarHelper {
         StringJoiner joiner = new StringJoiner("<br/>");
         int num = 1;
         for (SentenceEntity sentence : grammarEntity.getGrammarStructure().getSentences()) {
-            joiner.add(num + ". " + stringUtil.enrichFuriganaToKanjiString(sentence.getJapaneseRaw()));
+//            joiner.add(num + ". " + stringUtil.enrichFuriganaToKanjiString(sentence.getJapaneseRaw()));
             num++;
         }
         return joiner.toString();
@@ -41,7 +41,7 @@ public class GrammarHelper {
         StringJoiner joiner = new StringJoiner("<br/>");
         int num = 1;
         for (SentenceEntity sentence : sentences) {
-            joiner.add("<div class='jp'>" + num + ". " + stringUtil.enrichFuriganaToKanjiString(sentence.getJapaneseHtml()) + "</div>");
+//            joiner.add("<div class='jp'>" + num + ". " + stringUtil.enrichFuriganaToKanjiString(sentence.getJapaneseHtml()) + "</div>");
             joiner.add("<div class='vn'>" + "<span class='arrow'>⇒ </span>" + sentence.getVietnameseRaw() + "</div>");
             num++;
         }

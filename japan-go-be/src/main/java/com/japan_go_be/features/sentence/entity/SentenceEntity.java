@@ -18,20 +18,29 @@ import lombok.experimental.FieldDefaults;
 @Table(name = "sentence")
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class SentenceEntity extends BaseEntity {
-    @Column(name = "japanese_raw")
+    @Lob
+    @Column(name = "japanese_raw", columnDefinition = "MEDIUMTEXT")
     String japaneseRaw;
-    @Column(name = "vietnamese_raw")
+
+    @Lob
+    @Column(name = "vietnamese_raw", columnDefinition = "MEDIUMTEXT")
     String vietnameseRaw;
-    @Column(name = "english_raw")
+
+    @Lob
+    @Column(name = "english_raw", columnDefinition = "MEDIUMTEXT")
     String englishRaw;
 
-    @Column(name = "japaneses_html")
+    @Lob
+    @Column(name = "japaneses_html", columnDefinition = "MEDIUMTEXT")
     String japaneseHtml;
-    @Column(name = "vietnamese_html")
-    String vietnameseHtml;
-    @Column(name = "english_html")
-    String englishHtml;
 
+    @Lob
+    @Column(name = "vietnamese_html", columnDefinition = "MEDIUMTEXT")
+    String vietnameseHtml;
+
+    @Lob
+    @Column(name = "english_html", columnDefinition = "MEDIUMTEXT")
+    String englishHtml;
 
     @ManyToOne
     @JoinColumn(name = "grammar_meaning_id")

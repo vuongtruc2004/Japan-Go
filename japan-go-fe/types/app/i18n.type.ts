@@ -1,7 +1,7 @@
 import { routing } from "@/i18n/routing";
 import { Messages } from "next-intl";
 
-export type AppLinkKeys = keyof Messages["Common"]["links"];
+export type AppNameLinkKeys = keyof Messages["Common"]["links"];
 
 export type AppLocales = (typeof routing.locales)[number];
 

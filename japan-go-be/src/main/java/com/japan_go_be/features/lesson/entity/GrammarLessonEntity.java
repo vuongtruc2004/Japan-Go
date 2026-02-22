@@ -18,9 +18,6 @@ import java.util.List;
 @Table(name = "grammar_lesson")
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class GrammarLessonEntity extends BaseEntity {
-    @Column(name = "grammar_lesson_title", nullable = false)
-    String grammarLessonTitle;
-
     @Builder.Default
     @OneToMany(mappedBy = "grammarLesson", cascade = CascadeType.ALL, orphanRemoval = true)
     List<GrammarEntity> grammars = new ArrayList<>();

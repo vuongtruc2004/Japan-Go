@@ -1,46 +1,13 @@
 package com.japan_go_be.common.util;
 
-import com.atilika.kuromoji.ipadic.Token;
-import com.atilika.kuromoji.ipadic.Tokenizer;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
-import java.util.List;
 import java.util.regex.Pattern;
 
 @Component
 @RequiredArgsConstructor
 public class StringUtil {
-    private final Tokenizer tokenizer = new Tokenizer();
-
-    public String enrichFuriganaToKanjiString(String text) {
-        List<Token> tokens = tokenizer.tokenize(text);
-        StringBuilder result = new StringBuilder();
-
-        for (Token token : tokens) {
-            String surface = token.getSurface();
-            String readingKatakana = token.getReading();
-
-            boolean hasReading = readingKatakana != null
-                    && !readingKatakana.isBlank()
-                    && !"*".equals(readingKatakana);
-
-            // Chỉ furigana cho token có kanji + có reading
-            if (!hasReading || !containsKanji(surface)) {
-                result.append(surface);
-            } else {
-                String readingHiragana = convertKatakanaToHiragana(readingKatakana);
-                result.append("<ruby><rb>")
-                        .append(surface)
-                        .append("</rb><rp>(</rp><rt>")
-                        .append(readingHiragana)
-                        .append("</rt><rp>)</rp></ruby>");
-            }
-        }
-
-        return result.toString();
-    }
-
     public String replaceAllSubstringWithHtmlTag(String original, String substring, String openTag, String closeTag) {
         if (original == null || !original.contains(substring)) {
             return original;

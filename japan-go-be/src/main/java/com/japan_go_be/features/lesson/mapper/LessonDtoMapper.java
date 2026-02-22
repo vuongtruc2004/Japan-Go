@@ -1,5 +1,7 @@
 package com.japan_go_be.features.lesson.mapper;
 
+import com.japan_go_be.features.grammar.dto.response.GrammarResponse;
+import com.japan_go_be.features.grammar.mapper.GrammarDtoMapper;
 import com.japan_go_be.features.kanji.dto.response.KanjiPageResponse;
 import com.japan_go_be.features.kanji.mapper.KanjiDtoMapper;
 import com.japan_go_be.features.lesson.constant.LessonTypeEnum;
@@ -19,6 +21,7 @@ import java.util.List;
 public class LessonDtoMapper {
 
     private final KanjiDtoMapper kanjiDtoMapper;
+    private final GrammarDtoMapper grammarDtoMapper;
 
     public LessonResponse lessonEntityToLessonResponseDetails(LessonEntity lessonEntity) {
         LessonResponse lessonResponse = lessonEntityToLessonResponseSummary(lessonEntity);
@@ -26,7 +29,7 @@ public class LessonDtoMapper {
         if (lessonEntity.getLessonType() == LessonTypeEnum.KANJI) {
             lessonResponse.setKanjiLesson(kanjiLessonEntityToKanjiLessonResponseDetails(lessonEntity.getKanjiLesson()));
         } else if (lessonEntity.getLessonType() == LessonTypeEnum.GRAMMAR) {
-            lessonResponse.setGrammarLesson(grammarLessonEntityToGrammarLessonResponseSummary(lessonEntity.getGrammarLesson()));
+            lessonResponse.setGrammarLesson(grammarLessonEntityToGrammarLessonResponseDetails(lessonEntity.getGrammarLesson()));
         }
 
         if (!lessonEntity.getFolders().isEmpty()) {
@@ -66,10 +69,17 @@ public class LessonDtoMapper {
         return kanjiLessonResponse;
     }
 
-    public GrammarLessonResponse grammarLessonEntityToGrammarLessonResponseSummary(GrammarLessonEntity grammarLessonEntity) {
-        return GrammarLessonResponse.builder()
+    public GrammarLessonResponse grammarLessonEntityToGrammarLessonResponseDetails(GrammarLessonEntity grammarLessonEntity) {
+        GrammarLessonResponse grammarLessonResponse = GrammarLessonResponse.builder()
                 .id(grammarLessonEntity.getId())
-                .grammarLessonTitle(grammarLessonEntity.getGrammarLessonTitle())
                 .build();
+
+        List<GrammarResponse> grammarResponses = grammarLessonEntity.getGrammars()
+                .stream()
+                .map(grammarDtoMapper::grammarEntityToGrammarResponseDetails)
+                .toList();
+
+        grammarLessonResponse.setGrammars(grammarResponses);
+        return grammarLessonResponse;
     }
 }

@@ -34,6 +34,9 @@ export const routing = defineRouting({
         "/lesson/kanji/[slug]": {
             vi: "/hoc-phan/chu-han/[slug]",
         },
+        "/lesson/grammar/[slug]": {
+            vi: "/hoc-phan/ngu-phap/[slug]",
+        },
         "/kanji": {
             vi: "/chu-han",
         },

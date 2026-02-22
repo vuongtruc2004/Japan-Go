@@ -1,37 +1,26 @@
 "use client";
 import React, { useState } from "react";
-import { LessonResponse } from "@/types/api/responses/lesson.response";
 import { TooltipCustom } from "@/components/ui/mui-custom/tooltip.custom";
-import { Popover } from "@mui/material";
-import MoreHorizOutlinedIcon from "@mui/icons-material/MoreHorizOutlined";
-import { useTranslations } from "next-intl";
 import IconButtonCustom from "@/components/ui/mui-custom/icon.button.custom";
-import { removeLessonFromFolder } from "@/services/folder.service";
-import { useRouter } from "@/i18n/navigation";
+import MoreHorizOutlinedIcon from "@mui/icons-material/MoreHorizOutlined";
+import { Popover } from "@mui/material";
 import BasicButton from "@/components/ui/buttons/basic.button";
-import RemoveIcon from "@mui/icons-material/Remove";
+import { useTranslations } from "next-intl";
+import { useRouter } from "@/i18n/navigation";
+import { LessonResponse } from "@/types/api/responses/lesson.response";
+import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
+import { deleteLesson } from "@/services/lesson.service";
 
-const LessonMoreButton = ({
-    lesson,
-    folderId,
-}: {
-    lesson: LessonResponse;
-    folderId: string | number | null;
-}) => {
+const LessonMoreButton = ({ lesson }: { lesson: LessonResponse }) => {
     const t = useTranslations();
     const { refresh } = useRouter();
 
     const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
 
-    const handleRemoveFromFolder = async () => {
-        if (!folderId) return;
-        await removeLessonFromFolder({
-            lessonId: lesson.id,
-            folderId: folderId,
-        });
+    const handleDeleteLesson = async () => {
+        await deleteLesson(lesson.id);
         refresh();
     };
-
     return (
         <>
             <TooltipCustom title={t("Common.viewMore")}>
@@ -55,19 +44,13 @@ const LessonMoreButton = ({
                     horizontal: "right",
                 }}
             >
-                <div>
-                    {folderId && (
-                        <BasicButton
-                            icon={<RemoveIcon />}
-                            text={t(
-                                "Pages.yourLibrary.lesson.removeFromFolder",
-                            )}
-                            textColor="text-tc-error"
-                            onClick={handleRemoveFromFolder}
-                            width={50}
-                        />
-                    )}
-                </div>
+                <BasicButton
+                    icon={<DeleteOutlineOutlinedIcon />}
+                    text={t("Pages.lesson.deleteLesson")}
+                    textColor="text-tc-error"
+                    onClick={handleDeleteLesson}
+                    width={50}
+                />
             </Popover>
         </>
     );

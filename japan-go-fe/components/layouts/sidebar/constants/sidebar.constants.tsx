@@ -6,20 +6,27 @@ import { SidebarItem } from "../types/sidebar.ui.type";
 export const SIDEBAR_ITEMS: SidebarItem[] = [
     {
         id: "e-1",
-        linkKey: "home",
+        nameLinkKey: "home",
+        activeLinks: ["/home"],
+        redirectLink: "/home",
         icon: <HomeIcon />,
-        link: "/home",
     },
     {
         id: "e-2",
-        linkKey: "yourLibrary",
+        nameLinkKey: "yourLibrary",
+        activeLinks: [
+            "/your-library",
+            "/your-library/folder",
+            "/your-library/lesson",
+        ],
+        redirectLink: "/your-library",
         icon: <FolderOpenedIcon />,
-        link: "/your-library",
     },
     {
         id: "e-3",
-        linkKey: "kanji",
+        nameLinkKey: "kanji",
+        activeLinks: ["/kanji"],
+        redirectLink: "/kanji",
         icon: <TranslateIcon />,
-        link: "/kanji",
     },
 ];

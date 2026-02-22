@@ -4,6 +4,7 @@ import com.japan_go_be.common.persistence.BaseRepository;
 import com.japan_go_be.features.lesson.entity.LessonEntity;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 
 public interface LessonRepository extends BaseRepository<LessonEntity> {
@@ -22,4 +23,11 @@ public interface LessonRepository extends BaseRepository<LessonEntity> {
             """)
     Page<LessonEntity> findAllOrderByLastModifiedTimeDesc(Pageable pageable);
 
+    @Modifying
+    @Query(value = "DELETE FROM folder_lesson", nativeQuery = true)
+    void deleteAllLessonFolderRelations();
+
+    @Modifying
+    @Query("DELETE FROM LessonEntity l")
+    void deleteAllLessons();
 }

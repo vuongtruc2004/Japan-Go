@@ -9,6 +9,7 @@ import { hasLocale, NextIntlClientProvider } from "next-intl";
 import { notFound } from "next/navigation";
 import "./globals.css";
 import { ToastContainer } from "react-toastify";
+import AppQueryClientProvider from "@/components/providers/app.query.client.provider";
 
 type Props = {
     children: React.ReactNode;
@@ -33,12 +34,14 @@ export default async function LocaleLayout({ children, params }: Props) {
                     <AppRouterCacheProvider options={{ enableCssLayer: true }}>
                         <BProgressProvider>
                             <AppThemeProvider>
-                                <InitColorSchemeScript
-                                    attribute="class"
-                                    defaultMode="light"
-                                />
-                                <main>{children}</main>
-                                <ToastContainer />
+                                <AppQueryClientProvider>
+                                    <InitColorSchemeScript
+                                        attribute="class"
+                                        defaultMode="light"
+                                    />
+                                    <main>{children}</main>
+                                    <ToastContainer />
+                                </AppQueryClientProvider>
                             </AppThemeProvider>
                         </BProgressProvider>
                     </AppRouterCacheProvider>

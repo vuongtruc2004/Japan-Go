@@ -39,7 +39,7 @@ const KanjiDataImportButton = () => {
     };
 
     return (
-        <div>
+        <>
             <Button
                 variant="outlined"
                 color="primary"
@@ -100,7 +100,7 @@ const KanjiDataImportButton = () => {
                     </form>
                 </div>
             </Modal>
-        </div>
+        </>
     );
 };
 

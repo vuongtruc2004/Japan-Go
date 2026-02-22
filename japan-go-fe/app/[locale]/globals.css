@@ -89,6 +89,10 @@ html[data-locale="ja"] {
     }
 }
 
+@utility no-scrollbar {
+    @apply [scrollbar-width:none] [&::-webkit-scrollbar]:hidden;
+}
+
 /* width của scrollbar */
 ::-webkit-scrollbar {
     width: 4px;

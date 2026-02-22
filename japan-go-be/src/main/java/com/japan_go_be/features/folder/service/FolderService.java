@@ -119,4 +119,16 @@ public class FolderService {
         List<FolderEntity> folders = folderRepository.findAll();
         return folders.stream().map(folderDtoMapper::folderEntityToFolderResponseSummary).toList();
     }
+
+    @Transactional
+    public FolderResponse pinAndUnpinFolderFromSidebar(Long folderId) {
+        FolderEntity folderEntity = folderHelper.getFolderById(folderId);
+        folderEntity.setIsPinnedToSidebar(!folderEntity.getIsPinnedToSidebar());
+        return folderDtoMapper.folderEntityToFolderResponseSummary(folderRepository.save(folderEntity));
+    }
+
+    public List<FolderResponse> getAllPinFolders() {
+        List<FolderEntity> folders = folderRepository.findAllByIsPinnedToSidebarOrderByModifiedTimeDesc(true);
+        return folders.stream().map(folderDtoMapper::folderEntityToFolderResponseSummary).toList();
+    }
 }

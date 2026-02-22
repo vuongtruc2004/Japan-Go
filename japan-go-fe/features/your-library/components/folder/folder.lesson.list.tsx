@@ -5,6 +5,7 @@ import { useFolderDetails } from "@/features/your-library/contexts/folder.detail
 import Empty from "@/components/ui/empty";
 import WrapBox from "@/components/ui/wrap.box";
 import SingleLesson from "@/features/your-library/components/lesson/single.lesson";
+import FolderLessonMoreButton from "@/features/your-library/components/folder/folder.lesson.more.button";
 
 const FolderLessonList = () => {
     const t = useTranslations("Pages.yourLibrary.lesson");
@@ -18,7 +19,19 @@ const FolderLessonList = () => {
                     <Empty text={t("noLessons")} />
                 ) : (
                     folder.lessons.map((lesson) => {
-                        return <SingleLesson lesson={lesson} key={lesson.id} />;
+                        return (
+                            <SingleLesson
+                                lesson={lesson}
+                                key={lesson.id}
+                                folder={folder}
+                                moreButton={
+                                    <FolderLessonMoreButton
+                                        lesson={lesson}
+                                        folderId={folder.id}
+                                    />
+                                }
+                            />
+                        );
                     })
                 )}
             </div>

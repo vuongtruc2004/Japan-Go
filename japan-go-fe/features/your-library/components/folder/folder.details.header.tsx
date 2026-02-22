@@ -7,7 +7,7 @@ import { useTranslations } from "next-intl";
 import { Button, InputAdornment } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import { AddOutlined } from "@mui/icons-material";
-import FolderAddLessonButton from "@/components/domain/folder/folder.add.course.button";
+import FolderAddLessonButton from "@/components/domain/folder/folder.add.lesson.button";
 import WrapBox from "@/components/ui/wrap.box";
 import { useFolderDetails } from "@/features/your-library/contexts/folder.details";
 import { Link } from "@/i18n/navigation";

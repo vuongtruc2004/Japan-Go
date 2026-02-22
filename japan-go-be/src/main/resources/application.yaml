@@ -1,15 +1,15 @@
 server:
   port: 2509
   tomcat:
-    max-part-count: 20
+    max-part-count: 25
 spring:
   application:
     name: japan-go-be
 
   servlet:
     multipart:
-      max-file-size: 200MB
-      max-request-size: 200MB
+      max-file-size: 500MB
+      max-request-size: 500MB
 
   data:
     web:

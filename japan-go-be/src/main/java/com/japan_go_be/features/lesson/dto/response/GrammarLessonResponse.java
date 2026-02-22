@@ -16,6 +16,5 @@ import java.util.List;
 @Setter
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class GrammarLessonResponse extends BaseResponse {
-    String grammarLessonTitle;
     List<GrammarResponse> grammars = new ArrayList<>();
 }

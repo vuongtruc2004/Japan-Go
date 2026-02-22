@@ -1,6 +1,6 @@
 import { ILessonCreateLink, ILibraryTab } from "../types/your.library.ui.type";
 import TranslateIcon from "@mui/icons-material/Translate";
-import AbcIcon from "@mui/icons-material/Abc";
+import LibraryBooksOutlinedIcon from "@mui/icons-material/LibraryBooksOutlined";
 
 export const LIBRARY_TABS: ILibraryTab[] = [
     {
@@ -25,7 +25,7 @@ export const COURSE_CREATE_LINK_ITEMS: ILessonCreateLink[] = [
         id: "link-1",
         link: "/create-lesson/grammar",
         nameKey: "Pages.yourLibrary.lesson.grammarLesson",
-        icon: <AbcIcon />,
+        icon: <LibraryBooksOutlinedIcon />,
     },
     {
         id: "link-2",

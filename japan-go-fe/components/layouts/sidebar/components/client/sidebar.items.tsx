@@ -1,12 +1,14 @@
 "use client";
 import { Box, Divider } from "@mui/material";
-import { SIDEBAR_ITEMS } from "../constants/constants";
-import { useSidebarCollapse } from "../context/sidebar.collapse";
+import { SIDEBAR_ITEMS } from "../../constants/sidebar.constants";
+import { useSidebarCollapse } from "../../context/sidebar.collapse";
 import LogoButton from "./logo.button";
 import SidebarSingleItem from "./sidebar.single.item";
-import QuickAccess from "@/components/layouts/sidebar/components/quick.access";
+import PinAppCreateButton from "@/components/layouts/sidebar/components/client/pin.app.create.button";
+import PinFolderList from "@/features/pin-folder/components/pin.folder.list";
+import { FolderResponse } from "@/types/api/responses/common.response";
 
-const AppSidebar = () => {
+const SidebarItems = ({ pinFolders }: { pinFolders: FolderResponse[] }) => {
     const { isCollapse } = useSidebarCollapse();
 
     return (
@@ -26,17 +28,30 @@ const AppSidebar = () => {
             }}
         >
             <LogoButton />
+
             <div className="mt-5">
                 <ul className="flex w-max flex-col gap-y-3">
                     {SIDEBAR_ITEMS.map((item) => {
                         return <SidebarSingleItem key={item.id} item={item} />;
                     })}
                 </ul>
+
                 <Divider sx={{ my: 3 }} />
-                <QuickAccess />
+
+                <div className="flex flex-col">
+                    {pinFolders.length !== 0 && (
+                        <>
+                            <PinFolderList pinFolders={pinFolders} />
+
+                            <Divider sx={{ my: 3 }} />
+                        </>
+                    )}
+
+                    <PinAppCreateButton />
+                </div>
             </div>
         </Box>
     );
 };
 
-export default AppSidebar;
+export default SidebarItems;

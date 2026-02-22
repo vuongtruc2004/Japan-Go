@@ -1,7 +1,9 @@
+"use server";
 import { FolderLessonRequest } from "@/types/api/requests/lesson.request";
 import { ApiResponse } from "@/types/api/responses/base.response";
 import { FolderResponse } from "@/types/api/responses/common.response";
 import { sendRequest } from "@/lib/send.request";
+import { revalidateTag } from "next/cache";
 
 export const getFolderById = async (id: string): Promise<FolderResponse> => {
     const response = await sendRequest<ApiResponse<FolderResponse>>({
@@ -32,6 +34,7 @@ export const deleteFolder = async (id: string | number): Promise<number> => {
     if (response.statusCode !== 200) {
         throw new Error(response.clientMessage);
     }
+    revalidateTag("pin-folders", "max");
     return response.data;
 };
 
@@ -74,6 +77,32 @@ export const createFolder = async (
         },
     });
     if (response.statusCode !== 201) {
+        throw new Error(response.clientMessage);
+    }
+    return response.data;
+};
+
+export const pinAndUnpinFolderFromSidebar = async (
+    folderId: number | string,
+): Promise<FolderResponse> => {
+    const response = await sendRequest<ApiResponse<FolderResponse>>({
+        url: `/folder/pin-and-unpin/${folderId}`,
+        method: "PATCH",
+    });
+    if (response.statusCode !== 200) {
+        throw new Error(response.clientMessage);
+    }
+    return response.data;
+};
+
+export const getAllPinFolders = async (): Promise<FolderResponse[]> => {
+    const response = await sendRequest<ApiResponse<FolderResponse[]>>({
+        url: "/folder/pin",
+        nextOption: {
+            tags: ["pin-folders"],
+        },
+    });
+    if (response.statusCode !== 200) {
         throw new Error(response.clientMessage);
     }
     return response.data;

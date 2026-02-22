@@ -1,6 +1,6 @@
 "use client";
 import { usePathname } from "@/i18n/navigation";
-import {
+import React, {
     createContext,
     Dispatch,
     SetStateAction,
@@ -8,6 +8,7 @@ import {
     useEffect,
     useState,
 } from "react";
+import { AllRoutes } from "@/types/app/i18n.type";
 
 interface ISidebarCollapseProviderProps {
     isCollapse: boolean;
@@ -24,10 +25,12 @@ export const SidebarCollapseProvider = ({
     children: React.ReactNode;
 }) => {
     const pathname = usePathname();
-    const defaultCollapseLinks = ["/lesson/kanji", "/lesson/grammar"];
-    const initialState = defaultCollapseLinks.some((link) =>
-        pathname.startsWith(link),
-    );
+    const collapseLinks: AllRoutes[] = [
+        "/lesson/kanji/[slug]",
+        "/lesson/grammar/[slug]",
+    ];
+
+    const initialState = collapseLinks.some((link) => pathname === link);
 
     const [isCollapse, setIsCollapse] = useState<boolean>(initialState);
 
@@ -45,9 +48,7 @@ export const SidebarCollapseProvider = ({
 export const useSidebarCollapse = () => {
     const context = useContext(SidebarCollapseContext);
     if (!context) {
-        throw new Error(
-            "useSidebarCollapse must be used within a SidebarCollapseProvider",
-        );
+        throw new Error("provider error");
     }
     return context;
 };

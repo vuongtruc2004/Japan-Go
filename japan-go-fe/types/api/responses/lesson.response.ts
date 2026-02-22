@@ -12,7 +12,6 @@ export interface LessonResponse extends BaseResponse<number> {
 }
 
 export interface GrammarLessonResponse extends BaseResponse<number> {
-    grammarLessonTitle: string;
     grammars: GrammarResponse[];
 }
 

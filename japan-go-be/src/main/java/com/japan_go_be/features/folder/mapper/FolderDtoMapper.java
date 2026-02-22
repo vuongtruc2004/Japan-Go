@@ -16,6 +16,7 @@ public class FolderDtoMapper {
         FolderResponse folderResponse = FolderResponse.builder()
                 .id(folderEntity.getId())
                 .folderName(folderEntity.getFolderName())
+                .isPinnedToSidebar(folderEntity.getIsPinnedToSidebar())
                 .build();
 
         if (folderEntity.getParent() != null) {

@@ -16,6 +16,8 @@ import java.util.List;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class FolderResponse extends BaseResponse {
     String folderName;
+    
+    Boolean isPinnedToSidebar;
 
     Long parentId;
 

@@ -12,6 +12,9 @@ public final class FolderMessage {
     public static final String FOLDER_CONTAINS_LESSON = "folder.contains.lesson";
     public static final String FOLDER_ADDED_LESSON = "folder.added.lesson";
     public static final String FOLDER_REMOVED_LESSON = "folder.removed.lesson";
+    public static final String FOLDER_PIN_SUCCESS = "folder.pin.success";
+    public static final String FOLDER_UNPIN_SUCCESS = "folder.unpin.success";
+    public static final String FOLDER_GET_ALL_PIN = "folder.get.all.pin";
 
     private FolderMessage() {
     }

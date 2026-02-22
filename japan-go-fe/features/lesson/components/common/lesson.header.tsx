@@ -23,20 +23,26 @@ const LessonHeader = ({ lesson }: { lesson: LessonResponse }) => {
     return (
         <WrapBox>
             <div className="flex items-center justify-between">
-                <Link
-                    href={{
-                        pathname: "/your-library/folder/[slug]",
-                        params: {
-                            slug: slugifyText(folderName + "-" + folderId),
-                        },
-                    }}
-                    className="hover:text-tc-highlight flex items-center gap-x-1.5 text-sm font-semibold hover:underline"
-                >
-                    <span className="bg-bgc-page flex h-10 w-10 items-center justify-center rounded-md">
-                        <FolderOutlinedIcon fontSize="small" />
-                    </span>
-                    {folderName}
-                </Link>
+                {folderId && folderName ? (
+                    <Link
+                        href={{
+                            pathname: "/your-library/folder/[slug]",
+                            params: {
+                                slug: slugifyText(folderName + "-" + folderId),
+                            },
+                        }}
+                        className="hover:text-tc-highlight flex items-center gap-x-1.5 text-sm font-semibold hover:underline"
+                    >
+                        <span className="bg-bgc-page flex h-10 w-10 items-center justify-center rounded-md">
+                            <FolderOutlinedIcon fontSize="small" />
+                        </span>
+                        {folderName}
+                    </Link>
+                ) : (
+                    <h1 className="mt-3 text-3xl font-semibold">
+                        {lesson.lessonName}
+                    </h1>
+                )}
 
                 <div className="flex items-center gap-x-3">
                     <TooltipCustom title={t("Pages.lesson.saveToQuickAccess")}>
@@ -55,7 +61,11 @@ const LessonHeader = ({ lesson }: { lesson: LessonResponse }) => {
                     <LessonDetailsMoreButton lesson={lesson} />
                 </div>
             </div>
-            <h1 className="mt-3 text-3xl font-semibold">{lesson.lessonName}</h1>
+            {folderId && folderName && (
+                <h1 className="mt-3 text-3xl font-semibold">
+                    {lesson.lessonName}
+                </h1>
+            )}
         </WrapBox>
     );
 };

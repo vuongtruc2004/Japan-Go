@@ -7,7 +7,7 @@ import { TextFieldCustom } from "@/components/ui/mui-custom/text.field.custom";
 import PublicOutlinedIcon from "@mui/icons-material/PublicOutlined";
 import KanjiDataImportButton from "@/features/create-lesson/components/kanji/kanji.data.import.button";
 import { ICreateKanjiLessonState } from "@/features/create-lesson/types/create.lesson.state.type";
-import { createKanjiLesson } from "@/features/create-lesson/actions/create.lesson.actions";
+import { submitCreateKanjiLesson } from "@/features/create-lesson/actions/create.lesson.actions";
 import { useKanjiData } from "@/features/create-lesson/contexts/kanji.data";
 import { useSearchParams } from "next/navigation";
 import { useRouter } from "@/i18n/navigation";
@@ -29,26 +29,23 @@ const CreateKanjiLessonForm = () => {
 
     const formAction = (formData: FormData) => {
         startTransition(async () => {
-            const formState = await createKanjiLesson(
+            const returnedFormState = await submitCreateKanjiLesson(
                 formData,
                 kanjiPages,
                 folderId,
             );
             startTransition(() => {
-                if (
-                    formState.apiResponse &&
-                    formState.apiResponse.statusCode === 201
-                ) {
+                if (returnedFormState.success) {
                     if (folder) {
                         replace({
                             pathname: "/your-library/folder/[slug]",
                             params: { slug: folder },
                         });
                     } else {
-                        replace("/your-library/folder");
+                        replace("/your-library/lesson");
                     }
                 } else {
-                    setFormState(formState);
+                    setFormState(returnedFormState);
                 }
             });
         });

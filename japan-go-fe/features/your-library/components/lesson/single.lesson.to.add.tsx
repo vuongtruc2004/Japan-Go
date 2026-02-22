@@ -1,11 +1,11 @@
 import React from "react";
 import { LessonResponse } from "@/types/api/responses/lesson.response";
 import TranslateIcon from "@mui/icons-material/Translate";
-import AbcIcon from "@mui/icons-material/Abc";
 import { useTranslations } from "next-intl";
 import { useFolderDetails } from "@/features/your-library/contexts/folder.details";
 import { Button } from "@mui/material";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
+import LibraryBooksOutlinedIcon from "@mui/icons-material/LibraryBooksOutlined";
 import {
     addLessonToFolder,
     removeLessonFromFolder,
@@ -42,7 +42,7 @@ const SingleLessonToAdd = ({ lesson }: { lesson: LessonResponse }) => {
             <div className="flex w-full flex-1 items-center gap-x-3 pr-4">
                 <span className="bg-bgc-page text-tc-highlight flex h-10 w-10 items-center justify-center rounded-md">
                     {lesson.lessonType === "GRAMMAR" ? (
-                        <AbcIcon fontSize="small" />
+                        <LibraryBooksOutlinedIcon />
                     ) : (
                         <TranslateIcon fontSize="small" />
                     )}

@@ -26,6 +26,10 @@ public class FolderEntity extends BaseEntity {
     @JoinColumn(name = "parent_folder_id")
     FolderEntity parent;
 
+    @Builder.Default
+    @Column(name = "is_pinned_to_sidebar")
+    Boolean isPinnedToSidebar = false;
+
     @OneToMany(mappedBy = "parent", cascade = CascadeType.ALL, orphanRemoval = true)
     List<FolderEntity> children;
 

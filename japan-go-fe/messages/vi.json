@@ -1,4 +1,7 @@
 {
+    "Validator": {
+        "notMarkdownFile": "Tập tin không hợp lệ: không phải Markdown!"
+    },
     "Common": {
         "open": "Mở",
         "close": "Đóng",
@@ -15,14 +18,17 @@
         "importData": "Nhập dữ liệu",
         "edit": "Sửa",
         "pinToSidebar": "Ghim vào thanh lề",
-        "unPinFromSidebar": "Bỏ ghim khỏi thanh lề",
-        "importDataFrom": "Chép và dán dữ liệu ở đây (từ Word, Excel, Google Docs, v.v.)",
+        "unpinFromSidebar": "Bỏ ghim khỏi thanh lề",
+        "importDataFrom": "Chép và dán dữ liệu ở đây (từ Notion, Word, Excel, Google Docs, v.v.)",
+        "orUploadMdFiles": "Hoặc tải các file Markdown (.md)",
+        "uploadFile": "Tải lên tập tin",
         "author": "Tác giả",
         "share": "Chia sẻ",
         "save": "Lưu",
         "copied": "Đã sao chép",
         "kanjiPage": "trang chữ Hán",
         "grammar": "ngữ pháp",
+        "loading": "Đang tải...",
         "scope": {
             "public": "Công khai"
         },
@@ -128,14 +134,18 @@
             },
             "lesson": {
                 "noLessons": "Không có học phần nào để hiển thị",
+                "createLesson": "Tạo học phần",
                 "grammarLesson": "Học phần ngữ pháp",
                 "kanjiLesson": "Học phần chữ Hán",
                 "createNewKanjiLesson": "Tạo học phần chữ Hán mới",
+                "createNewGrammarLesson": "Tạo học phần ngữ pháp mới",
                 "inputLessonNamePlaceholder": "Nhập tên học phần",
                 "addDescriptionPlaceholder": "Thêm mô tả cho học phần này...",
                 "importKanjiDataPlaceholder": "Chữ Hán chính\t\tChữ Hán\t\tPhiên âm\t\tNghĩa\t\tChú ý\n細\t\t細部\t\tさいぶ\t\tchi tiết\t\tbộ phận nhỏ bên trong toàn thể\n細\t\t明細\t\tめいさい\t\tchi tiết rõ ràng\t\tgiải thích chi tiết từng phần rõ ràng, hay dùng liên quan đến tiền bạc\n...",
+                "importGrammarPlaceholder": "課：\nI.\nÝ nghĩa:\n1. \n⇒ \nCấu trúc:\n1. \nVí dụ:\n1. \n⇒ \n2. \n⇒ \nChú ý bổ sung:\n1. \n⇒",
                 "removeFromFolder": "Xóa khỏi thư mục",
-                "lessonList": "Danh sách các học phần"
+                "lessonList": "Danh sách các học phần",
+                "areYouSureToDeleteAllLessons": "Bạn có chắc chắn muốn xóa toàn bộ học phần?"
             }
         },
         "lesson": {
@@ -160,6 +170,13 @@
                     "note": "Ẩn chú ý"
                 }
             },
+            "grammar": {
+                "noGrammars": "Không có ngữ pháp nào để hiển thị",
+                "grammarMeaning": "Ý nghĩa",
+                "grammarStructure": "Cấu trúc",
+                "grammarExample": "Ví dụ",
+                "grammarNote": "Chú ý bổ sung"
+            },
             "saveToQuickAccess": "Lưu vào mục truy cập nhanh",
             "lessonDetailsMoreButtons": {
                 "edit": "Sửa học phần",
@@ -171,7 +188,11 @@
             "areYouSureToDeleteLesson": "Bạn có chắc chắn muốn xóa học phần này không?"
         },
         "createLesson": {
-            "noKanjiDataToPreview": "Không có dữ liệu chữ Hán nào để hiển thị"
+            "noKanjiDataToPreview": "Không có dữ liệu chữ Hán nào để hiển thị",
+            "noGrammarDataToPreview": "Không có dữ liệu ngữ pháp nào để hiển thị"
+        },
+        "pin": {
+            "noPinFolders": "Không có thư mục nào được "
         }
     }
 }

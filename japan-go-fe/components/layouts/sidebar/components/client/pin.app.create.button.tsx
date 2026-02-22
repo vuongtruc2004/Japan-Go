@@ -5,14 +5,14 @@ import { TooltipCustom } from "@/components/ui/mui-custom/tooltip.custom";
 import { useSidebarCollapse } from "@/components/layouts/sidebar/context/sidebar.collapse";
 import AppCreatePopover from "@/components/ui/popovers/app.create.popover";
 
-const QuickAccess = () => {
+const PinAppCreateButton = () => {
     const { isCollapse } = useSidebarCollapse();
     const t = useTranslations("Common");
 
     const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
 
     return (
-        <div>
+        <>
             <TooltipCustom
                 title={isCollapse ? t("createNew") : ""}
                 placement="right"
@@ -54,8 +54,8 @@ const QuickAccess = () => {
                     horizontal: "left",
                 }}
             />
-        </div>
+        </>
     );
 };
 
-export default QuickAccess;
+export default PinAppCreateButton;

@@ -3,8 +3,9 @@ import { TooltipCustom } from "@/components/ui/mui-custom/tooltip.custom";
 import { Link, usePathname } from "@/i18n/navigation";
 import { Badge } from "@mui/material";
 import { useTranslations } from "next-intl";
-import { useSidebarCollapse } from "../context/sidebar.collapse";
-import { SidebarItem } from "../types/sidebar.ui.type";
+import { useSidebarCollapse } from "../../context/sidebar.collapse";
+import { SidebarItem } from "../../types/sidebar.ui.type";
+import { getSidebarItemEffectClassNameByItemPaths } from "@/components/layouts/sidebar/utils/sidebar.utils";
 
 const SidebarSingleItem = ({ item }: { item: SidebarItem }) => {
     const t = useTranslations("Common.links");
@@ -12,18 +13,19 @@ const SidebarSingleItem = ({ item }: { item: SidebarItem }) => {
     const { isCollapse } = useSidebarCollapse();
     const pathname = usePathname();
 
-    const linkEffectClass = pathname.startsWith(item.link)
-        ? `bg-bgc-highlight text-white shadow-md`
-        : `text-tc-muted hover:text-tc-highlight hover:bg-hbgc-app`;
+    const linkEffectClass = getSidebarItemEffectClassNameByItemPaths(
+        pathname,
+        item.activeLinks,
+    );
 
     return (
         <TooltipCustom
-            title={isCollapse ? t(`${item.linkKey}`) : ""}
+            title={isCollapse ? t(`${item.nameLinkKey}`) : ""}
             placement="right"
             arrow
         >
             <Link
-                href={item.link}
+                href={item.redirectLink}
                 className={`${isCollapse ? "w-10" : "w-50"} flex h-10 items-center overflow-hidden rounded-md pl-2 transition-all duration-150 ${linkEffectClass}`}
             >
                 {item.hasBadge ? (
@@ -55,7 +57,7 @@ const SidebarSingleItem = ({ item }: { item: SidebarItem }) => {
                 <p
                     className={`text-sm font-semibold whitespace-nowrap ${isCollapse && "hidden"} ml-4`}
                 >
-                    {t(`${item.linkKey}`)}
+                    {t(`${item.nameLinkKey}`)}
                 </p>
             </Link>
         </TooltipCustom>
