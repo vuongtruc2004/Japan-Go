@@ -13,6 +13,7 @@ const GrammarMeaning = ({
     return (
         <div>
             <h1
+                id={`grammar-meaning-${grammarMeaning.id}`}
                 className={`mb-3 w-max rounded-md border px-4 text-lg font-semibold ${DecoratorClassName.BLUE}`}
             >
                 {t("Pages.lesson.grammar.grammarMeaning")}:

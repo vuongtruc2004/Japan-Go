@@ -14,6 +14,7 @@ const GrammarStructure = ({
     return (
         <div>
             <h1
+                id={`grammar-structure-${grammarStructure.id}`}
                 className={`mb-3 w-max rounded-md border px-4 text-lg font-semibold ${DecoratorClassName.YELLOW}`}
             >
                 {t("Pages.lesson.grammar.grammarStructure")}:

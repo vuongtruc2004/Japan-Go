@@ -13,6 +13,7 @@ const GrammarExample = ({
     return (
         <div>
             <h1
+                id={`grammar-example-${grammarExample.id}`}
                 className={`mb-3 w-max rounded-md border px-4 text-lg font-semibold ${DecoratorClassName.ORANGE}`}
             >
                 {t("Pages.lesson.grammar.grammarExample")}:

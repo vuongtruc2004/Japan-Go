@@ -21,40 +21,34 @@ const GrammarDetails = ({ grammars }: { grammars: GrammarResponse[] }) => {
         );
     return (
         <WrapBox>
-            <>
-                {grammars.map((grammar, index) => {
-                    return (
-                        <div key={grammar.id}>
-                            <div>
-                                <h1
-                                    className={`mb-3 rounded-md border px-4 text-xl font-semibold ${DecoratorClassName.GREEN}`}
-                                >
-                                    {grammar.grammarTitle}
-                                </h1>
-                                <div className="flex flex-col gap-y-3">
-                                    <GrammarMeaning
-                                        grammarMeaning={grammar.grammarMeaning}
-                                    />
-                                    <GrammarStructure
-                                        grammarStructure={
-                                            grammar.grammarStructure
-                                        }
-                                    />
-                                    <GrammarExample
-                                        grammarExample={grammar.grammarExample}
-                                    />
-                                    <GrammarNote
-                                        grammarNote={grammar.grammarNote}
-                                    />
-                                </div>
-                            </div>
-                            {index !== grammars.length - 1 && (
-                                <Divider sx={{ my: 3 }} />
-                            )}
+            {grammars.map((grammar, index) => {
+                return (
+                    <div key={grammar.id} className="pr-15">
+                        <h1
+                            id={`grammar-${grammar.id}`}
+                            className={`mb-3 max-w-max rounded-md border px-4 text-xl font-semibold ${DecoratorClassName.GREEN}`}
+                        >
+                            {grammar.grammarTitle}
+                        </h1>
+
+                        <div className="flex flex-col gap-y-3">
+                            <GrammarMeaning
+                                grammarMeaning={grammar.grammarMeaning}
+                            />
+                            <GrammarStructure
+                                grammarStructure={grammar.grammarStructure}
+                            />
+                            <GrammarExample
+                                grammarExample={grammar.grammarExample}
+                            />
+                            <GrammarNote grammarNote={grammar.grammarNote} />
                         </div>
-                    );
-                })}
-            </>
+                        {index !== grammars.length - 1 && (
+                            <Divider sx={{ my: 3 }} />
+                        )}
+                    </div>
+                );
+            })}
         </WrapBox>
     );
 };

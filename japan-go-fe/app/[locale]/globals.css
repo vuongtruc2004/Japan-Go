@@ -23,6 +23,8 @@ html[data-locale="ja"] {
     /* page body bg color */
     --color-bgc-page: #f7f7f7;
     --color-bgc-highlight: #175a3a;
+    --color-bgc-constrast: #32302c;
+    --color-bgc-muted: #1c13011c;
     --color-bgc-error: #d90429;
 
     /* hover bg color of sidebar element */
@@ -59,6 +61,8 @@ html[data-locale="ja"] {
         /* page body bg color */
         --color-bgc-page: #090909;
         --color-bgc-highlight: #016630;
+        --color-bgc-constrast: #d3d3d3;
+        --color-bgc-muted: rgba(255, 252, 235, .304);
         --color-bgc-error: #e5383b;
 
         /* hover bg color of sidebar element */

@@ -9,6 +9,7 @@ const GrammarNote = ({ grammarNote }: { grammarNote: GrammarNoteResponse }) => {
     return (
         <div>
             <h1
+                id={`grammar-note-${grammarNote.id}`}
                 className={`mb-3 w-max rounded-md border px-4 text-lg font-semibold ${DecoratorClassName.RED}`}
             >
                 {t("Pages.lesson.grammar.grammarNote")}:
