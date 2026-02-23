@@ -31,13 +31,7 @@ const CreateGrammarLessonForm = () => {
 
         startTransition(async () => {
             const response = await createGrammarLessons(folderId, files);
-            if (response.statusCode !== 201) {
-                toast.error(response.clientMessage, {
-                    hideProgressBar: true,
-                    closeOnClick: true,
-                    autoClose: 2000,
-                });
-            } else {
+            if (response.statusCode === 201) {
                 if (folder) {
                     replace({
                         pathname: "/your-library/folder/[slug]",
@@ -46,6 +40,12 @@ const CreateGrammarLessonForm = () => {
                 } else {
                     replace("/your-library/lesson");
                 }
+            } else {
+                toast.error(response.clientMessage, {
+                    hideProgressBar: true,
+                    closeOnClick: true,
+                    autoClose: 2000,
+                });
             }
         });
     };
