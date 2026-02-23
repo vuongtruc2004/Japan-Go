@@ -10,12 +10,12 @@ const VocabularyVisibilityButtons = () => {
     const toggles = useVocabularyVisibilityToggles();
 
     return (
-        <div className="flex items-center justify-end gap-x-3">
+        <div className="flex items-center gap-x-3">
             {toggles.map((toggle) => {
                 return (
                     <div
                         key={toggle.id}
-                        className={`${toggle.visible ? toggle.showClassName : DecoratorClassName.PRIMARY} flex cursor-pointer items-center gap-x-1.5 rounded-md border px-4 py-2 text-sm font-semibold transition-all duration-150`}
+                        className={`select-none ${toggle.visible ? toggle.showClassName : DecoratorClassName.PRIMARY} flex cursor-pointer items-center gap-x-1.5 rounded-md border px-4 py-2 text-sm font-semibold transition-all duration-150`}
                         onClick={() => toggle.setVisible((prev) => !prev)}
                     >
                         {toggle.visible ? (

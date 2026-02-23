@@ -35,9 +35,11 @@ const GrammarLessonPage = async ({
     const lesson = await getGrammarLessonFromParams(params);
 
     return (
-        <div className="flex flex-col gap-y-5">
-            <LessonHeader lesson={lesson} />
-            <GrammarDetails grammars={lesson.grammarLesson.grammars} />
+        <div className="mx-auto flex max-w-350 items-start gap-x-5">
+            <div className="flex flex-col gap-y-5">
+                <LessonHeader lesson={lesson} />
+                <GrammarDetails grammars={lesson.grammarLesson.grammars} />
+            </div>
             <GrammarScrollSidebar grammars={lesson.grammarLesson.grammars} />
         </div>
     );

@@ -23,7 +23,7 @@ const GrammarDetails = ({ grammars }: { grammars: GrammarResponse[] }) => {
         <WrapBox>
             {grammars.map((grammar, index) => {
                 return (
-                    <div key={grammar.id} className="pr-15">
+                    <div key={grammar.id}>
                         <h1
                             id={`grammar-${grammar.id}`}
                             className={`mb-3 max-w-max rounded-md border px-4 text-xl font-semibold ${DecoratorClassName.GREEN}`}

@@ -37,12 +37,14 @@ const KanjiLessonPage = async ({
     return (
         <VocabularyVisibilityProvider>
             <ActiveKanjiPageProvider>
-                <div className="flex flex-col gap-y-5">
-                    <LessonHeader lesson={lesson} />
+                <div className="relative mx-auto flex max-w-350 items-start gap-x-5">
+                    <div className="flex flex-1 flex-col gap-y-5">
+                        <LessonHeader lesson={lesson} />
+                        <ActiveKanjiPage
+                            kanjiPages={lesson.kanjiLesson.kanjiPages}
+                        />
+                    </div>
                     <KanjiPageMoveButtons
-                        kanjiPages={lesson.kanjiLesson.kanjiPages}
-                    />
-                    <ActiveKanjiPage
                         kanjiPages={lesson.kanjiLesson.kanjiPages}
                     />
                 </div>
