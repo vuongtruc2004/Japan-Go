@@ -76,7 +76,7 @@ public class GrammarLessonMarkdownImporter {
                 grammarNote = new GrammarNoteEntity();
 
                 grammar = GrammarEntity.builder()
-                        .grammarTitle(matcher.group(1))
+                        .grammarTitle(matcher.group(1).replaceFirst("^[IVXLCDM]+\\.\\s*", ""))
                         .grammarMeaning(grammarMeaning)
                         .grammarStructure(structure)
                         .grammarExample(example)

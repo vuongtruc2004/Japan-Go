@@ -4,6 +4,7 @@ import React, {
     Dispatch,
     SetStateAction,
     useContext,
+    useMemo,
     useState,
 } from "react";
 
@@ -35,21 +36,24 @@ export const VocabularyVisibilityProvider = ({
     const [showMeaning, setShowMeaning] = useState(true);
     const [showNote, setShowNote] = useState(true);
 
+    const value = useMemo(
+        () => ({
+            showJapanese,
+            setShowJapanese,
+            showSinoVietnamese,
+            setShowSinoVietnamese,
+            showReading,
+            setShowReading,
+            showMeaning,
+            setShowMeaning,
+            showNote,
+            setShowNote,
+        }),
+        [showJapanese, showSinoVietnamese, showReading, showMeaning, showNote],
+    );
+
     return (
-        <VocabularyVisibilityContext.Provider
-            value={{
-                showJapanese,
-                setShowJapanese,
-                showSinoVietnamese,
-                setShowSinoVietnamese,
-                showReading,
-                setShowReading,
-                showMeaning,
-                setShowMeaning,
-                showNote,
-                setShowNote,
-            }}
-        >
+        <VocabularyVisibilityContext.Provider value={value}>
             {children}
         </VocabularyVisibilityContext.Provider>
     );

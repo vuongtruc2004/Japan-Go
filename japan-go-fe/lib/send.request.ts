@@ -13,13 +13,10 @@ interface SendRequestProps {
     nextOption?: NextFetchRequestConfig;
 }
 
-const API_BASE_URL =
-    process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:2509/api/v1";
-
 export async function sendRequest<TResponse>(
     props: SendRequestProps,
 ): Promise<TResponse> {
-    let url = API_BASE_URL + props.url;
+    let url = process.env.NEXT_PUBLIC_API_URL + props.url;
 
     const {
         method = "GET",

@@ -1,51 +1,42 @@
 package com.japan_go_be.features.grammar.helper;
 
-import com.japan_go_be.common.util.StringUtil;
 import com.japan_go_be.features.grammar.entity.GrammarEntity;
 import com.japan_go_be.features.sentence.entity.SentenceEntity;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
-import java.util.List;
 import java.util.StringJoiner;
 
 @Component
 @RequiredArgsConstructor
 public class GrammarHelper {
+    public String combineGrammarMeaningAndGrammarNote(GrammarEntity grammarEntity) {
+        StringJoiner stringJoiner = new StringJoiner("\n");
+        stringJoiner.add("Ý nghĩa:");
+        int index = 1;
+        for (SentenceEntity sentence : grammarEntity.getGrammarMeaning().getSentences()) {
+            stringJoiner.add(index + ". " + sentence.getVietnameseRaw());
+            index++;
+        }
 
-    private final StringUtil stringUtil;
-
-    public String getGrammarMeaning(GrammarEntity grammarEntity) {
-        return joinSentences(grammarEntity.getGrammarMeaning().getSentences());
+        stringJoiner.add("Chú ý bổ sung:");
+        index = 1;
+        for (SentenceEntity sentence : grammarEntity.getGrammarNote().getSentences()) {
+            stringJoiner.add(index + ". " + sentence.getVietnameseRaw());
+            index++;
+        }
+        return stringJoiner.toString();
     }
 
-    public String getGrammarStructure(GrammarEntity grammarEntity) {
-        StringJoiner joiner = new StringJoiner("<br/>");
-        int num = 1;
+    public String combineGrammarTitleAndGrammarStructure(GrammarEntity grammarEntity) {
+        StringJoiner stringJoiner = new StringJoiner("\n");
+        stringJoiner.add(grammarEntity.getGrammarTitle());
+        stringJoiner.add("Cấu trúc:");
+        int index = 1;
         for (SentenceEntity sentence : grammarEntity.getGrammarStructure().getSentences()) {
-//            joiner.add(num + ". " + stringUtil.enrichFuriganaToKanjiString(sentence.getJapaneseRaw()));
-            num++;
+            stringJoiner.add(index + ". " + sentence.getJapaneseRaw());
+            index++;
         }
-        return joiner.toString();
+        return stringJoiner.toString();
     }
-
-    public String getGrammarExample(GrammarEntity grammarEntity) {
-        return joinSentences(grammarEntity.getGrammarExample().getSentences());
-    }
-
-    public String getGrammarNote(GrammarEntity grammarEntity) {
-        return joinSentences(grammarEntity.getGrammarNote().getSentences());
-    }
-
-    private String joinSentences(List<SentenceEntity> sentences) {
-        StringJoiner joiner = new StringJoiner("<br/>");
-        int num = 1;
-        for (SentenceEntity sentence : sentences) {
-//            joiner.add("<div class='jp'>" + num + ". " + stringUtil.enrichFuriganaToKanjiString(sentence.getJapaneseHtml()) + "</div>");
-            joiner.add("<div class='vn'>" + "<span class='arrow'>⇒ </span>" + sentence.getVietnameseRaw() + "</div>");
-            num++;
-        }
-        return joiner.toString();
-    }
-
 }

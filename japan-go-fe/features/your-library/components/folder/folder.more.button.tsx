@@ -16,6 +16,7 @@ import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
 import PinIcon from "@/components/ui/icons/pin.icon";
 import UnpinIcon from "@/components/ui/icons/unpin.icon";
+import ExportGrammarsButton from "@/features/your-library/components/folder/export.grammar.button";
 
 const FolderMoreButton = () => {
     const t = useTranslations();
@@ -70,6 +71,8 @@ const FolderMoreButton = () => {
                         icon={<IosShareOutlinedIcon />}
                         text={t("Common.share")}
                     />
+
+                    <ExportGrammarsButton folder={folder} />
 
                     <BasicButton
                         onClick={handlePinAndUnpinFolderFromSidebar}

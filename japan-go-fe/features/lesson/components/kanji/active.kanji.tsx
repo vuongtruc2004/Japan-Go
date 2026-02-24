@@ -7,15 +7,9 @@ import KanjiVgAnimator from "@/features/lesson/components/kanji/kanji.vg.animato
 import TextLargeView from "@/features/lesson/components/kanji/text.large.view";
 import { useTranslations } from "next-intl";
 import JapaneseView from "@/features/lesson/components/kanji/japanese.view";
-import VocabularyVisibilityButtons from "@/features/lesson/components/kanji/vocabulary.visibility.buttons";
-import { Divider } from "@mui/material";
 import { useVocabularyVisibility } from "@/features/lesson/contexts/vocabulary.visibility";
 
-const ActiveKanjiPage = ({
-    kanjiPages,
-}: {
-    kanjiPages: KanjiPageResponse[];
-}) => {
+const ActiveKanji = ({ kanjiPages }: { kanjiPages: KanjiPageResponse[] }) => {
     const t = useTranslations("Pages.lesson.kanji");
     const { activeIndex } = useActiveKanjiPage();
     const {
@@ -31,10 +25,6 @@ const ActiveKanjiPage = ({
 
     return (
         <WrapBox>
-            <VocabularyVisibilityButtons />
-
-            <Divider sx={{ my: 3 }} />
-
             <div className="flex gap-x-5">
                 <div className="border-bdc-primary flex flex-col gap-y-5">
                     <div className="relative">
@@ -107,4 +97,4 @@ const ActiveKanjiPage = ({
     );
 };
 
-export default ActiveKanjiPage;
+export default ActiveKanji;

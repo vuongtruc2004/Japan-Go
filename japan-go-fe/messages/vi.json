@@ -17,6 +17,7 @@
         "description": "Mô tả",
         "importData": "Nhập dữ liệu",
         "edit": "Sửa",
+        "export": "Xuất",
         "pinToSidebar": "Ghim vào thanh lề",
         "unpinFromSidebar": "Bỏ ghim khỏi thanh lề",
         "importDataFrom": "Chép và dán dữ liệu ở đây (từ Notion, Word, Excel, Google Docs, v.v.)",
