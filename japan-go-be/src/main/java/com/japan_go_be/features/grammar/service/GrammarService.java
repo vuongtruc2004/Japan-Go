@@ -31,8 +31,6 @@ public class GrammarService {
             int rowNum = 0;
             for (GrammarEntity grammar : grammars) {
                 Row row = sheet.createRow(rowNum++);
-                row.createCell(0).setCellValue(grammarHelper.combineGrammarMeaningAndGrammarNote(grammar));
-                row.createCell(1).setCellValue(grammar.getGrammarTitle().split("：")[0]);
             }
 
             ByteArrayOutputStream outputStream = new ByteArrayOutputStream();

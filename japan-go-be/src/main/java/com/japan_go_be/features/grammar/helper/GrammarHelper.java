@@ -10,8 +10,12 @@ import java.util.StringJoiner;
 @Component
 @RequiredArgsConstructor
 public class GrammarHelper {
-    public String combineGrammarMeaningAndGrammarNote(GrammarEntity grammarEntity) {
+    public String createBackOfFlashcard(SentenceEntity sentenceEntity) {
+        GrammarEntity grammarEntity = sentenceEntity.getGrammarExample().getGrammar();
         StringJoiner stringJoiner = new StringJoiner("\n");
+
+        stringJoiner.add(sentenceEntity.getVietnameseRaw());
+        stringJoiner.add("⇒ " + grammarEntity.getGrammarTitle().split("：")[1]);
         stringJoiner.add("** Ý nghĩa:");
         for (SentenceEntity sentence : grammarEntity.getGrammarMeaning().getSentences()) {
             stringJoiner.add("　・" + sentence.getVietnameseRaw());
@@ -21,6 +25,15 @@ public class GrammarHelper {
         for (SentenceEntity sentence : grammarEntity.getGrammarNote().getSentences()) {
             stringJoiner.add("　・" + sentence.getVietnameseRaw());
         }
+        return stringJoiner.toString();
+    }
+
+    public String createFrontOfFlashcard(SentenceEntity sentenceEntity) {
+        StringJoiner stringJoiner = new StringJoiner("\n");
+        stringJoiner.add("** Ngữ pháp: ");
+        stringJoiner.add(sentenceEntity.getGrammarExample().getGrammar().getGrammarTitle().split("：")[0]);
+        stringJoiner.add("** Ví dụ: ");
+        stringJoiner.add(sentenceEntity.getJapaneseRaw());
         return stringJoiner.toString();
     }
 }
