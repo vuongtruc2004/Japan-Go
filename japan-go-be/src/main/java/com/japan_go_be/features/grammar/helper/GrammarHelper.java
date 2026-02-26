@@ -1,5 +1,6 @@
 package com.japan_go_be.features.grammar.helper;
 
+import com.japan_go_be.common.util.StringUtil;
 import com.japan_go_be.features.grammar.entity.GrammarEntity;
 import com.japan_go_be.features.sentence.entity.SentenceEntity;
 import lombok.RequiredArgsConstructor;
@@ -10,12 +11,13 @@ import java.util.StringJoiner;
 @Component
 @RequiredArgsConstructor
 public class GrammarHelper {
+    private final StringUtil stringUtil;
+
     public String createBackOfFlashcard(SentenceEntity sentenceEntity) {
         GrammarEntity grammarEntity = sentenceEntity.getGrammarExample().getGrammar();
         StringJoiner stringJoiner = new StringJoiner("\n");
 
-        stringJoiner.add(sentenceEntity.getVietnameseRaw());
-        stringJoiner.add("⇒ " + grammarEntity.getGrammarTitle().split("：")[1]);
+        stringJoiner.add("⇒ " + sentenceEntity.getVietnameseRaw());
         stringJoiner.add("** Ý nghĩa:");
         for (SentenceEntity sentence : grammarEntity.getGrammarMeaning().getSentences()) {
             stringJoiner.add("　・" + sentence.getVietnameseRaw());
@@ -30,10 +32,22 @@ public class GrammarHelper {
 
     public String createFrontOfFlashcard(SentenceEntity sentenceEntity) {
         StringJoiner stringJoiner = new StringJoiner("\n");
-        stringJoiner.add("** Ngữ pháp: ");
-        stringJoiner.add(sentenceEntity.getGrammarExample().getGrammar().getGrammarTitle().split("：")[0]);
-        stringJoiner.add("** Ví dụ: ");
-        stringJoiner.add(sentenceEntity.getJapaneseRaw());
+        String example = sentenceEntity.getJapaneseHtml();
+        example = stringUtil.replaceAllSubstringWithHtmlTag(
+                example,
+                "<span class='grammar-highlight'>",
+                " { ",
+                "*"
+        );
+
+        example = stringUtil.replaceAllSubstringWithHtmlTag(
+                example,
+                "</span>",
+                " } ",
+                "*"
+        );
+
+        stringJoiner.add(example);
         return stringJoiner.toString();
     }
 }
