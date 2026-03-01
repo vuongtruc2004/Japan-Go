@@ -1,10 +1,11 @@
 "use server";
 import { sendRequest } from "@/lib/send.request";
 import { ApiResponse } from "@/types/api/responses/base.response";
+import { DividerType } from "../types/kanji.enum";
 import { IGetSinoVietnameseState } from "../types/kanji.state.type";
 
 export async function getSinoVietnamese(
-    dividerType: "line" | "whitespace" | "custom",
+    dividerType: DividerType,
     initialState: IGetSinoVietnameseState | null,
     formData: FormData,
 ): Promise<IGetSinoVietnameseState> {
@@ -27,11 +28,11 @@ export async function getSinoVietnamese(
         state.kanji.errorMessage = "Kanji cannot be blank!";
     }
 
-    // const result = kanji
-    //     .split(/\r?\n/)
-    //     .map(s => s.trim().toLowerCase())
-    //     .join("\n");
-    // state.sinoVietnamese = result;
+    const result = kanji
+        .split(/\r?\n/)
+        .map((s) => s.trim().toLowerCase())
+        .join("\n");
+    state.sinoVietnamese = result;
     if (!state.kanji.isError) {
         const response = await sendRequest<ApiResponse<string>>({
             url: "/sino-vietnamese",
