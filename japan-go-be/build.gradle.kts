@@ -36,6 +36,8 @@ dependencies {
     implementation("org.flywaydb:flyway-mysql:11.20.0")
     implementation("com.atilika.kuromoji:kuromoji-ipadic:0.9.0")
     implementation("org.springframework:spring-test")
+    // Source: https://mvnrepository.com/artifact/org.mapstruct/mapstruct
+    implementation("org.mapstruct:mapstruct:1.6.3")
 
     // test
     testImplementation("org.mybatis.spring.boot:mybatis-spring-boot-starter-test:4.0.1")
