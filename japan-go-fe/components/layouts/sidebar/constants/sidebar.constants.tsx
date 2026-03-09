@@ -2,6 +2,7 @@ import FolderOpenedIcon from "@/components/ui/icons/folder.opened.icon";
 import HomeIcon from "@/components/ui/icons/home.icon";
 import TranslateIcon from "@mui/icons-material/Translate";
 import { SidebarItem } from "../types/sidebar.ui.type";
+import GrammarIcon from "@/components/ui/icons/grammar.icon";
 
 export const SIDEBAR_ITEMS: SidebarItem[] = [
     {
@@ -28,5 +29,12 @@ export const SIDEBAR_ITEMS: SidebarItem[] = [
         activeLinks: ["/kanji"],
         redirectLink: "/kanji",
         icon: <TranslateIcon />,
+    },
+    {
+        id: "e-4",
+        nameLinkKey: "grammar",
+        activeLinks: ["/grammar"],
+        redirectLink: "/grammar",
+        icon: <GrammarIcon />,
     },
 ];

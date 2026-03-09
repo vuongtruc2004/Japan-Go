@@ -44,7 +44,10 @@ export const routing = defineRouting({
             vi: "/cai-dat",
         },
         "/achievement": {
-            vi: "thanh-tuu",
+            vi: "/thanh-tuu",
+        },
+        "/grammar": {
+            vi: "/ngu-phap",
         },
         "/register": {},
         "/login": {},
