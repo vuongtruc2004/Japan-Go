@@ -4,8 +4,8 @@ import com.japan_go_be.business.dto.mappers.LessonDtoMapper;
 import com.japan_go_be.business.dto.responses.lesson.LessonResponse;
 import com.japan_go_be.business.exception.FileNotValidException;
 import com.japan_go_be.business.helpers.folder.FolderHelper;
-import com.japan_go_be.business.helpers.lesson.GrammarLessonMarkdownImporter;
 import com.japan_go_be.business.i18n.I18nService;
+import com.japan_go_be.business.importers.grammar.GrammarLessonMarkdownImporter;
 import com.japan_go_be.business.validator.FileValidator;
 import com.japan_go_be.contract.constants.message.FileMessage;
 import com.japan_go_be.infrastructure.entities.common.FolderEntity;
@@ -31,6 +31,7 @@ public class GrammarLessonService {
     private final FolderHelper folderHelper;
 
     /**
+     * Us
      *
      * @param folderId folder id to add these lessons into
      * @param files    list of markdown files, each file is a lesson

@@ -1,4 +1,4 @@
-package com.japan_go_be.business.importers;
+package com.japan_go_be.business.importers.kanji;
 
 import com.japan_go_be.business.dto.mappers.KanjiDtoMapper;
 import com.japan_go_be.business.entries.KanjiDicEntry;

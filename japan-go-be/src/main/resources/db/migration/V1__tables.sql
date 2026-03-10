@@ -19,17 +19,19 @@ CREATE TABLE folder_lesson
 
 CREATE TABLE grammar
 (
-    id                   BIGINT AUTO_INCREMENT NOT NULL,
-    created_by           VARCHAR(255)          NOT NULL,
-    created_time         datetime              NOT NULL,
-    modified_by          VARCHAR(255)          NULL,
-    modified_time        datetime              NULL,
-    grammar_title        VARCHAR(255)          NULL,
-    grammar_meaning_id   BIGINT                NULL,
-    grammar_structure_id BIGINT                NULL,
-    grammar_example_id   BIGINT                NULL,
-    grammar_note_id      BIGINT                NULL,
-    grammar_lesson_id    BIGINT                NULL,
+    id                     BIGINT AUTO_INCREMENT NOT NULL,
+    created_by             VARCHAR(255)          NOT NULL,
+    created_time           datetime              NOT NULL,
+    modified_by            VARCHAR(255)          NULL,
+    modified_time          datetime              NULL,
+    grammar_title          VARCHAR(255)          NOT NULL,
+    grammar_title_furigana VARCHAR(255)          NULL,
+    grammar_title_romaji   VARCHAR(255)          NULL,
+    grammar_meaning_id     BIGINT                NULL,
+    grammar_structure_id   BIGINT                NULL,
+    grammar_example_id     BIGINT                NULL,
+    grammar_note_id        BIGINT                NULL,
+    grammar_lesson_id      BIGINT                NULL,
     CONSTRAINT pk_grammar PRIMARY KEY (id)
 );
 

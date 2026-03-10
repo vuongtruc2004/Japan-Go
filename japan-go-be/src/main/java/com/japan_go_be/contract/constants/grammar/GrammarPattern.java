@@ -34,5 +34,8 @@ public class GrammarPattern {
 
     public static final Pattern ARROW_LINE =
             Pattern.compile("^\\s*(?:⇒|=>)\\s*(.+?)\\s*$");
+
+    public static final Pattern ROMAN_NUMERAL =
+            Pattern.compile("^[IVXLCDM]+\\.\\s*");
 }
 

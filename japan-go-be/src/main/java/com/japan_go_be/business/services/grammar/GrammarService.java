@@ -4,7 +4,6 @@ import com.japan_go_be.business.dto.mappers.GrammarDtoMapper;
 import com.japan_go_be.business.dto.responses.base.PageDetailsResponse;
 import com.japan_go_be.business.dto.responses.grammar.GrammarResponse;
 import com.japan_go_be.business.exception.FileNotValidException;
-import com.japan_go_be.business.helpers.grammar.GrammarHelper;
 import com.japan_go_be.business.i18n.I18nService;
 import com.japan_go_be.contract.constants.message.FileMessage;
 import com.japan_go_be.infrastructure.entities.grammar.GrammarEntity;
@@ -27,7 +26,6 @@ public class GrammarService {
 
     private final GrammarRepository grammarRepository;
     private final I18nService i18nService;
-    private final GrammarHelper grammarHelper;
     private final GrammarDtoMapper grammarDtoMapper;
 
     public byte[] exportAllGrammarsInFolder(Long folderId) {

@@ -10,7 +10,7 @@ import com.japan_go_be.business.exception.FileNotValidException;
 import com.japan_go_be.business.exception.NotFoundException;
 import com.japan_go_be.business.exception.lesson.LessonException;
 import com.japan_go_be.business.i18n.I18nService;
-import com.japan_go_be.business.importers.KanjiPageXlsxImporter;
+import com.japan_go_be.business.importers.kanji.KanjiPageXlsxImporter;
 import com.japan_go_be.business.services.folder.FolderService;
 import com.japan_go_be.business.validator.FileValidator;
 import com.japan_go_be.contract.constants.lesson.LessonTypeEnum;

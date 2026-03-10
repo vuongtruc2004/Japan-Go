@@ -13,6 +13,8 @@ import lombok.experimental.SuperBuilder;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class GrammarResponse extends BaseResponse {
     String grammarTitle;
+    String grammarTitleFurigana;
+    String grammarTitleRomaji;
 
     GrammarMeaningResponse grammarMeaning;
 

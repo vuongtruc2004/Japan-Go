@@ -1,6 +1,5 @@
 package com.japan_go_be.business.dto.mappers;
 
-import com.japan_go_be.business.dto.mappers.base.BaseDtoMapper;
 import com.japan_go_be.business.dto.responses.grammar.*;
 import com.japan_go_be.business.dto.responses.sentence.SentenceResponse;
 import com.japan_go_be.infrastructure.entities.grammar.*;
@@ -13,12 +12,13 @@ import java.util.List;
 @RequiredArgsConstructor
 public class GrammarDtoMapper {
     private final SentenceDtoMapper sentenceDtoMapper;
-    private final BaseDtoMapper baseDtoMapper;
 
     public GrammarResponse grammarEntityToGrammarResponseSummary(GrammarEntity grammarEntity) {
         return GrammarResponse.builder()
                 .id(grammarEntity.getId())
                 .grammarTitle(grammarEntity.getGrammarTitle())
+                .grammarTitleFurigana(grammarEntity.getGrammarTitleFurigana())
+                .grammarTitleRomaji(grammarEntity.getGrammarTitleRomaji())
                 .build();
     }
 

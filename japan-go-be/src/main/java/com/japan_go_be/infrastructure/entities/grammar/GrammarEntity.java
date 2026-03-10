@@ -15,8 +15,14 @@ import lombok.experimental.FieldDefaults;
 @Table(name = "grammar")
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class GrammarEntity extends BaseEntity {
-    @Column(name = "grammar_title")
+    @Column(name = "grammar_title", nullable = false)
     String grammarTitle;
+
+    @Column(name = "grammar_title_furigana")
+    String grammarTitleFurigana;
+
+    @Column(name = "grammar_title_romaji")
+    String grammarTitleRomaji;
 
     @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "grammar_meaning_id")

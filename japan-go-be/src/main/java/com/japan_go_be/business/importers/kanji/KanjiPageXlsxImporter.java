@@ -1,4 +1,4 @@
-package com.japan_go_be.business.importers;
+package com.japan_go_be.business.importers.kanji;
 
 import com.japan_go_be.business.exception.FileNotValidException;
 import com.japan_go_be.business.exception.NotFoundException;
@@ -7,9 +7,9 @@ import com.japan_go_be.contract.constants.message.FileMessage;
 import com.japan_go_be.contract.constants.message.kanji.KanjiMessage;
 import com.japan_go_be.infrastructure.entities.kanji.KanjiEntity;
 import com.japan_go_be.infrastructure.entities.kanji.KanjiPageEntity;
+import com.japan_go_be.infrastructure.entities.kanji.VocabularyEntity;
 import com.japan_go_be.infrastructure.repositories.kanji.KanjiPageRepository;
 import com.japan_go_be.infrastructure.repositories.kanji.KanjiRepository;
-import com.japan_go_be.infrastructure.entities.kanji.VocabularyEntity;
 import lombok.RequiredArgsConstructor;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;

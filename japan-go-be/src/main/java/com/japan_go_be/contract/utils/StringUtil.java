@@ -43,7 +43,7 @@ public class StringUtil {
         return false;
     }
 
-    private String convertKatakanaToHiragana(String katakana) {
+    public String convertKatakanaToHiragana(String katakana) {
         if (katakana == null || katakana.isBlank()) return "";
         StringBuilder hiragana = new StringBuilder(katakana.length());
         for (int i = 0; i < katakana.length(); i++) {

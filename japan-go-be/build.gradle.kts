@@ -38,6 +38,9 @@ dependencies {
     implementation("org.springframework:spring-test")
     // Source: https://mvnrepository.com/artifact/org.mapstruct/mapstruct
     implementation("org.mapstruct:mapstruct:1.6.3")
+    // Source: https://mvnrepository.com/artifact/dev.esnault.wanakana/wanakana-core
+    implementation("dev.esnault.wanakana:wanakana-core:1.1.1")
+    implementation("org.jetbrains.kotlin:kotlin-stdlib")
 
     // test
     testImplementation("org.mybatis.spring.boot:mybatis-spring-boot-starter-test:4.0.1")

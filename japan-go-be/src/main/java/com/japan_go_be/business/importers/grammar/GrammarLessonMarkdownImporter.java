@@ -1,16 +1,16 @@
-package com.japan_go_be.business.helpers.lesson;
+package com.japan_go_be.business.importers.grammar;
 
-import com.japan_go_be.contract.constants.message.FileMessage;
 import com.japan_go_be.business.exception.FileNotValidException;
+import com.japan_go_be.business.helpers.grammar.GrammarHelper;
 import com.japan_go_be.business.i18n.I18nService;
-import com.japan_go_be.contract.utils.StringUtil;
 import com.japan_go_be.contract.constants.grammar.GrammarPattern;
 import com.japan_go_be.contract.constants.lesson.GrammarComponentEnum;
 import com.japan_go_be.contract.constants.lesson.LessonTypeEnum;
+import com.japan_go_be.contract.constants.message.FileMessage;
+import com.japan_go_be.contract.utils.StringUtil;
+import com.japan_go_be.infrastructure.entities.grammar.*;
 import com.japan_go_be.infrastructure.entities.lesson.GrammarLessonEntity;
 import com.japan_go_be.infrastructure.entities.lesson.LessonEntity;
-import com.japan_go_be.infrastructure.entities.grammar.SentenceEntity;
-import com.japan_go_be.infrastructure.entities.grammar.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -24,6 +24,7 @@ public class GrammarLessonMarkdownImporter {
 
     private final StringUtil stringUtil;
     private final I18nService i18nService;
+    private final GrammarHelper grammarHelper;
 
     public LessonEntity getLessonFromMarkdown(String markdown) {
         List<String> lines = Arrays.stream(markdown
@@ -75,8 +76,12 @@ public class GrammarLessonMarkdownImporter {
                 example = new GrammarExampleEntity();
                 grammarNote = new GrammarNoteEntity();
 
+                String grammarTitle = matcher.group(1).replaceFirst(GrammarPattern.ROMAN_NUMERAL.pattern(), "");
+                System.out.println(grammarTitle);
                 grammar = GrammarEntity.builder()
-                        .grammarTitle(matcher.group(1).replaceFirst("^[IVXLCDM]+\\.\\s*", ""))
+                        .grammarTitle(grammarTitle)
+                        .grammarTitleFurigana(grammarHelper.getGrammarTitleFurigana(grammarTitle))
+                        .grammarTitleRomaji(grammarHelper.getGrammarTitleRomaji(grammarTitle))
                         .grammarMeaning(grammarMeaning)
                         .grammarStructure(structure)
                         .grammarExample(example)
