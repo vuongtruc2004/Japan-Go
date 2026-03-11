@@ -38,7 +38,11 @@ public class GrammarLessonService {
      * @return List of lesson response summary
      */
     @Transactional
-    public List<LessonResponse> createGrammarLessons(Long folderId, List<MultipartFile> files) {
+    public List<LessonResponse> createGrammarLessons(
+            Long folderId,
+            Integer jlptLevel,
+            List<MultipartFile> files
+    ) {
         List<LessonEntity> lessons = new ArrayList<>();
 
         FolderEntity folderEntity = null;
@@ -61,7 +65,7 @@ public class GrammarLessonService {
                             i18nService.translation(FileMessage.FILE_EMPTY)
                     );
                 }
-                LessonEntity lesson = grammarLessonMarkdownImporter.getLessonFromMarkdown(markdown);
+                LessonEntity lesson = grammarLessonMarkdownImporter.getLessonFromMarkdown(markdown, jlptLevel);
                 lessons.add(lesson);
                 if (folderEntity != null) {
                     folderEntity.getLessons().add(lesson);

@@ -49,6 +49,9 @@ export const routing = defineRouting({
         "/grammar": {
             vi: "/ngu-phap",
         },
+        "/grammar/[slug]": {
+            vi: "/ngu-phap/[slug]",
+        },
         "/register": {},
         "/login": {},
     },

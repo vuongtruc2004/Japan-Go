@@ -27,7 +27,7 @@ export const getAllGrammars = async (
     const response = await sendRequest<
         ApiResponse<PageDetailsResponse<GrammarResponse[]>>
     >({
-        url: "/grammar",
+        url: "/grammars",
         method: "POST",
         headers: {
             "Content-Type": "application/json",
@@ -40,5 +40,16 @@ export const getAllGrammars = async (
         throw new Error(response.clientMessage);
     }
 
+    return response;
+};
+
+export const getGrammarDetailsById = async (id: string | number) => {
+    const response = await sendRequest<ApiResponse<GrammarResponse>>({
+        url: `/grammar/${id}`,
+        method: "GET",
+    });
+    if (response.statusCode !== 200) {
+        throw new Error(response.clientMessage);
+    }
     return response;
 };

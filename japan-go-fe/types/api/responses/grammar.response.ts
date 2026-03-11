@@ -3,6 +3,11 @@ import { SentenceResponse } from "./common.response";
 
 export interface GrammarResponse extends BaseResponse<number> {
     grammarTitle: string;
+    grammarTitleFurigana: string;
+    grammarTitleRomaji: string;
+    translation: string;
+    jlptLevel: number;
+    s;
     grammarMeaning: GrammarMeaningResponse;
     grammarStructure: GrammarStructureResponse;
     grammarExample: GrammarExampleResponse;

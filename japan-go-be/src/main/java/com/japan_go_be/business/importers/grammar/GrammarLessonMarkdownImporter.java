@@ -26,7 +26,7 @@ public class GrammarLessonMarkdownImporter {
     private final I18nService i18nService;
     private final GrammarHelper grammarHelper;
 
-    public LessonEntity getLessonFromMarkdown(String markdown) {
+    public LessonEntity getLessonFromMarkdown(String markdown, Integer jlptLevel) {
         List<String> lines = Arrays.stream(markdown
                         .replace("\r\n", "\n")
                         .replace('\r', '\n')
@@ -46,12 +46,12 @@ public class GrammarLessonMarkdownImporter {
                 .lessonName(matcher.group(1))
                 .lessonType(LessonTypeEnum.GRAMMAR)
                 .build();
-        GrammarLessonEntity grammarLesson = getGrammarLessonFromMarkdown(lines);
+        GrammarLessonEntity grammarLesson = getGrammarLessonFromMarkdown(lines, jlptLevel);
         lesson.setGrammarLesson(grammarLesson);
         return lesson;
     }
 
-    private GrammarLessonEntity getGrammarLessonFromMarkdown(List<String> lines) {
+    private GrammarLessonEntity getGrammarLessonFromMarkdown(List<String> lines, Integer jlptLevel) {
         GrammarLessonEntity grammarLesson = new GrammarLessonEntity();
         GrammarEntity grammar = null;
         GrammarMeaningEntity grammarMeaning = null;
@@ -85,6 +85,7 @@ public class GrammarLessonMarkdownImporter {
                         .grammarTitleFurigana(grammarHelper.getGrammarTitleFurigana(grammarTitle))
                         .grammarTitleRomaji(grammarHelper.getGrammarTitleRomaji(grammarTitle))
                         .translation(translation)
+                        .jlptLevel(jlptLevel)
                         .grammarMeaning(grammarMeaning)
                         .grammarStructure(structure)
                         .grammarExample(example)

@@ -198,7 +198,8 @@
         },
         "grammar": {
             "searchTitle": "Tìm kiếm ngữ pháp",
-            "searchPlaceholder": "Tìm kiếm ngữ pháp theo tên, nghĩa... "
+            "searchPlaceholder": "Tìm kiếm ngữ pháp theo tên, nghĩa... ",
+            "grammarJlpt": "[Ngữ pháp N{jlptLevel}]"
         }
     }
 }

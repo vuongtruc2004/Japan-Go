@@ -16,7 +16,10 @@ interface SendRequestProps {
 export async function sendRequest<TResponse>(
     props: SendRequestProps,
 ): Promise<TResponse> {
-    let url = process.env.NEXT_PUBLIC_API_URL + props.url;
+    const baseUrl =
+        process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:2509/api/v1";
+
+    let url = `${baseUrl}${props.url}`;
 
     const {
         method = "GET",
@@ -29,6 +32,10 @@ export async function sendRequest<TResponse>(
 
     const finalHeaders: Record<string, string> = { ...(headers || {}) };
 
+    if (!(body instanceof FormData) && body && !finalHeaders["Content-Type"]) {
+        finalHeaders["Content-Type"] = "application/json";
+    }
+
     const options: RequestInit = {
         method,
         headers: finalHeaders,
@@ -38,19 +45,19 @@ export async function sendRequest<TResponse>(
                 : body
                   ? JSON.stringify(body)
                   : undefined,
+        credentials: useCredentials ? "include" : undefined,
         ...nextOption,
     };
-
-    if (!(body instanceof FormData) && body && !finalHeaders["Content-Type"]) {
-        finalHeaders["Content-Type"] = "application/json";
-    }
-
-    if (useCredentials) options.credentials = "include";
 
     if (queryParams) {
         url = `${url}?${queryString.stringify(queryParams)}`;
     }
 
     const res = await fetch(url, options);
+
+    if (!res.ok) {
+        throw new Error(`HTTP ${res.status}: ${res.statusText}`);
+    }
+
     return (await res.json()) as TResponse;
 }

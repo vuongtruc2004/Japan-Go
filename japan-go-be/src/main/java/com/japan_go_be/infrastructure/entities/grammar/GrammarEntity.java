@@ -23,9 +23,12 @@ public class GrammarEntity extends BaseEntity {
 
     @Column(name = "grammar_title_romaji")
     String grammarTitleRomaji;
-    
+
     String translation;
 
+    @Column(name = "jlpt_level")
+    Integer jlptLevel;
+    
     @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "grammar_meaning_id")
     GrammarMeaningEntity grammarMeaning;

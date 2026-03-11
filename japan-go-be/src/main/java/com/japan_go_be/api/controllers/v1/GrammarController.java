@@ -43,4 +43,13 @@ public class GrammarController {
     ) {
         return ResponseEntity.ok(grammarService.getAllGrammars(searchRequest, pageable));
     }
+
+    @ApiResponseFormat(
+            devMessage = GrammarMessage.GRAMMAR_GET_BY_ID_SUCCESS,
+            clientMessage = GrammarMessage.GRAMMAR_GET_BY_ID_SUCCESS
+    )
+    @GetMapping("/{id}")
+    public ResponseEntity<GrammarResponse> getGrammarDetailsById(@PathVariable Long id) {
+        return ResponseEntity.ok(grammarService.getGrammarDetailsById(id));
+    }
 }

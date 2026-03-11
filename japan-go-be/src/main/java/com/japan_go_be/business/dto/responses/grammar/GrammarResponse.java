@@ -16,7 +16,8 @@ public class GrammarResponse extends BaseResponse {
     String grammarTitleFurigana;
     String grammarTitleRomaji;
     String translation;
-
+    Integer jlptLevel;
+    
     GrammarMeaningResponse grammarMeaning;
 
     GrammarStructureResponse grammarStructure;
