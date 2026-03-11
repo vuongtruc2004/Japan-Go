@@ -27,6 +27,7 @@ CREATE TABLE grammar
     grammar_title          VARCHAR(255)          NOT NULL,
     grammar_title_furigana VARCHAR(255)          NULL,
     grammar_title_romaji   VARCHAR(255)          NULL,
+    translation            VARCHAR(255)          NULL,
     grammar_meaning_id     BIGINT                NULL,
     grammar_structure_id   BIGINT                NULL,
     grammar_example_id     BIGINT                NULL,

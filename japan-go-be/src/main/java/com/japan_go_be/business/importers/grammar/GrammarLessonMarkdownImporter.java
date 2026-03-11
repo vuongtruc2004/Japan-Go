@@ -76,12 +76,15 @@ public class GrammarLessonMarkdownImporter {
                 example = new GrammarExampleEntity();
                 grammarNote = new GrammarNoteEntity();
 
-                String grammarTitle = matcher.group(1).replaceFirst(GrammarPattern.ROMAN_NUMERAL.pattern(), "");
-                System.out.println(grammarTitle);
+                String[] parts = matcher.group(1).replaceFirst(GrammarPattern.ROMAN_NUMERAL.pattern(), "").split("：");
+                String grammarTitle = parts[0];
+                String translation = parts[1];
+
                 grammar = GrammarEntity.builder()
                         .grammarTitle(grammarTitle)
                         .grammarTitleFurigana(grammarHelper.getGrammarTitleFurigana(grammarTitle))
                         .grammarTitleRomaji(grammarHelper.getGrammarTitleRomaji(grammarTitle))
+                        .translation(translation)
                         .grammarMeaning(grammarMeaning)
                         .grammarStructure(structure)
                         .grammarExample(example)

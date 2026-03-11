@@ -1,5 +1,6 @@
 package com.japan_go_be.api.controllers.v1;
 
+import com.japan_go_be.business.dto.requests.grammar.GrammarSearchRequest;
 import com.japan_go_be.business.dto.responses.base.PageDetailsResponse;
 import com.japan_go_be.business.dto.responses.grammar.GrammarResponse;
 import com.japan_go_be.business.services.grammar.GrammarService;
@@ -11,10 +12,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -38,8 +36,11 @@ public class GrammarController {
     @ApiResponseFormat(
             devMessage = GrammarMessage.GRAMMAR_GET_ALL_SUCCESS,
             clientMessage = GrammarMessage.GRAMMAR_GET_ALL_SUCCESS)
-    @GetMapping
-    public ResponseEntity<PageDetailsResponse<List<GrammarResponse>>> getAllGrammars(Pageable pageable) {
-        return ResponseEntity.ok(grammarService.getAllGrammars(pageable));
+    @PostMapping
+    public ResponseEntity<PageDetailsResponse<List<GrammarResponse>>> getAllGrammars(
+            @RequestBody GrammarSearchRequest searchRequest,
+            Pageable pageable
+    ) {
+        return ResponseEntity.ok(grammarService.getAllGrammars(searchRequest, pageable));
     }
 }

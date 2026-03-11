@@ -23,6 +23,8 @@ public class GrammarEntity extends BaseEntity {
 
     @Column(name = "grammar_title_romaji")
     String grammarTitleRomaji;
+    
+    String translation;
 
     @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "grammar_meaning_id")

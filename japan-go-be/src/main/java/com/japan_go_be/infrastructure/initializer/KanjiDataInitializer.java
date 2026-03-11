@@ -1,12 +1,12 @@
 package com.japan_go_be.infrastructure.initializer;
 
-import com.japan_go_be.contract.constants.ContentType;
-import com.japan_go_be.contract.constants.message.FileMessage;
 import com.japan_go_be.business.exception.FileNotValidException;
 import com.japan_go_be.business.i18n.I18nService;
-import com.japan_go_be.infrastructure.repositories.kanji.KanjiRepository;
 import com.japan_go_be.business.services.kanji.KanjiService;
 import com.japan_go_be.business.services.kanji.SinoVietnameseService;
+import com.japan_go_be.contract.constants.ContentType;
+import com.japan_go_be.contract.constants.message.FileMessage;
+import com.japan_go_be.infrastructure.repositories.kanji.KanjiRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -39,7 +39,7 @@ public class KanjiDataInitializer implements CommandLineRunner {
     @Override
     @Transactional
     public void run(String... args) {
-        if (kanjiRepository.existsBy()) {
+        if (!kanjiRepository.existsBy()) {
             log.info("Kanji existed!");
         } else {
             try (InputStream kanjidicInputstream =

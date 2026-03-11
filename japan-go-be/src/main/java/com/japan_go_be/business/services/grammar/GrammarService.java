@@ -1,10 +1,12 @@
 package com.japan_go_be.business.services.grammar;
 
 import com.japan_go_be.business.dto.mappers.GrammarDtoMapper;
+import com.japan_go_be.business.dto.requests.grammar.GrammarSearchRequest;
 import com.japan_go_be.business.dto.responses.base.PageDetailsResponse;
 import com.japan_go_be.business.dto.responses.grammar.GrammarResponse;
 import com.japan_go_be.business.exception.FileNotValidException;
 import com.japan_go_be.business.i18n.I18nService;
+import com.japan_go_be.business.specifications.grammar.GrammarSpecification;
 import com.japan_go_be.contract.constants.message.FileMessage;
 import com.japan_go_be.infrastructure.entities.grammar.GrammarEntity;
 import com.japan_go_be.infrastructure.repositories.grammar.GrammarRepository;
@@ -15,6 +17,7 @@ import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import java.io.ByteArrayOutputStream;
@@ -27,6 +30,7 @@ public class GrammarService {
     private final GrammarRepository grammarRepository;
     private final I18nService i18nService;
     private final GrammarDtoMapper grammarDtoMapper;
+    private final GrammarSpecification grammarSpecification;
 
     public byte[] exportAllGrammarsInFolder(Long folderId) {
         List<GrammarEntity> grammars = grammarRepository.findAllByGrammarsInFolder(folderId);
@@ -49,16 +53,22 @@ public class GrammarService {
         }
     }
 
-    public PageDetailsResponse<List<GrammarResponse>> getAllGrammars(Pageable pageable) {
-        Page<GrammarEntity> page = grammarRepository.findAll(pageable);
+    public PageDetailsResponse<List<GrammarResponse>> getAllGrammars(
+            GrammarSearchRequest searchRequest,
+            Pageable pageable
+    ) {
+        Specification<GrammarEntity> specification = Specification.where(grammarSpecification.hasSearchKey(searchRequest.searchKey()));
+
+        Page<GrammarEntity> page = grammarRepository.findAll(specification, pageable);
+
         List<GrammarResponse> grammarResponseList = page.getContent()
                 .stream()
                 .map(grammarDtoMapper::grammarEntityToGrammarResponseSummary)
                 .toList();
-
+        
         return PageDetailsResponse.<List<GrammarResponse>>builder()
                 .currentPage(page.getNumber() + 1)
-                .pageSize(page.getTotalPages())
+                .pageSize(page.getSize())
                 .totalPages(page.getTotalPages())
                 .totalElements(page.getTotalElements())
                 .content(grammarResponseList)

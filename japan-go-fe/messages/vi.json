@@ -195,6 +195,10 @@
         },
         "pin": {
             "noPinFolders": "Không có thư mục nào được "
+        },
+        "grammar": {
+            "searchTitle": "Tìm kiếm ngữ pháp",
+            "searchPlaceholder": "Tìm kiếm ngữ pháp theo tên, nghĩa... "
         }
     }
 }

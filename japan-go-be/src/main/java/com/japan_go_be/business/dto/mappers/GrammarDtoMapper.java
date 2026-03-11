@@ -19,6 +19,7 @@ public class GrammarDtoMapper {
                 .grammarTitle(grammarEntity.getGrammarTitle())
                 .grammarTitleFurigana(grammarEntity.getGrammarTitleFurigana())
                 .grammarTitleRomaji(grammarEntity.getGrammarTitleRomaji())
+                .translation(grammarEntity.getTranslation())
                 .build();
     }
 

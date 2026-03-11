@@ -3,3 +3,8 @@ export interface ValidateField {
     errorMessage: string;
     value: string;
 }
+
+export interface PageRequest {
+    pageNumber: number;
+    pageSize: number;
+}
