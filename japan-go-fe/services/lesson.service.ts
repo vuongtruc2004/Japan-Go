@@ -72,6 +72,7 @@ export const createKanjiLesson = async (
 
 export const createGrammarLessons = async (
     folderId: number | null,
+    jlptLevel: number | string,
     files: File[],
 ): Promise<ApiResponse<LessonResponse[]>> => {
     const formData = new FormData();
@@ -79,6 +80,8 @@ export const createGrammarLessons = async (
     if (folderId !== null) {
         formData.append("folderId", String(folderId));
     }
+
+    formData.append("jlptLevel", String(jlptLevel));
 
     files.forEach((file) => {
         formData.append("files", file);

@@ -1,8 +1,8 @@
-import { KanjiTabs } from "@/types/app/i18n.type";
+import { JlptLevels } from "@/types/app/i18n.type";
 
 export interface IKanjiTab {
     readonly id: string;
-    tabKeyTranslation: KanjiTabs;
+    tabKeyTranslation: JlptLevels;
     colorStyle: string;
 }
 

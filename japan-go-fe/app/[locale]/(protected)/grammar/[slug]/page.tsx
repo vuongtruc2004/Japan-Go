@@ -1,6 +1,8 @@
 import React from "react";
 import { Metadata } from "next";
 import { getGrammarDetailsById } from "@/services/grammar.service";
+import SingleGrammarDetails from "@/features/lesson/components/grammar/single.grammar.details";
+import WrapBox from "@/components/ui/wrap.box";
 
 const getGrammarDetailsBFromParams = async (
     params: Promise<{ slug: string }>,
@@ -30,7 +32,11 @@ const GrammarDetailsPage = async ({
     params: Promise<{ slug: string }>;
 }) => {
     const response = await getGrammarDetailsBFromParams(params);
-    return <div>{response.data.grammarTitle}</div>;
+    return (
+        <WrapBox>
+            <SingleGrammarDetails grammar={response.data} />
+        </WrapBox>
+    );
 };
 
 export default GrammarDetailsPage;

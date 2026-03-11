@@ -33,7 +33,7 @@ export const SIDEBAR_ITEMS: SidebarItem[] = [
     {
         id: "e-4",
         nameLinkKey: "grammar",
-        activeLinks: ["/grammar"],
+        activeLinks: ["/grammar", "/grammar/[slug]"],
         redirectLink: "/grammar",
         icon: <GrammarIcon />,
     },

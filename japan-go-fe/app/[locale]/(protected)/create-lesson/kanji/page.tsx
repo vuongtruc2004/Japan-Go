@@ -1,6 +1,6 @@
 import React from "react";
 import { getTranslations } from "next-intl/server";
-import { KanjiDataProvider } from "@/features/create-lesson/contexts/kanji.data";
+import { KanjiDataProvider } from "@/features/create-lesson/contexts/kanji.data.provider";
 import CreateKanjiLesson from "@/features/create-lesson/components/kanji/create.kanji.lesson";
 
 export async function generateMetadata({

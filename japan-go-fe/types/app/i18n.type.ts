@@ -11,7 +11,7 @@ export type RemoveDynamic<T> = T extends `${string}[${string}` ? never : T;
 
 export type StaticRoutes = RemoveDynamic<AllRoutes>;
 
-export type KanjiTabs = keyof Messages["Pages"]["kanji"]["explore"]["levels"];
+export type JlptLevels = keyof Messages["Common"]["jlptLevels"];
 
 export type LessonDetailsMoreButtonTextKey =
     keyof Messages["Pages"]["lesson"]["lessonDetailsMoreButtons"];

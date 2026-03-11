@@ -7,7 +7,7 @@ import { TextFieldCustom } from "@/components/ui/mui-custom/text.field.custom";
 import AddOutlinedIcon from "@mui/icons-material/AddOutlined";
 import { importKanjiDataActions } from "@/features/create-lesson/actions/create.lesson.actions";
 import { IImportKanjiDataState } from "@/features/create-lesson/types/create.lesson.state.type";
-import { useKanjiData } from "@/features/create-lesson/contexts/kanji.data";
+import { useKanjiData } from "@/features/create-lesson/contexts/kanji.data.provider";
 
 const KanjiDataImportButton = () => {
     const t = useTranslations();

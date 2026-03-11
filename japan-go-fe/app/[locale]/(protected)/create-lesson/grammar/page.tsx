@@ -1,7 +1,7 @@
 import React from "react";
 import CreateGrammarLesson from "@/features/create-lesson/components/grammar/create.grammar.lesson";
 import { getTranslations } from "next-intl/server";
-import { GrammarFilesUploadProvider } from "@/features/create-lesson/contexts/grammar.files.upload";
+import { GrammarLessonCreateProvider } from "@/features/create-lesson/contexts/grammar.lesson.create.provider";
 
 export async function generateMetadata({
     params,
@@ -20,9 +20,9 @@ export async function generateMetadata({
 
 const CreateGrammarLessonPage = () => {
     return (
-        <GrammarFilesUploadProvider>
+        <GrammarLessonCreateProvider>
             <CreateGrammarLesson />
-        </GrammarFilesUploadProvider>
+        </GrammarLessonCreateProvider>
     );
 };
 

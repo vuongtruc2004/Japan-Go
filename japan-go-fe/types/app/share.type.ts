@@ -5,6 +5,6 @@ export interface ValidateField {
 }
 
 export interface PageRequest {
-    pageNumber: number | string;
-    pageSize: number | string;
+    page: number | string;
+    size: number | string;
 }

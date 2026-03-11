@@ -1,10 +1,14 @@
-import { AppNameLinkKeys, StaticRoutes } from "@/types/app/i18n.type";
+import {
+    AllRoutes,
+    AppNameLinkKeys,
+    StaticRoutes,
+} from "@/types/app/i18n.type";
 import React from "react";
 
 export type SidebarItem = {
     id: string;
     nameLinkKey: AppNameLinkKeys;
-    activeLinks: StaticRoutes[];
+    activeLinks: AllRoutes[];
     redirectLink: StaticRoutes;
     icon: React.ReactNode;
     hasBadge?: boolean;

@@ -24,29 +24,30 @@ export async function generateMetadata({
 const GrammarPage = async ({
     searchParams,
 }: {
-    searchParams: {
+    searchParams: Promise<{
         searchKey?: string;
-        pageNumber?: string;
-        pageSize?: string;
-    };
+        page?: string;
+        size?: string;
+    }>;
 }) => {
-    const { searchKey = "", pageNumber = "1", pageSize = "10" } = searchParams;
+    const { searchKey = "", page = "1", size = "10" } = await searchParams;
 
     const searchRequest: GrammarSearchRequest = {
         searchKey,
     };
 
     const pageRequest: PageRequest = {
-        pageNumber,
-        pageSize,
+        page,
+        size,
     };
 
     const response = await getAllGrammars(searchRequest, pageRequest);
 
+    console.log(response.data.content);
     return (
         <div className="flex flex-col gap-y-5">
             <GrammarSearchBox />
-            <GrammarList grammars={response.data.content} />
+            <GrammarList page={response.data} />
         </div>
     );
 };

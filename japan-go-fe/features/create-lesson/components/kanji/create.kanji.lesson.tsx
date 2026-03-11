@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 import CreateKanjiLessonForm from "@/features/create-lesson/components/kanji/create.kanji.lesson.form";
-import { useKanjiData } from "@/features/create-lesson/contexts/kanji.data";
+import { useKanjiData } from "@/features/create-lesson/contexts/kanji.data.provider";
 import Empty from "@/components/ui/empty";
 import SingleKanjiDataPreview from "@/features/create-lesson/components/kanji/single.kanji.data.preview";
 import { useTranslations } from "next-intl";

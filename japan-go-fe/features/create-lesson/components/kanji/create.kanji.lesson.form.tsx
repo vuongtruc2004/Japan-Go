@@ -8,7 +8,7 @@ import PublicOutlinedIcon from "@mui/icons-material/PublicOutlined";
 import KanjiDataImportButton from "@/features/create-lesson/components/kanji/kanji.data.import.button";
 import { ICreateKanjiLessonState } from "@/features/create-lesson/types/create.lesson.state.type";
 import { submitCreateKanjiLesson } from "@/features/create-lesson/actions/create.lesson.actions";
-import { useKanjiData } from "@/features/create-lesson/contexts/kanji.data";
+import { useKanjiData } from "@/features/create-lesson/contexts/kanji.data.provider";
 import { useSearchParams } from "next/navigation";
 import { useRouter } from "@/i18n/navigation";
 import { parsePositiveInt } from "@/utils/parse.util";

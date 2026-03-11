@@ -45,6 +45,13 @@
             "lesson/kanji": "Học phần chữ Hán",
             "lesson/grammar": "Học phần ngữ pháp"
         },
+        "jlptLevels": {
+            "n5": "N5 - Cơ bản",
+            "n4": "N4 - Sơ cấp",
+            "n3": "N3 - Trung cấp",
+            "n2": "N2 - Trung cao cấp",
+            "n1": "N1 - Cao cấp"
+        },
         "folder": {
             "title": "Thư mục",
             "create": "Tạo thư mục",
@@ -94,13 +101,6 @@
             },
             "explore": {
                 "title": "Khám phá Kanji theo trình độ",
-                "levels": {
-                    "n5": "N5 - Cơ bản",
-                    "n4": "N4 - Sơ cấp",
-                    "n3": "N3 - Trung cấp",
-                    "n2": "N2 - Trung cao cấp",
-                    "n1": "N1 - Cao cấp"
-                },
                 "suggestTitle": "Bạn có thể nhấp vào 1 ô dưới đây để xem chi tiết Kanji.",
                 "empty": "Không có Kanji nào để hiển thị!",
                 "uploadFile": "Tải lên dữ liệu",
@@ -191,7 +191,9 @@
         },
         "createLesson": {
             "noKanjiDataToPreview": "Không có dữ liệu chữ Hán nào để hiển thị",
-            "noGrammarDataToPreview": "Không có dữ liệu ngữ pháp nào để hiển thị"
+            "noGrammarDataToPreview": "Không có dữ liệu ngữ pháp nào để hiển thị",
+            "selectJlptLevel": "Chọn trình độ JLPT",
+            "youMustAttachAtLeastOneFile": "Bạn phải đính kèm ít nhất 1 tệp!"
         },
         "pin": {
             "noPinFolders": "Không có thư mục nào được "

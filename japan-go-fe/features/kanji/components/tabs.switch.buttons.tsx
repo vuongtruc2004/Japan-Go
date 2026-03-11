@@ -6,7 +6,7 @@ import { getKanjiTabClassName } from "../utils/kanji.utils";
 
 const TabsSwitchButtons = () => {
     const { activeTab, setActiveTab } = useActiveKanjiTab();
-    const t = useTranslations("Pages.kanji.explore");
+    const t = useTranslations();
 
     const handleChangeTab = (newActiveTab: IKanjiTab) => {
         setActiveTab(newActiveTab);
@@ -27,13 +27,15 @@ const TabsSwitchButtons = () => {
                                     tab,
                                 );
                                 return (
-                                    <div
+                                    <button
                                         key={tab.id}
                                         className={`${activeClass} bg-bgc-page flex h-10 w-max cursor-pointer items-center justify-center rounded-md border px-3 text-sm font-semibold transition-all duration-150`}
                                         onClick={() => handleChangeTab(tab)}
                                     >
-                                        {t(`levels.${tab.tabKeyTranslation}`)}
-                                    </div>
+                                        {t(
+                                            `Common.jlptLevels.${tab.tabKeyTranslation}`,
+                                        )}
+                                    </button>
                                 );
                             })}
                         </div>

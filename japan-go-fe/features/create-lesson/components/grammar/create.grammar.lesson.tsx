@@ -3,7 +3,7 @@ import React from "react";
 import WrapBox from "@/components/ui/wrap.box";
 import { useTranslations } from "next-intl";
 import CreateGrammarLessonForm from "@/features/create-lesson/components/grammar/create.grammar.lesson.form";
-import { useGrammarFilesUpload } from "@/features/create-lesson/contexts/grammar.files.upload";
+import { useGrammarLessonCreate } from "@/features/create-lesson/contexts/grammar.lesson.create.provider";
 import Empty from "@/components/ui/empty";
 import LibraryBooksOutlinedIcon from "@mui/icons-material/LibraryBooksOutlined";
 import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
@@ -11,7 +11,7 @@ import IconButtonCustom from "@/components/ui/mui-custom/icon.button.custom";
 
 const CreateGrammarLesson = () => {
     const t = useTranslations();
-    const { files, setFiles } = useGrammarFilesUpload();
+    const { files, setFiles } = useGrammarLessonCreate();
 
     const handelDeleteFile = (file: File) => {
         setFiles((prev) => prev.filter((f) => f !== file));

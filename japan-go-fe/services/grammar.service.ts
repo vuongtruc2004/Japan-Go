@@ -45,7 +45,7 @@ export const getAllGrammars = async (
 
 export const getGrammarDetailsById = async (id: string | number) => {
     const response = await sendRequest<ApiResponse<GrammarResponse>>({
-        url: `/grammar/${id}`,
+        url: `/grammars/${id}`,
         method: "GET",
     });
     if (response.statusCode !== 200) {

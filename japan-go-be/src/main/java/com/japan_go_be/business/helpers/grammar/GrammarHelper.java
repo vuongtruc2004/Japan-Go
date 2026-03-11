@@ -94,8 +94,6 @@ public class GrammarHelper {
 
                 romaji.append(roma);
             }
-
-            romaji.append(" ");
         }
 
         return romaji.toString().trim().toLowerCase();
