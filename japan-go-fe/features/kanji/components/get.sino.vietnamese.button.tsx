@@ -13,6 +13,7 @@ import { useActionState, useState } from "react";
 import { getSinoVietnamese } from "../actions/kanji.actions";
 import { IGetSinoVietnameseState } from "../types/kanji.state.type";
 import SinoVietnameseResultTextArea from "./sino.vietnamese.result.textarea";
+import { DividerType } from "@/features/kanji/types/kanji.enum";
 
 const initialState: IGetSinoVietnameseState | null = null;
 
@@ -20,9 +21,9 @@ const GetSinoVietnameseButton = () => {
     const t = useTranslations();
 
     const [open, setOpen] = useState(false);
-    const [dividerType, setDividerType] = useState<
-        "line" | "whitespace" | "custom"
-    >("line");
+    const [dividerType, setDividerType] = useState<DividerType>(
+        DividerType.LINE,
+    );
 
     const getSinoVietnameseWithDividerType = getSinoVietnamese.bind(
         null,
@@ -82,12 +83,7 @@ const GetSinoVietnameseButton = () => {
                         <RadioGroup
                             value={dividerType}
                             onChange={(e) =>
-                                setDividerType(
-                                    e.target.value as
-                                        | "line"
-                                        | "whitespace"
-                                        | "custom",
-                                )
+                                setDividerType(e.target.value as DividerType)
                             }
                             name="divider-type"
                             sx={{

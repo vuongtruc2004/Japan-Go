@@ -7,7 +7,6 @@ export interface GrammarResponse extends BaseResponse<number> {
     grammarTitleRomaji: string;
     translation: string;
     jlptLevel: number;
-    s;
     grammarMeaning: GrammarMeaningResponse;
     grammarStructure: GrammarStructureResponse;
     grammarExample: GrammarExampleResponse;
