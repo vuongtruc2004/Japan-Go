@@ -1,4 +1,36 @@
-CREATE TABLE folder
+CREATE TABLE cards
+(
+    id            BIGINT AUTO_INCREMENT NOT NULL,
+    created_by    VARCHAR(255)          NOT NULL,
+    created_time  datetime              NOT NULL,
+    modified_by   VARCHAR(255)          NULL,
+    modified_time datetime              NULL,
+    front         MEDIUMTEXT            NOT NULL,
+    grammar_id    BIGINT                NULL,
+    position      INT                   NOT NULL,
+    deck_id       BIGINT                NULL,
+    CONSTRAINT pk_cards PRIMARY KEY (id)
+);
+
+CREATE TABLE decks
+(
+    id            BIGINT AUTO_INCREMENT NOT NULL,
+    created_by    VARCHAR(255)          NOT NULL,
+    created_time  datetime              NOT NULL,
+    modified_by   VARCHAR(255)          NULL,
+    modified_time datetime              NULL,
+    title         VARCHAR(255)          NOT NULL,
+    `description` VARCHAR(255)          NULL,
+    CONSTRAINT pk_decks PRIMARY KEY (id)
+);
+
+CREATE TABLE folder_lesson
+(
+    folder_id BIGINT NOT NULL,
+    lesson_id BIGINT NOT NULL
+);
+
+CREATE TABLE folders
 (
     id                   BIGINT AUTO_INCREMENT NOT NULL,
     created_by           VARCHAR(255)          NOT NULL,
@@ -8,16 +40,60 @@ CREATE TABLE folder
     folder_name          VARCHAR(255)          NOT NULL,
     parent_folder_id     BIGINT                NULL,
     is_pinned_to_sidebar BIT(1)                NULL,
-    CONSTRAINT pk_folder PRIMARY KEY (id)
+    CONSTRAINT pk_folders PRIMARY KEY (id)
 );
 
-CREATE TABLE folder_lesson
+CREATE TABLE grammar_examples
 (
-    folder_id BIGINT NOT NULL,
-    lesson_id BIGINT NOT NULL
+    id            BIGINT AUTO_INCREMENT NOT NULL,
+    created_by    VARCHAR(255)          NOT NULL,
+    created_time  datetime              NOT NULL,
+    modified_by   VARCHAR(255)          NULL,
+    modified_time datetime              NULL,
+    CONSTRAINT pk_grammar_examples PRIMARY KEY (id)
 );
 
-CREATE TABLE grammar
+CREATE TABLE grammar_lessons
+(
+    id            BIGINT AUTO_INCREMENT NOT NULL,
+    created_by    VARCHAR(255)          NOT NULL,
+    created_time  datetime              NOT NULL,
+    modified_by   VARCHAR(255)          NULL,
+    modified_time datetime              NULL,
+    CONSTRAINT pk_grammar_lessons PRIMARY KEY (id)
+);
+
+CREATE TABLE grammar_meanings
+(
+    id            BIGINT AUTO_INCREMENT NOT NULL,
+    created_by    VARCHAR(255)          NOT NULL,
+    created_time  datetime              NOT NULL,
+    modified_by   VARCHAR(255)          NULL,
+    modified_time datetime              NULL,
+    CONSTRAINT pk_grammar_meanings PRIMARY KEY (id)
+);
+
+CREATE TABLE grammar_notes
+(
+    id            BIGINT AUTO_INCREMENT NOT NULL,
+    created_by    VARCHAR(255)          NOT NULL,
+    created_time  datetime              NOT NULL,
+    modified_by   VARCHAR(255)          NULL,
+    modified_time datetime              NULL,
+    CONSTRAINT pk_grammar_notes PRIMARY KEY (id)
+);
+
+CREATE TABLE grammar_structures
+(
+    id            BIGINT AUTO_INCREMENT NOT NULL,
+    created_by    VARCHAR(255)          NOT NULL,
+    created_time  datetime              NOT NULL,
+    modified_by   VARCHAR(255)          NULL,
+    modified_time datetime              NULL,
+    CONSTRAINT pk_grammar_structures PRIMARY KEY (id)
+);
+
+CREATE TABLE grammars
 (
     id                     BIGINT AUTO_INCREMENT NOT NULL,
     created_by             VARCHAR(255)          NOT NULL,
@@ -34,60 +110,10 @@ CREATE TABLE grammar
     grammar_example_id     BIGINT                NULL,
     grammar_note_id        BIGINT                NULL,
     grammar_lesson_id      BIGINT                NULL,
-    CONSTRAINT pk_grammar PRIMARY KEY (id)
+    CONSTRAINT pk_grammars PRIMARY KEY (id)
 );
 
-CREATE TABLE grammar_example
-(
-    id            BIGINT AUTO_INCREMENT NOT NULL,
-    created_by    VARCHAR(255)          NOT NULL,
-    created_time  datetime              NOT NULL,
-    modified_by   VARCHAR(255)          NULL,
-    modified_time datetime              NULL,
-    CONSTRAINT pk_grammar_example PRIMARY KEY (id)
-);
-
-CREATE TABLE grammar_lesson
-(
-    id            BIGINT AUTO_INCREMENT NOT NULL,
-    created_by    VARCHAR(255)          NOT NULL,
-    created_time  datetime              NOT NULL,
-    modified_by   VARCHAR(255)          NULL,
-    modified_time datetime              NULL,
-    CONSTRAINT pk_grammar_lesson PRIMARY KEY (id)
-);
-
-CREATE TABLE grammar_meaning
-(
-    id            BIGINT AUTO_INCREMENT NOT NULL,
-    created_by    VARCHAR(255)          NOT NULL,
-    created_time  datetime              NOT NULL,
-    modified_by   VARCHAR(255)          NULL,
-    modified_time datetime              NULL,
-    CONSTRAINT pk_grammar_meaning PRIMARY KEY (id)
-);
-
-CREATE TABLE grammar_note
-(
-    id            BIGINT AUTO_INCREMENT NOT NULL,
-    created_by    VARCHAR(255)          NOT NULL,
-    created_time  datetime              NOT NULL,
-    modified_by   VARCHAR(255)          NULL,
-    modified_time datetime              NULL,
-    CONSTRAINT pk_grammar_note PRIMARY KEY (id)
-);
-
-CREATE TABLE grammar_structure
-(
-    id            BIGINT AUTO_INCREMENT NOT NULL,
-    created_by    VARCHAR(255)          NOT NULL,
-    created_time  datetime              NOT NULL,
-    modified_by   VARCHAR(255)          NULL,
-    modified_time datetime              NULL,
-    CONSTRAINT pk_grammar_structure PRIMARY KEY (id)
-);
-
-CREATE TABLE image
+CREATE TABLE images
 (
     id            BIGINT AUTO_INCREMENT NOT NULL,
     created_by    VARCHAR(255)          NOT NULL,
@@ -96,7 +122,7 @@ CREATE TABLE image
     modified_time datetime              NULL,
     img_path      VARCHAR(255)          NULL,
     img_alt       VARCHAR(255)          NULL,
-    CONSTRAINT pk_image PRIMARY KEY (id)
+    CONSTRAINT pk_images PRIMARY KEY (id)
 );
 
 CREATE TABLE kanji
@@ -129,14 +155,14 @@ CREATE TABLE kanji_kunyomi
     kunyomi_id BIGINT NOT NULL
 );
 
-CREATE TABLE kanji_lesson
+CREATE TABLE kanji_lessons
 (
     id            BIGINT AUTO_INCREMENT NOT NULL,
     created_by    VARCHAR(255)          NOT NULL,
     created_time  datetime              NOT NULL,
     modified_by   VARCHAR(255)          NULL,
     modified_time datetime              NULL,
-    CONSTRAINT pk_kanji_lesson PRIMARY KEY (id)
+    CONSTRAINT pk_kanji_lessons PRIMARY KEY (id)
 );
 
 CREATE TABLE kanji_meaning
@@ -156,7 +182,7 @@ CREATE TABLE kanji_onyomi
     onyomi_id BIGINT NOT NULL
 );
 
-CREATE TABLE kanji_page
+CREATE TABLE kanji_pages
 (
     id              BIGINT AUTO_INCREMENT NOT NULL,
     created_by      VARCHAR(255)          NOT NULL,
@@ -165,7 +191,7 @@ CREATE TABLE kanji_page
     modified_time   datetime              NULL,
     main_kanji_id   BIGINT                NULL,
     kanji_lesson_id BIGINT                NULL,
-    CONSTRAINT pk_kanji_page PRIMARY KEY (id)
+    CONSTRAINT pk_kanji_pages PRIMARY KEY (id)
 );
 
 CREATE TABLE kunyomi
@@ -179,7 +205,7 @@ CREATE TABLE kunyomi
     CONSTRAINT pk_kunyomi PRIMARY KEY (id)
 );
 
-CREATE TABLE lesson
+CREATE TABLE lessons
 (
     id                BIGINT AUTO_INCREMENT NOT NULL,
     created_by        VARCHAR(255)          NOT NULL,
@@ -191,7 +217,7 @@ CREATE TABLE lesson
     lesson_type       VARCHAR(255)          NULL,
     grammar_lesson_id BIGINT                NULL,
     kanji_lesson_id   BIGINT                NULL,
-    CONSTRAINT pk_lesson PRIMARY KEY (id)
+    CONSTRAINT pk_lessons PRIMARY KEY (id)
 );
 
 CREATE TABLE onyomi
@@ -205,7 +231,7 @@ CREATE TABLE onyomi
     CONSTRAINT pk_onyomi PRIMARY KEY (id)
 );
 
-CREATE TABLE permission
+CREATE TABLE permissions
 (
     id            BIGINT AUTO_INCREMENT NOT NULL,
     created_by    VARCHAR(255)          NOT NULL,
@@ -214,18 +240,7 @@ CREATE TABLE permission
     modified_time datetime              NULL,
     api_path      VARCHAR(255)          NULL,
     api_method    VARCHAR(255)          NULL,
-    CONSTRAINT pk_permission PRIMARY KEY (id)
-);
-
-CREATE TABLE `role`
-(
-    id            BIGINT AUTO_INCREMENT NOT NULL,
-    created_by    VARCHAR(255)          NOT NULL,
-    created_time  datetime              NOT NULL,
-    modified_by   VARCHAR(255)          NULL,
-    modified_time datetime              NULL,
-    role_name     VARCHAR(255)          NULL,
-    CONSTRAINT pk_role PRIMARY KEY (id)
+    CONSTRAINT pk_permissions PRIMARY KEY (id)
 );
 
 CREATE TABLE role_permission
@@ -234,7 +249,18 @@ CREATE TABLE role_permission
     role_id       BIGINT NOT NULL
 );
 
-CREATE TABLE sentence
+CREATE TABLE roles
+(
+    id            BIGINT AUTO_INCREMENT NOT NULL,
+    created_by    VARCHAR(255)          NOT NULL,
+    created_time  datetime              NOT NULL,
+    modified_by   VARCHAR(255)          NULL,
+    modified_time datetime              NULL,
+    role_name     VARCHAR(255)          NULL,
+    CONSTRAINT pk_roles PRIMARY KEY (id)
+);
+
+CREATE TABLE sentences
 (
     id                   BIGINT AUTO_INCREMENT NOT NULL,
     created_by           VARCHAR(255)          NOT NULL,
@@ -251,7 +277,7 @@ CREATE TABLE sentence
     grammar_structure_id BIGINT                NULL,
     grammar_example_id   BIGINT                NULL,
     grammar_note_id      BIGINT                NULL,
-    CONSTRAINT pk_sentence PRIMARY KEY (id)
+    CONSTRAINT pk_sentences PRIMARY KEY (id)
 );
 
 CREATE TABLE sino_vietnamese
@@ -278,7 +304,38 @@ CREATE TABLE sino_vietnamese_meaning
     CONSTRAINT pk_sino_vietnamese_meaning PRIMARY KEY (id)
 );
 
-CREATE TABLE teacher
+CREATE TABLE study_session_cards
+(
+    id                        BIGINT AUTO_INCREMENT NOT NULL,
+    created_by                VARCHAR(255)          NOT NULL,
+    created_time              datetime              NOT NULL,
+    modified_by               VARCHAR(255)          NULL,
+    modified_time             datetime              NULL,
+    study_session_id          BIGINT                NULL,
+    card_id                   BIGINT                NULL,
+    order_index               INT                   NULL,
+    study_session_card_status VARCHAR(255)          NULL,
+    CONSTRAINT pk_study_session_cards PRIMARY KEY (id)
+);
+
+CREATE TABLE study_sessions
+(
+    id                   BIGINT AUTO_INCREMENT NOT NULL,
+    created_by           VARCHAR(255)          NOT NULL,
+    created_time         datetime              NOT NULL,
+    modified_by          VARCHAR(255)          NULL,
+    modified_time        datetime              NULL,
+    deck_id              BIGINT                NULL,
+    study_session_status VARCHAR(255)          NULL,
+    is_shuffled          BIT(1)                NULL,
+    current_round        INT                   NULL,
+    current_index        INT                   NULL,
+    started_time         datetime              NULL,
+    completed_time       datetime              NULL,
+    CONSTRAINT pk_study_sessions PRIMARY KEY (id)
+);
+
+CREATE TABLE teachers
 (
     id            BIGINT AUTO_INCREMENT NOT NULL,
     created_by    VARCHAR(255)          NOT NULL,
@@ -286,10 +343,10 @@ CREATE TABLE teacher
     modified_by   VARCHAR(255)          NULL,
     modified_time datetime              NULL,
     user_id       BIGINT                NULL,
-    CONSTRAINT pk_teacher PRIMARY KEY (id)
+    CONSTRAINT pk_teachers PRIMARY KEY (id)
 );
 
-CREATE TABLE user
+CREATE TABLE users
 (
     id              BIGINT AUTO_INCREMENT NOT NULL,
     created_by      VARCHAR(255)          NOT NULL,
@@ -304,10 +361,10 @@ CREATE TABLE user
     account_type    VARCHAR(255)          NULL,
     avatar_image_id BIGINT                NULL,
     role_id         BIGINT                NULL,
-    CONSTRAINT pk_user PRIMARY KEY (id)
+    CONSTRAINT pk_users PRIMARY KEY (id)
 );
 
-CREATE TABLE vocabulary
+CREATE TABLE vocabularies
 (
     id            BIGINT AUTO_INCREMENT NOT NULL,
     created_by    VARCHAR(255)          NOT NULL,
@@ -319,20 +376,20 @@ CREATE TABLE vocabulary
     meaning       VARCHAR(255)          NULL,
     note          VARCHAR(255)          NULL,
     kanji_page_id BIGINT                NULL,
-    CONSTRAINT pk_vocabulary PRIMARY KEY (id)
+    CONSTRAINT pk_vocabularies PRIMARY KEY (id)
 );
 
-ALTER TABLE grammar
-    ADD CONSTRAINT uc_grammar_grammar_example UNIQUE (grammar_example_id);
+ALTER TABLE grammars
+    ADD CONSTRAINT uc_grammars_grammar_example UNIQUE (grammar_example_id);
 
-ALTER TABLE grammar
-    ADD CONSTRAINT uc_grammar_grammar_meaning UNIQUE (grammar_meaning_id);
+ALTER TABLE grammars
+    ADD CONSTRAINT uc_grammars_grammar_meaning UNIQUE (grammar_meaning_id);
 
-ALTER TABLE grammar
-    ADD CONSTRAINT uc_grammar_grammar_note UNIQUE (grammar_note_id);
+ALTER TABLE grammars
+    ADD CONSTRAINT uc_grammars_grammar_note UNIQUE (grammar_note_id);
 
-ALTER TABLE grammar
-    ADD CONSTRAINT uc_grammar_grammar_structure UNIQUE (grammar_structure_id);
+ALTER TABLE grammars
+    ADD CONSTRAINT uc_grammars_grammar_structure UNIQUE (grammar_structure_id);
 
 ALTER TABLE kanji
     ADD CONSTRAINT uc_kanji_kanji_character UNIQUE (kanji_character);
@@ -346,65 +403,71 @@ ALTER TABLE kanji
 ALTER TABLE kunyomi
     ADD CONSTRAINT uc_kunyomi_reading_text UNIQUE (reading_text);
 
-ALTER TABLE lesson
-    ADD CONSTRAINT uc_lesson_grammar_lesson UNIQUE (grammar_lesson_id);
+ALTER TABLE lessons
+    ADD CONSTRAINT uc_lessons_grammar_lesson UNIQUE (grammar_lesson_id);
 
-ALTER TABLE lesson
-    ADD CONSTRAINT uc_lesson_kanji_lesson UNIQUE (kanji_lesson_id);
+ALTER TABLE lessons
+    ADD CONSTRAINT uc_lessons_kanji_lesson UNIQUE (kanji_lesson_id);
 
 ALTER TABLE onyomi
     ADD CONSTRAINT uc_onyomi_reading_text UNIQUE (reading_text);
 
-ALTER TABLE teacher
-    ADD CONSTRAINT uc_teacher_user UNIQUE (user_id);
+ALTER TABLE teachers
+    ADD CONSTRAINT uc_teachers_user UNIQUE (user_id);
 
-ALTER TABLE user
-    ADD CONSTRAINT uc_user_avatar_image UNIQUE (avatar_image_id);
+ALTER TABLE users
+    ADD CONSTRAINT uc_users_avatar_image UNIQUE (avatar_image_id);
 
-ALTER TABLE folder
-    ADD CONSTRAINT FK_FOLDER_ON_PARENT_FOLDER FOREIGN KEY (parent_folder_id) REFERENCES folder (id);
+ALTER TABLE cards
+    ADD CONSTRAINT FK_CARDS_ON_DECK FOREIGN KEY (deck_id) REFERENCES decks (id);
 
-ALTER TABLE grammar
-    ADD CONSTRAINT FK_GRAMMAR_ON_GRAMMAR_EXAMPLE FOREIGN KEY (grammar_example_id) REFERENCES grammar_example (id);
+ALTER TABLE cards
+    ADD CONSTRAINT FK_CARDS_ON_GRAMMAR FOREIGN KEY (grammar_id) REFERENCES grammars (id);
 
-ALTER TABLE grammar
-    ADD CONSTRAINT FK_GRAMMAR_ON_GRAMMAR_LESSON FOREIGN KEY (grammar_lesson_id) REFERENCES grammar_lesson (id);
+ALTER TABLE folders
+    ADD CONSTRAINT FK_FOLDERS_ON_PARENT_FOLDER FOREIGN KEY (parent_folder_id) REFERENCES folders (id);
 
-ALTER TABLE grammar
-    ADD CONSTRAINT FK_GRAMMAR_ON_GRAMMAR_MEANING FOREIGN KEY (grammar_meaning_id) REFERENCES grammar_meaning (id);
+ALTER TABLE grammars
+    ADD CONSTRAINT FK_GRAMMARS_ON_GRAMMAR_EXAMPLE FOREIGN KEY (grammar_example_id) REFERENCES grammar_examples (id);
 
-ALTER TABLE grammar
-    ADD CONSTRAINT FK_GRAMMAR_ON_GRAMMAR_NOTE FOREIGN KEY (grammar_note_id) REFERENCES grammar_note (id);
+ALTER TABLE grammars
+    ADD CONSTRAINT FK_GRAMMARS_ON_GRAMMAR_LESSON FOREIGN KEY (grammar_lesson_id) REFERENCES grammar_lessons (id);
 
-ALTER TABLE grammar
-    ADD CONSTRAINT FK_GRAMMAR_ON_GRAMMAR_STRUCTURE FOREIGN KEY (grammar_structure_id) REFERENCES grammar_structure (id);
+ALTER TABLE grammars
+    ADD CONSTRAINT FK_GRAMMARS_ON_GRAMMAR_MEANING FOREIGN KEY (grammar_meaning_id) REFERENCES grammar_meanings (id);
+
+ALTER TABLE grammars
+    ADD CONSTRAINT FK_GRAMMARS_ON_GRAMMAR_NOTE FOREIGN KEY (grammar_note_id) REFERENCES grammar_notes (id);
+
+ALTER TABLE grammars
+    ADD CONSTRAINT FK_GRAMMARS_ON_GRAMMAR_STRUCTURE FOREIGN KEY (grammar_structure_id) REFERENCES grammar_structures (id);
 
 ALTER TABLE kanji
     ADD CONSTRAINT FK_KANJI_ON_MAIN_SINO_VIETNAMESE FOREIGN KEY (main_sino_vietnamese_id) REFERENCES sino_vietnamese (id);
 
-ALTER TABLE kanji_page
-    ADD CONSTRAINT FK_KANJI_PAGE_ON_KANJI_LESSON FOREIGN KEY (kanji_lesson_id) REFERENCES kanji_lesson (id);
+ALTER TABLE kanji_pages
+    ADD CONSTRAINT FK_KANJI_PAGES_ON_KANJI_LESSON FOREIGN KEY (kanji_lesson_id) REFERENCES kanji_lessons (id);
 
-ALTER TABLE kanji_page
-    ADD CONSTRAINT FK_KANJI_PAGE_ON_MAIN_KANJI FOREIGN KEY (main_kanji_id) REFERENCES kanji (id);
+ALTER TABLE kanji_pages
+    ADD CONSTRAINT FK_KANJI_PAGES_ON_MAIN_KANJI FOREIGN KEY (main_kanji_id) REFERENCES kanji (id);
 
-ALTER TABLE lesson
-    ADD CONSTRAINT FK_LESSON_ON_GRAMMAR_LESSON FOREIGN KEY (grammar_lesson_id) REFERENCES grammar_lesson (id);
+ALTER TABLE lessons
+    ADD CONSTRAINT FK_LESSONS_ON_GRAMMAR_LESSON FOREIGN KEY (grammar_lesson_id) REFERENCES grammar_lessons (id);
 
-ALTER TABLE lesson
-    ADD CONSTRAINT FK_LESSON_ON_KANJI_LESSON FOREIGN KEY (kanji_lesson_id) REFERENCES kanji_lesson (id);
+ALTER TABLE lessons
+    ADD CONSTRAINT FK_LESSONS_ON_KANJI_LESSON FOREIGN KEY (kanji_lesson_id) REFERENCES kanji_lessons (id);
 
-ALTER TABLE sentence
-    ADD CONSTRAINT FK_SENTENCE_ON_GRAMMAR_EXAMPLE FOREIGN KEY (grammar_example_id) REFERENCES grammar_example (id);
+ALTER TABLE sentences
+    ADD CONSTRAINT FK_SENTENCES_ON_GRAMMAR_EXAMPLE FOREIGN KEY (grammar_example_id) REFERENCES grammar_examples (id);
 
-ALTER TABLE sentence
-    ADD CONSTRAINT FK_SENTENCE_ON_GRAMMAR_MEANING FOREIGN KEY (grammar_meaning_id) REFERENCES grammar_meaning (id);
+ALTER TABLE sentences
+    ADD CONSTRAINT FK_SENTENCES_ON_GRAMMAR_MEANING FOREIGN KEY (grammar_meaning_id) REFERENCES grammar_meanings (id);
 
-ALTER TABLE sentence
-    ADD CONSTRAINT FK_SENTENCE_ON_GRAMMAR_NOTE FOREIGN KEY (grammar_note_id) REFERENCES grammar_note (id);
+ALTER TABLE sentences
+    ADD CONSTRAINT FK_SENTENCES_ON_GRAMMAR_NOTE FOREIGN KEY (grammar_note_id) REFERENCES grammar_notes (id);
 
-ALTER TABLE sentence
-    ADD CONSTRAINT FK_SENTENCE_ON_GRAMMAR_STRUCTURE FOREIGN KEY (grammar_structure_id) REFERENCES grammar_structure (id);
+ALTER TABLE sentences
+    ADD CONSTRAINT FK_SENTENCES_ON_GRAMMAR_STRUCTURE FOREIGN KEY (grammar_structure_id) REFERENCES grammar_structures (id);
 
 ALTER TABLE sino_vietnamese_meaning
     ADD CONSTRAINT FK_SINO_VIETNAMESE_MEANING_ON_SINO_VIETNAMESE FOREIGN KEY (sino_vietnamese_id) REFERENCES sino_vietnamese (id);
@@ -412,23 +475,32 @@ ALTER TABLE sino_vietnamese_meaning
 ALTER TABLE sino_vietnamese
     ADD CONSTRAINT FK_SINO_VIETNAMESE_ON_KANJI FOREIGN KEY (kanji_id) REFERENCES kanji (id);
 
-ALTER TABLE teacher
-    ADD CONSTRAINT FK_TEACHER_ON_USER FOREIGN KEY (user_id) REFERENCES user (id);
+ALTER TABLE study_sessions
+    ADD CONSTRAINT FK_STUDY_SESSIONS_ON_DECK FOREIGN KEY (deck_id) REFERENCES decks (id);
 
-ALTER TABLE user
-    ADD CONSTRAINT FK_USER_ON_AVATAR_IMAGE FOREIGN KEY (avatar_image_id) REFERENCES image (id);
+ALTER TABLE study_session_cards
+    ADD CONSTRAINT FK_STUDY_SESSION_CARDS_ON_CARD FOREIGN KEY (card_id) REFERENCES cards (id);
 
-ALTER TABLE user
-    ADD CONSTRAINT FK_USER_ON_ROLE FOREIGN KEY (role_id) REFERENCES `role` (id);
+ALTER TABLE study_session_cards
+    ADD CONSTRAINT FK_STUDY_SESSION_CARDS_ON_STUDY_SESSION FOREIGN KEY (study_session_id) REFERENCES study_sessions (id);
 
-ALTER TABLE vocabulary
-    ADD CONSTRAINT FK_VOCABULARY_ON_KANJI_PAGE FOREIGN KEY (kanji_page_id) REFERENCES kanji_page (id);
+ALTER TABLE teachers
+    ADD CONSTRAINT FK_TEACHERS_ON_USER FOREIGN KEY (user_id) REFERENCES users (id);
+
+ALTER TABLE users
+    ADD CONSTRAINT FK_USERS_ON_AVATAR_IMAGE FOREIGN KEY (avatar_image_id) REFERENCES images (id);
+
+ALTER TABLE users
+    ADD CONSTRAINT FK_USERS_ON_ROLE FOREIGN KEY (role_id) REFERENCES roles (id);
+
+ALTER TABLE vocabularies
+    ADD CONSTRAINT FK_VOCABULARIES_ON_KANJI_PAGE FOREIGN KEY (kanji_page_id) REFERENCES kanji_pages (id);
 
 ALTER TABLE folder_lesson
-    ADD CONSTRAINT fk_folles_on_folder_entity FOREIGN KEY (folder_id) REFERENCES folder (id);
+    ADD CONSTRAINT fk_folles_on_folder_entity FOREIGN KEY (folder_id) REFERENCES folders (id);
 
 ALTER TABLE folder_lesson
-    ADD CONSTRAINT fk_folles_on_lesson_entity FOREIGN KEY (lesson_id) REFERENCES lesson (id);
+    ADD CONSTRAINT fk_folles_on_lesson_entity FOREIGN KEY (lesson_id) REFERENCES lessons (id);
 
 ALTER TABLE kanji_kanji_meaning
     ADD CONSTRAINT fk_kankanmea_on_kanji_entity FOREIGN KEY (kanji_id) REFERENCES kanji (id);
@@ -449,7 +521,7 @@ ALTER TABLE kanji_onyomi
     ADD CONSTRAINT fk_kanony_on_onyomi_entity FOREIGN KEY (onyomi_id) REFERENCES onyomi (id);
 
 ALTER TABLE role_permission
-    ADD CONSTRAINT fk_rolper_on_permission_entity FOREIGN KEY (permission_id) REFERENCES permission (id);
+    ADD CONSTRAINT fk_rolper_on_permission_entity FOREIGN KEY (permission_id) REFERENCES permissions (id);
 
 ALTER TABLE role_permission
-    ADD CONSTRAINT fk_rolper_on_role_entity FOREIGN KEY (role_id) REFERENCES `role` (id);
+    ADD CONSTRAINT fk_rolper_on_role_entity FOREIGN KEY (role_id) REFERENCES roles (id);

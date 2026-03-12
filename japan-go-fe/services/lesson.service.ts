@@ -10,7 +10,7 @@ export const getAllLessons = async () => {
     const response = await sendRequest<
         ApiResponse<PageDetailsResponse<LessonResponse[]>>
     >({
-        url: `/lesson`,
+        url: `/lessons`,
         method: "GET",
         queryParams: {
             page: 1,
@@ -26,7 +26,7 @@ export const getAllLessons = async () => {
 
 export const getLessonById = async (id: string): Promise<LessonResponse> => {
     const response = await sendRequest<ApiResponse<LessonResponse>>({
-        url: `/lesson/${id}`,
+        url: `/lessons/${id}`,
         method: "GET",
     });
     if (response.statusCode !== 200) {
@@ -37,7 +37,7 @@ export const getLessonById = async (id: string): Promise<LessonResponse> => {
 
 export const deleteLesson = async (id: string | number): Promise<number> => {
     const response = await sendRequest<ApiResponse<number>>({
-        url: `/lesson/${id}`,
+        url: `/lessons/${id}`,
         method: "DELETE",
     });
     if (response.statusCode !== 200) {
@@ -48,7 +48,7 @@ export const deleteLesson = async (id: string | number): Promise<number> => {
 
 export const deleteAllLessons = async () => {
     const response = await sendRequest<ApiResponse<void>>({
-        url: `/lesson/all`,
+        url: `/lessons/all`,
         method: "DELETE",
     });
     if (response.statusCode !== 200) {
@@ -60,7 +60,7 @@ export const createKanjiLesson = async (
     body: KanjiLessonRequest,
 ): Promise<LessonResponse> => {
     const response = await sendRequest<ApiResponse<LessonResponse>>({
-        url: "/kanji-lesson",
+        url: "/kanji-lessons",
         method: "POST",
         body,
     });
@@ -88,7 +88,7 @@ export const createGrammarLessons = async (
     });
 
     return await sendRequest<ApiResponse<LessonResponse[]>>({
-        url: "/grammar-lesson",
+        url: "/grammar-lessons",
         method: "POST",
         body: formData,
     });

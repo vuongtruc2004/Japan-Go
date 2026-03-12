@@ -11,7 +11,7 @@ import lombok.experimental.FieldDefaults;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "sentence")
+@Table(name = "sentences")
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class SentenceEntity extends BaseEntity {
     @Lob

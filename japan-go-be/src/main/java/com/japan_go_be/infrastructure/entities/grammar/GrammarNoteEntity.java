@@ -14,7 +14,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "grammar_note")
+@Table(name = "grammar_notes")
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class GrammarNoteEntity extends BaseEntity {
     @Builder.Default

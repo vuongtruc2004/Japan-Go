@@ -11,7 +11,7 @@ import lombok.experimental.FieldDefaults;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "vocabulary")
+@Table(name = "vocabularies")
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class VocabularyEntity extends BaseEntity {
     @Column(nullable = false)

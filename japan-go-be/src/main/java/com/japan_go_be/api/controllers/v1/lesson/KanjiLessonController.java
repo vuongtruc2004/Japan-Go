@@ -14,7 +14,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/v1/kanji-lesson")
+@RequestMapping("/api/v1/kanji-lessons")
 public class KanjiLessonController {
     public final KanjiLessonService kanjiLessonService;
 

@@ -132,7 +132,8 @@
                 "folderList": "Danh sách thư mục",
                 "searchLessonInThisFolderPlaceholder": "Tìm kiếm học phần trong thư mục này",
                 "addLesson": "Thêm học phần",
-                "deleteFolder": "Xóa thư mục"
+                "deleteFolder": "Xóa thư mục",
+                "createDeck": "Tạo bộ thẻ ghi nhớ"
             },
             "lesson": {
                 "noLessons": "Không có học phần nào để hiển thị",

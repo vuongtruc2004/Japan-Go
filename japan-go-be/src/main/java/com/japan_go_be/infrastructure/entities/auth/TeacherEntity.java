@@ -14,7 +14,7 @@ import lombok.experimental.FieldDefaults;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "teacher")
+@Table(name = "teachers")
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class TeacherEntity extends BaseEntity {
     @OneToOne

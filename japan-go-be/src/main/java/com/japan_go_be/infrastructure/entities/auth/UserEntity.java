@@ -1,7 +1,7 @@
 package com.japan_go_be.infrastructure.entities.auth;
 
-import com.japan_go_be.infrastructure.entities.base.BaseEntity;
 import com.japan_go_be.contract.enums.auth.AccountTypeEnum;
+import com.japan_go_be.infrastructure.entities.base.BaseEntity;
 import com.japan_go_be.infrastructure.entities.common.ImageEntity;
 import jakarta.persistence.*;
 import lombok.*;
@@ -13,7 +13,7 @@ import lombok.experimental.FieldDefaults;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "user")
+@Table(name = "users")
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class UserEntity extends BaseEntity {
     String email;

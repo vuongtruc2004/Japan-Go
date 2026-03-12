@@ -2,7 +2,7 @@ export const exportAllGrammarExampleSentencesInFolder = async (
     folderId: string | number,
 ) => {
     const response = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/sentence/grammar/export/${folderId}`,
+        `${process.env.NEXT_PUBLIC_API_URL}/sentences/grammar/export/${folderId}`,
     );
     const blob = await response.blob();
 

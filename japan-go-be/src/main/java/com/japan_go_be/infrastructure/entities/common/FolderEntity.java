@@ -15,7 +15,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "folder")
+@Table(name = "folders")
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class FolderEntity extends BaseEntity {
 

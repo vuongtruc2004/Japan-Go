@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/v1/sentence")
+@RequestMapping("/api/v1/sentences")
 public class SentenceController {
     private final SentenceService sentenceService;
 

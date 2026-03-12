@@ -11,6 +11,7 @@ import FolderAddLessonButton from "@/components/domain/folder/folder.add.lesson.
 import WrapBox from "@/components/ui/wrap.box";
 import { useFolderDetails } from "@/features/your-library/contexts/folder.details";
 import { Link } from "@/i18n/navigation";
+import CreateDeckButton from "@/features/your-library/components/folder/create.deck.button";
 
 const FolderDetailsHeader = () => {
     const t = useTranslations();
@@ -49,6 +50,8 @@ const FolderDetailsHeader = () => {
                     )}
                     fullWidth
                 />
+
+                <CreateDeckButton />
 
                 <FolderAddLessonButton
                     buttonElement={

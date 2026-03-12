@@ -1,7 +1,7 @@
 package com.japan_go_be.infrastructure.entities.auth;
 
-import com.japan_go_be.infrastructure.entities.base.BaseEntity;
 import com.japan_go_be.contract.enums.auth.ApiMethodEnum;
+import com.japan_go_be.infrastructure.entities.base.BaseEntity;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
@@ -14,7 +14,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "permission")
+@Table(name = "permissions")
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class PermissionEntity extends BaseEntity {
     @Column(name = "api_path")

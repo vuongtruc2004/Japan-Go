@@ -7,6 +7,8 @@ import lombok.*;
 import lombok.experimental.FieldDefaults;
 
 import java.time.Instant;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @Setter
@@ -14,10 +16,10 @@ import java.time.Instant;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "study_session")
+@Table(name = "study_sessions")
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class StudySessionEntity extends BaseEntity {
-    @One
+    @ManyToOne
     @JoinColumn(name = "deck_id")
     DeckEntity deck;
 
@@ -28,16 +30,19 @@ public class StudySessionEntity extends BaseEntity {
     @Column(name = "is_shuffled")
     Boolean isShuffled;
 
-    @OneToOne
-    @JoinColumn(name = "current_session_card_id")
-    CardEntity currentSessionCard;
-
     @Column(name = "current_round")
     Integer currentRound;
+
+    @Column(name = "current_index")
+    Integer currentIndex;
 
     @Column(name = "started_time")
     Instant startedTime;
 
     @Column(name = "completed_time")
     Instant completedTime;
+
+    @Builder.Default
+    @OneToMany(mappedBy = "studySession", cascade = CascadeType.ALL, orphanRemoval = true)
+    List<StudySessionCardEntity> studySessionCards = new ArrayList<>();
 }

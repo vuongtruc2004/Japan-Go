@@ -15,7 +15,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "kanji_page")
+@Table(name = "kanji_pages")
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class KanjiPageEntity extends BaseEntity {
     @ManyToOne

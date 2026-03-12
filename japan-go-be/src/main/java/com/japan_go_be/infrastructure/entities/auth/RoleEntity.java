@@ -1,7 +1,7 @@
 package com.japan_go_be.infrastructure.entities.auth;
 
-import com.japan_go_be.infrastructure.entities.base.BaseEntity;
 import com.japan_go_be.contract.enums.auth.RoleNameEnum;
+import com.japan_go_be.infrastructure.entities.base.BaseEntity;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
@@ -14,7 +14,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "role")
+@Table(name = "roles")
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class RoleEntity extends BaseEntity {
 

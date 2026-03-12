@@ -7,7 +7,7 @@ import { revalidateTag } from "next/cache";
 
 export const getFolderById = async (id: string): Promise<FolderResponse> => {
     const response = await sendRequest<ApiResponse<FolderResponse>>({
-        url: `/folder/${id}`,
+        url: `/folders/${id}`,
         method: "GET",
     });
     if (response.statusCode !== 200) {
@@ -18,7 +18,7 @@ export const getFolderById = async (id: string): Promise<FolderResponse> => {
 
 export const getAllFolders = async (): Promise<FolderResponse[]> => {
     const response = await sendRequest<ApiResponse<FolderResponse[]>>({
-        url: "/folder/all",
+        url: "/folders/all",
     });
     if (response.statusCode !== 200) {
         throw new Error(response.clientMessage);
@@ -28,7 +28,7 @@ export const getAllFolders = async (): Promise<FolderResponse[]> => {
 
 export const deleteFolder = async (id: string | number): Promise<number> => {
     const response = await sendRequest<ApiResponse<number>>({
-        url: `/folder/${id}`,
+        url: `/folders/${id}`,
         method: "DELETE",
     });
     if (response.statusCode !== 200) {
@@ -42,7 +42,7 @@ export const addLessonToFolder = async (
     request: FolderLessonRequest,
 ): Promise<void> => {
     const response = await sendRequest<ApiResponse<void>>({
-        url: "/folder/lesson",
+        url: "/folders/lesson",
         method: "POST",
         body: request,
     });
@@ -56,7 +56,7 @@ export const removeLessonFromFolder = async (
     request: FolderLessonRequest,
 ): Promise<void> => {
     const response = await sendRequest<ApiResponse<void>>({
-        url: "/folder/lesson",
+        url: "/folders/lesson",
         method: "DELETE",
         body: request,
     });
@@ -70,7 +70,7 @@ export const createFolder = async (
     folderName: string,
 ): Promise<FolderResponse> => {
     const response = await sendRequest<ApiResponse<FolderResponse>>({
-        url: "/folder",
+        url: "/folders",
         method: "POST",
         body: {
             folderName,
@@ -86,7 +86,7 @@ export const pinAndUnpinFolderFromSidebar = async (
     folderId: number | string,
 ): Promise<FolderResponse> => {
     const response = await sendRequest<ApiResponse<FolderResponse>>({
-        url: `/folder/pin-and-unpin/${folderId}`,
+        url: `/folders/pin-and-unpin/${folderId}`,
         method: "PATCH",
     });
     if (response.statusCode !== 200) {
@@ -97,7 +97,7 @@ export const pinAndUnpinFolderFromSidebar = async (
 
 export const getAllPinFolders = async (): Promise<FolderResponse[]> => {
     const response = await sendRequest<ApiResponse<FolderResponse[]>>({
-        url: "/folder/pin",
+        url: "/folders/pin",
         nextOption: {
             tags: ["pin-folders"],
         },

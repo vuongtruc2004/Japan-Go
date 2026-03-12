@@ -1,9 +1,7 @@
 package com.japan_go_be.infrastructure.entities.card;
 
 import com.japan_go_be.infrastructure.entities.base.BaseEntity;
-import jakarta.persistence.Entity;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
@@ -16,14 +14,19 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "deck")
+@Table(name = "decks")
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class DeckEntity extends BaseEntity {
+    @Column(nullable = false)
     String title;
 
     String description;
 
     @Builder.Default
-    @OneToMany(mappedBy = "deck")
+    @OneToMany(mappedBy = "deck", cascade = CascadeType.ALL, orphanRemoval = true)
     List<CardEntity> cards = new ArrayList<>();
+
+    @Builder.Default
+    @OneToMany(mappedBy = "deck")
+    List<StudySessionEntity> studySessions = new ArrayList<>();
 }

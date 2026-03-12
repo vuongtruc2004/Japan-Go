@@ -1,9 +1,8 @@
 import { getTranslations } from "next-intl/server";
 import { getAllFolders } from "@/services/folder.service";
-import Empty from "@/components/ui/empty";
 import FolderList from "@/features/your-library/components/folder/folder.list";
 import FolderSearchBox from "@/features/your-library/components/folder/folder.search.box";
-import WrapBox from "@/components/ui/wrap.box";
+import React from "react";
 
 export async function generateMetadata({
     params,
@@ -21,19 +20,12 @@ export async function generateMetadata({
 }
 
 const FolderPage = async () => {
-    const t = await getTranslations("Pages.yourLibrary");
     const folders = await getAllFolders();
     return (
         <>
-            <FolderSearchBox />
+            {folders.length > 0 && <FolderSearchBox />}
 
-            <WrapBox>
-                {folders.length === 0 ? (
-                    <Empty text={t("folder.noFolders")} />
-                ) : (
-                    <FolderList folders={folders} />
-                )}
-            </WrapBox>
+            <FolderList folders={folders} />
         </>
     );
 };

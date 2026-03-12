@@ -15,7 +15,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "kanji_lesson")
+@Table(name = "kanji_lessons")
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class KanjiLessonEntity extends BaseEntity {
     @Builder.Default

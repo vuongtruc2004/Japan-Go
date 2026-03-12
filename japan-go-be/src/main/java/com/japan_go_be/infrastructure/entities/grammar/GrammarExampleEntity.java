@@ -14,7 +14,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "grammar_example")
+@Table(name = "grammar_examples")
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class GrammarExampleEntity extends BaseEntity {
     @Builder.Default

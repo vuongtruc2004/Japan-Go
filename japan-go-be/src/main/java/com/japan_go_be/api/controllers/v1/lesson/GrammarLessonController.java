@@ -15,7 +15,7 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/v1/grammar-lesson")
+@RequestMapping("/api/v1/grammar-lessons")
 public class GrammarLessonController {
     private final GrammarLessonService grammarLessonService;
 

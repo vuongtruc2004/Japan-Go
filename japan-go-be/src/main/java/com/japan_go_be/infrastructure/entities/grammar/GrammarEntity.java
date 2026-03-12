@@ -1,10 +1,14 @@
 package com.japan_go_be.infrastructure.entities.grammar;
 
 import com.japan_go_be.infrastructure.entities.base.BaseEntity;
+import com.japan_go_be.infrastructure.entities.card.CardEntity;
 import com.japan_go_be.infrastructure.entities.lesson.GrammarLessonEntity;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Builder
 @Getter
@@ -12,7 +16,7 @@ import lombok.experimental.FieldDefaults;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "grammar")
+@Table(name = "grammars")
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class GrammarEntity extends BaseEntity {
     @Column(name = "grammar_title", nullable = false)
@@ -28,7 +32,7 @@ public class GrammarEntity extends BaseEntity {
 
     @Column(name = "jlpt_level")
     Integer jlptLevel;
-    
+
     @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "grammar_meaning_id")
     GrammarMeaningEntity grammarMeaning;
@@ -48,4 +52,8 @@ public class GrammarEntity extends BaseEntity {
     @ManyToOne
     @JoinColumn(name = "grammar_lesson_id")
     GrammarLessonEntity grammarLesson;
+
+    @Builder.Default
+    @OneToMany(mappedBy = "grammar")
+    List<CardEntity> cards = new ArrayList<>();
 }
