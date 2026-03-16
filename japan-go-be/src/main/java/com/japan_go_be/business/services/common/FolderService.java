@@ -1,4 +1,4 @@
-package com.japan_go_be.business.services.folder;
+package com.japan_go_be.business.services.common;
 
 import com.japan_go_be.business.dto.mappers.FolderDtoMapper;
 import com.japan_go_be.business.dto.requests.common.FolderLessonRequest;

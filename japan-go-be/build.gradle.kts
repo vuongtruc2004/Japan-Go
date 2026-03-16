@@ -36,11 +36,17 @@ dependencies {
     implementation("org.flywaydb:flyway-mysql:11.20.0")
     implementation("com.atilika.kuromoji:kuromoji-ipadic:0.9.0")
     implementation("org.springframework:spring-test")
-    // Source: https://mvnrepository.com/artifact/org.mapstruct/mapstruct
+    // MAPSTRUCT
     implementation("org.mapstruct:mapstruct:1.6.3")
+    implementation("org.projectlombok:lombok-mapstruct-binding:0.2.0")
+    annotationProcessor("org.mapstruct:mapstruct-processor:1.6.3")
+    annotationProcessor("org.projectlombok:lombok-mapstruct-binding:0.2.0")
     // Source: https://mvnrepository.com/artifact/dev.esnault.wanakana/wanakana-core
     implementation("dev.esnault.wanakana:wanakana-core:1.1.1")
     implementation("org.jetbrains.kotlin:kotlin-stdlib")
+
+    // SPRING BOOT DEV TOOLS
+    developmentOnly("org.springframework.boot:spring-boot-devtools")
 
     // test
     testImplementation("org.mybatis.spring.boot:mybatis-spring-boot-starter-test:4.0.1")
