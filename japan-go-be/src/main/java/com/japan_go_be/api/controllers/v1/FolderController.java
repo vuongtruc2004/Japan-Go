@@ -4,7 +4,6 @@ import com.japan_go_be.business.dto.requests.common.FolderLessonRequest;
 import com.japan_go_be.business.dto.requests.common.FolderRequest;
 import com.japan_go_be.business.dto.responses.base.ApiResponse;
 import com.japan_go_be.business.dto.responses.common.FolderResponse;
-import com.japan_go_be.business.dto.responses.common.FolderResponseTest;
 import com.japan_go_be.business.i18n.I18nService;
 import com.japan_go_be.business.services.common.FolderService;
 import com.japan_go_be.business.services.common.FolderTest;
@@ -33,8 +32,8 @@ public class FolderController {
 
     @ApiResponseFormat(devMessage = FolderMessage.FOLDER_GET_ALL, clientMessage = FolderMessage.FOLDER_GET_ALL)
     @GetMapping("/all")
-    public ResponseEntity<List<FolderResponseTest>> getAllFolders() {
-        return ResponseEntity.ok(folderTest.getAllFolders());
+    public ResponseEntity<List<FolderResponse>> getAllFolders() {
+        return ResponseEntity.ok(folderService.getAllFolders());
     }
 
     @ApiResponseFormat(devMessage = FolderMessage.FOLDER_DELETED, clientMessage = FolderMessage.FOLDER_DELETED)

@@ -1,7 +1,7 @@
 server:
   port: 2509
   tomcat:
-    max-part-count: 25
+    max-part-count: 100
 spring:
   application:
     name: japan-go-be

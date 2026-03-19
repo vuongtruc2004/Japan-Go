@@ -17,7 +17,9 @@ export async function sendRequest<TResponse>(
     props: SendRequestProps,
 ): Promise<TResponse> {
     const baseUrl =
-        process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:2509/api/v1";
+        process.env.API_URL ??
+        process.env.NEXT_PUBLIC_API_URL ??
+        "http://localhost:2509/api/v1";
 
     let url = `${baseUrl}${props.url}`;
 

@@ -17,7 +17,7 @@ services:
       SPRING_DATA_REDIS_PORT: 6379
       SPRING_DATA_REDIS_PASSWORD: ""
       SPRING_DATA_REDIS_DATABASE: 0
-      SOURCES_URI: file:/app/sources
+      SOURCES_URI: file:///app/sources
     volumes:
       - ./sources:/app/sources
     depends_on:
@@ -32,6 +32,8 @@ services:
       args:
         NEXT_PUBLIC_API_URL: http://localhost:2509/api/v1
     container_name: japan-go-fe-app
+    environment:
+      API_URL: http://backend:2509/api/v1
     ports:
       - "3000:3000"
     depends_on:
