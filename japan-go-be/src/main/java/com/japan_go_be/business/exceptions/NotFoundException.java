@@ -1,4 +1,4 @@
-package com.japan_go_be.business.exception;
+package com.japan_go_be.business.exceptions;
 
 public class NotFoundException extends BaseException {
     public NotFoundException(String devMessage, String clientMessage) {

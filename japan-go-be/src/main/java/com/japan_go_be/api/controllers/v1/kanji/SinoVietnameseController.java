@@ -1,4 +1,4 @@
-package com.japan_go_be.api.controllers.v1;
+package com.japan_go_be.api.controllers.v1.kanji;
 
 import com.japan_go_be.business.dto.requests.kanji.GetSinoVietnameseRequest;
 import com.japan_go_be.business.dto.responses.kanji.KanjiResponse;

@@ -1,6 +1,6 @@
-package com.japan_go_be.infrastructure.initializer;
+package com.japan_go_be.infrastructure.initializers;
 
-import com.japan_go_be.business.exception.FileNotValidException;
+import com.japan_go_be.business.exceptions.FileNotValidException;
 import com.japan_go_be.business.i18n.I18nService;
 import com.japan_go_be.business.services.kanji.KanjiService;
 import com.japan_go_be.business.services.kanji.SinoVietnameseService;

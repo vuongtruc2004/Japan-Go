@@ -1,15 +1,15 @@
 package com.japan_go_be.api.middlewares;
 
 import com.japan_go_be.business.dto.responses.base.ApiResponse;
-import com.japan_go_be.business.exception.BadRequestException;
-import com.japan_go_be.business.exception.BaseException;
-import com.japan_go_be.business.exception.FileNotValidException;
-import com.japan_go_be.business.exception.NotFoundException;
-import com.japan_go_be.business.exception.common.FolderException;
-import com.japan_go_be.business.exception.kanji.KanjiException;
-import com.japan_go_be.business.exception.lesson.GrammarLessonException;
-import com.japan_go_be.business.exception.lesson.KanjiLessonException;
-import com.japan_go_be.business.exception.lesson.LessonException;
+import com.japan_go_be.business.exceptions.BadRequestException;
+import com.japan_go_be.business.exceptions.BaseException;
+import com.japan_go_be.business.exceptions.FileNotValidException;
+import com.japan_go_be.business.exceptions.NotFoundException;
+import com.japan_go_be.business.exceptions.common.FolderException;
+import com.japan_go_be.business.exceptions.kanji.KanjiException;
+import com.japan_go_be.business.exceptions.lesson.GrammarLessonException;
+import com.japan_go_be.business.exceptions.lesson.KanjiLessonException;
+import com.japan_go_be.business.exceptions.lesson.LessonException;
 import com.japan_go_be.business.i18n.I18nService;
 import com.japan_go_be.contract.constants.message.DefaultMessage;
 import lombok.RequiredArgsConstructor;

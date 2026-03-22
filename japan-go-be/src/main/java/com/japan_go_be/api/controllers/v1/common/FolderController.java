@@ -1,4 +1,4 @@
-package com.japan_go_be.api.controllers.v1;
+package com.japan_go_be.api.controllers.v1.common;
 
 import com.japan_go_be.business.dto.requests.common.FolderLessonRequest;
 import com.japan_go_be.business.dto.requests.common.FolderRequest;

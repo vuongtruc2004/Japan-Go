@@ -1,7 +1,7 @@
 package com.japan_go_be.business.importers.kanji;
 
-import com.japan_go_be.business.exception.FileNotValidException;
-import com.japan_go_be.business.exception.NotFoundException;
+import com.japan_go_be.business.exceptions.FileNotValidException;
+import com.japan_go_be.business.exceptions.NotFoundException;
 import com.japan_go_be.business.i18n.I18nService;
 import com.japan_go_be.contract.constants.message.FileMessage;
 import com.japan_go_be.contract.constants.message.kanji.KanjiMessage;

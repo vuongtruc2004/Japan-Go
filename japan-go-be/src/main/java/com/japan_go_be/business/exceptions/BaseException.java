@@ -1,4 +1,4 @@
-package com.japan_go_be.business.exception;
+package com.japan_go_be.business.exceptions;
 
 import lombok.AccessLevel;
 import lombok.Getter;

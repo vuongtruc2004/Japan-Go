@@ -2,8 +2,8 @@ package com.japan_go_be.business.importers.kanji;
 
 import com.japan_go_be.business.dto.mappers.KanjiDtoMapper;
 import com.japan_go_be.business.entries.KanjiDicEntry;
-import com.japan_go_be.business.exception.FileNotValidException;
-import com.japan_go_be.business.exception.kanji.KanjiException;
+import com.japan_go_be.business.exceptions.FileNotValidException;
+import com.japan_go_be.business.exceptions.kanji.KanjiException;
 import com.japan_go_be.business.helpers.kanji.KanjiHelper;
 import com.japan_go_be.business.i18n.I18nService;
 import com.japan_go_be.contract.constants.message.FileMessage;

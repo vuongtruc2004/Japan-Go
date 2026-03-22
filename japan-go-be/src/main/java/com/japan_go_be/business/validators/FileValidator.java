@@ -1,4 +1,4 @@
-package com.japan_go_be.business.validator;
+package com.japan_go_be.business.validators;
 
 import com.japan_go_be.contract.constants.ContentType;
 import org.springframework.stereotype.Service;

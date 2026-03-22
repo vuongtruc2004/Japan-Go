@@ -1,6 +1,6 @@
 package com.japan_go_be.business.helpers.lesson;
 
-import com.japan_go_be.business.exception.NotFoundException;
+import com.japan_go_be.business.exceptions.NotFoundException;
 import com.japan_go_be.business.i18n.I18nService;
 import com.japan_go_be.contract.constants.message.lesson.LessonMessage;
 import com.japan_go_be.infrastructure.entities.lesson.LessonEntity;

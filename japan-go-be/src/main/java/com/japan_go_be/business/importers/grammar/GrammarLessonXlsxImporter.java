@@ -1,8 +1,8 @@
 package com.japan_go_be.business.importers.grammar;
 
-import com.japan_go_be.business.exception.FileNotValidException;
-import com.japan_go_be.business.exception.NotFoundException;
-import com.japan_go_be.business.exception.lesson.GrammarLessonException;
+import com.japan_go_be.business.exceptions.FileNotValidException;
+import com.japan_go_be.business.exceptions.NotFoundException;
+import com.japan_go_be.business.exceptions.lesson.GrammarLessonException;
 import com.japan_go_be.business.i18n.I18nService;
 import com.japan_go_be.contract.constants.lesson.LessonTypeEnum;
 import com.japan_go_be.contract.constants.message.FileMessage;

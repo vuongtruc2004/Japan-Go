@@ -4,7 +4,7 @@ import com.japan_go_be.business.dto.mappers.FolderDtoMapper;
 import com.japan_go_be.business.dto.requests.common.FolderLessonRequest;
 import com.japan_go_be.business.dto.requests.common.FolderRequest;
 import com.japan_go_be.business.dto.responses.common.FolderResponse;
-import com.japan_go_be.business.exception.common.FolderException;
+import com.japan_go_be.business.exceptions.common.FolderException;
 import com.japan_go_be.business.helpers.folder.FolderHelper;
 import com.japan_go_be.business.helpers.lesson.LessonHelper;
 import com.japan_go_be.business.i18n.I18nService;
