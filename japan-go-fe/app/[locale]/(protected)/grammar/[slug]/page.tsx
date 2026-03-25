@@ -2,7 +2,7 @@ import React from "react";
 import { Metadata } from "next";
 import { getGrammarDetailsById } from "@/services/grammar.service";
 import SingleGrammarDetails from "@/features/lesson/components/grammar/single.grammar.details";
-import WrapBox from "@/components/ui/wrap.box";
+import GrammarDetailsHeader from "@/features/grammar/components/grammar.details.header";
 
 const getGrammarDetailsBFromParams = async (
     params: Promise<{ slug: string }>,
@@ -33,9 +33,10 @@ const GrammarDetailsPage = async ({
 }) => {
     const response = await getGrammarDetailsBFromParams(params);
     return (
-        <WrapBox>
+        <div className="flex flex-col gap-y-5">
+            <GrammarDetailsHeader />
             <SingleGrammarDetails grammar={response.data} />
-        </WrapBox>
+        </div>
     );
 };
 

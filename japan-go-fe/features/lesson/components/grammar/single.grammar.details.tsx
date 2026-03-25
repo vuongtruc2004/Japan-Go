@@ -5,6 +5,7 @@ import GrammarMeaning from "@/features/lesson/components/grammar/grammar.meaning
 import GrammarStructure from "@/features/lesson/components/grammar/grammar.structure";
 import GrammarExample from "@/features/lesson/components/grammar/grammar.example";
 import GrammarNote from "@/features/lesson/components/grammar/grammar.note";
+import WrapBox from "@/components/ui/wrap.box";
 
 const SingleGrammarDetails = ({
     grammar,
@@ -14,7 +15,7 @@ const SingleGrammarDetails = ({
     index?: number;
 }) => {
     return (
-        <>
+        <WrapBox>
             <h1
                 id={`grammar-${grammar.id}`}
                 className={`mb-3 max-w-max rounded-md border px-4 text-xl font-semibold ${DecoratorClassName.GREEN}`}
@@ -31,7 +32,7 @@ const SingleGrammarDetails = ({
                 <GrammarExample grammarExample={grammar.grammarExample} />
                 <GrammarNote grammarNote={grammar.grammarNote} />
             </div>
-        </>
+        </WrapBox>
     );
 };
 
