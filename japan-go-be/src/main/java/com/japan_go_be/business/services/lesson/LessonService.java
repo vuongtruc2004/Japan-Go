@@ -41,7 +41,7 @@ public class LessonService {
     @Transactional
     public void deleteAllLessons() {
         lessonRepository.deleteAllLessonFolderRelations();
-        lessonRepository.deleteAllLessons();
+        lessonRepository.deleteAll();
     }
 
     public PageDetailsResponse<List<LessonResponse>> getAllLessons(Pageable pageable) {

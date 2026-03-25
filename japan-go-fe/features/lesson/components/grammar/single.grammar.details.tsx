@@ -6,13 +6,22 @@ import GrammarStructure from "@/features/lesson/components/grammar/grammar.struc
 import GrammarExample from "@/features/lesson/components/grammar/grammar.example";
 import GrammarNote from "@/features/lesson/components/grammar/grammar.note";
 
-const SingleGrammarDetails = ({ grammar }: { grammar: GrammarResponse }) => {
+const SingleGrammarDetails = ({
+    grammar,
+    index,
+}: {
+    grammar: GrammarResponse;
+    index?: number;
+}) => {
     return (
         <>
             <h1
                 id={`grammar-${grammar.id}`}
                 className={`mb-3 max-w-max rounded-md border px-4 text-xl font-semibold ${DecoratorClassName.GREEN}`}
             >
+                {index !== undefined && (
+                    <span className="ml-2">{index + 1}. </span>
+                )}
                 {grammar.grammarTitle}：{grammar.translation}
             </h1>
 

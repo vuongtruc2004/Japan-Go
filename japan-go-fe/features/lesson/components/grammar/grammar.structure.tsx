@@ -28,9 +28,9 @@ const GrammarStructure = ({
                         >
                             <CircleNumber num={index + 1} />
                             <span
-                                className="font-semibold whitespace-pre-line"
+                                className="whitespace-pre-line [&_.structure-highlight]:rounded-sm [&_.structure-highlight]:border [&_.structure-highlight]:px-1 [&_.structure-highlight]:font-semibold"
                                 dangerouslySetInnerHTML={{
-                                    __html: sentence.japaneseRaw,
+                                    __html: sentence.japaneseHtml,
                                 }}
                             />
                         </p>

@@ -20,7 +20,7 @@ const GrammarDetails = ({ grammars }: { grammars: GrammarResponse[] }) => {
             {grammars.map((grammar, index) => {
                 return (
                     <div key={grammar.id}>
-                        <SingleGrammarDetails grammar={grammar} />
+                        <SingleGrammarDetails grammar={grammar} index={index} />
                         {index !== grammars.length - 1 && (
                             <Divider sx={{ my: 3 }} />
                         )}

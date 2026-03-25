@@ -1,7 +1,7 @@
 package com.japan_go_be.infrastructure.repositories.lesson;
 
-import com.japan_go_be.infrastructure.repositories.base.BaseRepository;
 import com.japan_go_be.infrastructure.entities.lesson.LessonEntity;
+import com.japan_go_be.infrastructure.repositories.base.BaseRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Modifying;
@@ -19,15 +19,11 @@ public interface LessonRepository extends BaseRepository<LessonEntity> {
     @Query("""
                 select l
                 from LessonEntity l
-                order by coalesce(l.modifiedTime, l.createdTime) desc
+                order by l.lessonName asc, l.createdBy asc
             """)
     Page<LessonEntity> findAllOrderByLastModifiedTimeDesc(Pageable pageable);
 
     @Modifying
     @Query(value = "DELETE FROM folder_lesson", nativeQuery = true)
     void deleteAllLessonFolderRelations();
-
-    @Modifying
-    @Query("DELETE FROM LessonEntity l")
-    void deleteAllLessons();
 }

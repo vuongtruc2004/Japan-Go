@@ -130,14 +130,17 @@ public class GrammarLessonMarkdownImporter {
                         grammarMeaning.getSentences().add(sentence);
                         break;
                     case STRUCTURE:
-                        japaneseRaw = stringUtil.removeAllSubstring(orderItem.toString(), "~~");
                         japaneseHtml = stringUtil.replaceAllSubstringWithHtmlTag(
                                 orderItem.toString(),
                                 "~~",
                                 "<del>",
                                 "</del>");
+                        japaneseHtml = stringUtil.replaceAllSubstringWithHtmlTag(
+                                japaneseHtml,
+                                "**",
+                                "<span class='structure-highlight'>",
+                                "</span>");
                         sentence = SentenceEntity.builder()
-                                .japaneseRaw(japaneseRaw)
                                 .japaneseHtml(japaneseHtml)
                                 .grammarStructure(structure)
                                 .build();
