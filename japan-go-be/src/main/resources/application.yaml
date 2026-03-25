@@ -33,3 +33,9 @@ spring:
   messages:
     basename: i18n/messages
     encoding: UTF-8
+
+mybatis:
+  mapper-locations: classpath*:/mybatis/mappers/**/*.xml
+  type-aliases-package: com.japan_go_be.infrastructure.entities
+#  configuration:
+#    map-underscore-to-camel-case: true

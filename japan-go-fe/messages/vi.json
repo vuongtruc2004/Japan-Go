@@ -203,7 +203,8 @@
             "searchTitle": "Tìm kiếm ngữ pháp",
             "searchPlaceholder": "Tìm kiếm ngữ pháp theo tên, nghĩa... ",
             "grammarJlpt": "[Ngữ pháp N{jlptLevel}]",
-            "backToGrammarPage": "Về trang ngữ pháp"
+            "backToGrammarPage": "Về trang ngữ pháp",
+            "goToGrammarLessonPage": "Chuyển đến trang học phần ngữ pháp này"
         }
     }
 }

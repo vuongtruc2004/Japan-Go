@@ -1,9 +1,3 @@
-import slugify from "slugify";
-
 export function slugifyText(text: string): string {
-  return slugify(text, {
-    lower: true,
-    strict: true,
-    trim: true,
-  });
+    return text.toLowerCase().trim().replaceAll(/\s+/g, "-");
 }

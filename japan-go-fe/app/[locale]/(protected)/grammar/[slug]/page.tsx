@@ -34,7 +34,7 @@ const GrammarDetailsPage = async ({
     const response = await getGrammarDetailsBFromParams(params);
     return (
         <div className="flex flex-col gap-y-5">
-            <GrammarDetailsHeader />
+            <GrammarDetailsHeader grammar={response.data} />
             <SingleGrammarDetails grammar={response.data} />
         </div>
     );

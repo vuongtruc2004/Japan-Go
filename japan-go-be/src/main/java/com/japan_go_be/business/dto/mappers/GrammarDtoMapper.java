@@ -3,6 +3,8 @@ package com.japan_go_be.business.dto.mappers;
 import com.japan_go_be.business.dto.responses.grammar.*;
 import com.japan_go_be.business.dto.responses.sentence.SentenceResponse;
 import com.japan_go_be.infrastructure.entities.grammar.*;
+import com.japan_go_be.infrastructure.entities.lesson.LessonEntity;
+import com.japan_go_be.infrastructure.mappers.lesson.LessonMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -12,8 +14,11 @@ import java.util.List;
 @RequiredArgsConstructor
 public class GrammarDtoMapper {
     private final SentenceDtoMapper sentenceDtoMapper;
+    private final LessonMapper lessonMapper;
 
     public GrammarResponse grammarEntityToGrammarResponseSummary(GrammarEntity grammarEntity) {
+        LessonEntity lesson = lessonMapper.findLessonByGrammarId(grammarEntity.getId());
+
         return GrammarResponse.builder()
                 .id(grammarEntity.getId())
                 .grammarTitle(grammarEntity.getGrammarTitle())
@@ -21,6 +26,8 @@ public class GrammarDtoMapper {
                 .grammarTitleRomaji(grammarEntity.getGrammarTitleRomaji())
                 .translation(grammarEntity.getTranslation())
                 .jlptLevel(grammarEntity.getJlptLevel())
+                .lessonName(lesson.getLessonName())
+                .lessonId(lesson.getId())
                 .build();
     }
 
