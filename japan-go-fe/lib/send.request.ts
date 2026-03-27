@@ -2,6 +2,7 @@
 import queryString from "query-string";
 
 type HttpMethod = "GET" | "POST" | "PUT" | "PATCH" | "DELETE";
+type ResponseType = "json" | "text" | "blob";
 
 interface SendRequestProps {
     url: string;
@@ -11,6 +12,7 @@ interface SendRequestProps {
     useCredentials?: boolean;
     headers?: Record<string, string>;
     nextOption?: NextFetchRequestConfig;
+    responseType?: ResponseType;
 }
 
 export async function sendRequest<TResponse>(
@@ -30,6 +32,7 @@ export async function sendRequest<TResponse>(
         useCredentials = false,
         headers,
         nextOption,
+        responseType = "json",
     } = props;
 
     const finalHeaders: Record<string, string> = { ...(headers || {}) };
@@ -58,8 +61,17 @@ export async function sendRequest<TResponse>(
     const res = await fetch(url, options);
 
     if (!res.ok) {
-        throw new Error(`HTTP ${res.status}: ${res.statusText}`);
+        const errorText = await res.text();
+        throw new Error(`HTTP ${res.status}: ${errorText || res.statusText}`);
     }
 
-    return (await res.json()) as TResponse;
+    switch (responseType) {
+        case "text":
+            return (await res.text()) as TResponse;
+        case "blob":
+            return (await res.blob()) as TResponse;
+        case "json":
+        default:
+            return (await res.json()) as TResponse;
+    }
 }

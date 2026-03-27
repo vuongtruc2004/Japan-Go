@@ -19,3 +19,7 @@ export interface GrammarLessonRequest {
     folderId: number | string | null;
     files: File[];
 }
+
+export interface ExportGrammarLessonRequest {
+    grammarLessonIds: number[];
+}

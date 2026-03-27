@@ -56,17 +56,17 @@ const GetSinoVietnameseButton = () => {
                     <form action={formAction} className="my-3">
                         <div className="grid w-full grid-cols-[2fr_1fr] items-start gap-x-5">
                             <TextField
-                                defaultValue={state && state.kanji.value}
+                                defaultValue={state?.kanji.value}
                                 name="kanji"
                                 multiline
-                                rows={20}
+                                rows={12}
                                 placeholder={t(
                                     "Pages.kanji.sinoVietnameseImport.inputPlaceholder",
                                 )}
-                                error={state != null && state.kanji.isError}
+                                error={state?.kanji.isError}
                                 helperText={
                                     <span className="text-tc-error">
-                                        {state && state.kanji.errorMessage}
+                                        {state?.kanji.errorMessage}
                                     </span>
                                 }
                             />

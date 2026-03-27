@@ -6,8 +6,10 @@ import { TooltipCustom } from "@/components/ui/mui-custom/tooltip.custom";
 import ExportIcon from "@/components/ui/icons/export.icon";
 import { LessonResponse } from "@/types/api/responses/lesson.response";
 import CloseIcon from "@mui/icons-material/Close";
-import SingleLesson from "@/features/your-library/components/lesson/single.lesson";
-import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
+import LessonListToExport from "@/features/your-library/components/lesson/lesson.list.to.export";
+import { exportGrammarLessonsToQuizletText } from "@/services/grammar.lesson.service";
+import { useClipboard } from "@/hooks/use.clipboard";
+import { toast } from "react-toastify";
 
 const LessonExportQuizletButton = ({
     lessons,
@@ -17,16 +19,31 @@ const LessonExportQuizletButton = ({
     const t = useTranslations();
     const [open, setOpen] = useState(false);
     const [lessonIds, setLessonIds] = useState<number[]>([]);
+    const { copy } = useClipboard();
 
-    const handleAddLesson = (lessonId: number) => {
-        setLessonIds((prevLessonIds) => [...prevLessonIds, lessonId]);
+    const handleClose = () => {
+        setOpen(false);
+        setLessonIds([]);
     };
 
-    const handleRemoveLesson = (lessonId: number) => {
-        setLessonIds((prevLessonIds) =>
-            prevLessonIds.filter((id) => id !== lessonId),
-        );
+    const handleExportLessons = async () => {
+        if (!lessonIds.length) return;
+
+        const result = await exportGrammarLessonsToQuizletText({
+            grammarLessonIds: lessonIds,
+        });
+
+        const isCopied = await copy(result);
+        if (isCopied) {
+            toast.success(t("Common.copied"), {
+                hideProgressBar: true,
+                closeOnClick: true,
+                autoClose: 2000,
+            });
+            handleClose();
+        }
     };
+
     return (
         <>
             <TooltipCustom
@@ -50,35 +67,15 @@ const LessonExportQuizletButton = ({
                         )}
                     </h1>
 
-                    <div className="my-3 flex h-100 flex-col gap-y-1 overflow-y-auto pr-3">
-                        {lessons.map((lesson) => {
-                            return (
-                                <SingleLesson
-                                    moreButton={
-                                        <Button
-                                            onClick={() =>
-                                                handleAddLesson(lesson.id)
-                                            }
-                                            variant="text"
-                                            color="primary"
-                                            sx={{
-                                                aspectRatio: "1/1",
-                                                borderRadius: "50%",
-                                            }}
-                                        >
-                                            <AddCircleOutlineIcon />
-                                        </Button>
-                                    }
-                                    lesson={lesson}
-                                    key={lesson.id}
-                                />
-                            );
-                        })}
-                    </div>
+                    <LessonListToExport
+                        lessons={lessons}
+                        setLessonIds={setLessonIds}
+                        lessonIds={lessonIds}
+                    />
 
                     <div className="mt-5 flex items-center justify-end gap-x-3">
                         <Button
-                            onClick={() => setOpen(false)}
+                            onClick={handleClose}
                             sx={{ columnGap: "8px" }}
                             variant="outlined"
                             color="error"
@@ -87,6 +84,7 @@ const LessonExportQuizletButton = ({
                             {t("Common.cancel")}
                         </Button>
                         <Button
+                            onClick={handleExportLessons}
                             type="submit"
                             variant="contained"
                             color="primary"

@@ -45,7 +45,7 @@ public class LessonService {
     }
 
     public PageDetailsResponse<List<LessonResponse>> getAllLessons(Pageable pageable) {
-        Page<LessonEntity> page = lessonRepository.findAllOrderByLastModifiedTimeDesc(pageable);
+        Page<LessonEntity> page = lessonRepository.findAll(pageable);
         List<LessonResponse> lessonResponses = page.getContent()
                 .stream().map(lessonDtoMapper::lessonEntityToLessonResponseSummary)
                 .toList();

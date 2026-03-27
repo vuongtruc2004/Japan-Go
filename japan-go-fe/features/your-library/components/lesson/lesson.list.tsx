@@ -20,6 +20,7 @@ const LessonList = ({ lessons }: { lessons: LessonResponse[] }) => {
             </div>
         );
     }
+
     return (
         <>
             <div className="mb-3 flex items-center justify-between">
@@ -29,7 +30,7 @@ const LessonList = ({ lessons }: { lessons: LessonResponse[] }) => {
                     <LessonDeleteAllButton />
                 </div>
             </div>
-            <div className="flex flex-col gap-y-1">
+            <div className="flex flex-col gap-y-3">
                 {lessons.map((lesson) => {
                     return (
                         <SingleLesson

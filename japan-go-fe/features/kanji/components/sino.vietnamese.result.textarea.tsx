@@ -1,17 +1,14 @@
 import { Box, TextField } from "@mui/material";
 import { useTranslations } from "next-intl";
-import { useState } from "react";
+import { useClipboard } from "@/hooks/use.clipboard";
 
-export default function SinoVietnameseResultTextArea({ sinoVietnamese }: { sinoVietnamese: string }) {
+export default function SinoVietnameseResultTextArea({
+    sinoVietnamese,
+}: Readonly<{
+    sinoVietnamese: string;
+}>) {
     const t = useTranslations("Pages.kanji.sinoVietnameseImport");
-    const [copied, setCopied] = useState(false);
-    const handleCopy = async () => {
-        if (copied || sinoVietnamese === "") return;
-        await navigator.clipboard.writeText(sinoVietnamese ?? "");
-        setCopied(true);
-        setTimeout(() => setCopied(false), 1000);
-    };
-
+    const { isCopied, copy } = useClipboard();
     return (
         <div className="relative">
             <TextField
@@ -19,13 +16,13 @@ export default function SinoVietnameseResultTextArea({ sinoVietnamese }: { sinoV
                 defaultValue={sinoVietnamese}
                 fullWidth
                 multiline
-                rows={20}
+                rows={12}
                 slotProps={{
                     input: {
                         readOnly: true,
                         onMouseDown: (e) => {
                             e.preventDefault();
-                            handleCopy();
+                            copy(sinoVietnamese);
                         },
                     },
                 }}
@@ -44,7 +41,7 @@ export default function SinoVietnameseResultTextArea({ sinoVietnamese }: { sinoV
                     bottom: "40px",
                     right: "20px",
                     fontSize: "14px",
-                    visibility: copied ? "visible" : "hidden",
+                    visibility: isCopied ? "visible" : "hidden",
                     transition: "all .5s",
                     color: "var(--color-tc-highlight)",
                 }}
@@ -54,4 +51,3 @@ export default function SinoVietnameseResultTextArea({ sinoVietnamese }: { sinoV
         </div>
     );
 }
-
