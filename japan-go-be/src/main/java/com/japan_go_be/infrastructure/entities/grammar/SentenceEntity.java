@@ -27,7 +27,7 @@ public class SentenceEntity extends BaseEntity {
     String englishRaw;
 
     @Lob
-    @Column(name = "japaneses_html", columnDefinition = "MEDIUMTEXT")
+    @Column(name = "japanese_html", columnDefinition = "MEDIUMTEXT")
     String japaneseHtml;
 
     @Lob

@@ -6,6 +6,7 @@ import { useTranslations } from "next-intl";
 import SingleLesson from "@/features/your-library/components/lesson/single.lesson";
 import LessonMoreButton from "@/features/your-library/components/lesson/lesson.more.button";
 import LessonDeleteAllButton from "@/features/your-library/components/lesson/lesson.delete.all.button";
+import LessonExportQuizletButton from "@/features/your-library/components/lesson/lesson.export.quizlet.button";
 
 const LessonList = ({ lessons }: { lessons: LessonResponse[] }) => {
     const t = useTranslations("Pages.yourLibrary");
@@ -23,9 +24,12 @@ const LessonList = ({ lessons }: { lessons: LessonResponse[] }) => {
         <>
             <div className="mb-3 flex items-center justify-between">
                 <h1 className="font-semibold">{t("lesson.lessonList")}</h1>
-                <LessonDeleteAllButton />
+                <div className="flex items-center gap-x-3">
+                    <LessonExportQuizletButton lessons={lessons} />
+                    <LessonDeleteAllButton />
+                </div>
             </div>
-            <div className="flex flex-col gap-y-3">
+            <div className="flex flex-col gap-y-1">
                 {lessons.map((lesson) => {
                     return (
                         <SingleLesson

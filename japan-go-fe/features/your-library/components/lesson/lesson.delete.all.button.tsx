@@ -27,7 +27,9 @@ const LessonDeleteAllButton = () => {
             <Button
                 variant="outlined"
                 color="error"
-                sx={{ minWidth: "36px", width: "36px", height: "36px" }}
+                sx={{
+                    aspectRatio: "1/1",
+                }}
                 onClick={(event) => setAnchorEl(event.currentTarget)}
             >
                 <DeleteOutlineOutlinedIcon fontSize="small" />

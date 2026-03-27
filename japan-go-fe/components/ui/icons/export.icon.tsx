@@ -7,6 +7,7 @@ const ExportIcon = ({ size }: { size?: number }) => {
             width={size || 24}
             height={size || 24}
             fill="currentColor"
+            className="shrink-0"
         >
             <path d="M5 12V5h14v7c0 .5.5 1 1 1s1-.5 1-1V5.25A2.25 2.25 0 0 0 18.75 3H5.25A2.25 2.25 0 0 0 3 5.25V12c0 .5.5 1 1 1s1-.5 1-1Z" />
             <path

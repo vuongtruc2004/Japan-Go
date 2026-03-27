@@ -47,7 +47,18 @@ public class ApiResponseAdvice implements ResponseBodyAdvice<Object> {
     }
 
     @Override
-    public Object beforeBodyWrite(Object body, MethodParameter returnType, MediaType selectedContentType, Class<? extends HttpMessageConverter<?>> selectedConverterType, ServerHttpRequest request, ServerHttpResponse response) {
+    public Object beforeBodyWrite(
+            Object body,
+            MethodParameter returnType,
+            MediaType selectedContentType,
+            Class<? extends HttpMessageConverter<?>> selectedConverterType,
+            ServerHttpRequest request,
+            ServerHttpResponse response
+    ) {
+        if (MediaType.TEXT_PLAIN.includes(selectedContentType)) {
+            return body;
+        }
+
         if (body instanceof byte[]
                 || body instanceof Resource
                 || body instanceof ApiResponse<?>) {
@@ -63,6 +74,7 @@ public class ApiResponseAdvice implements ResponseBodyAdvice<Object> {
             response.getHeaders().setContentType(MediaType.APPLICATION_JSON);
             return objectMapper.writeValueAsString(wrapped);
         }
+
         return wrapped;
     }
 }

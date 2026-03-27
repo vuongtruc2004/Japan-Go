@@ -270,7 +270,7 @@ CREATE TABLE sentences
     japanese_raw         MEDIUMTEXT            NULL,
     vietnamese_raw       MEDIUMTEXT            NULL,
     english_raw          MEDIUMTEXT            NULL,
-    japaneses_html       MEDIUMTEXT            NULL,
+    japanese_html        MEDIUMTEXT            NULL,
     vietnamese_html      MEDIUMTEXT            NULL,
     english_html         MEDIUMTEXT            NULL,
     grammar_meaning_id   BIGINT                NULL,

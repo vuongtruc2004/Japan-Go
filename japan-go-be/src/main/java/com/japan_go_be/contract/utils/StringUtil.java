@@ -3,6 +3,7 @@ package com.japan_go_be.contract.utils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 @Component
@@ -20,6 +21,19 @@ public class StringUtil {
             original = original.replaceFirst(regex, closeTag);
         }
         return original;
+    }
+
+    public String replaceAllHtmlTagWithSubstring(String original, String openTag, String closeTag, String prefix, String suffix) {
+        if (original == null || openTag == null || closeTag == null || prefix == null || suffix == null) {
+            return original;
+        }
+
+        if (openTag.isEmpty() || closeTag.isEmpty()) {
+            return original;
+        }
+
+        String regex = Pattern.quote(openTag) + "(.*?)" + Pattern.quote(closeTag);
+        return original.replaceAll(regex, Matcher.quoteReplacement(prefix) + "$1" + Matcher.quoteReplacement(suffix));
     }
 
     public String removeAllSubstring(String original, String substring) {

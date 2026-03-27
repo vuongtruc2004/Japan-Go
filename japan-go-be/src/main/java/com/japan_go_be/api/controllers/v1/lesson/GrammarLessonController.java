@@ -1,5 +1,6 @@
 package com.japan_go_be.api.controllers.v1.lesson;
 
+import com.japan_go_be.business.dto.requests.lesson.ExportGrammarLessonRequest;
 import com.japan_go_be.business.dto.responses.lesson.LessonResponse;
 import com.japan_go_be.business.services.lesson.GrammarLessonService;
 import com.japan_go_be.contract.annotations.ApiResponseFormat;
@@ -26,5 +27,17 @@ public class GrammarLessonController {
             @RequestParam Integer jlptLevel,
             @RequestPart("files") List<MultipartFile> files) {
         return ResponseEntity.status(HttpStatus.CREATED).body(grammarLessonService.createGrammarLessons(folderId, jlptLevel, files));
+    }
+
+    @ApiResponseFormat(
+            devMessage = GrammarLessonMessage.GRAMMAR_LESSON_EXPORT_QUIZLET_SUCCESS,
+            clientMessage = GrammarLessonMessage.GRAMMAR_LESSON_EXPORT_QUIZLET_SUCCESS
+    )
+    @PostMapping(value = "/export-quizlet", produces = MediaType.TEXT_PLAIN_VALUE)
+    public ResponseEntity<String> exportGrammarLessonsToQuizletText(
+            @RequestBody ExportGrammarLessonRequest request
+    ) {
+        String text = grammarLessonService.exportGrammarLessonsToQuizletText(request);
+        return ResponseEntity.ok(text);
     }
 }

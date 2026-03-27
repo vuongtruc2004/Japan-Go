@@ -18,6 +18,42 @@ public class GrammarHelper {
     private final StringUtil stringUtil;
     private final Tokenizer tokenizer = new Tokenizer();
 
+    public String createBackOfFlashcard(GrammarEntity grammarEntity) {
+        StringJoiner stringJoiner = new StringJoiner("\n");
+
+        stringJoiner.add("⇒ " + grammarEntity.getTranslation() + "\n");
+
+        stringJoiner.add("** Cấu trúc:");
+        for (SentenceEntity sentence : grammarEntity.getGrammarStructure().getSentences()) {
+            String content = stringUtil.replaceAllHtmlTagWithSubstring(
+                    sentence.getJapaneseHtml(),
+                    "<del>",
+                    "</del>",
+                    "~",
+                    "~"
+            );
+            content = stringUtil.replaceAllHtmlTagWithSubstring(
+                    content,
+                    "<span class='structure-highlight'>",
+                    "</span>",
+                    "「",
+                    "」"
+            );
+            stringJoiner.add("　・" + content);
+        }
+
+        stringJoiner.add("** Ý nghĩa:");
+        for (SentenceEntity sentence : grammarEntity.getGrammarMeaning().getSentences()) {
+            stringJoiner.add("　・" + sentence.getVietnameseRaw());
+        }
+
+        stringJoiner.add("** Chú ý bổ sung:");
+        for (SentenceEntity sentence : grammarEntity.getGrammarNote().getSentences()) {
+            stringJoiner.add("　・" + sentence.getVietnameseRaw());
+        }
+        return stringJoiner.toString();
+    }
+
     public String createBackOfFlashcard(SentenceEntity sentenceEntity) {
         GrammarEntity grammarEntity = sentenceEntity.getGrammarExample().getGrammar();
         StringJoiner stringJoiner = new StringJoiner("\n");

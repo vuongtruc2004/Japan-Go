@@ -39,7 +39,7 @@ public class KanjiDataInitializer implements CommandLineRunner {
     @Override
     @Transactional
     public void run(String... args) {
-        if (kanjiRepository.existsBy()) {
+        if (!kanjiRepository.existsBy()) {
             log.info("Kanji existed!");
         } else {
             try (InputStream kanjidicInputstream =

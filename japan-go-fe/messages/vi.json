@@ -148,7 +148,8 @@
                 "importGrammarPlaceholder": "課：\nI.\nÝ nghĩa:\n1. \n⇒ \nCấu trúc:\n1. \nVí dụ:\n1. \n⇒ \n2. \n⇒ \nChú ý bổ sung:\n1. \n⇒",
                 "removeFromFolder": "Xóa khỏi thư mục",
                 "lessonList": "Danh sách các học phần",
-                "areYouSureToDeleteAllLessons": "Bạn có chắc chắn muốn xóa toàn bộ học phần?"
+                "areYouSureToDeleteAllLessons": "Bạn có chắc chắn muốn xóa toàn bộ học phần?",
+                "lessonExportQuizletButton": "Xuất file Quizlet"
             }
         },
         "lesson": {
