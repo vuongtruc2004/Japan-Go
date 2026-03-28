@@ -6,13 +6,14 @@ import Empty from "@/components/ui/empty";
 import SingleKanjiDataPreview from "@/features/create-lesson/components/kanji/single.kanji.data.preview";
 import { useTranslations } from "next-intl";
 import WrapBox from "@/components/ui/wrap.box";
+import { BookResponse } from "@/types/api/responses/lesson.response";
 
-const CreateKanjiLesson = () => {
+const CreateKanjiLesson = ({ books }: { books: BookResponse[] }) => {
     const t = useTranslations();
     const { kanjiPages } = useKanjiData();
     return (
         <div className="flex flex-col gap-y-5">
-            <CreateKanjiLessonForm />
+            <CreateKanjiLessonForm books={books} />
 
             <WrapBox>
                 <div className="flex flex-col gap-y-3">

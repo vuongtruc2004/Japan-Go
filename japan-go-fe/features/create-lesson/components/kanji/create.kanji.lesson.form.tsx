@@ -12,12 +12,15 @@ import { useKanjiData } from "@/features/create-lesson/contexts/kanji.data.provi
 import { useSearchParams } from "next/navigation";
 import { useRouter } from "@/i18n/navigation";
 import { parsePositiveInt } from "@/utils/parse.util";
+import { BookResponse } from "@/types/api/responses/lesson.response";
+import BookSelect from "@/features/create-lesson/components/book.select";
 
-const CreateKanjiLessonForm = () => {
+const CreateKanjiLessonForm = ({ books }: { books: BookResponse[] }) => {
     const t = useTranslations();
     const { kanjiPages } = useKanjiData();
     const { replace } = useRouter();
     const searchParams = useSearchParams();
+    const [bookId, setBookId] = useState(books[0].id);
 
     const folder = searchParams.get("folder");
     const folderId = parsePositiveInt(folder?.split("-").pop());
@@ -33,6 +36,7 @@ const CreateKanjiLessonForm = () => {
                 formData,
                 kanjiPages,
                 folderId,
+                bookId,
             );
             startTransition(() => {
                 if (returnedFormState.success) {
@@ -88,6 +92,12 @@ const CreateKanjiLessonForm = () => {
                     minRows={3}
                     maxRows={6}
                     defaultValue={formState ? formState.description.value : ""}
+                />
+
+                <BookSelect
+                    books={books}
+                    bookId={bookId}
+                    setBookId={setBookId}
                 />
 
                 <div className="flex items-center gap-x-3">

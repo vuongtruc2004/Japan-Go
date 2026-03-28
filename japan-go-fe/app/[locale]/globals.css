@@ -56,40 +56,49 @@ html[data-locale="ja"] {
 /* DARK MODE */
 @layer base {
     .dark {
-        /* header and sidebar bg */
-        --color-bgc-app: #000000;
-        /* page body bg color */
-        --color-bgc-page: #090909;
-        --color-bgc-highlight: #016630;
-        --color-bgc-constrast: #d3d3d3;
-        --color-bgc-muted: rgba(255, 252, 235, .304);
-        --color-bgc-error: #e5383b;
+        /* ── Backgrounds ──────────────────────────────────────────────── */
+        /* sidebar / header: one shade above the page — pure neutral */
+        --color-bgc-app: #141414;
+        /* main page body: true near-black, zero colour tint */
+        --color-bgc-page: #0a0a0a;
+        /* filled accent (buttons, badges): rich green */
+        --color-bgc-highlight: #166534;
+        /* inverted surface for contrast text regions */
+        --color-bgc-constrast: #f0fdf4;
+        /* subtle chip / tag bg — green-tinted alpha */
+        --color-bgc-muted: rgba(34, 197, 94, 0.08);
+        --color-bgc-error: #dc2626;
 
-        /* hover bg color of sidebar element */
-        --color-hbgc-app: #161615;
-        /* hover bg color of kanji tabs */
-        --color-hbgc-highlight: #222222;
+        /* ── Hover backgrounds ────────────────────────────────────────── */
+        /* sidebar item hover — pure neutral lift */
+        --color-hbgc-app: #1f1f1f;
+        /* kanji tab / card hover — slight green tint intentional */
+        --color-hbgc-highlight: #182a1a;
 
-        /* sidebar p tag color */
-        --color-tc-pure: #000000;
-        --color-tc-muted: #7c7c7c;
-        /* hover text color of sidebar items */
-        --color-tc-highlight: #00c951;
-        --color-tc-highlight-darker: #10451d;
+        /* ── Text ────────────────────────────────────────────────────── */
+        /* primary text — soft off-white, zero blue tint */
+        --color-tc-pure: #f0f0f0;
+        /* secondary / muted text — warm neutral gray */
+        --color-tc-muted: #898989;
+        /* primary green accent text */
+        --color-tc-highlight: #16a34a;
+        /* lighter green for hover / active */
+        --color-tc-highlight-darker: #22c55e;
 
-        --color-tc-error: #e5383b;
+        --color-tc-error: #f87171;
 
-        /* border color of sidebar, header */
-        --color-bdc-primary: #242322;
-        /* Textfield border color */
-        --color-bdc-muted: #ffffff3b;
-        /* Kanji box border color */
-        --color-bdc-highlight: #016630;
+        /* ── Borders ─────────────────────────────────────────────────── */
+        /* sidebar / header separator — dark neutral */
+        --color-bdc-primary: #242424;
+        /* input / textfield borders — visible but not distracting */
+        --color-bdc-muted: #383838;
+        /* kanji box / accent borders — green */
+        --color-bdc-highlight: #166534;
 
-        /* color for empty icon */
-        --color-empty-icon-ellipse-fill: #272727;
-        --color-empty-icon-g-stroke: #3e3e3e;
-        --color-empty-icon-path-fill: #1d1d1d;
+        /* ── Empty-state icon ─────────────────────────────────────────── */
+        --color-empty-icon-ellipse-fill: #1f1f1f;
+        --color-empty-icon-g-stroke: #383838;
+        --color-empty-icon-path-fill: #141414;
     }
 }
 

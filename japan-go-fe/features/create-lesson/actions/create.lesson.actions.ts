@@ -61,11 +61,13 @@ export async function submitCreateKanjiLesson(
     formData: FormData,
     kanjiPages: KanjiPageRequest[],
     folderId: number | null,
+    bookId: number,
 ): Promise<ICreateKanjiLessonState> {
     const formState = buildCreateLessonState(formData);
 
     const body: KanjiLessonRequest = {
         folderId,
+        bookId,
         lessonName: formState.lessonName.value,
         description: formState.description.value,
         lessonType: LessonType.KANJI,

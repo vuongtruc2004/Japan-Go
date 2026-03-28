@@ -86,36 +86,40 @@ const CreateGrammarLessonForm = ({ books }: { books: BookResponse[] }) => {
             </WrapBox>
 
             <WrapBox>
-                <GrammarJlptLevelSelect />
-                <BookSelect
-                    books={books}
-                    bookId={bookId}
-                    setBookId={setBookId}
-                />
-
-                <div className="flex items-center gap-x-3">
-                    <FilesUploadButton
-                        setFiles={setFiles}
-                        errorMessage={errorMessage}
-                        setErrorMessage={setErrorMessage}
+                <div className="flex flex-col gap-y-3">
+                    <GrammarJlptLevelSelect />
+                    <BookSelect
+                        books={books}
+                        bookId={bookId}
+                        setBookId={setBookId}
                     />
 
-                    <Button
-                        variant="outlined"
-                        color="primary"
-                        sx={{ width: "max-content", columnGap: "8px" }}
-                    >
-                        <PublicOutlinedIcon />
-                        {t("Common.scope.public")}
-                    </Button>
-                </div>
+                    <div className="flex items-center gap-x-3">
+                        <FilesUploadButton
+                            setFiles={setFiles}
+                            errorMessage={errorMessage}
+                            setErrorMessage={setErrorMessage}
+                        />
 
-                {errorMessage !== "" && (
-                    <span className="text-tc-error mt-1 ml-1 flex items-center gap-x-1 text-[12px] font-semibold">
-                        <WarningAmberOutlinedIcon sx={{ fontSize: "14px" }} />
-                        {errorMessage}
-                    </span>
-                )}
+                        <Button
+                            variant="outlined"
+                            color="primary"
+                            sx={{ width: "max-content", columnGap: "8px" }}
+                        >
+                            <PublicOutlinedIcon />
+                            {t("Common.scope.public")}
+                        </Button>
+                    </div>
+
+                    {errorMessage !== "" && (
+                        <span className="text-tc-error mt-1 ml-1 flex items-center gap-x-1 text-[12px] font-semibold">
+                            <WarningAmberOutlinedIcon
+                                sx={{ fontSize: "14px" }}
+                            />
+                            {errorMessage}
+                        </span>
+                    )}
+                </div>
             </WrapBox>
         </div>
     );

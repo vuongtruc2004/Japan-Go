@@ -8,6 +8,7 @@ export interface GrammarResponse extends BaseResponse<number> {
     translation: string;
     jlptLevel: number;
 
+    bookTitle: string;
     lessonName: string;
     lessonId: number;
 

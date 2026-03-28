@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.japan_go_be.infrastructure.mappers.lesson.BookMapper">
+    <resultMap id="BookNameOnlyMap" type="bookEntity">
+        <id column="id" property="id"/>
+        <result column="vietnamese_title" property="vietnameseTitle"/>
+    </resultMap>
+
+    <select id="findBookByGrammarId" resultMap="BookNameOnlyMap">
+        select b.id,
+               b.vietnamese_title
+        from `japan-go`.grammars g
+                 inner join `japan-go`.grammar_lessons gl on g.grammar_lesson_id = gl.id
+                 inner join `japan-go`.lessons l on gl.id = l.grammar_lesson_id
+                 inner join `japan-go`.books b on b.id = l.book_id
+        where g.id = #{grammarId}
+    </select>
+</mapper>

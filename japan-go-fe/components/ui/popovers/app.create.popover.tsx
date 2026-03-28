@@ -86,6 +86,7 @@ const AppCreatePopover = ({
                                 horizontal: "right",
                             }
                         }
+                        onParentClose={handleClose}
                         buttonElement={
                             <button className="hover:bg-hbgc-app flex w-full min-w-62.5 cursor-pointer items-center gap-x-3 px-3.5 py-3 transition-all duration-150">
                                 <StyleOutlinedIcon />

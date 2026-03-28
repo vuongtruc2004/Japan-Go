@@ -13,11 +13,11 @@ const GrammarJlptLevelSelect = () => {
     };
 
     return (
-        <>
-            <h1 className="font-semibold">
+        <div>
+            <h1 className="mb-3 font-semibold">
                 {t("Pages.createLesson.selectJlptLevel")}
             </h1>
-            <div className="my-3 flex items-center gap-x-3">
+            <div className="flex items-center gap-x-3">
                 {GRAMMAR_JLPT_LEVELS.map((level) => {
                     const activeClass = getGrammarJlptLevelClassname(
                         selectedLevel,
@@ -36,7 +36,7 @@ const GrammarJlptLevelSelect = () => {
                     );
                 })}
             </div>
-        </>
+        </div>
     );
 };
 

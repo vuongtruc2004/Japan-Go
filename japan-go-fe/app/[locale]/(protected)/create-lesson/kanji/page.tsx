@@ -2,6 +2,7 @@ import React from "react";
 import { getTranslations } from "next-intl/server";
 import { KanjiDataProvider } from "@/features/create-lesson/contexts/kanji.data.provider";
 import CreateKanjiLesson from "@/features/create-lesson/components/kanji/create.kanji.lesson";
+import { getAllBooks } from "@/services/lesson.service";
 
 export async function generateMetadata({
     params,
@@ -18,10 +19,11 @@ export async function generateMetadata({
     };
 }
 
-const CreateKanjiLessonPage = () => {
+const CreateKanjiLessonPage = async () => {
+    const response = await getAllBooks();
     return (
         <KanjiDataProvider>
-            <CreateKanjiLesson />
+            <CreateKanjiLesson books={response.data} />
         </KanjiDataProvider>
     );
 };

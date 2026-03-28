@@ -25,20 +25,20 @@ public class BookDataInitializer implements CommandLineRunner {
             log.info("Book creating...");
             List<BookEntity> books = List.of(
                     BookEntity.builder()
-                            .vietnameseTitle("「Ngữ pháp」 Shinkanzen Master N2")
-                            .japaneseTitle("「文法」新完全マスターN2")
+                            .vietnameseTitle("Shinkanzen Master N2")
+                            .japaneseTitle("新完全マスターN2")
                             .build(),
                     BookEntity.builder()
-                            .vietnameseTitle("「Ngữ pháp」 Dekiru Nihongo Xanh")
-                            .japaneseTitle("「文法」中級できる日本語")
+                            .vietnameseTitle("Dekiru Nihongo Xanh")
+                            .japaneseTitle("中級できる日本語")
                             .build(),
                     BookEntity.builder()
-                            .vietnameseTitle("「Ngữ pháp」 Pawaa Doriru N2")
-                            .japaneseTitle("「文法」パワードリルN2")
+                            .vietnameseTitle("Pawaa Doriru N2")
+                            .japaneseTitle("パワードリルN2")
                             .build(),
                     BookEntity.builder()
-                            .vietnameseTitle("「Ngữ pháp」 Chokuzen Taisaku N2")
-                            .japaneseTitle("「文法」直前対策N2")
+                            .vietnameseTitle("Chokuzen Taisaku N2")
+                            .japaneseTitle("直前対策N2")
                             .build()
             );
             bookRepository.saveAll(books);

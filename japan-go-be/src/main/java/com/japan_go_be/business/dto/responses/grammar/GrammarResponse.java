@@ -17,6 +17,8 @@ public class GrammarResponse extends BaseResponse {
     String grammarTitleRomaji;
     String translation;
     Integer jlptLevel;
+
+    String bookTitle;
     String lessonName;
     Long lessonId;
 

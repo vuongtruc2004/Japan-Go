@@ -15,13 +15,13 @@ const BookSelect = ({
 }) => {
     const t = useTranslations();
     return (
-        <>
-            <h1 className="font-semibold">
+        <div>
+            <h1 className="mb-3 font-semibold">
                 {t("Pages.createLesson.selectBook")}
             </h1>
+
             <Select
                 size="small"
-                style={{ marginBlock: "12px" }}
                 value={bookId}
                 onChange={(e) => setBookId(e.target.value)}
             >
@@ -33,7 +33,7 @@ const BookSelect = ({
                     );
                 })}
             </Select>
-        </>
+        </div>
     );
 };
 

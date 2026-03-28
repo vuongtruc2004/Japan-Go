@@ -3,7 +3,9 @@ package com.japan_go_be.business.dto.mappers;
 import com.japan_go_be.business.dto.responses.grammar.*;
 import com.japan_go_be.business.dto.responses.sentence.SentenceResponse;
 import com.japan_go_be.infrastructure.entities.grammar.*;
+import com.japan_go_be.infrastructure.entities.lesson.BookEntity;
 import com.japan_go_be.infrastructure.entities.lesson.LessonEntity;
+import com.japan_go_be.infrastructure.mappers.lesson.BookMapper;
 import com.japan_go_be.infrastructure.mappers.lesson.LessonMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -15,9 +17,11 @@ import java.util.List;
 public class GrammarDtoMapper {
     private final SentenceDtoMapper sentenceDtoMapper;
     private final LessonMapper lessonMapper;
+    private final BookMapper bookMapper;
 
     public GrammarResponse grammarEntityToGrammarResponseSummary(GrammarEntity grammarEntity) {
         LessonEntity lesson = lessonMapper.findLessonByGrammarId(grammarEntity.getId());
+        BookEntity book = bookMapper.findBookByGrammarId(grammarEntity.getId());
 
         return GrammarResponse.builder()
                 .id(grammarEntity.getId())
@@ -26,6 +30,7 @@ public class GrammarDtoMapper {
                 .grammarTitleRomaji(grammarEntity.getGrammarTitleRomaji())
                 .translation(grammarEntity.getTranslation())
                 .jlptLevel(grammarEntity.getJlptLevel())
+                .bookTitle(book.getVietnameseTitle())
                 .lessonName(lesson.getLessonName())
                 .lessonId(lesson.getId())
                 .build();

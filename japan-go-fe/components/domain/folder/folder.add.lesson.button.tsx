@@ -59,6 +59,7 @@ const FolderAddLessonButton = ({
                         </p>
                         <LessonCreateButton
                             folder={folder}
+                            onParentClose={handleClose}
                             buttonElement={
                                 <Button variant={"text"} color={"primary"}>
                                     <AddOutlinedIcon fontSize="small" />

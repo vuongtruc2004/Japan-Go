@@ -16,11 +16,13 @@ const LessonCreateButton = ({
     anchorOrigin,
     transformOrigin,
     folder,
+    onParentClose,
 }: {
     buttonElement: ReactElement<ButtonHTMLAttributes<HTMLButtonElement>>;
     anchorOrigin?: PopoverOrigin;
     transformOrigin?: PopoverOrigin;
     folder?: FolderResponse;
+    onParentClose?: () => void;
 }) => {
     const t = useTranslations();
 
@@ -70,6 +72,10 @@ const LessonCreateButton = ({
                                               pathname: item.link,
                                           }
                                 }
+                                onClick={() => {
+                                    setAnchorEl(null);
+                                    onParentClose?.();
+                                }}
                                 className="hover:text-tc-highlight flex items-center gap-x-3 px-4 py-2"
                             >
                                 {item.icon}

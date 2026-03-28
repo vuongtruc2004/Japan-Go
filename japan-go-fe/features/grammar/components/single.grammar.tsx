@@ -27,11 +27,16 @@ const SingleGrammar = ({
                 {index}
             </div>
 
-            <p className="font-semibold text-nowrap">
-                {t("Pages.grammar.grammarJlpt", {
-                    jlptLevel: grammar.jlptLevel,
-                })}
-            </p>
+            <div>
+                <p className="font-semibold text-nowrap">
+                    {t("Pages.grammar.grammarJlpt", {
+                        jlptLevel: grammar.jlptLevel,
+                    })}
+                </p>
+                <p className="text-tc-muted text-sm font-semibold text-nowrap">
+                    {grammar.bookTitle}
+                </p>
+            </div>
 
             <Divider orientation="vertical" variant="middle" flexItem />
 

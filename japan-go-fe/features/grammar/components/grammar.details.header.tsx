@@ -13,35 +13,40 @@ const GrammarDetailsHeader = ({ grammar }: { grammar: GrammarResponse }) => {
     const t = useTranslations();
     return (
         <WrapBox>
-            <div className="flex items-center gap-x-3">
-                <TooltipCustom title={t("Pages.grammar.backToGrammarPage")}>
-                    <Link href={"/grammar"}>
-                        <IconButtonCustom>
-                            <BackIcon />
-                        </IconButtonCustom>
-                    </Link>
-                </TooltipCustom>
+            <div className="flex items-center justify-between">
+                <div className="flex items-center gap-x-3">
+                    <TooltipCustom title={t("Pages.grammar.backToGrammarPage")}>
+                        <Link href={"/grammar"}>
+                            <IconButtonCustom>
+                                <BackIcon />
+                            </IconButtonCustom>
+                        </Link>
+                    </TooltipCustom>
 
-                <Divider orientation="vertical" flexItem />
+                    <Divider orientation="vertical" flexItem />
 
-                <TooltipCustom
-                    title={t("Pages.grammar.goToGrammarLessonPage")}
-                    placement="right"
-                >
-                    <Link
-                        href={{
-                            pathname: "/lesson/grammar/[slug]",
-                            params: {
-                                slug: slugifyText(
-                                    grammar.lessonName + "-" + grammar.lessonId,
-                                ),
-                            },
-                        }}
-                        className="hover:text-tc-highlight text-lg font-semibold hover:underline"
+                    <TooltipCustom
+                        title={t("Pages.grammar.goToGrammarLessonPage")}
+                        placement="right"
                     >
-                        {grammar.lessonName}
-                    </Link>
-                </TooltipCustom>
+                        <Link
+                            href={{
+                                pathname: "/lesson/grammar/[slug]",
+                                params: {
+                                    slug: slugifyText(
+                                        grammar.lessonName +
+                                            "-" +
+                                            grammar.lessonId,
+                                    ),
+                                },
+                            }}
+                            className="hover:text-tc-highlight text-lg font-semibold hover:underline"
+                        >
+                            {grammar.lessonName}
+                        </Link>
+                    </TooltipCustom>
+                </div>
+                <h1 className="text-lg font-semibold">{grammar.bookTitle}</h1>
             </div>
         </WrapBox>
     );
