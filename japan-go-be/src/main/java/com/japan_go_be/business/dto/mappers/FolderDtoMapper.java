@@ -1,5 +1,6 @@
 package com.japan_go_be.business.dto.mappers;
 
+import com.japan_go_be.business.dto.mappers.lesson.LessonDtoMapper;
 import com.japan_go_be.business.dto.responses.common.FolderResponse;
 import com.japan_go_be.infrastructure.entities.common.FolderEntity;
 import lombok.RequiredArgsConstructor;

@@ -5,7 +5,7 @@ import { Badge } from "@mui/material";
 import { useTranslations } from "next-intl";
 import { useSidebarCollapse } from "../../context/sidebar.collapse";
 import { SidebarItem } from "../../types/sidebar.ui.type";
-import { getSidebarItemEffectClassNameByItemPaths } from "@/components/layouts/sidebar/utils/sidebar.utils";
+import { getSidebarItemEffectClassNameByItemPaths } from "@/layouts/sidebar/utils/sidebar.utils";
 
 const SidebarSingleItem = ({ item }: { item: SidebarItem }) => {
     const t = useTranslations("Common.links");

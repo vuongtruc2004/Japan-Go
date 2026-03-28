@@ -8,8 +8,9 @@ import Empty from "@/components/ui/empty";
 import LibraryBooksOutlinedIcon from "@mui/icons-material/LibraryBooksOutlined";
 import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
 import IconButtonCustom from "@/components/ui/mui-custom/icon.button.custom";
+import { BookResponse } from "@/types/api/responses/lesson.response";
 
-const CreateGrammarLesson = () => {
+const CreateGrammarLesson = ({ books }: { books: BookResponse[] }) => {
     const t = useTranslations();
     const { files, setFiles } = useGrammarLessonCreate();
 
@@ -19,7 +20,7 @@ const CreateGrammarLesson = () => {
 
     return (
         <div className="flex flex-col gap-y-5">
-            <CreateGrammarLessonForm />
+            <CreateGrammarLessonForm books={books} />
 
             <WrapBox>
                 {files.length === 0 ? (

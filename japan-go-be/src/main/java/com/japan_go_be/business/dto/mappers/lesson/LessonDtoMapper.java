@@ -1,5 +1,7 @@
-package com.japan_go_be.business.dto.mappers;
+package com.japan_go_be.business.dto.mappers.lesson;
 
+import com.japan_go_be.business.dto.mappers.GrammarDtoMapper;
+import com.japan_go_be.business.dto.mappers.KanjiDtoMapper;
 import com.japan_go_be.business.dto.responses.grammar.GrammarResponse;
 import com.japan_go_be.business.dto.responses.kanji.KanjiPageResponse;
 import com.japan_go_be.business.dto.responses.lesson.GrammarLessonResponse;
@@ -20,6 +22,7 @@ public class LessonDtoMapper {
 
     private final KanjiDtoMapper kanjiDtoMapper;
     private final GrammarDtoMapper grammarDtoMapper;
+    private final BookDtoMapper bookDtoMapper;
 
     public LessonResponse lessonEntityToLessonResponseDetails(LessonEntity lessonEntity) {
         LessonResponse lessonResponse = lessonEntityToLessonResponseSummary(lessonEntity);
@@ -28,10 +31,6 @@ public class LessonDtoMapper {
             lessonResponse.setKanjiLesson(kanjiLessonEntityToKanjiLessonResponseDetails(lessonEntity.getKanjiLesson()));
         } else if (lessonEntity.getLessonType() == LessonTypeEnum.GRAMMAR) {
             lessonResponse.setGrammarLesson(grammarLessonEntityToGrammarLessonResponseDetails(lessonEntity.getGrammarLesson()));
-        }
-
-        if (!lessonEntity.getFolders().isEmpty()) {
-
         }
 
         return lessonResponse;
@@ -43,9 +42,11 @@ public class LessonDtoMapper {
                 .lessonName(lessonEntity.getLessonName())
                 .description(lessonEntity.getDescription())
                 .lessonType(lessonEntity.getLessonType())
+                .book(bookDtoMapper.mapBookEntityToBookResponseSummary(lessonEntity.getBook()))
                 .createdTime(lessonEntity.getCreatedTime())
                 .modifiedTime(lessonEntity.getModifiedTime())
                 .build();
+
         if (lessonEntity.getLessonType() == LessonTypeEnum.KANJI) {
             lessonResponse.setPageCount((long) lessonEntity.getKanjiLesson().getKanjiPages().size());
         } else if (lessonEntity.getLessonType() == LessonTypeEnum.GRAMMAR) {

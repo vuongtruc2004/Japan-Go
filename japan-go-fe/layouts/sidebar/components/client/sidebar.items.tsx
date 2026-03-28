@@ -4,7 +4,7 @@ import { SIDEBAR_ITEMS } from "../../constants/sidebar.constants";
 import { useSidebarCollapse } from "../../context/sidebar.collapse";
 import LogoButton from "./logo.button";
 import SidebarSingleItem from "./sidebar.single.item";
-import PinAppCreateButton from "@/components/layouts/sidebar/components/client/pin.app.create.button";
+import PinAppCreateButton from "@/layouts/sidebar/components/client/pin.app.create.button";
 import PinFolderList from "@/features/pin-folder/components/pin.folder.list";
 import { FolderResponse } from "@/types/api/responses/common.response";
 

@@ -3,8 +3,14 @@ import {
     ApiResponse,
     PageDetailsResponse,
 } from "@/types/api/responses/base.response";
-import { LessonResponse } from "@/types/api/responses/lesson.response";
-import { KanjiLessonRequest } from "@/types/api/requests/lesson.request";
+import {
+    BookResponse,
+    LessonResponse,
+} from "@/types/api/responses/lesson.response";
+import {
+    GrammarLessonRequest,
+    KanjiLessonRequest,
+} from "@/types/api/requests/lesson.request";
 
 export const getAllLessons = async () => {
     const response = await sendRequest<
@@ -71,19 +77,18 @@ export const createKanjiLesson = async (
 };
 
 export const createGrammarLessons = async (
-    folderId: number | null,
-    jlptLevel: number | string,
-    files: File[],
+    request: GrammarLessonRequest,
 ): Promise<ApiResponse<LessonResponse[]>> => {
     const formData = new FormData();
 
-    if (folderId !== null) {
-        formData.append("folderId", String(folderId));
+    if (request.folderId !== null) {
+        formData.append("folderId", String(request.folderId));
     }
 
-    formData.append("jlptLevel", String(jlptLevel));
+    formData.append("bookId", String(request.bookId));
+    formData.append("jlptLevel", String(request.jlptLevel));
 
-    files.forEach((file) => {
+    request.files.forEach((file) => {
         formData.append("files", file);
     });
 
@@ -92,4 +97,14 @@ export const createGrammarLessons = async (
         method: "POST",
         body: formData,
     });
+};
+
+export const getAllBooks = async () => {
+    const response = await sendRequest<ApiResponse<BookResponse[]>>({
+        url: `/books`,
+    });
+    if (response.statusCode !== 200) {
+        throw new Error(response.clientMessage);
+    }
+    return response;
 };

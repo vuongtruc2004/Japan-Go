@@ -1,6 +1,6 @@
 package com.japan_go_be.business.services.lesson;
 
-import com.japan_go_be.business.dto.mappers.LessonDtoMapper;
+import com.japan_go_be.business.dto.mappers.lesson.LessonDtoMapper;
 import com.japan_go_be.business.dto.requests.common.FolderLessonRequest;
 import com.japan_go_be.business.dto.requests.kanji.KanjiPageRequest;
 import com.japan_go_be.business.dto.requests.kanji.VocabularyRequest;
@@ -9,6 +9,7 @@ import com.japan_go_be.business.dto.responses.lesson.LessonResponse;
 import com.japan_go_be.business.exceptions.FileNotValidException;
 import com.japan_go_be.business.exceptions.NotFoundException;
 import com.japan_go_be.business.exceptions.lesson.LessonException;
+import com.japan_go_be.business.helpers.lesson.BookHelper;
 import com.japan_go_be.business.i18n.I18nService;
 import com.japan_go_be.business.importers.kanji.KanjiPageXlsxImporter;
 import com.japan_go_be.business.services.common.FolderService;
@@ -20,6 +21,7 @@ import com.japan_go_be.contract.constants.message.lesson.LessonMessage;
 import com.japan_go_be.infrastructure.entities.kanji.KanjiEntity;
 import com.japan_go_be.infrastructure.entities.kanji.KanjiPageEntity;
 import com.japan_go_be.infrastructure.entities.kanji.VocabularyEntity;
+import com.japan_go_be.infrastructure.entities.lesson.BookEntity;
 import com.japan_go_be.infrastructure.entities.lesson.KanjiLessonEntity;
 import com.japan_go_be.infrastructure.entities.lesson.LessonEntity;
 import com.japan_go_be.infrastructure.repositories.kanji.KanjiRepository;
@@ -43,6 +45,7 @@ public class KanjiLessonService {
     private final KanjiRepository kanjiRepository;
     private final LessonDtoMapper lessonDtoMapper;
     private final FolderService folderService;
+    private final BookHelper bookHelper;
 
     @Transactional
     public LessonResponse createKanjiLesson(KanjiLessonRequest kanjiLessonRequest) {
@@ -52,11 +55,15 @@ public class KanjiLessonService {
                     i18nService.translation(LessonMessage.LESSON_ID_MUST_BE_NULL)
             );
         }
+        BookEntity book = bookHelper.getBookById(kanjiLessonRequest.bookId());
+
         LessonEntity lesson = LessonEntity.builder()
                 .lessonName(kanjiLessonRequest.lessonName())
                 .description(kanjiLessonRequest.description())
                 .lessonType(kanjiLessonRequest.lessonType())
+                .book(book)
                 .build();
+
         if (lesson.getLessonType().equals(LessonTypeEnum.KANJI)) {
             KanjiLessonEntity kanjiLessonEntity = new KanjiLessonEntity();
 

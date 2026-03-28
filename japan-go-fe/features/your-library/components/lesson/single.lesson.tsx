@@ -61,6 +61,10 @@ const SingleLesson = ({
                         <p>
                             {t("Common.author")}: {"Truc"}
                         </p>
+                        ・
+                        <p>
+                            {t("Common.book")}: {lesson.book.vietnameseTitle}
+                        </p>
                     </div>
                 </div>
             </Link>

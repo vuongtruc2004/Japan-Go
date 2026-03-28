@@ -26,7 +26,7 @@ spring:
         format_sql: true
         jdbc:
           batch_size: 1000
-    show-sql: false
+    show-sql: true
 
   profiles:
     active: uat

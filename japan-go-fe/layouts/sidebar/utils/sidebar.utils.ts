@@ -1,4 +1,4 @@
-import { SidebarEffectClassName } from "@/components/layouts/sidebar/types/sidebar.ui.type";
+import { SidebarEffectClassName } from "@/layouts/sidebar/types/sidebar.ui.type";
 
 export const getSidebarItemEffectClassNameByItemPaths = (
     pathname: string,

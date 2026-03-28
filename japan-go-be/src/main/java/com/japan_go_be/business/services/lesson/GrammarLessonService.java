@@ -1,11 +1,13 @@
 package com.japan_go_be.business.services.lesson;
 
-import com.japan_go_be.business.dto.mappers.LessonDtoMapper;
+import com.japan_go_be.business.dto.mappers.lesson.LessonDtoMapper;
 import com.japan_go_be.business.dto.requests.lesson.ExportGrammarLessonRequest;
+import com.japan_go_be.business.dto.requests.lesson.GrammarLessonRequest;
 import com.japan_go_be.business.dto.responses.lesson.LessonResponse;
 import com.japan_go_be.business.exceptions.FileNotValidException;
 import com.japan_go_be.business.helpers.folder.FolderHelper;
 import com.japan_go_be.business.helpers.grammar.GrammarHelper;
+import com.japan_go_be.business.helpers.lesson.BookHelper;
 import com.japan_go_be.business.i18n.I18nService;
 import com.japan_go_be.business.importers.grammar.GrammarLessonMarkdownImporter;
 import com.japan_go_be.business.validators.FileValidator;
@@ -14,6 +16,7 @@ import com.japan_go_be.contract.utils.StringUtil;
 import com.japan_go_be.infrastructure.entities.common.FolderEntity;
 import com.japan_go_be.infrastructure.entities.grammar.GrammarEntity;
 import com.japan_go_be.infrastructure.entities.grammar.SentenceEntity;
+import com.japan_go_be.infrastructure.entities.lesson.BookEntity;
 import com.japan_go_be.infrastructure.entities.lesson.GrammarLessonEntity;
 import com.japan_go_be.infrastructure.entities.lesson.LessonEntity;
 import com.japan_go_be.infrastructure.mappers.grammar.SentenceMapper;
@@ -41,28 +44,25 @@ public class GrammarLessonService {
     private final SentenceMapper sentenceMapper;
     private final StringUtil stringUtil;
     private final GrammarHelper grammarHelper;
+    private final BookHelper bookHelper;
 
     /**
-     * Import grammar lessons from Markdown files to DB.
+     * Create grammar lesson by importing Markdown files from Notion
      *
-     * @param folderId folder id to add these lessons into
-     * @param files    list of Markdown files, each file is a lesson
-     * @return List of lesson response summary
+     * @param request include files, bookId, folderId, jlptLevel
+     * @return return list of lesson response (summary)
      */
     @Transactional
-    public List<LessonResponse> createGrammarLessons(
-            Long folderId,
-            Integer jlptLevel,
-            List<MultipartFile> files
-    ) {
+    public List<LessonResponse> createGrammarLessons(GrammarLessonRequest request) {
         List<LessonEntity> lessons = new ArrayList<>();
 
         FolderEntity folderEntity = null;
-        if (folderId != null) {
-            folderEntity = folderHelper.getFolderById(folderId);
+        if (request.folderId() != null) {
+            folderEntity = folderHelper.getFolderById(request.folderId());
         }
+        BookEntity book = bookHelper.getBookById(request.bookId());
 
-        for (MultipartFile file : files) {
+        for (MultipartFile file : request.files()) {
             if (!fileValidator.isMarkdownFile(file)) {
                 throw new FileNotValidException(
                         i18nService.translation(FileMessage.FILE_NOT_MARKDOWN),
@@ -77,8 +77,11 @@ public class GrammarLessonService {
                             i18nService.translation(FileMessage.FILE_EMPTY)
                     );
                 }
-                LessonEntity lesson = grammarLessonMarkdownImporter.getLessonFromMarkdown(markdown, jlptLevel);
+
+                LessonEntity lesson = grammarLessonMarkdownImporter.getLessonFromMarkdown(markdown, request.jlptLevel());
+                lesson.setBook(book);
                 lessons.add(lesson);
+
                 if (folderEntity != null) {
                     folderEntity.getLessons().add(lesson);
                     lesson.getFolders().add(folderEntity);

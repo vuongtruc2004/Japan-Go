@@ -1,5 +1,5 @@
 "use client";
-import React, { useTransition } from "react";
+import React, { useState, useTransition } from "react";
 import WrapBox from "@/components/ui/wrap.box";
 import { Button } from "@mui/material";
 import PublicOutlinedIcon from "@mui/icons-material/PublicOutlined";
@@ -12,11 +12,15 @@ import { useSearchParams } from "next/navigation";
 import { parsePositiveInt } from "@/utils/parse.util";
 import { createGrammarLessons } from "@/services/lesson.service";
 import GrammarJlptLevelSelect from "@/features/create-lesson/components/grammar/grammar.jlpt.level.select";
+import { GrammarLessonRequest } from "@/types/api/requests/lesson.request";
+import { BookResponse } from "@/types/api/responses/lesson.response";
+import BookSelect from "@/features/create-lesson/components/book.select";
 
-const CreateGrammarLessonForm = () => {
+const CreateGrammarLessonForm = ({ books }: { books: BookResponse[] }) => {
     const t = useTranslations();
     const { setFiles, errorMessage, setErrorMessage, files, selectedLevel } =
         useGrammarLessonCreate();
+    const [bookId, setBookId] = useState(books[0].id);
 
     const { replace } = useRouter();
     const searchParams = useSearchParams();
@@ -35,11 +39,14 @@ const CreateGrammarLessonForm = () => {
                     t("Pages.createLesson.youMustAttachAtLeastOneFile"),
                 );
             } else {
-                const response = await createGrammarLessons(
+                const request: GrammarLessonRequest = {
                     folderId,
-                    selectedLevel.jlptLevel,
+                    bookId,
+                    jlptLevel: selectedLevel.jlptLevel,
                     files,
-                );
+                };
+
+                const response = await createGrammarLessons(request);
                 if (response.statusCode === 201) {
                     if (folder) {
                         replace({
@@ -80,6 +87,11 @@ const CreateGrammarLessonForm = () => {
 
             <WrapBox>
                 <GrammarJlptLevelSelect />
+                <BookSelect
+                    books={books}
+                    bookId={bookId}
+                    setBookId={setBookId}
+                />
 
                 <div className="flex items-center gap-x-3">
                     <FilesUploadButton

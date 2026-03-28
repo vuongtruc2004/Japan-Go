@@ -8,6 +8,7 @@ import java.util.List;
 public record KanjiLessonRequest(
         Long lessonId,
         Long folderId,
+        Long bookId,
         String lessonName,
         String description,
         LessonTypeEnum lessonType,

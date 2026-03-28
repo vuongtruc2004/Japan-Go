@@ -1,7 +1,7 @@
-import AppHeader from "@/components/layouts/header/components/app.header";
-import { SidebarCollapseProvider } from "@/components/layouts/sidebar/context/sidebar.collapse";
+import AppHeader from "@/layouts/header/components/app.header";
+import { SidebarCollapseProvider } from "@/layouts/sidebar/context/sidebar.collapse";
 import { ReactNode } from "react";
-import AppSidebar from "@/components/layouts/sidebar/components/server/app.sidebar";
+import AppSidebar from "@/layouts/sidebar/components/server/app.sidebar";
 
 const SidebarOpenLayout = ({ children }: Readonly<{ children: ReactNode }>) => {
     return (

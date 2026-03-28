@@ -4,5 +4,10 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
-public record GrammarLessonRequest(List<MultipartFile> files, Long folderId) {
+public record GrammarLessonRequest(
+        Long folderId,
+        Integer jlptLevel,
+        Long bookId,
+        List<MultipartFile> files
+) {
 }

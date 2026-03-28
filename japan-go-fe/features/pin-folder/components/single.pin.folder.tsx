@@ -1,11 +1,11 @@
 import React from "react";
 import { TooltipCustom } from "@/components/ui/mui-custom/tooltip.custom";
 import { Link, usePathname } from "@/i18n/navigation";
-import { useSidebarCollapse } from "@/components/layouts/sidebar/context/sidebar.collapse";
+import { useSidebarCollapse } from "@/layouts/sidebar/context/sidebar.collapse";
 import { FolderResponse } from "@/types/api/responses/common.response";
 import { slugifyText } from "@/utils/slugify.text";
 import FolderOutlinedIcon from "@mui/icons-material/FolderOutlined";
-import { getSidebarItemEffectClassNameBySlug } from "@/components/layouts/sidebar/utils/sidebar.utils";
+import { getSidebarItemEffectClassNameBySlug } from "@/layouts/sidebar/utils/sidebar.utils";
 import { useParams } from "next/navigation";
 
 const SinglePinFolder = ({ folder }: { folder: FolderResponse }) => {

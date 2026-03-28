@@ -65,8 +65,10 @@ public class MainSinoVietnameseXlsxImport {
             String kanjiCharacter = kanjiEntity.getKanjiCharacter();
             String readingText = mainSinoVietnameseMap.get(kanjiCharacter);
 
-            SinoVietnameseEntity mainSinoVietnameseEntity = sinoVietnameseRepository
-                    .findByKanji_KanjiCharacterAndReadingText(kanjiCharacter, readingText)
+            SinoVietnameseEntity mainSinoVietnameseEntity = kanjiEntity.getSinoVietnameseList()
+                    .stream()
+                    .filter(sinoVietnameseEntity -> sinoVietnameseEntity.getReadingText().equalsIgnoreCase(readingText))
+                    .findFirst()
                     .orElseThrow(() -> new NotFoundException(
                             i18nService.translation(SinoVietnameseMessage.SINO_VIETNAMESE_IN_KANJI_NOT_FOUND, readingText, kanjiCharacter),
                             i18nService.translation(SinoVietnameseMessage.SINO_VIETNAMESE_IN_KANJI_NOT_FOUND, readingText, kanjiCharacter)

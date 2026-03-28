@@ -1,3 +1,17 @@
+CREATE TABLE books
+(
+    id               BIGINT AUTO_INCREMENT NOT NULL,
+    created_by       VARCHAR(255)          NOT NULL,
+    created_time     datetime              NOT NULL,
+    modified_by      VARCHAR(255)          NULL,
+    modified_time    datetime              NULL,
+    vietnamese_title VARCHAR(255)          NULL,
+    japanese_title   VARCHAR(255)          NULL,
+    `description`    VARCHAR(255)          NULL,
+    thumbnail_url    VARCHAR(255)          NULL,
+    CONSTRAINT pk_books PRIMARY KEY (id)
+);
+
 CREATE TABLE cards
 (
     id            BIGINT AUTO_INCREMENT NOT NULL,
@@ -215,6 +229,7 @@ CREATE TABLE lessons
     lesson_name       VARCHAR(255)          NOT NULL,
     `description`     VARCHAR(255)          NULL,
     lesson_type       VARCHAR(255)          NULL,
+    book_id           BIGINT                NULL,
     grammar_lesson_id BIGINT                NULL,
     kanji_lesson_id   BIGINT                NULL,
     CONSTRAINT pk_lessons PRIMARY KEY (id)
@@ -450,6 +465,9 @@ ALTER TABLE kanji_pages
 
 ALTER TABLE kanji_pages
     ADD CONSTRAINT FK_KANJI_PAGES_ON_MAIN_KANJI FOREIGN KEY (main_kanji_id) REFERENCES kanji (id);
+
+ALTER TABLE lessons
+    ADD CONSTRAINT FK_LESSONS_ON_BOOK FOREIGN KEY (book_id) REFERENCES books (id);
 
 ALTER TABLE lessons
     ADD CONSTRAINT FK_LESSONS_ON_GRAMMAR_LESSON FOREIGN KEY (grammar_lesson_id) REFERENCES grammar_lessons (id);

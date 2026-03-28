@@ -1,6 +1,6 @@
 package com.japan_go_be.business.services.lesson;
 
-import com.japan_go_be.business.dto.mappers.LessonDtoMapper;
+import com.japan_go_be.business.dto.mappers.lesson.LessonDtoMapper;
 import com.japan_go_be.business.dto.responses.base.PageDetailsResponse;
 import com.japan_go_be.business.dto.responses.lesson.LessonResponse;
 import com.japan_go_be.business.helpers.lesson.LessonHelper;

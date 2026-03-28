@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useTranslations } from "next-intl";
 import AddIcon from "@mui/icons-material/Add";
 import { TooltipCustom } from "@/components/ui/mui-custom/tooltip.custom";
-import { useSidebarCollapse } from "@/components/layouts/sidebar/context/sidebar.collapse";
+import { useSidebarCollapse } from "@/layouts/sidebar/context/sidebar.collapse";
 import AppCreatePopover from "@/components/ui/popovers/app.create.popover";
 
 const PinAppCreateButton = () => {

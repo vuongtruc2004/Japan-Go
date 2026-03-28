@@ -1,6 +1,6 @@
 import React from "react";
 import { CircularProgress } from "@mui/material";
-import { useSidebarCollapse } from "@/components/layouts/sidebar/context/sidebar.collapse";
+import { useSidebarCollapse } from "@/layouts/sidebar/context/sidebar.collapse";
 import { useTranslations } from "next-intl";
 
 const PinFoldersLoading = () => {

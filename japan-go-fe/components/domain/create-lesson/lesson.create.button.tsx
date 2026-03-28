@@ -37,20 +37,16 @@ const LessonCreateButton = ({
                 anchorEl={anchorEl}
                 onClose={() => setAnchorEl(null)}
                 anchorOrigin={
-                    anchorOrigin
-                        ? anchorOrigin
-                        : {
-                              vertical: "bottom",
-                              horizontal: "right",
-                          }
+                    anchorOrigin ?? {
+                        vertical: "bottom",
+                        horizontal: "right",
+                    }
                 }
                 transformOrigin={
-                    transformOrigin
-                        ? transformOrigin
-                        : {
-                              vertical: "top",
-                              horizontal: "right",
-                          }
+                    transformOrigin ?? {
+                        vertical: "top",
+                        horizontal: "right",
+                    }
                 }
             >
                 <div>

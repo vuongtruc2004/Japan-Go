@@ -7,6 +7,7 @@ export interface LessonResponse extends BaseResponse<number> {
     lessonName: string;
     lessonType: LessonType;
     pageCount: number;
+    book: BookResponse;
     grammarLesson: GrammarLessonResponse;
     kanjiLesson: KanjiLessonResponse;
 }
@@ -17,4 +18,11 @@ export interface GrammarLessonResponse extends BaseResponse<number> {
 
 export interface KanjiLessonResponse extends BaseResponse<number> {
     kanjiPages: KanjiPageResponse[];
+}
+
+export interface BookResponse extends BaseResponse<number> {
+    vietnameseTitle: string;
+    japaneseTitle: string;
+    description: string;
+    thumbnailUrl: string;
 }

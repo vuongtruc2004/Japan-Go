@@ -9,6 +9,7 @@ export interface FolderLessonRequest {
 export interface KanjiLessonRequest {
     lessonId?: number;
     folderId: number | null;
+    bookId: number;
     lessonType: LessonType;
     lessonName: string;
     description: string;
@@ -16,7 +17,9 @@ export interface KanjiLessonRequest {
 }
 
 export interface GrammarLessonRequest {
-    folderId: number | string | null;
+    folderId: number | null;
+    jlptLevel: number;
+    bookId: number;
     files: File[];
 }
 

@@ -28,6 +28,10 @@ public class LessonEntity extends BaseEntity {
     @Column(name = "lesson_type")
     LessonTypeEnum lessonType;
 
+    @ManyToOne
+    @JoinColumn(name = "book_id")
+    BookEntity book;
+    
     @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "grammar_lesson_id")
     GrammarLessonEntity grammarLesson;

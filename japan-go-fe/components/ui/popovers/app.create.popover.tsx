@@ -1,6 +1,6 @@
 import React from "react";
 import { Divider, Popover, PopoverOrigin } from "@mui/material";
-import ClassCreateButton from "@/components/layouts/header/components/class.create.button";
+import ClassCreateButton from "@/layouts/header/components/class.create.button";
 import FolderCreateButton from "@/components/domain/folder/folder.create.button";
 import FolderOutlinedIcon from "@mui/icons-material/FolderOutlined";
 import LessonCreateButton from "@/components/domain/create-lesson/lesson.create.button";
