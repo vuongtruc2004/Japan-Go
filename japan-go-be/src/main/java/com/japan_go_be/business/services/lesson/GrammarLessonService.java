@@ -47,7 +47,7 @@ public class GrammarLessonService {
     private final BookHelper bookHelper;
 
     /**
-     * Create grammar lesson by importing Markdown files from Notion
+     * Create a grammar lesson by importing Markdown files from Notion
      *
      * @param request include files, bookId, folderId, jlptLevel
      * @return return list of lesson response (summary)

@@ -4,6 +4,7 @@ public enum GrammarComponentEnum {
     MEANING,
     STRUCTURE,
     EXAMPLE,
-    NOTE,
+    ADDITIONAL_NOTE,
+    COMPARE,
     NONE
 }

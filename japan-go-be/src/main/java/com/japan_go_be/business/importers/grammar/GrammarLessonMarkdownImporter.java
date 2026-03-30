@@ -61,7 +61,7 @@ public class GrammarLessonMarkdownImporter {
 
         SentenceEntity sentence = null;
 
-        GrammarComponentEnum currentGrammarComponent = GrammarComponentEnum.NONE;
+        GrammarComponentEnum currentGrammarComponent;
 
         int numOfLines = lines.size();
         int currentLineNum = 1;
@@ -105,7 +105,7 @@ public class GrammarLessonMarkdownImporter {
                 );
             }
 
-            currentGrammarComponent = getCurrentGrammarComponent(currentLine, currentGrammarComponent);
+            currentGrammarComponent = getCurrentGrammarComponent(currentLine);
 
             matcher = GrammarPattern.ORDERED_ITEM.matcher(currentLine);
             if (matcher.matches()) {
@@ -160,13 +160,15 @@ public class GrammarLessonMarkdownImporter {
                                 .build();
                         example.getSentences().add(sentence);
                         break;
-                    case NOTE:
+                    case ADDITIONAL_NOTE:
                         japaneseRaw = stringUtil.removeAllSubstring(orderItem.toString(), "**");
                         sentence = SentenceEntity.builder()
                                 .japaneseRaw(japaneseRaw)
                                 .grammarNote(grammarNote)
                                 .build();
                         grammarNote.getSentences().add(sentence);
+                        break;
+                    case COMPARE:
                         break;
                     default:
                 }
@@ -189,7 +191,7 @@ public class GrammarLessonMarkdownImporter {
                         );
                     }
                     switch (currentGrammarComponent) {
-                        case MEANING, EXAMPLE, NOTE:
+                        case MEANING, EXAMPLE, ADDITIONAL_NOTE:
                             sentence.setVietnameseRaw(orderItem.toString());
                             break;
                         default:
@@ -202,20 +204,23 @@ public class GrammarLessonMarkdownImporter {
         return grammarLesson;
     }
 
-    private GrammarComponentEnum getCurrentGrammarComponent(String currentLine, GrammarComponentEnum currentGrammarComponent) {
+    private GrammarComponentEnum getCurrentGrammarComponent(String currentLine) {
+        GrammarComponentEnum grammarComponentEnum = GrammarComponentEnum.NONE;
         if (currentLine.matches(GrammarPattern.MEANING_HEADER.pattern())) {
-            currentGrammarComponent = GrammarComponentEnum.MEANING;
+            grammarComponentEnum = GrammarComponentEnum.MEANING;
 
         } else if (currentLine.matches(GrammarPattern.STRUCTURE_HEADER.pattern())) {
-            currentGrammarComponent = GrammarComponentEnum.STRUCTURE;
+            grammarComponentEnum = GrammarComponentEnum.STRUCTURE;
 
         } else if (currentLine.matches(GrammarPattern.EXAMPLE_HEADER.pattern())) {
-            currentGrammarComponent = GrammarComponentEnum.EXAMPLE;
+            grammarComponentEnum = GrammarComponentEnum.EXAMPLE;
 
         } else if (currentLine.matches(GrammarPattern.ADDITIONAL_NOTE_HEADER.pattern())) {
-            currentGrammarComponent = GrammarComponentEnum.NOTE;
+            grammarComponentEnum = GrammarComponentEnum.ADDITIONAL_NOTE;
+        } else if (currentLine.matches(GrammarPattern.COMPARE_HEADER.pattern())) {
+            grammarComponentEnum = GrammarComponentEnum.COMPARE;
         }
-        return currentGrammarComponent;
+        return grammarComponentEnum;
     }
 
     private boolean notMatchAnyOf(String line) {
@@ -225,6 +230,7 @@ public class GrammarLessonMarkdownImporter {
                 !line.matches(GrammarPattern.STRUCTURE_HEADER.pattern()) &&
                 !line.matches(GrammarPattern.EXAMPLE_HEADER.pattern()) &&
                 !line.matches(GrammarPattern.ADDITIONAL_NOTE_HEADER.pattern()) &&
+                !line.matches(GrammarPattern.COMPARE_HEADER.pattern()) &&
                 !line.matches(GrammarPattern.ORDERED_ITEM.pattern()) &&
                 !line.matches(GrammarPattern.ARROW_LINE.pattern());
     }

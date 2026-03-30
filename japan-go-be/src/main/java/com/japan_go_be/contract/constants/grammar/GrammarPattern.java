@@ -2,7 +2,7 @@ package com.japan_go_be.contract.constants.grammar;
 
 import java.util.regex.Pattern;
 
-public class GrammarPattern {
+public final class GrammarPattern {
 
     // CHỈ chấp nhận đúng 1 dấu #
     public static final Pattern LESSON_HEADER =
@@ -29,6 +29,10 @@ public class GrammarPattern {
             Pattern.compile("^\\s*###(?!#)\\s*Chú\\s*ý\\s*bổ\\s*sung\\s*:?\\s*$",
                     Pattern.CASE_INSENSITIVE | Pattern.UNICODE_CASE | Pattern.CANON_EQ);
 
+    public static final Pattern COMPARE_HEADER =
+            Pattern.compile("^\\s*###(?!#)\\s*So\\s*Sánh\\s*:?\\s*$",
+                    Pattern.CASE_INSENSITIVE | Pattern.UNICODE_CASE | Pattern.CANON_EQ);
+
     public static final Pattern ORDERED_ITEM =
             Pattern.compile("^\\s*(\\d+)\\.\\s*(.+?)\\s*$");
 
@@ -37,5 +41,8 @@ public class GrammarPattern {
 
     public static final Pattern ROMAN_NUMERAL =
             Pattern.compile("^[IVXLCDM]+\\.\\s*");
+
+    private GrammarPattern() {
+    }
 }
 
