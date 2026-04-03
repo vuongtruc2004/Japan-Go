@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.japan_go_be.infrastructure.mappers.lesson.LessonMapper">
+    <resultMap id="LessonNameOnlyMap" type="lessonEntity">
+        <id column="id" property="id"/>
+        <result column="lesson_name" property="lessonName"/>
+    </resultMap>
+
+    <select id="findLessonByGrammarId" resultMap="LessonNameOnlyMap">
+        select l.id,
+               l.lesson_name
+        from `japan-go`.grammars g
+                 inner join `japan-go`.grammar_lessons gl on g.grammar_lesson_id = gl.id
+                 inner join `japan-go`.lessons l on gl.id = l.grammar_lesson_id
+        where g.id = #{grammarId}
+    </select>
+</mapper>

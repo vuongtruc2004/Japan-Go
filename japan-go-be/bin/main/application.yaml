@@ -1,0 +1,41 @@
+server:
+  port: 2509
+  tomcat:
+    max-part-count: 100
+spring:
+  application:
+    name: japan-go-be
+
+  servlet:
+    multipart:
+      max-file-size: 500MB
+      max-request-size: 500MB
+
+  data:
+    web:
+      pageable:
+        one-indexed-parameters: true
+
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQLDialect
+        enable_lazy_load_no_trans: true
+        format_sql: true
+        jdbc:
+          batch_size: 1000
+    show-sql: false
+
+  profiles:
+    active: uat
+  messages:
+    basename: i18n/messages
+    encoding: UTF-8
+
+mybatis:
+  mapper-locations: classpath*:/mybatis/mappers/**/*.xml
+  type-aliases-package: com.japan_go_be.infrastructure.entities
+#  configuration:
+#    map-underscore-to-camel-case: true

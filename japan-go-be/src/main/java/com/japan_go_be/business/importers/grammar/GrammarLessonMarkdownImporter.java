@@ -38,8 +38,8 @@ public class GrammarLessonMarkdownImporter {
         Matcher matcher = GrammarPattern.LESSON_HEADER.matcher(lines.getFirst());
         if (!matcher.matches()) {
             throw new FileNotValidException(
-                    i18nService.translation(FileMessage.FILE_ERROR_FORMAT),
-                    i18nService.translation(FileMessage.FILE_ERROR_FORMAT)
+                    i18nService.translation(FileMessage.FILE_ERROR_FORMAT, 0),
+                    i18nService.translation(FileMessage.FILE_ERROR_FORMAT, 0)
             );
         }
         LessonEntity lesson = LessonEntity.builder()
@@ -61,7 +61,7 @@ public class GrammarLessonMarkdownImporter {
 
         SentenceEntity sentence = null;
 
-        GrammarComponentEnum currentGrammarComponent;
+        GrammarComponentEnum currentGrammarComponent = GrammarComponentEnum.NONE;
 
         int numOfLines = lines.size();
         int currentLineNum = 1;
@@ -100,12 +100,12 @@ public class GrammarLessonMarkdownImporter {
 
             if (grammar == null) {
                 throw new FileNotValidException(
-                        i18nService.translation(FileMessage.FILE_ERROR_FORMAT),
-                        i18nService.translation(FileMessage.FILE_ERROR_FORMAT)
+                        i18nService.translation(FileMessage.FILE_ERROR_FORMAT, currentLineNum),
+                        i18nService.translation(FileMessage.FILE_ERROR_FORMAT, currentLineNum)
                 );
             }
 
-            currentGrammarComponent = getCurrentGrammarComponent(currentLine);
+            currentGrammarComponent = getCurrentGrammarComponent(currentLine, currentGrammarComponent);
 
             matcher = GrammarPattern.ORDERED_ITEM.matcher(currentLine);
             if (matcher.matches()) {
@@ -186,8 +186,8 @@ public class GrammarLessonMarkdownImporter {
 
                     if (sentence == null) {
                         throw new FileNotValidException(
-                                i18nService.translation(FileMessage.FILE_ERROR_FORMAT),
-                                i18nService.translation(FileMessage.FILE_ERROR_FORMAT)
+                                i18nService.translation(FileMessage.FILE_ERROR_FORMAT, currentLineNum),
+                                i18nService.translation(FileMessage.FILE_ERROR_FORMAT, currentLineNum)
                         );
                     }
                     switch (currentGrammarComponent) {
@@ -204,23 +204,24 @@ public class GrammarLessonMarkdownImporter {
         return grammarLesson;
     }
 
-    private GrammarComponentEnum getCurrentGrammarComponent(String currentLine) {
-        GrammarComponentEnum grammarComponentEnum = GrammarComponentEnum.NONE;
+    private GrammarComponentEnum getCurrentGrammarComponent(String currentLine, GrammarComponentEnum currentGrammarComponent) {
         if (currentLine.matches(GrammarPattern.MEANING_HEADER.pattern())) {
-            grammarComponentEnum = GrammarComponentEnum.MEANING;
+            currentGrammarComponent = GrammarComponentEnum.MEANING;
 
         } else if (currentLine.matches(GrammarPattern.STRUCTURE_HEADER.pattern())) {
-            grammarComponentEnum = GrammarComponentEnum.STRUCTURE;
+            currentGrammarComponent = GrammarComponentEnum.STRUCTURE;
 
         } else if (currentLine.matches(GrammarPattern.EXAMPLE_HEADER.pattern())) {
-            grammarComponentEnum = GrammarComponentEnum.EXAMPLE;
+            currentGrammarComponent = GrammarComponentEnum.EXAMPLE;
 
         } else if (currentLine.matches(GrammarPattern.ADDITIONAL_NOTE_HEADER.pattern())) {
-            grammarComponentEnum = GrammarComponentEnum.ADDITIONAL_NOTE;
+            currentGrammarComponent = GrammarComponentEnum.ADDITIONAL_NOTE;
+
         } else if (currentLine.matches(GrammarPattern.COMPARE_HEADER.pattern())) {
-            grammarComponentEnum = GrammarComponentEnum.COMPARE;
+            currentGrammarComponent = GrammarComponentEnum.COMPARE;
+            
         }
-        return grammarComponentEnum;
+        return currentGrammarComponent;
     }
 
     private boolean notMatchAnyOf(String line) {

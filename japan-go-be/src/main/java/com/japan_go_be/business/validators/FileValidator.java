@@ -69,4 +69,19 @@ public class FileValidator {
                 || ContentType.APPLICATION_OCTET_STREAM.equalsIgnoreCase(contentType);
     }
 
+    public boolean isPowerPointFile(MultipartFile file) {
+        if (isEmptyFile(file)) return false;
+
+        String fileName = file.getOriginalFilename();
+        if (fileName == null ||
+                (!fileName.toLowerCase().endsWith(".ppt") && !fileName.toLowerCase().endsWith(".pptx"))) {
+            return false;
+        }
+
+        String contentType = file.getContentType();
+        return contentType == null
+                || ContentType.APPLICATION_PPTX.equalsIgnoreCase(contentType)
+                || ContentType.APPLICATION_PPT.equalsIgnoreCase(contentType)
+                || ContentType.APPLICATION_OCTET_STREAM.equalsIgnoreCase(contentType);
+    }
 }
