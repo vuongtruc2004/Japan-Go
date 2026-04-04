@@ -4,7 +4,7 @@
 
 ### Ý nghĩa:
 
-![image.png](image.png)
+![image.png](image%20268.png)
 
 1. **「～しなさい・～してはいけない」と指示を出す言い方。**
 
@@ -30,7 +30,7 @@
 
 ### Ý nghĩa:
 
-![image.png](image%201.png)
+![image.png](image%20269.png)
 
 1. **～しないで、あることをする・ある状態だ。**
 
@@ -56,7 +56,7 @@
 
 ### Ý nghĩa:
 
-![image.png](image%202.png)
+![image.png](image%20270.png)
 
 1. **ある出来事に対する話者の感想を言う。**
 
@@ -82,7 +82,7 @@
 
 ### Ý nghĩa:
 
-![image.png](image%203.png)
+![image.png](image%20271.png)
 
 1. **「～は事実だが」と前置きしてから、後のことを強調する。**
 
@@ -108,7 +108,7 @@
 
 ### Ý nghĩa:
 
-![image.png](image%204.png)
+![image.png](image%20272.png)
 
 1. **伝聞の言い方。**
 
