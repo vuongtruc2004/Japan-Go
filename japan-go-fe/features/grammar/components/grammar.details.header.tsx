@@ -1,9 +1,10 @@
+"use client";
 import React from "react";
 import WrapBox from "@/components/ui/wrap.box";
 import IconButtonCustom from "@/components/ui/mui-custom/icon.button.custom";
 import { TooltipCustom } from "@/components/ui/mui-custom/tooltip.custom";
 import { useTranslations } from "next-intl";
-import { Link } from "@/i18n/navigation";
+import { Link, useRouter } from "@/i18n/navigation";
 import { GrammarResponse } from "@/types/api/responses/grammar.response";
 import { slugifyText } from "@/utils/slugify.text";
 import { Divider } from "@mui/material";
@@ -11,16 +12,16 @@ import BackIcon from "@/components/ui/icons/back.icon";
 
 const GrammarDetailsHeader = ({ grammar }: { grammar: GrammarResponse }) => {
     const t = useTranslations();
+    const { back } = useRouter();
+
     return (
         <WrapBox>
             <div className="flex items-center justify-between">
                 <div className="flex items-center gap-x-3">
                     <TooltipCustom title={t("Pages.grammar.backToGrammarPage")}>
-                        <Link href={"/grammar"}>
-                            <IconButtonCustom>
-                                <BackIcon />
-                            </IconButtonCustom>
-                        </Link>
+                        <IconButtonCustom onClick={back}>
+                            <BackIcon />
+                        </IconButtonCustom>
                     </TooltipCustom>
 
                     <Divider orientation="vertical" flexItem />
