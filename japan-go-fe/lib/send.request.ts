@@ -1,4 +1,3 @@
-"use server";
 import queryString from "query-string";
 
 type HttpMethod = "GET" | "POST" | "PUT" | "PATCH" | "DELETE";

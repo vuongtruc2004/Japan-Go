@@ -1,8 +1,7 @@
 "use server";
-import { sendRequest } from "@/lib/send.request";
-import { ApiResponse } from "@/types/api/responses/base.response";
 import { DividerType } from "../types/kanji.enum";
 import { IGetSinoVietnameseState } from "../types/kanji.state.type";
+import { getSinoVietnameseOfKanji } from "@/services/kanji.service";
 
 export async function getSinoVietnamese(
     dividerType: DividerType,
@@ -28,27 +27,18 @@ export async function getSinoVietnamese(
         state.kanji.errorMessage = "Kanji cannot be blank!";
     }
 
-    const result = kanji
-        .split(/\r?\n/)
-        .map((s) => s.trim().toLowerCase())
-        .join("\n");
-    state.sinoVietnamese = result;
-    if (!state.kanji.isError) {
-        const response = await sendRequest<ApiResponse<string>>({
-            url: "/sino-vietnamese",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            method: "POST",
-            body: {
-                kanjiArrayRaw: kanji,
-                divider: dividerType === "custom" ? customValue : dividerType,
-            },
-        });
+    // const result = kanji
+    //     .split(/\r?\n/)
+    //     .map((s) => s.trim().toLowerCase())
+    //     .join("\n");
+    //
+    // state.sinoVietnamese = result;
 
-        if (response.statusCode === 200) {
-            state.sinoVietnamese = response.data;
-        }
+    if (!state.kanji.isError) {
+        state.sinoVietnamese = await getSinoVietnameseOfKanji({
+            kanjiArrayRaw: kanji,
+            divider: dividerType === "custom" ? customValue : dividerType,
+        });
     }
     return state;
 }
