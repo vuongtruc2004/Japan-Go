@@ -46,6 +46,8 @@ dependencies {
     implementation("org.jetbrains.kotlin:kotlin-stdlib")
     // MyBatis
     implementation("org.mybatis:mybatis:3.5.19")
+    // Jackson
+    implementation("com.fasterxml.jackson.core:jackson-core:2.21.2")
 
     // test
     testImplementation("org.mybatis.spring.boot:mybatis-spring-boot-starter-test:4.0.1")

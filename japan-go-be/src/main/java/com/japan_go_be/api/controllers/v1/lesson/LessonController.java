@@ -4,7 +4,7 @@ import com.japan_go_be.business.dto.responses.base.PageDetailsResponse;
 import com.japan_go_be.business.dto.responses.lesson.LessonResponse;
 import com.japan_go_be.business.services.lesson.LessonService;
 import com.japan_go_be.contract.annotations.ApiResponseFormat;
-import com.japan_go_be.contract.constants.message.lesson.LessonMessage;
+import com.japan_go_be.contract.message.lesson.LessonMessage;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;

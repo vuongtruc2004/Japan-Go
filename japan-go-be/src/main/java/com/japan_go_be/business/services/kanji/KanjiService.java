@@ -1,13 +1,18 @@
 package com.japan_go_be.business.services.kanji;
 
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.japan_go_be.business.dto.mappers.KanjiDtoMapper;
+import com.japan_go_be.business.dto.mappers.kanji.KanjiMapper;
 import com.japan_go_be.business.dto.responses.kanji.KanjiResponse;
 import com.japan_go_be.business.exceptions.FileNotValidException;
 import com.japan_go_be.business.i18n.I18nService;
 import com.japan_go_be.business.importers.kanji.KanjiXmlImporter;
+import com.japan_go_be.business.services.redis.RedisService;
 import com.japan_go_be.business.validators.FileValidator;
-import com.japan_go_be.contract.constants.message.FileMessage;
+import com.japan_go_be.contract.constants.RedisKeys;
+import com.japan_go_be.contract.message.FileMessage;
 import com.japan_go_be.infrastructure.entities.kanji.KanjiEntity;
+import com.japan_go_be.infrastructure.repositories.kanji.KanjiRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -23,6 +28,36 @@ public class KanjiService {
     private final KanjiDtoMapper kanjiDTOMapper;
     private final I18nService i18nService;
     private final KanjiXmlImporter kanjiXmlImporter;
+    private final KanjiRepository kanjiRepository;
+    private final KanjiMapper kanjiMapper;
+    private final RedisService redisService;
+
+    /**
+     * Get kanji characters by JLPT level
+     *
+     * @param jlptLevel JLPT level (N1, N2, N3, N4, N5)
+     *                  inputted by integer from 1-5
+     * @return list kanji response
+     * (each kanji response contains only id and kanji character)
+     */
+    public List<KanjiResponse> getKanjiByJlptLevel(Integer jlptLevel) {
+        String redisKey = RedisKeys.getKanjiJlptLevelKey(jlptLevel);
+        if (redisService.hasKey(redisKey)) {
+            return redisService.get(
+                    redisKey,
+                    new TypeReference<List<KanjiResponse>>() {
+                    }
+            );
+        }
+
+        List<KanjiEntity> kanjiEntities = kanjiRepository.findAllByJlptLevel(jlptLevel);
+        List<KanjiResponse> kanjiResponses = kanjiEntities
+                .stream()
+                .map(kanjiMapper::mapKanjiEntityToKanjiResponse)
+                .toList();
+        redisService.save(redisKey, kanjiResponses);
+        return kanjiResponses;
+    }
 
     /**
      * Import all kanji characters (13,100 kanji) from KANJIDIC library

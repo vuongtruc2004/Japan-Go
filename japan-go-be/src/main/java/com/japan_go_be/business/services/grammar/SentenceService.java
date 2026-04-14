@@ -3,7 +3,7 @@ package com.japan_go_be.business.services.grammar;
 import com.japan_go_be.business.exceptions.FileNotValidException;
 import com.japan_go_be.business.helpers.grammar.GrammarHelper;
 import com.japan_go_be.business.i18n.I18nService;
-import com.japan_go_be.contract.constants.message.FileMessage;
+import com.japan_go_be.contract.message.FileMessage;
 import com.japan_go_be.infrastructure.entities.grammar.SentenceEntity;
 import com.japan_go_be.infrastructure.repositories.grammar.SentenceRepository;
 import lombok.RequiredArgsConstructor;

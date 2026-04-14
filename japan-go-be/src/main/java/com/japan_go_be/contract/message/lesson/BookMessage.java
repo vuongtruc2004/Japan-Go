@@ -1,4 +1,4 @@
-package com.japan_go_be.contract.constants.message.lesson;
+package com.japan_go_be.contract.message.lesson;
 
 public final class BookMessage {
     public static final String BOOK_NOT_FOUND = "book.not.found";

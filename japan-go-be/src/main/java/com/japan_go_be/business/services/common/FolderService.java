@@ -8,7 +8,7 @@ import com.japan_go_be.business.exceptions.common.FolderException;
 import com.japan_go_be.business.helpers.folder.FolderHelper;
 import com.japan_go_be.business.helpers.lesson.LessonHelper;
 import com.japan_go_be.business.i18n.I18nService;
-import com.japan_go_be.contract.constants.message.common.FolderMessage;
+import com.japan_go_be.contract.message.common.FolderMessage;
 import com.japan_go_be.infrastructure.entities.common.FolderEntity;
 import com.japan_go_be.infrastructure.entities.lesson.LessonEntity;
 import com.japan_go_be.infrastructure.repositories.common.FolderRepository;

@@ -1,4 +1,4 @@
-package com.japan_go_be.contract.constants.message.common;
+package com.japan_go_be.contract.message.common;
 
 public final class FolderMessage {
 

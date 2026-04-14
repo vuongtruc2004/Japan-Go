@@ -1,7 +1,7 @@
 package com.japan_go_be.infrastructure.repositories.kanji;
 
-import com.japan_go_be.infrastructure.repositories.base.BaseRepository;
 import com.japan_go_be.infrastructure.entities.kanji.KanjiEntity;
+import com.japan_go_be.infrastructure.repositories.base.BaseRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.Collection;
@@ -17,4 +17,6 @@ public interface KanjiRepository extends BaseRepository<KanjiEntity> {
     boolean existsByUnicode(String unicode);
 
     List<KanjiEntity> findAllByKanjiCharacterIn(Collection<String> kanjiCharacters);
+
+    List<KanjiEntity> findAllByJlptLevel(Integer jlptLevel);
 }

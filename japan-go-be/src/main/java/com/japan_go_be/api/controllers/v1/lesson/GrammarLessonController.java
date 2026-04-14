@@ -5,7 +5,7 @@ import com.japan_go_be.business.dto.requests.lesson.GrammarLessonRequest;
 import com.japan_go_be.business.dto.responses.lesson.LessonResponse;
 import com.japan_go_be.business.services.lesson.GrammarLessonService;
 import com.japan_go_be.contract.annotations.ApiResponseFormat;
-import com.japan_go_be.contract.constants.message.lesson.GrammarLessonMessage;
+import com.japan_go_be.contract.message.lesson.GrammarLessonMessage;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;

@@ -10,7 +10,7 @@ import com.japan_go_be.business.i18n.I18nService;
 import com.japan_go_be.business.importers.kanji.MainSinoVietnameseXlsxImport;
 import com.japan_go_be.business.importers.kanji.SinoVietnameseJsonImporter;
 import com.japan_go_be.business.validators.FileValidator;
-import com.japan_go_be.contract.constants.message.FileMessage;
+import com.japan_go_be.contract.message.FileMessage;
 import com.japan_go_be.infrastructure.entities.kanji.KanjiEntity;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

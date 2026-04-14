@@ -1,4 +1,4 @@
-package com.japan_go_be.contract.constants.message.lesson;
+package com.japan_go_be.contract.message.lesson;
 
 public final class KanjiLessonMessage {
     public static final String KANJI_LESSON_IMPORTED = "kanji.lesson.imported";

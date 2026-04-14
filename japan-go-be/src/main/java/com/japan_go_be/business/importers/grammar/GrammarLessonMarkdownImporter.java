@@ -6,7 +6,7 @@ import com.japan_go_be.business.i18n.I18nService;
 import com.japan_go_be.contract.constants.grammar.GrammarPattern;
 import com.japan_go_be.contract.constants.lesson.GrammarComponentEnum;
 import com.japan_go_be.contract.constants.lesson.LessonTypeEnum;
-import com.japan_go_be.contract.constants.message.FileMessage;
+import com.japan_go_be.contract.message.FileMessage;
 import com.japan_go_be.contract.utils.StringUtil;
 import com.japan_go_be.infrastructure.entities.grammar.*;
 import com.japan_go_be.infrastructure.entities.lesson.GrammarLessonEntity;
@@ -219,7 +219,7 @@ public class GrammarLessonMarkdownImporter {
 
         } else if (currentLine.matches(GrammarPattern.COMPARE_HEADER.pattern())) {
             currentGrammarComponent = GrammarComponentEnum.COMPARE;
-            
+
         }
         return currentGrammarComponent;
     }

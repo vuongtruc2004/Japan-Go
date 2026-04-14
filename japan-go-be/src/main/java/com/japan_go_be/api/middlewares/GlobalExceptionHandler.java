@@ -11,7 +11,7 @@ import com.japan_go_be.business.exceptions.lesson.GrammarLessonException;
 import com.japan_go_be.business.exceptions.lesson.KanjiLessonException;
 import com.japan_go_be.business.exceptions.lesson.LessonException;
 import com.japan_go_be.business.i18n.I18nService;
-import com.japan_go_be.contract.constants.message.DefaultMessage;
+import com.japan_go_be.contract.message.DefaultMessage;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

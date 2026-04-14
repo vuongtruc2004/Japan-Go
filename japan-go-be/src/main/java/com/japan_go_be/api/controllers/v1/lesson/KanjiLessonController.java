@@ -4,7 +4,7 @@ import com.japan_go_be.business.dto.requests.lesson.KanjiLessonRequest;
 import com.japan_go_be.business.dto.responses.lesson.LessonResponse;
 import com.japan_go_be.business.services.lesson.KanjiLessonService;
 import com.japan_go_be.contract.annotations.ApiResponseFormat;
-import com.japan_go_be.contract.constants.message.lesson.KanjiLessonMessage;
+import com.japan_go_be.contract.message.lesson.KanjiLessonMessage;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;

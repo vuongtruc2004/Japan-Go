@@ -1,4 +1,4 @@
-package com.japan_go_be.contract.constants.message.lesson;
+package com.japan_go_be.contract.message.lesson;
 
 public final class GrammarLessonMessage {
     public static final String GRAMMAR_LESSON_CREATE_SUCCESS = "grammar.lesson.create.success";

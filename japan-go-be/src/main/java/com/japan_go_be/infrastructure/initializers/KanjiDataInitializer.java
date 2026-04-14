@@ -4,8 +4,8 @@ import com.japan_go_be.business.exceptions.FileNotValidException;
 import com.japan_go_be.business.i18n.I18nService;
 import com.japan_go_be.business.services.kanji.KanjiService;
 import com.japan_go_be.business.services.kanji.SinoVietnameseService;
-import com.japan_go_be.contract.constants.ContentType;
-import com.japan_go_be.contract.constants.message.FileMessage;
+import com.japan_go_be.contract.constants.ContentTypes;
+import com.japan_go_be.contract.message.FileMessage;
 import com.japan_go_be.infrastructure.repositories.kanji.KanjiRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -56,35 +56,35 @@ public class KanjiDataInitializer implements CommandLineRunner {
                 MultipartFile kanjidicFile = new MockMultipartFile(
                         "kanjidicFile",
                         "kanjidic2.xml",
-                        ContentType.APPLICATION_XML,
+                        ContentTypes.APPLICATION_XML,
                         kanjidicInputstream
                 );
 
                 MultipartFile kanjiJlptFile = new MockMultipartFile(
                         "kanjiJlptFile",
                         "kanji_jlpt.json",
-                        ContentType.APPLICATION_JSON,
+                        ContentTypes.APPLICATION_JSON,
                         kanjiJlptInputstream
                 );
 
                 MultipartFile sinoVietnamese1File = new MockMultipartFile(
                         "sinoVietnamese1File",
                         "sino_vietnamese_1.json",
-                        ContentType.APPLICATION_JSON,
+                        ContentTypes.APPLICATION_JSON,
                         sinoVietnamese1Inputstream
                 );
 
                 MultipartFile sinoVietnamese2File = new MockMultipartFile(
                         "sinoVietnamese2File",
                         "sino_vietnamese_2.json",
-                        ContentType.APPLICATION_JSON,
+                        ContentTypes.APPLICATION_JSON,
                         sinoVietnamese2Inputstream
                 );
 
                 MultipartFile mainSinoVietnameseFile = new MockMultipartFile(
                         "mainSinoVietnameseFile",
                         "main_sino_vietnamese.xlsx",
-                        ContentType.APPLICATION_XLSX,
+                        ContentTypes.APPLICATION_XLSX,
                         mainSinoVietnameseInputstream
                 );
 

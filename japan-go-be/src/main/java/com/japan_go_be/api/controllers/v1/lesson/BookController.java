@@ -3,7 +3,7 @@ package com.japan_go_be.api.controllers.v1.lesson;
 import com.japan_go_be.business.dto.responses.lesson.BookResponse;
 import com.japan_go_be.business.services.lesson.BookService;
 import com.japan_go_be.contract.annotations.ApiResponseFormat;
-import com.japan_go_be.contract.constants.message.lesson.BookMessage;
+import com.japan_go_be.contract.message.lesson.BookMessage;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;

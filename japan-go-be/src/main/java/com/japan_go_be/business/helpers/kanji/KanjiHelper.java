@@ -2,7 +2,7 @@ package com.japan_go_be.business.helpers.kanji;
 
 import com.japan_go_be.business.exceptions.FileNotValidException;
 import com.japan_go_be.business.i18n.I18nService;
-import com.japan_go_be.contract.constants.message.FileMessage;
+import com.japan_go_be.contract.message.FileMessage;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;

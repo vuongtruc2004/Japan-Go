@@ -1,7 +1,7 @@
 package com.japan_go_be.api.configs;
 
 import com.japan_go_be.business.i18n.I18nService;
-import com.japan_go_be.contract.constants.message.DefaultMessage;
+import com.japan_go_be.contract.message.DefaultMessage;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.domain.AuditorAware;

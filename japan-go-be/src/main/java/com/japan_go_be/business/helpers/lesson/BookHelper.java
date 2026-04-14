@@ -2,7 +2,7 @@ package com.japan_go_be.business.helpers.lesson;
 
 import com.japan_go_be.business.exceptions.NotFoundException;
 import com.japan_go_be.business.i18n.I18nService;
-import com.japan_go_be.contract.constants.message.lesson.BookMessage;
+import com.japan_go_be.contract.message.lesson.BookMessage;
 import com.japan_go_be.infrastructure.entities.lesson.BookEntity;
 import com.japan_go_be.infrastructure.repositories.lesson.BookRepository;
 import lombok.RequiredArgsConstructor;

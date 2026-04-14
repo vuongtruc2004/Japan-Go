@@ -2,7 +2,7 @@ package com.japan_go_be.business.helpers.folder;
 
 import com.japan_go_be.business.exceptions.NotFoundException;
 import com.japan_go_be.business.i18n.I18nService;
-import com.japan_go_be.contract.constants.message.common.FolderMessage;
+import com.japan_go_be.contract.message.common.FolderMessage;
 import com.japan_go_be.infrastructure.entities.common.FolderEntity;
 import com.japan_go_be.infrastructure.repositories.common.FolderRepository;
 import lombok.RequiredArgsConstructor;

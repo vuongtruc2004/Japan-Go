@@ -2,8 +2,8 @@ package com.japan_go_be.api.controllers.v1.common;
 
 import com.japan_go_be.business.services.common.PowerPointService;
 import com.japan_go_be.contract.annotations.ApiResponseFormat;
-import com.japan_go_be.contract.constants.ContentType;
-import com.japan_go_be.contract.constants.message.FileMessage;
+import com.japan_go_be.contract.constants.ContentTypes;
+import com.japan_go_be.contract.message.FileMessage;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.http.HttpHeaders;
@@ -33,7 +33,7 @@ public class PowerPointController {
 
         return ResponseEntity.ok()
                 .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=merged.pptx")
-                .contentType(MediaType.parseMediaType(ContentType.APPLICATION_PPTX))
+                .contentType(MediaType.parseMediaType(ContentTypes.APPLICATION_PPTX))
                 .contentLength(merge.length)
                 .body(resource);
     }

@@ -1,4 +1,4 @@
-package com.japan_go_be.contract.constants.message.grammar;
+package com.japan_go_be.contract.message.grammar;
 
 public final class GrammarMessage {
     public static final String GRAMMAR_EXPORTED = "grammar.exported";

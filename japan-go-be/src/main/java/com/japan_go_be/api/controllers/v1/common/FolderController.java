@@ -8,7 +8,7 @@ import com.japan_go_be.business.i18n.I18nService;
 import com.japan_go_be.business.services.common.FolderService;
 import com.japan_go_be.business.services.common.FolderTest;
 import com.japan_go_be.contract.annotations.ApiResponseFormat;
-import com.japan_go_be.contract.constants.message.common.FolderMessage;
+import com.japan_go_be.contract.message.common.FolderMessage;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

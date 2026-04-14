@@ -3,7 +3,7 @@ package com.japan_go_be.business.services.common;
 import com.japan_go_be.business.exceptions.FileNotValidException;
 import com.japan_go_be.business.i18n.I18nService;
 import com.japan_go_be.business.validators.FileValidator;
-import com.japan_go_be.contract.constants.message.FileMessage;
+import com.japan_go_be.contract.message.FileMessage;
 import lombok.RequiredArgsConstructor;
 import org.apache.poi.xslf.usermodel.XMLSlideShow;
 import org.apache.poi.xslf.usermodel.XSLFSlide;

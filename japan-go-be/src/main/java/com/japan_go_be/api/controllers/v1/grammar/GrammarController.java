@@ -5,7 +5,7 @@ import com.japan_go_be.business.dto.responses.base.PageDetailsResponse;
 import com.japan_go_be.business.dto.responses.grammar.GrammarResponse;
 import com.japan_go_be.business.services.grammar.GrammarService;
 import com.japan_go_be.contract.annotations.ApiResponseFormat;
-import com.japan_go_be.contract.constants.message.grammar.GrammarMessage;
+import com.japan_go_be.contract.message.grammar.GrammarMessage;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;

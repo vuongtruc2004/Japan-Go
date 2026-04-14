@@ -1,4 +1,4 @@
-package com.japan_go_be.contract.constants.message;
+package com.japan_go_be.contract.message;
 
 public final class FileMessage {
     public static final String FILE_NOT_FOUND = "file.not.found";

@@ -1,6 +1,6 @@
 package com.japan_go_be.business.validators;
 
-import com.japan_go_be.contract.constants.ContentType;
+import com.japan_go_be.contract.constants.ContentTypes;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -19,9 +19,9 @@ public class FileValidator {
 
         String contentType = file.getContentType();
         return contentType == null
-                || ContentType.APPLICATION_XLSX.equalsIgnoreCase(contentType)
-                || ContentType.APPLICATION_XLS.equalsIgnoreCase(contentType)
-                || ContentType.APPLICATION_OCTET_STREAM.equalsIgnoreCase(contentType);
+                || ContentTypes.APPLICATION_XLSX.equalsIgnoreCase(contentType)
+                || ContentTypes.APPLICATION_XLS.equalsIgnoreCase(contentType)
+                || ContentTypes.APPLICATION_OCTET_STREAM.equalsIgnoreCase(contentType);
     }
 
     public boolean isXMLFile(MultipartFile file) {
@@ -32,9 +32,9 @@ public class FileValidator {
 
         String contentType = file.getContentType();
         return contentType == null
-                || ContentType.APPLICATION_XML.equalsIgnoreCase(contentType)
-                || ContentType.TEXT_XML.equalsIgnoreCase(contentType)
-                || ContentType.APPLICATION_OCTET_STREAM.equalsIgnoreCase(contentType);
+                || ContentTypes.APPLICATION_XML.equalsIgnoreCase(contentType)
+                || ContentTypes.TEXT_XML.equalsIgnoreCase(contentType)
+                || ContentTypes.APPLICATION_OCTET_STREAM.equalsIgnoreCase(contentType);
     }
 
     public boolean isJSONFile(MultipartFile file) {
@@ -45,9 +45,9 @@ public class FileValidator {
 
         String contentType = file.getContentType();
         return contentType == null
-                || ContentType.APPLICATION_JSON.equalsIgnoreCase(contentType)
-                || ContentType.TEXT_JSON.equalsIgnoreCase(contentType)
-                || ContentType.APPLICATION_OCTET_STREAM.equalsIgnoreCase(contentType);
+                || ContentTypes.APPLICATION_JSON.equalsIgnoreCase(contentType)
+                || ContentTypes.TEXT_JSON.equalsIgnoreCase(contentType)
+                || ContentTypes.APPLICATION_OCTET_STREAM.equalsIgnoreCase(contentType);
     }
 
     public boolean isMarkdownFile(MultipartFile file) {
@@ -64,9 +64,9 @@ public class FileValidator {
         String contentType = file.getContentType();
 
         return contentType == null
-                || ContentType.TEXT_MARKDOWN.equalsIgnoreCase(contentType)
-                || ContentType.TEXT_PLAIN.equalsIgnoreCase(contentType)
-                || ContentType.APPLICATION_OCTET_STREAM.equalsIgnoreCase(contentType);
+                || ContentTypes.TEXT_MARKDOWN.equalsIgnoreCase(contentType)
+                || ContentTypes.TEXT_PLAIN.equalsIgnoreCase(contentType)
+                || ContentTypes.APPLICATION_OCTET_STREAM.equalsIgnoreCase(contentType);
     }
 
     public boolean isPowerPointFile(MultipartFile file) {
@@ -80,8 +80,8 @@ public class FileValidator {
 
         String contentType = file.getContentType();
         return contentType == null
-                || ContentType.APPLICATION_PPTX.equalsIgnoreCase(contentType)
-                || ContentType.APPLICATION_PPT.equalsIgnoreCase(contentType)
-                || ContentType.APPLICATION_OCTET_STREAM.equalsIgnoreCase(contentType);
+                || ContentTypes.APPLICATION_PPTX.equalsIgnoreCase(contentType)
+                || ContentTypes.APPLICATION_PPT.equalsIgnoreCase(contentType)
+                || ContentTypes.APPLICATION_OCTET_STREAM.equalsIgnoreCase(contentType);
     }
 }

@@ -2,8 +2,8 @@ package com.japan_go_be.api.controllers.v1.grammar;
 
 import com.japan_go_be.business.services.grammar.SentenceService;
 import com.japan_go_be.contract.annotations.ApiResponseFormat;
-import com.japan_go_be.contract.constants.ContentType;
-import com.japan_go_be.contract.constants.message.sentence.SentenceMessage;
+import com.japan_go_be.contract.constants.ContentTypes;
+import com.japan_go_be.contract.message.sentence.SentenceMessage;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -25,7 +25,7 @@ public class SentenceController {
         byte[] data = sentenceService.exportAllGrammarExampleSentencesInFolder(folderId);
         return ResponseEntity.ok()
                 .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=grammars.xlsx")
-                .contentType(MediaType.parseMediaType(ContentType.APPLICATION_XLSX))
+                .contentType(MediaType.parseMediaType(ContentTypes.APPLICATION_XLSX))
                 .body(data);
     }
 }

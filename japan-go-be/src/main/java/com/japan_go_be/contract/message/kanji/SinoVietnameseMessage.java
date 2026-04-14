@@ -1,4 +1,4 @@
-package com.japan_go_be.contract.constants.message.kanji;
+package com.japan_go_be.contract.message.kanji;
 
 public final class SinoVietnameseMessage {
 
