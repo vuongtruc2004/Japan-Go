@@ -17,4 +17,4 @@ spring:
       database: 0
 
 sources:
-  uri: file:///D:/Ki_8/JPD326/Japan-Go/sources
+  uri: file:///D:/Ki_8/JPD326/Code/Japan-Go/sources

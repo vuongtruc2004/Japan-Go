@@ -27,13 +27,6 @@ export async function getSinoVietnamese(
         state.kanji.errorMessage = "Kanji cannot be blank!";
     }
 
-    // const result = kanji
-    //     .split(/\r?\n/)
-    //     .map((s) => s.trim().toLowerCase())
-    //     .join("\n");
-    //
-    // state.sinoVietnamese = result;
-
     if (!state.kanji.isError) {
         state.sinoVietnamese = await getSinoVietnameseOfKanji({
             kanjiArrayRaw: kanji,

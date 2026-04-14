@@ -23,7 +23,7 @@ const SingleGrammar = ({
             }}
             className="group hover:bg-hbgc-highlight bg-bgc-page border-bdc-primary flex items-center gap-x-3 rounded-md border p-2 transition-all duration-150"
         >
-            <div className="bg-bgc-highlight text-tc-pure flex h-10 w-10 items-center justify-center rounded-md">
+            <div className="bg-bgc-highlight text-tc-pure flex h-10 w-10 shrink-0 items-center justify-center rounded-md">
                 {index}
             </div>
 

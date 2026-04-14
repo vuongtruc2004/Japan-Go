@@ -17,4 +17,4 @@ spring:
       database: ${SPRING_DATA_REDIS_DATABASE:0}
 
 sources:
-  uri: ${SOURCES_URI:file:///D:/Ki_8/JPD326/Japan-Go/sources}
+  uri: ${SOURCES_URI:file:///D:/Ki_8/JPD326/Code/Japan-Go/sources}
