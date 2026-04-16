@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.japan_go_be.infrastructure.mappers.kanji.KanjiMapper">
+    <resultMap id="KanjiWithSinoVietnameseMap" type="kanjiEntity">
+        <id column="kanji_id" property="id"/>
+        <result column="kanji_character" property="kanjiCharacter"/>
+
+        <collection property="sinoVietnameseList" ofType="sinoVietnameseEntity">
+            <id column="sino_vietnamese_id" property="id"/>
+            <result column="reading_text" property="readingText"/>
+        </collection>
+    </resultMap>
+
+    <select id="findAllKanjiWithSinoVietnameseByKanjiCharacterIn" resultMap="KanjiWithSinoVietnameseMap">
+        select
+        k.id as kanji_id,
+        k.kanji_character,
+        sv.id as sino_vietnamese_id,
+        sv.reading_text
+        from kanji k
+        inner join sino_vietnamese sv on k.id = sv.kanji_id
+        where k.kanji_character in
+        <foreach collection="kanjiCharacters" item="kanjiCharacter" open="(" separator="," close=")">
+            #{kanjiCharacter}
+        </foreach>
+    </select>
+</mapper>

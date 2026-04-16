@@ -50,7 +50,7 @@ public class KanjiEntity extends BaseEntity {
     SinoVietnameseEntity mainSinoVietnamese;
 
     @Builder.Default
-    @OneToMany(mappedBy = "kanji", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "kanji", cascade = CascadeType.ALL, orphanRemoval = true)
     List<SinoVietnameseEntity> sinoVietnameseList = new ArrayList<>();
 
     @Builder.Default

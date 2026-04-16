@@ -64,8 +64,10 @@ public class SinoVietnameseService {
             );
         }
         try (InputStream mainSinoVietnameseInputstream = mainSinoVietnameseFile.getInputStream()) {
-            Map<String, String> mainSinoVietnameseMap = mainSinoVietnameseXlsxImport.importMainSinoVietnamese(mainSinoVietnameseInputstream);
-            List<KanjiEntity> kanjiEntities = mainSinoVietnameseXlsxImport.updateKanjiWithMainSinoVietnamese(mainSinoVietnameseMap);
+            Map<String, String> mainSinoVietnameseMap =
+                    mainSinoVietnameseXlsxImport.importMainSinoVietnamese(mainSinoVietnameseInputstream);
+            List<KanjiEntity> kanjiEntities =
+                    mainSinoVietnameseXlsxImport.updateKanjiWithMainSinoVietnamese(mainSinoVietnameseMap);
             return kanjiEntities.stream().map(kanjiDTOMapper::kanjiEntityToKanjiResponse).toList();
 
         } catch (Exception e) {

@@ -7,8 +7,7 @@ import com.japan_go_be.contract.message.FileMessage;
 import com.japan_go_be.contract.message.kanji.SinoVietnameseMessage;
 import com.japan_go_be.infrastructure.entities.kanji.KanjiEntity;
 import com.japan_go_be.infrastructure.entities.kanji.SinoVietnameseEntity;
-import com.japan_go_be.infrastructure.repositories.kanji.KanjiRepository;
-import com.japan_go_be.infrastructure.repositories.kanji.SinoVietnameseRepository;
+import com.japan_go_be.infrastructure.mappers.kanji.KanjiMapper;
 import lombok.RequiredArgsConstructor;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
@@ -24,9 +23,8 @@ import java.util.Map;
 @Component
 @RequiredArgsConstructor
 public class MainSinoVietnameseXlsxImport {
-    private final KanjiRepository kanjiRepository;
-    private final SinoVietnameseRepository sinoVietnameseRepository;
     private final I18nService i18nService;
+    private final KanjiMapper kanjiMapper;
 
     public Map<String, String> importMainSinoVietnamese(InputStream mainSinoVietnameseInputstream) {
         try (Workbook workbook = WorkbookFactory.create(mainSinoVietnameseInputstream)) {
@@ -59,7 +57,7 @@ public class MainSinoVietnameseXlsxImport {
     }
 
     public List<KanjiEntity> updateKanjiWithMainSinoVietnamese(Map<String, String> mainSinoVietnameseMap) {
-        List<KanjiEntity> kanjiEntities = kanjiRepository.findAllByKanjiCharacterIn(mainSinoVietnameseMap.keySet());
+        List<KanjiEntity> kanjiEntities = kanjiMapper.findAllKanjiWithSinoVietnameseByKanjiCharacterIn(mainSinoVietnameseMap.keySet());
 
         for (KanjiEntity kanjiEntity : kanjiEntities) {
             String kanjiCharacter = kanjiEntity.getKanjiCharacter();
