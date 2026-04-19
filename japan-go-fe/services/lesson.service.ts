@@ -1,16 +1,8 @@
 import { sendRequest } from "@/lib/send.request";
-import {
-    ApiResponse,
-    PageDetailsResponse,
-} from "@/types/api/responses/base.response";
-import {
-    BookResponse,
-    LessonResponse,
-} from "@/types/api/responses/lesson.response";
-import {
-    GrammarLessonRequest,
-    KanjiLessonRequest,
-} from "@/types/api/requests/lesson.request";
+import { ApiResponse, PageDetailsResponse } from "@/types/api/responses/base.response";
+import { BookResponse, LessonResponse } from "@/types/api/responses/lesson.response";
+import { GrammarLessonRequest, KanjiLessonRequest } from "@/types/api/requests/lesson.request";
+import { API_URL } from "@/utils/url";
 
 export const getAllLessons = async () => {
     const response = await sendRequest<
@@ -42,14 +34,14 @@ export const getLessonById = async (id: string): Promise<LessonResponse> => {
 };
 
 export const deleteLesson = async (id: string | number): Promise<number> => {
-    const response = await sendRequest<ApiResponse<number>>({
-        url: `/lessons/${id}`,
+    const response = await fetch(`${API_URL}/lessons/${id}`, {
         method: "DELETE",
     });
-    if (response.statusCode !== 200) {
-        throw new Error(response.clientMessage);
+    const result: ApiResponse<number> = await response.json();
+    if (result.statusCode !== 200) {
+        throw new Error(result.clientMessage);
     }
-    return response.data;
+    return result.data;
 };
 
 export const deleteAllLessons = async () => {
