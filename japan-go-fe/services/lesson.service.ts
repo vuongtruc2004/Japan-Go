@@ -1,7 +1,16 @@
 import { sendRequest } from "@/lib/send.request";
-import { ApiResponse, PageDetailsResponse } from "@/types/api/responses/base.response";
-import { BookResponse, LessonResponse } from "@/types/api/responses/lesson.response";
-import { GrammarLessonRequest, KanjiLessonRequest } from "@/types/api/requests/lesson.request";
+import {
+    ApiResponse,
+    PageDetailsResponse,
+} from "@/types/api/responses/base.response";
+import {
+    BookResponse,
+    LessonResponse,
+} from "@/types/api/responses/lesson.response";
+import {
+    GrammarLessonRequest,
+    KanjiLessonRequest,
+} from "@/types/api/requests/lesson.request";
 import { API_URL } from "@/utils/url";
 
 export const getAllLessons = async () => {
