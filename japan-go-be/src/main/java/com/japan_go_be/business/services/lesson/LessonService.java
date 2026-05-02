@@ -10,6 +10,7 @@ import com.japan_go_be.infrastructure.repositories.lesson.LessonRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -45,7 +46,12 @@ public class LessonService {
     }
 
     public PageDetailsResponse<List<LessonResponse>> getAllLessons(Pageable pageable) {
-        Page<LessonEntity> page = lessonRepository.findAll(pageable);
+        Specification<LessonEntity> specification = (root, query, cb) -> {
+            query.orderBy(cb.desc(root.get("createdTime")));
+            return cb.conjunction();
+        };
+
+        Page<LessonEntity> page = lessonRepository.findAll(specification, pageable);
         List<LessonResponse> lessonResponses = page.getContent()
                 .stream().map(lessonDtoMapper::lessonEntityToLessonResponseSummary)
                 .toList();

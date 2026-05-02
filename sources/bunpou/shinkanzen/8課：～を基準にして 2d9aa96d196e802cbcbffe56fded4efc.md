@@ -4,7 +4,7 @@
 
 ### Ý nghĩa:
 
-![image.png](image%2082.png)
+![image.png](image.png)
 
 1. **～という素材・基礎・土台などからあるものを作り出す。**
 
@@ -31,7 +31,7 @@
 
 ### Chú ý bổ sung:
 
-![image.png](image%2083.png)
+![image.png](image%201.png)
 
 1. **実際の材料などには使わない。**
 
@@ -47,7 +47,7 @@
 
 ### Ý nghĩa:
 
-![image.png](image%2084.png)
+![image.png](image%202.png)
 
 1. **～を基準と考えてあることをする。**
 
@@ -78,7 +78,7 @@
 
 ### Chú ý bổ sung:
 
-![image.png](image%2085.png)
+![image.png](image%203.png)
 
 1. **基準になる意味の言葉（法・データ・計画・方針・調査結果など）につく。**
 
@@ -94,7 +94,7 @@
 
 ### Ý nghĩa:
 
-![image.png](image%2086.png)
+![image.png](image%204.png)
 
 1. **～に合うように・～からはずれないようにあることをする。**
 
@@ -125,7 +125,7 @@
 
 ### Chú ý bổ sung:
 
-![image.png](image%2087.png)
+![image.png](image%205.png)
 
 1. **基準の意味を持つ言葉（ルール・方針・マニュアル・考えなど）につく。**
 
@@ -141,7 +141,7 @@
 
 ### Ý nghĩa:
 
-![image.png](image%2088.png)
+![image.png](image%206.png)
 
 1. **～の影響を受けてあることをする。**
 
@@ -177,9 +177,13 @@
 
 ⇒ Việc thiên nhiên mất dần đi dưới nhân danh cái gọi là “phát triển” thì thật đáng tiếc.
 
+1. 伊藤コーチの指導**のもと**、私たちは毎日練習に励んだ。
+
+⇒ Dưới sự lãnh đạo của huấn luyện viên Ito, chúng tôi đã chăm chỉ luyện tập mỗi ngày.
+
 ### Chú ý bổ sung:
 
-![image.png](image%2089.png)
+![image.png](image%207.png)
 
 1. **「～のもとで」は、主に人を表す言葉（先生・両親など）につき、「その人の影響を受けて」という意味。**
 
@@ -188,6 +192,10 @@
 1. **後には、行為を表す文（励む・暮らすなど）が来ることが多い。**
 
 ⇒ 「～のもとで」：Vế sau thường đi với câu văn biểu thị hành vi (như cố gắng, sinh sống…).
+
+1. **「〜のもとで」は書き言葉的で、「で」を省略して「〜のもと」を使うと、さらにかたい言い方になります。**
+
+⇒ 「〜のもとで」mang tính văn viết, nếu lược bỏ「で」và dùng「〜のもと」thì cách nói trở nên trang trọng hơn nữa.
 
 1. **「～のもとに」は主に状況を意味する名詞（管理・了解など）につき、「その条件・状況で」という意味。**
 
@@ -203,7 +211,7 @@
 
 ### Ý nghĩa:
 
-![image.png](image%2090.png)
+![image.png](image%208.png)
 
 1. **～という特定の対象に合うように考えられている。**
 
@@ -235,7 +243,7 @@
 
 ### Chú ý bổ sung:
 
-![image.png](image%2091.png)
+![image.png](image%209.png)
 
 1. **主に人を表す名詞につく。**
 
