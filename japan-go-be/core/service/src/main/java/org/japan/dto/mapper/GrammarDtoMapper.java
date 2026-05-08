@@ -7,8 +7,8 @@ import org.japan.dto.response.sentence.SentenceResponse;
 import org.japan.entity.grammar.*;
 import org.japan.entity.lesson.BookEntity;
 import org.japan.entity.lesson.LessonEntity;
-import org.japan.mappers.lesson.BookMapper;
-import org.japan.mappers.lesson.LessonMapper;
+import org.japan.persistence.mybatis.lesson.BookMapper;
+import org.japan.persistence.mybatis.lesson.LessonMapper;
 import org.springframework.stereotype.Component;
 
 import java.util.List;

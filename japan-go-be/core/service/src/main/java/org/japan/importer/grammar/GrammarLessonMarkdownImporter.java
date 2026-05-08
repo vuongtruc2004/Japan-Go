@@ -1,0 +1,240 @@
+package org.japan.importer.grammar;
+
+import lombok.RequiredArgsConstructor;
+import org.japan.constants.grammar.GrammarPattern;
+import org.japan.constants.lesson.GrammarComponentEnum;
+import org.japan.constants.lesson.LessonTypeEnum;
+import org.japan.entity.grammar.*;
+import org.japan.entity.lesson.GrammarLessonEntity;
+import org.japan.entity.lesson.LessonEntity;
+import org.japan.exception.FileNotValidException;
+import org.japan.helper.grammar.GrammarHelper;
+import org.japan.i18n.I18nService;
+import org.japan.message.FileMessage;
+import org.japan.utils.StringUtil;
+import org.springframework.stereotype.Component;
+
+import java.util.Arrays;
+import java.util.List;
+import java.util.regex.Matcher;
+
+@Component
+@RequiredArgsConstructor
+public class GrammarLessonMarkdownImporter {
+
+    private final StringUtil stringUtil;
+    private final I18nService i18nService;
+    private final GrammarHelper grammarHelper;
+
+    public LessonEntity getLessonFromMarkdown(String markdown, Integer jlptLevel) {
+        List<String> lines = Arrays.stream(markdown
+                        .replace("\r\n", "\n")
+                        .replace('\r', '\n')
+                        .split("\n"))
+                .map(String::trim)
+                .filter(s -> !s.isEmpty())
+                .toList();
+
+        Matcher matcher = GrammarPattern.LESSON_HEADER.matcher(lines.getFirst());
+        if (!matcher.matches()) {
+            throw new FileNotValidException(
+                    i18nService.translation(FileMessage.FILE_ERROR_FORMAT, 0),
+                    i18nService.translation(FileMessage.FILE_ERROR_FORMAT, 0)
+            );
+        }
+        LessonEntity lesson = LessonEntity.builder()
+                .lessonName(matcher.group(1))
+                .lessonType(LessonTypeEnum.GRAMMAR)
+                .build();
+        GrammarLessonEntity grammarLesson = getGrammarLessonFromMarkdown(lines, jlptLevel);
+        lesson.setGrammarLesson(grammarLesson);
+        return lesson;
+    }
+
+    private GrammarLessonEntity getGrammarLessonFromMarkdown(List<String> lines, Integer jlptLevel) {
+        GrammarLessonEntity grammarLesson = new GrammarLessonEntity();
+        GrammarEntity grammar = null;
+        GrammarMeaningEntity grammarMeaning = null;
+        GrammarStructureEntity structure = null;
+        GrammarExampleEntity example = null;
+        GrammarNoteEntity grammarNote = null;
+
+        SentenceEntity sentence = null;
+
+        GrammarComponentEnum currentGrammarComponent = GrammarComponentEnum.NONE;
+
+        int numOfLines = lines.size();
+        int currentLineNum = 1;
+
+        while (currentLineNum < numOfLines) {
+            String currentLine = lines.get(currentLineNum);
+
+            Matcher matcher = GrammarPattern.GRAMMAR_HEADER.matcher(currentLine);
+            if (matcher.matches()) {
+                grammarMeaning = new GrammarMeaningEntity();
+                structure = new GrammarStructureEntity();
+                example = new GrammarExampleEntity();
+                grammarNote = new GrammarNoteEntity();
+
+                String[] parts = matcher.group(1).replaceFirst(GrammarPattern.ROMAN_NUMERAL.pattern(), "").split("：");
+                String grammarTitle = parts[0];
+                String translation = parts[1];
+
+                grammar = GrammarEntity.builder()
+                        .grammarTitle(grammarTitle)
+                        .grammarTitleFurigana(grammarHelper.getGrammarTitleFurigana(grammarTitle))
+                        .grammarTitleRomaji(grammarHelper.getGrammarTitleRomaji(grammarTitle))
+                        .translation(translation)
+                        .jlptLevel(jlptLevel)
+                        .grammarMeaning(grammarMeaning)
+                        .grammarStructure(structure)
+                        .grammarExample(example)
+                        .grammarNote(grammarNote)
+                        .build();
+
+                grammar.setGrammarLesson(grammarLesson);
+                grammarLesson.getGrammars().add(grammar);
+                currentLineNum++;
+                continue;
+            }
+
+            if (grammar == null) {
+                throw new FileNotValidException(
+                        i18nService.translation(FileMessage.FILE_ERROR_FORMAT, currentLineNum),
+                        i18nService.translation(FileMessage.FILE_ERROR_FORMAT, currentLineNum)
+                );
+            }
+
+            currentGrammarComponent = getCurrentGrammarComponent(currentLine, currentGrammarComponent);
+
+            matcher = GrammarPattern.ORDERED_ITEM.matcher(currentLine);
+            if (matcher.matches()) {
+                StringBuilder orderItem = new StringBuilder(matcher.group(2));
+
+                currentLineNum++;
+
+                while (currentLineNum < numOfLines && notMatchAnyOf(lines.get(currentLineNum)) && !lines.get(currentLineNum).equals("---")) {
+                    orderItem.append("\n").append(lines.get(currentLineNum));
+                    currentLineNum++;
+                }
+
+                String japaneseRaw;
+                String japaneseHtml;
+                switch (currentGrammarComponent) {
+                    case MEANING:
+                        japaneseRaw = stringUtil.removeAllSubstring(orderItem.toString(), "**");
+                        sentence = SentenceEntity.builder()
+                                .japaneseRaw(japaneseRaw)
+                                .grammarMeaning(grammarMeaning)
+                                .build();
+                        grammarMeaning.getSentences().add(sentence);
+                        break;
+                    case STRUCTURE:
+                        japaneseHtml = stringUtil.replaceAllSubstringWithHtmlTag(
+                                orderItem.toString(),
+                                "~~",
+                                "<del>",
+                                "</del>");
+                        japaneseHtml = stringUtil.replaceAllSubstringWithHtmlTag(
+                                japaneseHtml,
+                                "**",
+                                "<span class='structure-highlight'>",
+                                "</span>");
+                        sentence = SentenceEntity.builder()
+                                .japaneseHtml(japaneseHtml)
+                                .grammarStructure(structure)
+                                .build();
+                        structure.getSentences().add(sentence);
+                        break;
+                    case EXAMPLE:
+                        japaneseRaw = stringUtil.removeAllSubstring(orderItem.toString(), "**");
+                        japaneseHtml = stringUtil.replaceAllSubstringWithHtmlTag(
+                                orderItem.toString(),
+                                "**",
+                                "<span class='grammar-highlight'>",
+                                "</span>");
+                        sentence = SentenceEntity.builder()
+                                .japaneseRaw(japaneseRaw)
+                                .japaneseHtml(japaneseHtml)
+                                .grammarExample(example)
+                                .build();
+                        example.getSentences().add(sentence);
+                        break;
+                    case ADDITIONAL_NOTE:
+                        japaneseRaw = stringUtil.removeAllSubstring(orderItem.toString(), "**");
+                        sentence = SentenceEntity.builder()
+                                .japaneseRaw(japaneseRaw)
+                                .grammarNote(grammarNote)
+                                .build();
+                        grammarNote.getSentences().add(sentence);
+                        break;
+                    case COMPARE:
+                        break;
+                    default:
+                }
+            } else {
+                matcher = GrammarPattern.ARROW_LINE.matcher(currentLine);
+                if (matcher.matches()) {
+                    StringBuilder orderItem = new StringBuilder(matcher.group(1));
+
+                    currentLineNum++;
+
+                    while (currentLineNum < numOfLines && notMatchAnyOf(lines.get(currentLineNum)) && !lines.get(currentLineNum).equals("---")) {
+                        orderItem.append("\n").append(lines.get(currentLineNum));
+                        currentLineNum++;
+                    }
+
+                    if (sentence == null) {
+                        throw new FileNotValidException(
+                                i18nService.translation(FileMessage.FILE_ERROR_FORMAT, currentLineNum),
+                                i18nService.translation(FileMessage.FILE_ERROR_FORMAT, currentLineNum)
+                        );
+                    }
+                    switch (currentGrammarComponent) {
+                        case MEANING, EXAMPLE, ADDITIONAL_NOTE:
+                            sentence.setVietnameseRaw(orderItem.toString());
+                            break;
+                        default:
+                    }
+                } else {
+                    currentLineNum++;
+                }
+            }
+        }
+        return grammarLesson;
+    }
+
+    private GrammarComponentEnum getCurrentGrammarComponent(String currentLine, GrammarComponentEnum currentGrammarComponent) {
+        if (currentLine.matches(GrammarPattern.MEANING_HEADER.pattern())) {
+            currentGrammarComponent = GrammarComponentEnum.MEANING;
+
+        } else if (currentLine.matches(GrammarPattern.STRUCTURE_HEADER.pattern())) {
+            currentGrammarComponent = GrammarComponentEnum.STRUCTURE;
+
+        } else if (currentLine.matches(GrammarPattern.EXAMPLE_HEADER.pattern())) {
+            currentGrammarComponent = GrammarComponentEnum.EXAMPLE;
+
+        } else if (currentLine.matches(GrammarPattern.ADDITIONAL_NOTE_HEADER.pattern())) {
+            currentGrammarComponent = GrammarComponentEnum.ADDITIONAL_NOTE;
+
+        } else if (currentLine.matches(GrammarPattern.COMPARE_HEADER.pattern())) {
+            currentGrammarComponent = GrammarComponentEnum.COMPARE;
+
+        }
+        return currentGrammarComponent;
+    }
+
+    private boolean notMatchAnyOf(String line) {
+        return !line.matches(GrammarPattern.LESSON_HEADER.pattern()) &&
+                !line.matches(GrammarPattern.GRAMMAR_HEADER.pattern()) &&
+                !line.matches(GrammarPattern.MEANING_HEADER.pattern()) &&
+                !line.matches(GrammarPattern.STRUCTURE_HEADER.pattern()) &&
+                !line.matches(GrammarPattern.EXAMPLE_HEADER.pattern()) &&
+                !line.matches(GrammarPattern.ADDITIONAL_NOTE_HEADER.pattern()) &&
+                !line.matches(GrammarPattern.COMPARE_HEADER.pattern()) &&
+                !line.matches(GrammarPattern.ORDERED_ITEM.pattern()) &&
+                !line.matches(GrammarPattern.ARROW_LINE.pattern());
+    }
+
+}
+

@@ -5,20 +5,24 @@ FROM gradle:8.7-jdk21 AS builder
 
 WORKDIR /app
 
-# Copy trước các file cấu hình để tận dụng cache
-COPY build.gradle.kts settings.gradle.kts gradlew ./
+COPY gradlew .
 COPY gradle gradle
+COPY settings.gradle.kts .
+COPY build.gradle.kts .
+
+COPY core/bootstrap/build.gradle.kts core/bootstrap/build.gradle.kts
+COPY core/contract/build.gradle.kts core/contract/build.gradle.kts
+COPY core/infrastructure/build.gradle.kts core/infrastructure/build.gradle.kts
+COPY core/presentation/build.gradle.kts core/presentation/build.gradle.kts
+COPY core/service/build.gradle.kts core/service/build.gradle.kts
 
 RUN chmod +x gradlew
 
-# Tải dependency trước
 RUN ./gradlew dependencies --no-daemon || true
 
-# Copy source
-COPY src src
+COPY core core
 
-# Build project
-RUN ./gradlew clean bootJar --no-daemon
+RUN ./gradlew clean :core:bootstrap:bootJar --no-daemon
 
 
 # =========================
@@ -33,7 +37,6 @@ ENV SPRING_PROFILES_ACTIVE=uat
 
 EXPOSE 2509
 
-# Copy file jar được build từ stage 1
-COPY --from=builder /app/build/libs/*.jar app.jar
+COPY --from=builder /app/core/bootstrap/build/libs/*.jar app.jar
 
 ENTRYPOINT ["java", "-jar", "app.jar"]

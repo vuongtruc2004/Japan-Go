@@ -3,7 +3,7 @@ package org.japan.dto.mapper;
 import lombok.RequiredArgsConstructor;
 import org.japan.dto.response.kanji.VocabularyResponse;
 import org.japan.entity.kanji.VocabularyEntity;
-import org.japan.helpers.kanji.SinoVietnameseHelper;
+import org.japan.helper.kanji.SinoVietnameseHelper;
 import org.springframework.stereotype.Component;
 
 @Component
