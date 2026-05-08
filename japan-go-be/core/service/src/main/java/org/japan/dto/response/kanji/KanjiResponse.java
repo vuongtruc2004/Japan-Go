@@ -24,4 +24,5 @@ public class KanjiResponse extends BaseResponse {
     String mainSinoVietnamese;
     List<String> onyomiList;
     List<String> kunyomiList;
+    List<SinoVietnameseResponse> sinoVietnameseList;
 }

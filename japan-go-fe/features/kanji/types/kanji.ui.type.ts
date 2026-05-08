@@ -4,6 +4,7 @@ export interface IKanjiTab {
     readonly id: string;
     tabKeyTranslation: JlptLevels;
     colorStyle: string;
+    level: number;
 }
 
 export interface IGroupKanjiTab {

@@ -4,6 +4,7 @@ public final class SinoVietnameseMessage {
 
     public static final String SINO_VIETNAMESE_IN_KANJI_NOT_FOUND =
             "sino.vietnamese.in.kanji.not.found";
+    public static final String SINO_VIETNAMESE_NOT_FOUND = "sino.vietnamese.not.found";
 
     private SinoVietnameseMessage() {
     }

@@ -12,9 +12,15 @@ export interface KanjiResponse extends BaseResponse<number> {
     mainSinoVietnamese: string;
     onyomiList: string[];
     kunyomiList: string[];
+    sinoVietnameseList: SinoVietnameseResponse[];
 }
 
 export interface KanjiPageResponse extends BaseResponse<number> {
     mainKanji: KanjiResponse;
     vocabularies: VocabularyResponse[];
+}
+
+export interface SinoVietnameseResponse extends BaseResponse<number> {
+    readingText: string;
+    sinoVietnameseMeaningList: string[];
 }

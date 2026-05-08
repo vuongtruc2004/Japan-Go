@@ -26,6 +26,7 @@ export const ActiveKanjiTabProvider = ({
     const [activeTab, setActiveTab] = useState<IKanjiTab>(
         GROUP_KANJI_TAB[0].kanjiTabs[0],
     );
+
     return (
         <ActiveKanjiTabContext.Provider value={{ activeTab, setActiveTab }}>
             {children}

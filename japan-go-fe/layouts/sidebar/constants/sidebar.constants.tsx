@@ -26,7 +26,7 @@ export const SIDEBAR_ITEMS: SidebarItem[] = [
     {
         id: "e-3",
         nameLinkKey: "kanji",
-        activeLinks: ["/kanji"],
+        activeLinks: ["/kanji", "/kanji/details"],
         redirectLink: "/kanji",
         icon: <TranslateIcon />,
     },

@@ -31,13 +31,15 @@ public class SinoVietnameseController {
     @PostMapping(value = "/import/main", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<List<KanjiResponse>> importMainSinoVietnamese(
             @RequestParam("main-sino-vietnamese") MultipartFile mainSinoVietnameseFile) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(sinoVietnameseService.importMainSinoVietnamese(mainSinoVietnameseFile));
+        sinoVietnameseService.importMainSinoVietnamese(mainSinoVietnameseFile);
+        return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
     @ApiResponseFormat(devMessage = "", clientMessage = "")
     @PostMapping(value = "/import", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<List<KanjiResponse>> enrichSinoVietnameseToAllKanji(
             @RequestParam("sino-vietnamese") List<MultipartFile> sinoVietnameseFiles) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(sinoVietnameseService.importSinoVietnamese(sinoVietnameseFiles));
+        sinoVietnameseService.importSinoVietnamese(sinoVietnameseFiles);
+        return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 }

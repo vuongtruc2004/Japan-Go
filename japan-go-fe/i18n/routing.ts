@@ -40,6 +40,7 @@ export const routing = defineRouting({
         "/kanji": {
             vi: "/chu-han",
         },
+        "/kanji/details": { vi: "/chu-han/chi-tiet" },
         "/settings": {
             vi: "/cai-dat",
         },

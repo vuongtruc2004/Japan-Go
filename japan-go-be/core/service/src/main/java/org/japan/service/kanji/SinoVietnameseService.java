@@ -3,8 +3,6 @@ package org.japan.service.kanji;
 import lombok.RequiredArgsConstructor;
 import org.japan.dto.mapper.KanjiDtoMapper;
 import org.japan.dto.request.kanji.GetSinoVietnameseRequest;
-import org.japan.dto.response.kanji.KanjiResponse;
-import org.japan.entity.kanji.KanjiEntity;
 import org.japan.entry.SinoVietnameseEntry;
 import org.japan.exception.FileNotValidException;
 import org.japan.helper.kanji.SinoVietnameseHelper;
@@ -58,7 +56,7 @@ public class SinoVietnameseService {
      * @return all kanji response that were updated
      */
     @Transactional
-    public List<KanjiResponse> importMainSinoVietnamese(MultipartFile mainSinoVietnameseFile) {
+    public void importMainSinoVietnamese(MultipartFile mainSinoVietnameseFile) {
         if (!fileValidator.isExcelFile(mainSinoVietnameseFile)) {
             throw new FileNotValidException(
                     i18nService.translation(FileMessage.FILE_NOT_EXCEL),
@@ -69,11 +67,7 @@ public class SinoVietnameseService {
             Map<String, String> mainSinoVietnameseMap =
                     mainSinoVietnameseXlsxImport.importMainSinoVietnamese(mainSinoVietnameseInputstream);
 
-            List<KanjiEntity> kanjiEntities =
-                    mainSinoVietnameseXlsxImport.updateKanjiWithMainSinoVietnamese(mainSinoVietnameseMap);
-
-            return kanjiEntities.stream().map(kanjiDTOMapper::kanjiEntityToKanjiResponse).toList();
-
+            mainSinoVietnameseXlsxImport.updateKanjiWithMainSinoVietnamese(mainSinoVietnameseMap);
         } catch (Exception e) {
             throw new FileNotValidException(
                     i18nService.translation(FileMessage.FILE_ERROR, e.getMessage()),
@@ -87,7 +81,7 @@ public class SinoVietnameseService {
      * @return list of kanji response after updated
      */
     @Transactional
-    public List<KanjiResponse> importSinoVietnamese(List<MultipartFile> sinoVietnameseFiles) {
+    public void importSinoVietnamese(List<MultipartFile> sinoVietnameseFiles) {
         List<InputStream> sinoVietnameseInputStreamList = new ArrayList<>();
         for (MultipartFile sinoVietnameseFile : sinoVietnameseFiles) {
             if (!fileValidator.isJSONFile(sinoVietnameseFile)) {
@@ -109,7 +103,6 @@ public class SinoVietnameseService {
         for (InputStream sinoVietnameseInputstream : sinoVietnameseInputStreamList) {
             sinoVietnameseJsonImporter.importSinoVietnamese(sinoVietnameseInputstream, sinoVietnameseEntryMap);
         }
-        List<KanjiEntity> kanjiEntities = sinoVietnameseJsonImporter.updateKanjiWithSinoVietnamese(sinoVietnameseEntryMap);
-        return kanjiEntities.stream().map(kanjiDTOMapper::kanjiEntityToKanjiResponse).toList();
+        sinoVietnameseJsonImporter.updateKanjiWithSinoVietnamese(sinoVietnameseEntryMap);
     }
 }

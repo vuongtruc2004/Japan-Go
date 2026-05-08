@@ -12,7 +12,7 @@ const KanjiExplore = () => {
         <WrapBox>
             <h1 className="mb-3 font-semibold">{t("title")}</h1>
             <KanjiToolsBox />
-            <p className="my-3 flex items-center gap-x-1.5 text-sm">
+            <p className="my-5 flex items-center gap-x-1.5 text-sm">
                 <AutoAwesomeIcon fontSize="small" color="success" />
                 <span>{t("suggestTitle")}</span>
             </p>

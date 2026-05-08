@@ -9,6 +9,7 @@
         "delete": "Xóa",
         "create": "Tạo",
         "createNew": "Tạo mới",
+        "update": "Cập nhật",
         "confirm": "Nhập",
         "complete": "Hoàn tất",
         "search": "Tìm kiếm",
@@ -38,6 +39,7 @@
             "home": "Trang chủ",
             "yourLibrary": "Thư viện của bạn",
             "kanji": "Danh sách Kanji",
+            "kanji/details": "Chi tiết chữ Hán",
             "settings": "Cài đặt",
             "achievement": "Thành tựu",
             "grammar": "Ngữ pháp",
@@ -117,6 +119,11 @@
                 "resultPlaceholder": "Kết quả sẽ hiển thị ở đây",
                 "copied": "Đã sao chép"
             }
+        },
+        "kanjiDetails": {
+            "noKanji": "Không có chữ Hán để hiển thị",
+            "updateMainSinoVietnameseSuccess": "Cập nhật phiên âm Hán Việt thành công!",
+            "backToKanjiPage": "Trở về trang chữ Hán"
         },
         "yourLibrary": {
             "title": "Thư viện của bạn",

@@ -14,6 +14,7 @@ import org.springframework.stereotype.Component;
 public class KanjiDtoMapper {
 
     private final VocabularyDtoMapper vocabularyDtoMapper;
+    private final SinoVietnameseDtoMapper sinoVietnameseDtoMapper;
 
     public KanjiEntity kanjiDicEntryToKanjiEntity(KanjiDicEntry kanjiDicEntry) {
         return KanjiEntity.builder()
@@ -36,13 +37,29 @@ public class KanjiDtoMapper {
                 .strokeCount(kanjiEntity.getStrokeCount())
                 .frequency(kanjiEntity.getFrequency())
                 .jlptLevel(kanjiEntity.getJlptLevel())
+                .id(kanjiEntity.getId())
                 .build();
 
         SinoVietnameseEntity mainSinoVietnamese = kanjiEntity.getMainSinoVietnamese();
         if (mainSinoVietnamese != null) kanjiResponse.setMainSinoVietnamese(mainSinoVietnamese.getReadingText());
 
-        kanjiResponse.setOnyomiList(kanjiEntity.getOnyomiList().stream().map(OnyomiEntity::getReadingText).toList());
-        kanjiResponse.setKunyomiList(kanjiEntity.getKunyomiList().stream().map(KunyomiEntity::getReadingText).toList());
+        kanjiResponse.setOnyomiList(kanjiEntity
+                .getOnyomiList()
+                .stream()
+                .map(OnyomiEntity::getReadingText)
+                .toList());
+
+        kanjiResponse.setKunyomiList(kanjiEntity
+                .getKunyomiList()
+                .stream()
+                .map(KunyomiEntity::getReadingText)
+                .toList());
+
+        kanjiResponse.setSinoVietnameseList(kanjiEntity
+                .getSinoVietnameseList()
+                .stream()
+                .map(sinoVietnameseDtoMapper::mapSinoVietnameseEntityToSinoVietnameseResponse)
+                .toList());
         return kanjiResponse;
     }
 

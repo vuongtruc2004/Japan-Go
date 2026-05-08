@@ -1,18 +1,21 @@
 package org.japan.service.kanji;
 
-import com.fasterxml.jackson.core.type.TypeReference;
 import lombok.RequiredArgsConstructor;
-import org.japan.constants.RedisKeys;
 import org.japan.dto.mapper.KanjiDtoMapper;
 import org.japan.dto.mapper.kanji.KanjiMapper;
+import org.japan.dto.request.kanji.UpdateKanjiMainSinoVietnameseRequest;
 import org.japan.dto.response.kanji.KanjiResponse;
 import org.japan.entity.kanji.KanjiEntity;
+import org.japan.entity.kanji.SinoVietnameseEntity;
 import org.japan.exception.FileNotValidException;
+import org.japan.exception.NotFoundException;
 import org.japan.i18n.I18nService;
 import org.japan.importer.kanji.KanjiXmlImporter;
 import org.japan.message.FileMessage;
+import org.japan.message.kanji.KanjiMessage;
+import org.japan.message.kanji.SinoVietnameseMessage;
 import org.japan.persistence.repository.kanji.KanjiRepository;
-import org.japan.service.redis.RedisService;
+import org.japan.persistence.repository.kanji.SinoVietnameseRepository;
 import org.japan.validator.FileValidator;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -30,7 +33,31 @@ public class KanjiService {
     private final KanjiXmlImporter kanjiXmlImporter;
     private final KanjiRepository kanjiRepository;
     private final KanjiMapper kanjiMapper;
-    private final RedisService redisService;
+    private final SinoVietnameseRepository sinoVietnameseRepository;
+
+    public KanjiResponse updateKanjiMainSinoVietnamese(UpdateKanjiMainSinoVietnameseRequest request) {
+        KanjiEntity kanji = kanjiRepository.findById(request.kanjiId())
+                .orElseThrow(() -> new NotFoundException(
+                        i18nService.translation(KanjiMessage.KANJI_NOT_FOUND, request.kanjiId()),
+                        i18nService.translation(KanjiMessage.KANJI_NOT_FOUND, request.kanjiId())
+                ));
+
+        SinoVietnameseEntity sinoVietnamese = sinoVietnameseRepository.findById(request.sinoVietnameseId())
+                .orElseThrow(() -> new NotFoundException(
+                        i18nService.translation(SinoVietnameseMessage.SINO_VIETNAMESE_NOT_FOUND, request.sinoVietnameseId()),
+                        i18nService.translation(SinoVietnameseMessage.SINO_VIETNAMESE_NOT_FOUND, request.sinoVietnameseId())
+                ));
+
+        kanji.setMainSinoVietnamese(sinoVietnamese);
+        KanjiEntity savedKanji = kanjiRepository.save(kanji);
+        return kanjiDTOMapper.kanjiEntityToKanjiResponse(savedKanji);
+    }
+
+    public KanjiResponse getKanjiByKanjiCharacter(String kanjiCharacter) {
+        return kanjiRepository.findByKanjiCharacter(kanjiCharacter)
+                .map(kanjiDTOMapper::kanjiEntityToKanjiResponse)
+                .orElse(null);
+    }
 
     /**
      * Get kanji characters by JLPT level
@@ -41,22 +68,11 @@ public class KanjiService {
      * (each kanji response contains only id and kanji character)
      */
     public List<KanjiResponse> getKanjiByJlptLevel(Integer jlptLevel) {
-        String redisKey = RedisKeys.getKanjiJlptLevelKey(jlptLevel);
-        if (redisService.hasKey(redisKey)) {
-            return redisService.get(
-                    redisKey,
-                    new TypeReference<List<KanjiResponse>>() {
-                    }
-            );
-        }
-
         List<KanjiEntity> kanjiEntities = kanjiRepository.findAllByJlptLevel(jlptLevel);
-        List<KanjiResponse> kanjiResponses = kanjiEntities
+        return kanjiEntities
                 .stream()
                 .map(kanjiMapper::mapKanjiEntityToKanjiResponse)
                 .toList();
-        redisService.save(redisKey, kanjiResponses);
-        return kanjiResponses;
     }
 
     /**
@@ -67,7 +83,7 @@ public class KanjiService {
      * @return list kanji response (convert from kanji entity list after saved to DB)
      */
     @Transactional
-    public List<KanjiResponse> importKanjiFromKanjidic(MultipartFile kanjidicFile, MultipartFile kanjiJlptFile) {
+    public void importKanjiFromKanjidic(MultipartFile kanjidicFile, MultipartFile kanjiJlptFile) {
         if (!fileValidator.isXMLFile(kanjidicFile)) {
             throw new FileNotValidException(
                     i18nService.translation(FileMessage.FILE_NOT_XML),
@@ -82,9 +98,7 @@ public class KanjiService {
         }
         try (InputStream kanjidicInputstream = kanjidicFile.getInputStream();
              InputStream kanjijlptInputstream = kanjiJlptFile.getInputStream()) {
-            List<KanjiEntity> kanjiEntities = kanjiXmlImporter.importKanji(kanjidicInputstream, kanjijlptInputstream);
-            return kanjiEntities.stream().map(kanjiDTOMapper::kanjiEntityToKanjiResponse).toList();
-
+            kanjiXmlImporter.importKanji(kanjidicInputstream, kanjijlptInputstream);
         } catch (Exception e) {
             throw new FileNotValidException(
                     i18nService.translation(FileMessage.FILE_ERROR, e.getMessage()),
