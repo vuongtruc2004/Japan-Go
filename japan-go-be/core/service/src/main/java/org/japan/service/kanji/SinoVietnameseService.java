@@ -2,15 +2,23 @@ package org.japan.service.kanji;
 
 import lombok.RequiredArgsConstructor;
 import org.japan.dto.mapper.KanjiDtoMapper;
+import org.japan.dto.request.kanji.CreateSinoVietnameseRequest;
 import org.japan.dto.request.kanji.GetSinoVietnameseRequest;
+import org.japan.entity.kanji.KanjiEntity;
+import org.japan.entity.kanji.SinoVietnameseEntity;
 import org.japan.entry.SinoVietnameseEntry;
 import org.japan.exception.FileNotValidException;
+import org.japan.exception.NotFoundException;
+import org.japan.exception.kanji.KanjiException;
 import org.japan.helper.kanji.SinoVietnameseHelper;
 import org.japan.i18n.I18nService;
 import org.japan.importer.kanji.MainSinoVietnameseXlsxImport;
 import org.japan.importer.kanji.SinoVietnameseJsonImporter;
 import org.japan.message.FileMessage;
+import org.japan.message.kanji.KanjiMessage;
+import org.japan.message.kanji.SinoVietnameseMessage;
 import org.japan.persistence.repository.kanji.KanjiRepository;
+import org.japan.persistence.repository.kanji.SinoVietnameseRepository;
 import org.japan.validator.FileValidator;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -32,6 +40,39 @@ public class SinoVietnameseService {
     private final SinoVietnameseJsonImporter sinoVietnameseJsonImporter;
     private final MainSinoVietnameseXlsxImport mainSinoVietnameseXlsxImport;
     private final KanjiRepository kanjiRepository;
+    private final SinoVietnameseRepository sinoVietnameseRepository;
+
+    @Transactional
+    public void deleteSinoVietnamese(Long id) {
+        SinoVietnameseEntity sino = sinoVietnameseRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException(
+                        i18nService.translation(SinoVietnameseMessage.SINO_VIETNAMESE_NOT_FOUND, id),
+                        i18nService.translation(SinoVietnameseMessage.SINO_VIETNAMESE_NOT_FOUND, id)
+                ));
+
+        if (!sino.getMainKanjiList().isEmpty()) {
+            throw new KanjiException(
+                    i18nService.translation(SinoVietnameseMessage.SINO_VIETNAMESE_IS_MAIN_OF_KANJI),
+                    i18nService.translation(SinoVietnameseMessage.SINO_VIETNAMESE_IS_MAIN_OF_KANJI)
+            );
+        }
+
+        sinoVietnameseRepository.delete(sino);
+    }
+
+    public void createSinoVietnamese(CreateSinoVietnameseRequest request) {
+        KanjiEntity kanji = kanjiRepository.findById(request.kanjiId())
+                .orElseThrow(() -> new NotFoundException(
+                        i18nService.translation(KanjiMessage.KANJI_NOT_FOUND, request.kanjiId()),
+                        i18nService.translation(KanjiMessage.KANJI_NOT_FOUND, request.kanjiId())
+                ));
+        SinoVietnameseEntity sinoVietnamese = SinoVietnameseEntity.builder()
+                .readingText(request.readingText())
+                .kanji(kanji)
+                .build();
+
+        sinoVietnameseRepository.save(sinoVietnamese);
+    }
 
     /**
      * @param getSinoVietnameseRequest this object contains

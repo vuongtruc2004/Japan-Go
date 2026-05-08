@@ -123,7 +123,10 @@
         "kanjiDetails": {
             "noKanji": "Không có chữ Hán để hiển thị",
             "updateMainSinoVietnameseSuccess": "Cập nhật phiên âm Hán Việt thành công!",
-            "backToKanjiPage": "Trở về trang chữ Hán"
+            "backToKanjiPage": "Trở về trang chữ Hán",
+            "createSinoVietnamese": "Tạo thêm phiên âm Hán Việt",
+            "createSinoVietnamesePlaceholder": "Nhập phiên âm Hán Việt muốn tạo",
+            "createSinoVietnameseSuccess": "Tạo phiên âm Hán Việt thành công!"
         },
         "yourLibrary": {
             "title": "Thư viện của bạn",

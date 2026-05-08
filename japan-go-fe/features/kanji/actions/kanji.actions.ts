@@ -1,7 +1,7 @@
 "use server";
 import { DividerType } from "../types/kanji.enum";
 import { IGetSinoVietnameseState } from "../types/kanji.state.type";
-import { getSinoVietnameseOfKanji } from "@/services/kanji.service";
+import { getSinoVietnameseOfKanjiList } from "@/services/kanji.service";
 
 export async function getSinoVietnamese(
     dividerType: DividerType,
@@ -28,7 +28,7 @@ export async function getSinoVietnamese(
     }
 
     if (!state.kanji.isError) {
-        state.sinoVietnamese = await getSinoVietnameseOfKanji({
+        state.sinoVietnamese = await getSinoVietnameseOfKanjiList({
             kanjiArrayRaw: kanji,
             divider: dividerType === "custom" ? customValue : dividerType,
         });

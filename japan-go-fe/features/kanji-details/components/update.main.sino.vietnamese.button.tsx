@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { KanjiResponse } from "@/types/api/responses/kanji.response";
-import { Button, MenuItem, Modal } from "@mui/material";
+import { Button, Divider, MenuItem, Modal } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
 import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
@@ -61,29 +61,32 @@ const UpdateMainSinoVietnameseButton = ({
             </Button>
 
             <Modal open={open} onClose={handleClose}>
-                <div className="bg-bgc-app absolute top-1/2 left-1/2 w-150 -translate-x-1/2 -translate-y-1/2 rounded-md p-5">
+                <div className="bg-bgc-app absolute top-1/2 left-1/2 w-120 -translate-x-1/2 -translate-y-1/2 rounded-xl p-6">
                     <form onSubmit={handleSubmit}>
+                        <h1 className="mb-3 text-lg font-semibold">
+                            {t("Pages.kanjiDetails.updateMainSinoVietnameseSuccess").replace("!", "").replace(" thành công", "")}
+                        </h1>
+                        <Divider className="mb-4" />
                         <Select
+                            fullWidth
+                            size="small"
                             name="update-sino-vietnamese-id"
                             value={updateSinoVietnameseId}
                             onChange={handleChange}
                         >
-                            {kanji.sinoVietnameseList.map((sino) => {
-                                return (
-                                    <MenuItem value={sino.id} key={sino.id}>
-                                        {sino.readingText}
-                                    </MenuItem>
-                                );
-                            })}
+                            {kanji.sinoVietnameseList.map((sino) => (
+                                <MenuItem value={sino.id} key={sino.id}>
+                                    {sino.readingText}
+                                </MenuItem>
+                            ))}
                         </Select>
-                        <div className="mt-3 flex items-center justify-end gap-x-3">
+                        <div className="mt-4 flex items-center justify-end gap-x-3">
                             <Button
                                 onClick={handleClose}
-                                sx={{ columnGap: "8px" }}
+                                startIcon={<CloseIcon fontSize="small" />}
                                 variant="outlined"
                                 color="error"
                             >
-                                <CloseIcon fontSize="small" />
                                 {t("Common.cancel")}
                             </Button>
                             <Button

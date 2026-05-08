@@ -8,30 +8,36 @@ import IconButtonCustom from "@/components/ui/mui-custom/icon.button.custom";
 import BackIcon from "@/components/ui/icons/back.icon";
 import { useTranslations } from "next-intl";
 import { useRouter } from "@/i18n/navigation";
+import SinoVietnameseList from "@/features/kanji-details/components/sino.vietnamese.list";
+import { Divider } from "@mui/material";
 
 const KanjiDetails = ({ kanji }: { kanji: KanjiResponse }) => {
     const t = useTranslations();
     const { push } = useRouter();
     return (
-        <div>
-            <TooltipCustom title={t("Pages.kanjiDetails.backToKanjiPage")}>
-                <IconButtonCustom onClick={() => push("/kanji")}>
-                    <BackIcon />
-                </IconButtonCustom>
-            </TooltipCustom>
+        <div className="mx-auto max-w-3xl px-6 py-6">
+            <div className="mb-8">
+                <TooltipCustom title={t("Pages.kanjiDetails.backToKanjiPage")}>
+                    <IconButtonCustom onClick={() => push("/kanji")}>
+                        <BackIcon />
+                    </IconButtonCustom>
+                </TooltipCustom>
+            </div>
 
-            <div className="flex items-center justify-center gap-x-3">
-                <div className="aspect-square w-57">
-                    <KanjiVgAnimator kanjiVg={kanji.kanjiVg} />
-                </div>
-                <div className="border-bdc-primary flex aspect-square w-57 items-center justify-center rounded-md border">
+            <div className="mb-8 grid grid-cols-3 gap-x-3">
+                <KanjiVgAnimator kanjiVg={kanji.kanjiVg} />
+                <div className="border-bdc-primary flex aspect-square shrink-0 items-center justify-center rounded-xl border">
                     <p className="text-9xl">{kanji.kanjiCharacter}</p>
                 </div>
-                <div className="border-bdc-primary relative flex aspect-square w-57 items-center justify-center rounded-md border">
+                <div className="border-bdc-primary relative flex aspect-square shrink-0 items-center justify-center rounded-xl border">
                     <p className="text-6xl">{kanji.mainSinoVietnamese}</p>
                     <UpdateMainSinoVietnameseButton kanji={kanji} />
                 </div>
             </div>
+
+            <Divider className="mb-6" />
+
+            <SinoVietnameseList kanji={kanji} />
         </div>
     );
 };

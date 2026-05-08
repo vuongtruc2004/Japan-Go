@@ -3,11 +3,11 @@ import { sendRequest } from "@/lib/send.request";
 import { KanjiResponse } from "@/types/api/responses/kanji.response";
 import { ApiResponse } from "@/types/api/responses/base.response";
 
-export const getSinoVietnameseOfKanji = async (
+export const getSinoVietnameseOfKanjiList = async (
     request: GetSinoVietnameseRequest,
 ) => {
     return await sendRequest<string>({
-        url: "/sino-vietnamese",
+        url: "/sino-vietnamese/kanji-list",
         method: "POST",
         body: request,
         responseType: "text",
@@ -55,6 +55,35 @@ export const updateKanjiMainSinoVietnamese = async (
         },
     });
     if (response.statusCode !== 201) {
+        throw new Error(response.clientMessage);
+    }
+    return response;
+};
+
+export const createSinoVietnamese = async (
+    kanjiId: number,
+    readingText: string,
+) => {
+    const response = await sendRequest<ApiResponse<void>>({
+        url: "/sino-vietnamese",
+        method: "POST",
+        body: {
+            kanjiId,
+            readingText,
+        },
+    });
+    if (response.statusCode !== 201) {
+        throw new Error(response.clientMessage);
+    }
+    return response;
+};
+
+export const deleteSinoVietnamese = async (kanjiId: number) => {
+    const response = await sendRequest<ApiResponse<void>>({
+        url: `/sino-vietnamese/${kanjiId}`,
+        method: "DELETE",
+    });
+    if (response.statusCode !== 200) {
         throw new Error(response.clientMessage);
     }
     return response;
