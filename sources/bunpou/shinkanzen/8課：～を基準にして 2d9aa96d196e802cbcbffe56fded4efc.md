@@ -4,7 +4,7 @@
 
 ### Ý nghĩa:
 
-![image.png](image.png)
+![image.png](image%2082.png)
 
 1. **～という素材・基礎・土台などからあるものを作り出す。**
 
@@ -31,7 +31,7 @@
 
 ### Chú ý bổ sung:
 
-![image.png](image%201.png)
+![image.png](image%2083.png)
 
 1. **実際の材料などには使わない。**
 
@@ -47,7 +47,7 @@
 
 ### Ý nghĩa:
 
-![image.png](image%202.png)
+![image.png](image%2084.png)
 
 1. **～を基準と考えてあることをする。**
 
@@ -78,7 +78,7 @@
 
 ### Chú ý bổ sung:
 
-![image.png](image%203.png)
+![image.png](image%2085.png)
 
 1. **基準になる意味の言葉（法・データ・計画・方針・調査結果など）につく。**
 
@@ -94,7 +94,7 @@
 
 ### Ý nghĩa:
 
-![image.png](image%204.png)
+![image.png](image%2086.png)
 
 1. **～に合うように・～からはずれないようにあることをする。**
 
@@ -125,7 +125,7 @@
 
 ### Chú ý bổ sung:
 
-![image.png](image%205.png)
+![image.png](image%2087.png)
 
 1. **基準の意味を持つ言葉（ルール・方針・マニュアル・考えなど）につく。**
 
@@ -141,7 +141,7 @@
 
 ### Ý nghĩa:
 
-![image.png](image%206.png)
+![image.png](image%2088.png)
 
 1. **～の影響を受けてあることをする。**
 
@@ -183,7 +183,7 @@
 
 ### Chú ý bổ sung:
 
-![image.png](image%207.png)
+![image.png](image%2089.png)
 
 1. **「～のもとで」は、主に人を表す言葉（先生・両親など）につき、「その人の影響を受けて」という意味。**
 
@@ -211,7 +211,7 @@
 
 ### Ý nghĩa:
 
-![image.png](image%208.png)
+![image.png](image%2090.png)
 
 1. **～という特定の対象に合うように考えられている。**
 
@@ -243,7 +243,7 @@
 
 ### Chú ý bổ sung:
 
-![image.png](image%209.png)
+![image.png](image%2091.png)
 
 1. **主に人を表す名詞につく。**
 
