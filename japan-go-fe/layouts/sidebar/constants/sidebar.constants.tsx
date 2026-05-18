@@ -3,6 +3,7 @@ import HomeIcon from "@/components/ui/icons/home.icon";
 import TranslateIcon from "@mui/icons-material/Translate";
 import { SidebarItem } from "../types/sidebar.ui.type";
 import GrammarIcon from "@/components/ui/icons/grammar.icon";
+import CardIcon from "@/components/ui/icons/card.icon";
 
 export const SIDEBAR_ITEMS: SidebarItem[] = [
     {
@@ -36,5 +37,12 @@ export const SIDEBAR_ITEMS: SidebarItem[] = [
         activeLinks: ["/grammar", "/grammar/[slug]"],
         redirectLink: "/grammar",
         icon: <GrammarIcon />,
+    },
+    {
+        id: "e-5",
+        nameLinkKey: "flashcard",
+        activeLinks: ["/flashcard"],
+        redirectLink: "/flashcard",
+        icon: <CardIcon />,
     },
 ];

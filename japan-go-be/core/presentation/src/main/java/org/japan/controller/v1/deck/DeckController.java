@@ -2,10 +2,10 @@ package org.japan.controller.v1.deck;
 
 import lombok.RequiredArgsConstructor;
 import org.japan.annotations.ApiResponseFormat;
-import org.japan.dto.request.card.DeckRequest;
+import org.japan.dto.request.deck.DeckRequest;
 import org.japan.dto.response.card.DeckResponse;
 import org.japan.message.card.DeckMessage;
-import org.japan.service.card.DeckService;
+import org.japan.service.deck.DeckService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;

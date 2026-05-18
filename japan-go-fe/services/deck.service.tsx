@@ -14,3 +14,14 @@ export const createDeckFromFolder = async (deckRequest: DeckRequest) => {
     }
     return response;
 };
+
+export const formatQuizletData = async (raw: string) => {
+    return await sendRequest<string>({
+        url: "/cards/quizlet-data-formatting",
+        method: "POST",
+        responseType: "text",
+        body: {
+            raw,
+        },
+    });
+};

@@ -1,8 +1,8 @@
-package org.japan.service.card;
+package org.japan.service.deck;
 
 import lombok.RequiredArgsConstructor;
 import org.japan.dto.mapper.DeckDtoMapper;
-import org.japan.dto.request.card.DeckRequest;
+import org.japan.dto.request.deck.DeckRequest;
 import org.japan.dto.response.card.DeckResponse;
 import org.japan.entity.card.CardEntity;
 import org.japan.entity.card.DeckEntity;

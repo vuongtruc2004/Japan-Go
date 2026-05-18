@@ -46,7 +46,8 @@
             "create-lesson/kanji": "Tạo học phần chữ Hán",
             "create-lesson/grammar": "Tạo học phần ngữ pháp",
             "lesson/kanji": "Học phần chữ Hán",
-            "lesson/grammar": "Học phần ngữ pháp"
+            "lesson/grammar": "Học phần ngữ pháp",
+            "flashcard": "Thẻ ghi nhớ"
         },
         "jlptLevels": {
             "n5": "N5 - Cơ bản",
@@ -218,6 +219,10 @@
             "grammarJlpt": "[Ngữ pháp N{jlptLevel}]",
             "backToGrammarPage": "Về trang ngữ pháp",
             "goToGrammarLessonPage": "Chuyển đến trang học phần ngữ pháp này"
+        },
+        "flashcard": {
+            "buttonTitle": "Format dữ liệu",
+            "title": "Chép và dán dữ liệu vào đây để format"
         }
     }
 }
