@@ -1,64 +1,86 @@
-version: "3.9"
+name: japan-go
 
 services:
+  mysql:
+    # docker sẽ pull image về nếu chưa có
+    # docker pull mysql:8.4.8-oraclelinux9
+    image: mysql:8.4.8-oraclelinux9
+    container_name: japan-go-mysql
+    # nếu container chết, docker sẽ tự khởi động lại
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      # lần đầu khởi động tự tạo db naho
+      MYSQL_DATABASE: japan-go
+
+      # mysql tự tạo user và password
+      MYSQL_USER: japan-go-user
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+
+    # máy host là 3308, container là 3306
+    ports:
+      - "3308:3306"
+    # toàn bộ dữ liệu nằm ở /var/lib/mysql
+    volumes:
+      - mysql_data:/var/lib/mysql
+
+  # redis
+  redis:
+    image: redis:8.8.0
+    container_name: japan-go-redis
+    restart: unless-stopped
+    command: redis-server --requirepass ${REDIS_PASSWORD}
+    ports:
+      - "6380:6379"
+    # redis sẽ lưu dữ liệu tại /data
+    volumes:
+      - redis_data:/data
+
+  # spring boot backend app
   backend:
+    image: japan-go-be:1.0
     build:
       context: ./japan-go-be
-      dockerfile: Dockerfile
-    container_name: japan-go-be-app
+    container_name: japan-go-be
+    restart: unless-stopped
     ports:
-      - "2509:2509"
+      - "8000:8000"
     environment:
-      SPRING_PROFILES_ACTIVE: uat
-      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/japan-go?createDatabaseIfNotExist=true
-      SPRING_DATASOURCE_USERNAME: root
-      SPRING_DATASOURCE_PASSWORD: 1234
-      SPRING_DATA_REDIS_HOST: redis
-      SPRING_DATA_REDIS_PORT: 6379
-      SPRING_DATA_REDIS_PASSWORD: ""
-      SPRING_DATA_REDIS_DATABASE: 0
-      SOURCES_URI: file:///app/sources
+      SPRING_PROFILES_ACTIVE: prod
+
+      DB_URL: jdbc:mysql://mysql:3306/japan-go?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true&createDatabaseIfNotExist=true
+      DB_USERNAME: japan-go-user
+      DB_PASSWORD: ${MYSQL_PASSWORD}
+
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+      REDIS_PASSWORD: ${REDIS_PASSWORD}
+      REDIS_DATABASE: 0
+
+      SOURCES_URI: file:/app/sources
+
     volumes:
       - ./sources:/app/sources
+
     depends_on:
       - mysql
       - redis
-    restart: unless-stopped
 
-  frontend:
+  frontend-user:
+    image: japan-go-fe:1.0
     build:
       context: ./japan-go-fe
-      dockerfile: Dockerfile
-      args:
-        NEXT_PUBLIC_API_URL: http://localhost:2509/api/v1
-    container_name: japan-go-fe-app
-    environment:
-      API_URL: http://backend:2509/api/v1
+    container_name: japan-go-fe
+    restart: unless-stopped
     ports:
       - "3000:3000"
+    environment:
+      NODE_ENV: production
+      NEXT_PUBLIC_API_URL: http://backend:8000/api/v1
     depends_on:
       - backend
-    restart: unless-stopped
 
-  mysql:
-    image: mysql:8.0
-    container_name: japan-go-mysql
-    ports:
-      - "3307:3306"
-    environment:
-      MYSQL_ROOT_PASSWORD: 1234
-      MYSQL_DATABASE: japan-go
-    volumes:
-      - mysql_data:/var/lib/mysql
-    command: --default-authentication-plugin=mysql_native_password
-    restart: unless-stopped
-
-  redis:
-    image: redis:7
-    container_name: japan-go-redis
-    ports:
-      - "6379:6379"
-    restart: unless-stopped
-
+# khai báo volumes, docker sẽ tạo mysql_data và redis_data
 volumes:
   mysql_data:
+  redis_data:

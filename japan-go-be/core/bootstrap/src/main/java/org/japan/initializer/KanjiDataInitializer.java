@@ -35,7 +35,7 @@ public class KanjiDataInitializer implements CommandLineRunner {
     @Override
     public void run(String... args) {
         if (kanjiRepository.existsBy()) {
-            log.info("Kanji existed!");
+            log.warn("Kanji existed!");
         } else {
             try (InputStream kanjidicInputstream =
                          resourceLoader.getResource(sourcesUri + "/kanjidic/kanjidic2.xml").getInputStream();
@@ -56,9 +56,9 @@ public class KanjiDataInitializer implements CommandLineRunner {
                         kanjiJlptInputstream
                 );
 
-                log.info("Kanji importing...");
+                log.warn("Kanji importing...");
                 kanjiService.importKanjiFromKanjidic(kanjidicFile, kanjiJlptFile);
-                log.info("Kanji imported!");
+                log.warn("Kanji imported!");
 
             } catch (Exception e) {
                 throw new FileNotValidException(

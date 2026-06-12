@@ -1,56 +1,55 @@
-# ============================================
 # Stage 1: Dependencies
-# ============================================
-FROM node:24.12.0-slim AS dependencies
+FROM node:24.12.0-alpine3.23 AS dependencies
 
 WORKDIR /app
 
-# Copy file package trước
-COPY package.json package-lock.json ./
-COPY .npmrc* ./
+# Chỉ copy các file package.json và package-lock.json
+COPY package*.json ./
 
-# Cài tool hay cần cho một số package native
-RUN apt-get update && apt-get install -y python3 make g++ git && rm -rf /var/lib/apt/lists/*
+# không dùng npm install
+# Dùng npm clean install vì bắt buộc cài đúng version trong lock file
+# Tránh việc trong file package.json có dấu "^" khiến version mỗi lần build không cố định
+RUN npm ci
 
-# Ưu tiên npm ci, nếu lockfile đang lệch thì fallback npm install
-RUN npm ci --no-audit --no-fund || npm install --no-audit --no-fund --legacy-peer-deps
-
-
-# ============================================
-# Stage 2: Build
-# ============================================
-FROM node:24.12.0-slim AS builder
+# Stage 2: Builder
+FROM node:24.12.0-alpine3.23 AS builder
 
 WORKDIR /app
 
+# Copy node modules từ stage trước
 COPY --from=dependencies /app/node_modules ./node_modules
+
+# Copy src code
+# Nên có file .dockerignore để tránh copy các file thừa
 COPY . .
 
-ARG NEXT_PUBLIC_API_URL
-ENV NEXT_PUBLIC_API_URL=${NEXT_PUBLIC_API_URL}
-ENV NODE_ENV=production
-
+# Sau khi build, nextjs sẽ tạo
+#.next/
+# ├── standalone
+# ├── static
 RUN npm run build
 
-
-# ============================================
 # Stage 3: Runner
-# ============================================
-FROM node:24.12.0-slim AS runner
+FROM node:24.12.0-alpine3.23 AS runner
 
 WORKDIR /app
 
+# Tạo non-root user
+RUN addgroup -S nextjs \
+    && adduser -S nextjs -G nextjs
+
+# Bật production
 ENV NODE_ENV=production
 ENV PORT=3000
-ENV HOSTNAME=0.0.0.0
 
-COPY --from=builder /app/public ./public
-RUN mkdir -p .next
+# Copy src sang destination đồng thời đổi owner từ root -> user nextjs, group nextjs
+COPY --from=builder --chown=nextjs:nextjs /app/public ./public
+COPY --from=builder --chown=nextjs:nextjs /app/.next/standalone ./
+COPY --from=builder --chown=nextjs:nextjs /app/.next/static ./.next/static
 
-# Chỉ dùng được nếu next.config có output: 'standalone'
-COPY --from=builder /app/.next/standalone ./
-COPY --from=builder /app/.next/static ./.next/static
+USER nextjs
 
 EXPOSE 3000
 
+# Khi container start, chạy câu lệnh node server.js
 CMD ["node", "server.js"]

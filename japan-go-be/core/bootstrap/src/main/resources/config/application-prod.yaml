@@ -1,20 +1,19 @@
 spring:
-  flyway:
-    enabled: true
-    locations: classpath:db/migration
-    baseline-on-migrate: true
-
   datasource:
-    url: jdbc:mysql://${DB_HOST:localhost:3306}/${DB_SCHEMA:japan-go}?createDatabaseIfNotExist=true
-    username: ${DB_USER:root}
-    password: ${DB_PASSWORD:1234}
+    url: ${DB_URL}
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
 
   data:
     redis:
-      host: localhost
-      port: 6379
-      password: ""
-      database: 0
+      host: ${REDIS_HOST}
+      port: ${REDIS_PORT}
+      password: ${REDIS_PASSWORD}
+      database: ${REDIS_DATABASE}
+
+logging:
+  level:
+    root: warn
 
 sources:
-  uri: file:///D:/Ki_9/SEP490/Japan-Go/sources
+  uri: ${SOURCES_URI}

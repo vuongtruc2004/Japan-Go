@@ -54,6 +54,10 @@ dependencies {
     // Jackson
     implementation("com.fasterxml.jackson.core:jackson-core:2.21.2")
 
+    // Redis
+    implementation("org.springframework.boot:spring-boot-starter-data-redis")
+    implementation("org.apache.commons:commons-pool2:2.13.1")
+
     // test
     testImplementation("org.mybatis.spring.boot:mybatis-spring-boot-starter-test:4.0.1")
     testImplementation("org.springframework.boot:spring-boot-starter-flyway-test")

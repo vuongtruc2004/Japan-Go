@@ -35,7 +35,7 @@ public class MainSinoVietnameseInitializer implements CommandLineRunner {
     @Override
     public void run(String... args) {
         if (sinoVietnameseRepository.existsBy()) {
-            log.info("Sino Vietnamese existed!");
+            log.warn("Sino Vietnamese existed!");
         } else {
             try (InputStream sinoVietnamese1Inputstream =
                          resourceLoader.getResource(sourcesUri + "/sino/sino_vietnamese_1.json").getInputStream();
@@ -65,13 +65,13 @@ public class MainSinoVietnameseInitializer implements CommandLineRunner {
                         mainSinoVietnameseInputstream
                 );
 
-                log.info("Sino Vietnamese importing...");
+                log.warn("Sino Vietnamese importing...");
                 sinoVietnameseService.importSinoVietnamese(List.of(sinoVietnamese1File, sinoVietnamese2File));
-                log.info("Sino Vietnamese imported!");
+                log.warn("Sino Vietnamese imported!");
 
-                log.info("Main SinoVietnamese importing...");
+                log.warn("Main SinoVietnamese importing...");
                 sinoVietnameseService.importMainSinoVietnamese(mainSinoVietnameseFile);
-                log.info("Main SinoVietnamese imported!");
+                log.warn("Main SinoVietnamese imported!");
 
             } catch (Exception e) {
                 throw new FileNotValidException(

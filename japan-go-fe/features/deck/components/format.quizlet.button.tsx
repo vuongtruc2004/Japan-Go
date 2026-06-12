@@ -13,7 +13,7 @@ const FormatQuizletButton = () => {
     const [open, setOpen] = useState(false);
     const [result, setResult] = useState("");
 
-    const handleSubmit = async (e: React.SubmitEvent) => {
+    const handleSubmit = async (e: React.SubmitEvent<HTMLFormElement>) => {
         e.preventDefault();
         const formData = new FormData(e.currentTarget);
         const value = formData.get("raw");
