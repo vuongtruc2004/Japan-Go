@@ -53,7 +53,7 @@ public class KanjiService {
 
     public KanjiResponse getKanjiByKanjiCharacter(String kanjiCharacter) {
         return kanjiRepository.findByKanjiCharacter(kanjiCharacter)
-                .map(kanjiMapper::mapEntityToIdAndKanjiCharacter)
+                .map(kanjiMapper::mapEntityToResponseDetails)
                 .orElse(null);
     }
 

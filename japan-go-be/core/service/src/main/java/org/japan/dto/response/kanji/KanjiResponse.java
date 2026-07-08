@@ -22,7 +22,7 @@ public class KanjiResponse extends BaseResponse {
     Integer frequency;
     Integer jlptLevel;
     String mainSinoVietnamese;
-    List<String> sinoVietnameseList;
+    List<SinoVietnameseResponse> sinoVietnameseList;
     List<String> onyomiList;
     List<String> kunyomiList;
     List<String> kanjiMeaningList;

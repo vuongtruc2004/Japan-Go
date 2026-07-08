@@ -15,9 +15,21 @@ export const useVocabularyVisibilityToggles =
             setShowMeaning,
             showNote,
             setShowNote,
+            showStroke,
+            setShowStroke,
+            showSupportVocabulary,
+            setShowSupportVocabulary,
         } = useVocabularyVisibility();
 
         return [
+            {
+                id: "stroke",
+                visible: showStroke,
+                setVisible: setShowStroke,
+                showLabelKey: "stroke",
+                hideLabelKey: "stroke",
+                showClassName: DecoratorClassName.PURPLE,
+            },
             {
                 id: "japanese",
                 visible: showJapanese,
@@ -57,6 +69,14 @@ export const useVocabularyVisibilityToggles =
                 showLabelKey: "note",
                 hideLabelKey: "note",
                 showClassName: DecoratorClassName.RED,
+            },
+            {
+                id: "supportVocabulary",
+                visible: showSupportVocabulary,
+                setVisible: setShowSupportVocabulary,
+                showLabelKey: "supportVocabulary",
+                hideLabelKey: "supportVocabulary",
+                showClassName: DecoratorClassName.PINK,
             },
         ];
     };

@@ -33,6 +33,12 @@ public class KanjiHelper {
      */
 
     public String getSvgOfKanjiCharacter(String kanjiCharacter) {
+        int codePoint = kanjiCharacter.codePointAt(0);
+
+        if (!isKanji(codePoint)) {
+            return null;
+        }
+
         String file = String.format("%05x.svg", kanjiCharacter.codePointAt(0));
 
         Path basePath = Paths.get(URI.create(sourcesUri));
@@ -60,5 +66,18 @@ public class KanjiHelper {
                     i18nService.translation(FileMessage.FILE_ERROR, e.getMessage())
             );
         }
+    }
+
+    private boolean isKanji(int codePoint) {
+        Character.UnicodeBlock block = Character.UnicodeBlock.of(codePoint);
+
+        return block == Character.UnicodeBlock.CJK_UNIFIED_IDEOGRAPHS
+                || block == Character.UnicodeBlock.CJK_UNIFIED_IDEOGRAPHS_EXTENSION_A
+                || block == Character.UnicodeBlock.CJK_UNIFIED_IDEOGRAPHS_EXTENSION_B
+                || block == Character.UnicodeBlock.CJK_UNIFIED_IDEOGRAPHS_EXTENSION_C
+                || block == Character.UnicodeBlock.CJK_UNIFIED_IDEOGRAPHS_EXTENSION_D
+                || block == Character.UnicodeBlock.CJK_UNIFIED_IDEOGRAPHS_EXTENSION_E
+                || block == Character.UnicodeBlock.CJK_UNIFIED_IDEOGRAPHS_EXTENSION_F
+                || block == Character.UnicodeBlock.CJK_COMPATIBILITY_IDEOGRAPHS;
     }
 }

@@ -1,8 +1,6 @@
 export interface BaseResponse<TKey> {
     id: TKey;
-    createdBy: string;
     createdTime: string;
-    modifiedBy: string;
     modifiedTime: string;
 }
 

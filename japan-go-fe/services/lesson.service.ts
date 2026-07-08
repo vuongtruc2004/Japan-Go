@@ -1,16 +1,7 @@
 import { sendRequest } from "@/lib/send.request";
-import {
-    ApiResponse,
-    PageDetailsResponse,
-} from "@/types/api/responses/base.response";
-import {
-    BookResponse,
-    LessonResponse,
-} from "@/types/api/responses/lesson.response";
-import {
-    GrammarLessonRequest,
-    KanjiLessonRequest,
-} from "@/types/api/requests/lesson.request";
+import { ApiResponse, PageDetailsResponse } from "@/types/api/responses/base.response";
+import { BookResponse, LessonResponse } from "@/types/api/responses/lesson.response";
+import { GrammarLessonRequest, KanjiLessonImportRequest } from "@/types/api/requests/lesson.request";
 import { API_URL } from "@/utils/url";
 
 export const getAllLessons = async () => {
@@ -36,6 +27,7 @@ export const getLessonById = async (id: string): Promise<LessonResponse> => {
         url: `/lessons/${id}`,
         method: "GET",
     });
+    console.log(">>> check res: ", response);
     if (response.statusCode !== 200) {
         throw new Error(response.clientMessage);
     }
@@ -63,13 +55,23 @@ export const deleteAllLessons = async () => {
     }
 };
 
-export const createKanjiLesson = async (
-    body: KanjiLessonRequest,
+export const importKanjiLesson = async (
+    request: KanjiLessonImportRequest,
 ): Promise<LessonResponse> => {
+    const formData = new FormData();
+    if (request.folderId !== null) {
+        formData.append("folderId", String(request.folderId));
+    }
+    formData.append("bookId", String(request.bookId));
+    formData.append("lessonName", request.lessonName);
+    formData.append("description", request.description);
+    formData.append("lessonType", request.lessonType);
+    formData.append("file", request.file);
+
     const response = await sendRequest<ApiResponse<LessonResponse>>({
-        url: "/kanji-lessons",
+        url: "/kanji-lessons/import",
         method: "POST",
-        body,
+        body: formData,
     });
     if (response.statusCode !== 201) {
         throw new Error(response.clientMessage);

@@ -1,106 +1,59 @@
 "use client";
-import React, { useState, useTransition } from "react";
-import { Button, Divider, Modal } from "@mui/material";
+import React from "react";
+import { Button } from "@mui/material";
 import { useTranslations } from "next-intl";
-import CloseIcon from "@mui/icons-material/Close";
-import { TextFieldCustom } from "@/components/ui/mui-custom/text.field.custom";
-import AddOutlinedIcon from "@mui/icons-material/AddOutlined";
-import { importKanjiDataActions } from "@/features/create-lesson/actions/create.lesson.actions";
-import { IImportKanjiDataState } from "@/features/create-lesson/types/create.lesson.state.type";
-import { useKanjiData } from "@/features/create-lesson/contexts/kanji.data.provider";
+import FileUploadOutlinedIcon from "@mui/icons-material/FileUploadOutlined";
 
-const KanjiDataImportButton = () => {
+interface KanjiDataImportButtonProps {
+    file: File | null;
+    setFile: (file: File | null) => void;
+    setErrorMessage: (msg: string) => void;
+}
+
+const KanjiDataImportButton = ({
+    file,
+    setFile,
+    setErrorMessage,
+}: KanjiDataImportButtonProps) => {
     const t = useTranslations();
-    const { setKanjiPages } = useKanjiData();
-    const [open, setOpen] = useState(false);
 
-    const [formState, setFormState] = useState<IImportKanjiDataState | null>(
-        null,
-    );
-    const [isPending, startTransition] = useTransition();
+    const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const selectedFile = event.target.files?.[0] || null;
 
-    const handleClose = () => {
-        setFormState(null);
-        setOpen(false);
-    };
-
-    const formAction = (formData: FormData) => {
-        startTransition(async () => {
-            const result = await importKanjiDataActions(formData);
-            startTransition(() => {
-                if (result && result.success) {
-                    setKanjiPages(result.kanjiPages);
-                    handleClose();
-                } else {
-                    setFormState(result);
-                }
-            });
-        });
+        if (selectedFile) {
+            // Validate extension
+            if (!selectedFile.name.endsWith(".xlsx")) {
+                setErrorMessage(t("Validator.notExcelFile"));
+                return;
+            }
+            setFile(selectedFile);
+            setErrorMessage("");
+        }
     };
 
     return (
-        <>
+        <label htmlFor="excel-file" className="flex w-max cursor-pointer">
+            <input
+                name="excel-file"
+                id="excel-file"
+                accept=".xlsx"
+                type="file"
+                style={{ display: "none" }}
+                onChange={handleFileChange}
+            />
+
             <Button
                 variant="outlined"
-                color="primary"
-                onClick={() => setOpen(true)}
+                color={file ? "success" : "primary"}
+                component="span"
+                sx={{ display: "flex", alignItems: "center", gap: "6px" }}
             >
-                <AddOutlinedIcon />
-                {t("Common.importData")}
+                <FileUploadOutlinedIcon fontSize="small" />
+                <span>
+                    {file ? file.name : t("Common.uploadFile")}
+                </span>
             </Button>
-
-            <Modal open={open}>
-                <div className="bg-bgc-app absolute top-1/2 left-1/2 w-200 -translate-x-1/2 -translate-y-1/2 rounded-md">
-                    <h1 className="px-5 pt-5">
-                        <span className="mr-1 font-semibold">
-                            {t("Common.importData")}.
-                        </span>
-                        {t("Common.importDataFrom")}
-                    </h1>
-                    <form action={formAction} key="kanji-data-import-form">
-                        <TextFieldCustom
-                            name="kanji-data"
-                            placeholder={t(
-                                "Pages.yourLibrary.lesson.importKanjiDataPlaceholder",
-                            )}
-                            fullWidth
-                            multiline
-                            rows={10}
-                            defaultValue={
-                                formState ? formState.kanjiData.value : ""
-                            }
-                            sx={{
-                                padding: "20px",
-                            }}
-                        />
-
-                        <Divider />
-
-                        <div className="flex items-center justify-end gap-x-3 p-5">
-                            <Button
-                                onClick={handleClose}
-                                sx={{ columnGap: "8px" }}
-                                variant="outlined"
-                                color="error"
-                                disabled={isPending}
-                            >
-                                <CloseIcon fontSize="small" />
-                                {t("Common.cancel")}
-                            </Button>
-
-                            <Button
-                                type="submit"
-                                variant="contained"
-                                color="primary"
-                                loading={isPending}
-                            >
-                                {t("Common.confirm")}
-                            </Button>
-                        </div>
-                    </form>
-                </div>
-            </Modal>
-        </>
+        </label>
     );
 };
 

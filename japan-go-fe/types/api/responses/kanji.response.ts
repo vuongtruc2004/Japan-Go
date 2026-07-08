@@ -13,6 +13,7 @@ export interface KanjiResponse extends BaseResponse<number> {
     onyomiList: string[];
     kunyomiList: string[];
     sinoVietnameseList: SinoVietnameseResponse[];
+    kanjiMeaningList: string[];
 }
 
 export interface KanjiPageResponse extends BaseResponse<number> {

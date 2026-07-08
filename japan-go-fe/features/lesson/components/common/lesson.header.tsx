@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import { LessonResponse } from "@/types/api/responses/lesson.response";
 import FolderOutlinedIcon from "@mui/icons-material/FolderOutlined";
 import WrapBox from "@/components/ui/wrap.box";
@@ -13,12 +13,16 @@ import { useSearchParams } from "next/navigation";
 import { Link } from "@/i18n/navigation";
 import { slugifyText } from "@/utils/slugify.text";
 import LessonDetailsMoreButton from "@/features/lesson/components/common/lesson.details.more.button";
+import SchoolOutlinedIcon from "@mui/icons-material/SchoolOutlined";
+import { LessonType } from "@/types/enums/lesson.enum";
+import FlashcardPopup from "@/features/lesson/components/kanji/flashcard.popup";
 
 const LessonHeader = ({ lesson }: { lesson: LessonResponse }) => {
     const t = useTranslations();
     const searchParams = useSearchParams();
     const folderId = searchParams.get("folderId");
     const folderName = searchParams.get("folderName");
+    const [flashcardOpen, setFlashcardOpen] = useState(false);
 
     return (
         <WrapBox>
@@ -45,6 +49,22 @@ const LessonHeader = ({ lesson }: { lesson: LessonResponse }) => {
                 )}
 
                 <div className="flex items-center gap-x-3">
+                    {lesson.lessonType === LessonType.KANJI && (
+                        <>
+                            <TooltipCustom title="Học thẻ ghi nhớ">
+                                <ButtonCustom onClick={() => setFlashcardOpen(true)}>
+                                    <SchoolOutlinedIcon fontSize="small" />
+                                    <p className="font-semibold">{t("Common.links.flashcard")}</p>
+                                </ButtonCustom>
+                            </TooltipCustom>
+                            <FlashcardPopup
+                                open={flashcardOpen}
+                                onClose={() => setFlashcardOpen(false)}
+                                lesson={lesson}
+                            />
+                        </>
+                    )}
+
                     <TooltipCustom title={t("Pages.lesson.saveToQuickAccess")}>
                         <ButtonCustom>
                             <BookmarkBorderOutlinedIcon fontSize="small" />

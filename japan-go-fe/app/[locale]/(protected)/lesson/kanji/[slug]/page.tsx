@@ -6,7 +6,6 @@ import { ActiveKanjiPageProvider } from "@/features/lesson/contexts/active.kanji
 import ActiveKanji from "@/features/lesson/components/kanji/active.kanji";
 import LessonHeader from "@/features/lesson/components/common/lesson.header";
 import { VocabularyVisibilityProvider } from "@/features/lesson/contexts/vocabulary.visibility";
-import VocabularyVisibilityButtons from "@/features/lesson/components/kanji/vocabulary.visibility.buttons";
 
 const getKanjiLessonFromParams = async (params: Promise<{ slug: string }>) => {
     const { slug } = await params;
@@ -41,8 +40,6 @@ const KanjiLessonPage = async ({
                 <div className="relative mx-auto flex max-w-350 items-start gap-x-5">
                     <div className="flex flex-1 flex-col gap-y-5">
                         <LessonHeader lesson={lesson} />
-
-                        <VocabularyVisibilityButtons />
 
                         <ActiveKanji
                             kanjiPages={lesson.kanjiLesson.kanjiPages}

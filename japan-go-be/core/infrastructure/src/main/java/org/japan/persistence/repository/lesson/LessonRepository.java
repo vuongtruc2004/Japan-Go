@@ -13,9 +13,13 @@ public interface LessonRepository extends BaseRepository<LessonEntity> {
                 select count(f) > 0
                 from FolderEntity f
                 join f.lessons l
-                where f.id = :folderId and l.id = :lessonId
+                where f.id = :folderId
+                  and l.id = :lessonId
             """)
-    boolean existsByLessonIdAndFolderId(Long lessonId, Long folderId);
+    boolean existsByLessonIdAndFolderId(
+            @Param("lessonId") Long lessonId,
+            @Param("folderId") Long folderId
+    );
 
     @Modifying
     @Query(value = "DELETE FROM folder_lesson", nativeQuery = true)

@@ -65,7 +65,7 @@ public class SinoVietnameseService {
                         i18nService.translation(KanjiMessage.KANJI_NOT_FOUND, request.kanjiId())
                 ));
         SinoVietnameseEntity sinoVietnamese = SinoVietnameseEntity.builder()
-                .readingText(request.readingText())
+                .readingText(request.readingText().toUpperCase())
                 .kanji(kanji)
                 .build();
 

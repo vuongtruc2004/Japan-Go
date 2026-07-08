@@ -9,7 +9,13 @@ import { DecoratorClassName } from "@/types/enums/share.enum";
 import { useClipboard } from "@/hooks/use.clipboard";
 import { toast } from "react-toastify";
 
-const JapaneseView = ({ japanese }: { japanese: string }) => {
+const JapaneseView = ({
+    japanese,
+    isSmall = false,
+}: {
+    japanese: string;
+    isSmall?: boolean;
+}) => {
     const t = useTranslations();
     const [open, setOpen] = useState(false);
     const handleOpen = () => setOpen(true);
@@ -32,7 +38,9 @@ const JapaneseView = ({ japanese }: { japanese: string }) => {
     return (
         <>
             <button
-                className={`${DecoratorClassName.PRIMARY} font-noto-sans-jp cursor-pointer rounded-md border px-4 py-2 text-4xl text-nowrap transition-all duration-150`}
+                className={`${DecoratorClassName.PRIMARY} font-noto-sans-jp cursor-pointer rounded-md border text-nowrap transition-all duration-150 ${
+                    isSmall ? "px-2.5 py-1 text-sm font-medium" : "px-4 py-2 text-4xl"
+                }`}
                 onClick={handleOpen}
             >
                 {japanese}

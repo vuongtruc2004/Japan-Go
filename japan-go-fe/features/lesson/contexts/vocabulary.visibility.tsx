@@ -19,6 +19,10 @@ interface IVocabularyVisibilityProviderProps {
     setShowMeaning: Dispatch<SetStateAction<boolean>>;
     showNote: boolean;
     setShowNote: Dispatch<SetStateAction<boolean>>;
+    showStroke: boolean;
+    setShowStroke: Dispatch<SetStateAction<boolean>>;
+    showSupportVocabulary: boolean;
+    setShowSupportVocabulary: Dispatch<SetStateAction<boolean>>;
 }
 
 const VocabularyVisibilityContext = createContext<
@@ -35,6 +39,8 @@ export const VocabularyVisibilityProvider = ({
     const [showReading, setShowReading] = useState(true);
     const [showMeaning, setShowMeaning] = useState(true);
     const [showNote, setShowNote] = useState(true);
+    const [showStroke, setShowStroke] = useState(true);
+    const [showSupportVocabulary, setShowSupportVocabulary] = useState(true);
 
     const value = useMemo(
         () => ({
@@ -48,8 +54,20 @@ export const VocabularyVisibilityProvider = ({
             setShowMeaning,
             showNote,
             setShowNote,
+            showStroke,
+            setShowStroke,
+            showSupportVocabulary,
+            setShowSupportVocabulary,
         }),
-        [showJapanese, showSinoVietnamese, showReading, showMeaning, showNote],
+        [
+            showJapanese,
+            showSinoVietnamese,
+            showReading,
+            showMeaning,
+            showNote,
+            showStroke,
+            showSupportVocabulary,
+        ],
     );
 
     return (

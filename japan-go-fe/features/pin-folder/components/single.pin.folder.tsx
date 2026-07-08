@@ -5,23 +5,27 @@ import { useSidebarCollapse } from "@/layouts/sidebar/context/sidebar.collapse";
 import { FolderResponse } from "@/types/api/responses/common.response";
 import { slugifyText } from "@/utils/slugify.text";
 import FolderOutlinedIcon from "@mui/icons-material/FolderOutlined";
-import { getSidebarItemEffectClassNameBySlug } from "@/layouts/sidebar/utils/sidebar.utils";
-import { useParams } from "next/navigation";
+import { useParams, useSearchParams } from "next/navigation";
+import { SidebarEffectClassName } from "@/layouts/sidebar/types/sidebar.ui.type";
 
 const SinglePinFolder = ({ folder }: { folder: FolderResponse }) => {
     const { isCollapse } = useSidebarCollapse();
     const pathname = usePathname();
+    const searchParams = useSearchParams();
 
     const slug = slugifyText(folder.folderName + "-" + folder.id);
 
     const params = useParams<{ locale?: string; slug?: string }>();
     const paramSlug = params.slug;
+    const queryFolderId = searchParams.get("folderId");
 
-    const linkEffectClass = getSidebarItemEffectClassNameBySlug(
-        pathname,
-        slug,
-        paramSlug,
-    );
+    const isActive =
+        (slug === paramSlug && pathname.startsWith("/your-library/folder")) ||
+        (pathname.startsWith("/lesson/") && queryFolderId === String(folder.id));
+
+    const linkEffectClass = isActive
+        ? SidebarEffectClassName.ACTIVE
+        : SidebarEffectClassName.MUTED;
 
     return (
         <TooltipCustom

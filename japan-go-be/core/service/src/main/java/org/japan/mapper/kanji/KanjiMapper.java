@@ -1,7 +1,10 @@
 package org.japan.mapper.kanji;
 
 import org.japan.dto.response.kanji.KanjiResponse;
-import org.japan.entity.kanji.*;
+import org.japan.entity.kanji.KanjiEntity;
+import org.japan.entity.kanji.KanjiMeaningEntity;
+import org.japan.entity.kanji.KunyomiEntity;
+import org.japan.entity.kanji.OnyomiEntity;
 import org.japan.entry.KanjiDicEntry;
 import org.mapstruct.BeanMapping;
 import org.mapstruct.Mapper;
@@ -10,7 +13,10 @@ import org.mapstruct.Named;
 
 import java.util.List;
 
-@Mapper(componentModel = "spring")
+@Mapper(
+        componentModel = "spring",
+        uses = {SinoVietnameseMapper.class}
+)
 public interface KanjiMapper {
     // mapper method
     @Named("idAndCharacter")
@@ -44,14 +50,6 @@ public interface KanjiMapper {
     KanjiEntity mapEntryToEntity(KanjiDicEntry entry);
 
     // default method
-    default List<String> mapSinoVietnameseListToReadingTextList(List<SinoVietnameseEntity> sinoVietnameseEntityList) {
-        if (sinoVietnameseEntityList == null) return List.of();
-        return sinoVietnameseEntityList
-                .stream()
-                .map(SinoVietnameseEntity::getReadingText)
-                .toList();
-    }
-
     default List<String> mapOnyomiListToReadingTextList(List<OnyomiEntity> onyomiList) {
         if (onyomiList == null) return List.of();
         return onyomiList

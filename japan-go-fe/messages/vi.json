@@ -1,6 +1,7 @@
 {
     "Validator": {
-        "notMarkdownFile": "Tập tin không hợp lệ: không phải Markdown!"
+        "notMarkdownFile": "Tập tin không hợp lệ: không phải Markdown!",
+        "notExcelFile": "Tập tin không hợp lệ: không phải Excel (.xlsx)!"
     },
     "Common": {
         "open": "Mở",
@@ -176,14 +177,18 @@
                     "sinoVietnamese": "Hiện phiên âm Hán Việt",
                     "reading": "Hiện cách đọc",
                     "meaning": "Hiện nghĩa",
-                    "note": "Hiện chú ý"
+                    "note": "Hiện chú ý",
+                    "stroke": "Hiện nét vẽ",
+                    "supportVocabulary": "Hiện từ bổ trợ"
                 },
                 "hideVocabularyLabels": {
                     "japanese": "Ẩn tiếng Nhật",
                     "sinoVietnamese": "Ẩn phiên âm Hán Việt",
                     "reading": "Ẩn cách đọc",
                     "meaning": "Ẩn nghĩa",
-                    "note": "Ẩn chú ý"
+                    "note": "Ẩn chú ý",
+                    "stroke": "Ẩn nét vẽ",
+                    "supportVocabulary": "Ẩn từ bổ trợ"
                 }
             },
             "grammar": {

@@ -26,3 +26,12 @@ export interface GrammarLessonRequest {
 export interface ExportGrammarLessonRequest {
     grammarLessonIds: number[];
 }
+
+export interface KanjiLessonImportRequest {
+    folderId: number | null;
+    bookId: number;
+    lessonName: string;
+    description: string;
+    lessonType: LessonType;
+    file: File;
+}

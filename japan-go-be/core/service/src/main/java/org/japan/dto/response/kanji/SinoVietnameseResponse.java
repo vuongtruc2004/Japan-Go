@@ -5,6 +5,7 @@ import lombok.experimental.FieldDefaults;
 import lombok.experimental.SuperBuilder;
 import org.japan.dto.response.base.BaseResponse;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @SuperBuilder
@@ -15,5 +16,7 @@ import java.util.List;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class SinoVietnameseResponse extends BaseResponse {
     String readingText;
-    List<String> sinoVietnameseMeaningList;
+
+    @Builder.Default
+    List<String> sinoVietnameseMeaningList = new ArrayList<>();
 }

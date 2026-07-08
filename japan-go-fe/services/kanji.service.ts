@@ -36,6 +36,7 @@ export const getKanjiByKanjiCharacter = async (kanjiCharacter: string) => {
             "kanji-character": kanjiCharacter,
         },
     });
+    console.log(">>> check res: ", response);
     if (response.statusCode !== 200) {
         throw new Error(response.clientMessage);
     }

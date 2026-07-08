@@ -16,6 +16,7 @@ import java.util.List;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class VocabularyResponse extends BaseResponse {
     String japanese;
+    String sinoVietnamese;
     String reading;
     String meaning;
     String note;

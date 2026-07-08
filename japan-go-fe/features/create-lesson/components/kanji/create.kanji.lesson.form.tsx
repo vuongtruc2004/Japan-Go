@@ -5,59 +5,72 @@ import { Button } from "@mui/material";
 import WrapBox from "@/components/ui/wrap.box";
 import { TextFieldCustom } from "@/components/ui/mui-custom/text.field.custom";
 import PublicOutlinedIcon from "@mui/icons-material/PublicOutlined";
+import WarningAmberOutlinedIcon from "@mui/icons-material/WarningAmberOutlined";
 import KanjiDataImportButton from "@/features/create-lesson/components/kanji/kanji.data.import.button";
-import { ICreateKanjiLessonState } from "@/features/create-lesson/types/create.lesson.state.type";
-import { submitCreateKanjiLesson } from "@/features/create-lesson/actions/create.lesson.actions";
-import { useKanjiData } from "@/features/create-lesson/contexts/kanji.data.provider";
 import { useSearchParams } from "next/navigation";
 import { useRouter } from "@/i18n/navigation";
 import { parsePositiveInt } from "@/utils/parse.util";
 import { BookResponse } from "@/types/api/responses/lesson.response";
 import BookSelect from "@/features/create-lesson/components/book.select";
+import { importKanjiLesson } from "@/services/lesson.service";
+import { LessonType } from "@/types/enums/lesson.enum";
 
 const CreateKanjiLessonForm = ({ books }: { books: BookResponse[] }) => {
     const t = useTranslations();
-    const { kanjiPages } = useKanjiData();
     const { replace } = useRouter();
     const searchParams = useSearchParams();
     const [bookId, setBookId] = useState(books[0].id);
+    const [file, setFile] = useState<File | null>(null);
+    const [errorMessage, setErrorMessage] = useState("");
+    const [isPending, startTransition] = useTransition();
 
     const folder = searchParams.get("folder");
     const folderId = parsePositiveInt(folder?.split("-").pop());
 
-    const [formState, setFormState] = useState<ICreateKanjiLessonState | null>(
-        null,
-    );
-    const [isPending, startTransition] = useTransition();
+    const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+        event.preventDefault();
+        const formData = new FormData(event.currentTarget);
+        const lessonName = formData.get("lesson-name")?.toString().trim() || "";
+        const description = formData.get("description")?.toString().trim() || "";
 
-    const formAction = (formData: FormData) => {
+        if (!lessonName) {
+            setErrorMessage(t("Pages.yourLibrary.lesson.inputLessonNamePlaceholder"));
+            return;
+        }
+
+        if (!file) {
+            setErrorMessage(t("Pages.createLesson.youMustAttachAtLeastOneFile"));
+            return;
+        }
+
         startTransition(async () => {
-            const returnedFormState = await submitCreateKanjiLesson(
-                formData,
-                kanjiPages,
-                folderId,
-                bookId,
-            );
-            startTransition(() => {
-                if (returnedFormState.success) {
-                    if (folder) {
-                        replace({
-                            pathname: "/your-library/folder/[slug]",
-                            params: { slug: folder },
-                        });
-                    } else {
-                        replace("/your-library/lesson");
-                    }
+            try {
+                await importKanjiLesson({
+                    folderId,
+                    bookId,
+                    lessonName,
+                    description,
+                    lessonType: LessonType.KANJI,
+                    file,
+                });
+
+                if (folder) {
+                    replace({
+                        pathname: "/your-library/folder/[slug]",
+                        params: { slug: folder },
+                    });
                 } else {
-                    setFormState(returnedFormState);
+                    replace("/your-library/lesson");
                 }
-            });
+            } catch (error: any) {
+                setErrorMessage(error.message || "An error occurred");
+            }
         });
     };
 
     return (
         <WrapBox>
-            <form action={formAction} className="flex flex-col gap-y-3">
+            <form onSubmit={handleSubmit} className="flex flex-col gap-y-3">
                 <div className="flex items-center justify-between">
                     <h1 className="font-semibold">
                         {t("Pages.yourLibrary.lesson.createNewKanjiLesson")}
@@ -79,7 +92,6 @@ const CreateKanjiLessonForm = ({ books }: { books: BookResponse[] }) => {
                     )}
                     fullWidth
                     size="small"
-                    defaultValue={formState ? formState.lessonName.value : ""}
                 />
 
                 <TextFieldCustom
@@ -91,7 +103,6 @@ const CreateKanjiLessonForm = ({ books }: { books: BookResponse[] }) => {
                     multiline
                     minRows={3}
                     maxRows={6}
-                    defaultValue={formState ? formState.description.value : ""}
                 />
 
                 <BookSelect
@@ -101,7 +112,11 @@ const CreateKanjiLessonForm = ({ books }: { books: BookResponse[] }) => {
                 />
 
                 <div className="flex items-center gap-x-3">
-                    <KanjiDataImportButton />
+                    <KanjiDataImportButton
+                        file={file}
+                        setFile={setFile}
+                        setErrorMessage={setErrorMessage}
+                    />
 
                     <Button
                         variant="outlined"
@@ -112,6 +127,13 @@ const CreateKanjiLessonForm = ({ books }: { books: BookResponse[] }) => {
                         {t("Common.scope.public")}
                     </Button>
                 </div>
+
+                {errorMessage !== "" && (
+                    <span className="text-tc-error mt-1 ml-1 flex items-center gap-x-1 text-[12px] font-semibold">
+                        <WarningAmberOutlinedIcon sx={{ fontSize: "14px" }} />
+                        {errorMessage}
+                    </span>
+                )}
             </form>
         </WrapBox>
     );

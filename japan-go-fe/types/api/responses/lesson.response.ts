@@ -5,6 +5,7 @@ import { LessonType } from "@/types/enums/lesson.enum";
 
 export interface LessonResponse extends BaseResponse<number> {
     lessonName: string;
+    description: string;
     lessonType: LessonType;
     pageCount: number;
     book: BookResponse;

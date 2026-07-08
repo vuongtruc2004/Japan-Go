@@ -22,7 +22,6 @@ public interface LessonMapper {
     @Mapping(target = "pageCount", ignore = true)
     @Mapping(target = "grammarLesson", ignore = true)
     @Mapping(target = "kanjiLesson", ignore = true)
-    @Mapping(target = "book", ignore = true)
     LessonResponse mapEntityToResponseSummary(LessonEntity entity);
 
     default Integer getPageCountFromKanjiLesson(KanjiLessonEntity kanjiLessonEntity) {

@@ -7,10 +7,12 @@ const KanjiVgAnimator = React.memo(function KanjiVgAnimator({
     kanjiVg,
     durationPerStroke = 250,
     durationBetweenEachStroke = 50,
+    size = 192,
 }: {
     kanjiVg: string;
     durationPerStroke?: number;
     durationBetweenEachStroke?: number;
+    size?: number;
 }) {
     const containerRef = useRef<HTMLDivElement>(null);
 
@@ -26,35 +28,51 @@ const KanjiVgAnimator = React.memo(function KanjiVgAnimator({
         durationPerStroke,
     });
 
+    const replayBtnSize = Math.max(20, Math.round(size * 0.16));
+
     return (
-        <div className="border-bdc-primary relative flex h-max items-center justify-center rounded-md border">
+        <div 
+            className="border-bdc-primary relative flex items-center justify-center rounded-md border bg-bgc-app dark:bg-zinc-950 shrink-0"
+            style={{ width: `${size}px`, height: `${size}px` }}
+            onClick={(e) => e.stopPropagation()}
+        >
             <Box
                 ref={containerRef}
                 sx={{
                     width: "100%",
                     height: "100%",
-                    padding: "12px 12px 24px",
-                    "& svg": { width: "192px", height: "192px" },
+                    padding: `${Math.round(size * 0.06)}px ${Math.round(size * 0.06)}px ${Math.round(size * 0.12)}px`,
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    "& svg": { 
+                        width: "100%", 
+                        height: "100%",
+                        display: "block"
+                    },
                 }}
             />
 
-            <Button
-                variant="text"
-                color="primary"
-                sx={{
-                    width: "32px",
-                    minWidth: "32px",
-                    height: "32px",
-                    borderRadius: "50%",
-                    position: "absolute",
-                    top: "8px",
-                    right: "8px",
-                }}
-                size="small"
-                onClick={run}
-            >
-                <ReplayIcon fontSize="small" />
-            </Button>
+            {size >= 80 && (
+                <Button
+                    variant="text"
+                    color="primary"
+                    sx={{
+                        width: `${replayBtnSize}px`,
+                        minWidth: `${replayBtnSize}px`,
+                        height: `${replayBtnSize}px`,
+                        borderRadius: "50%",
+                        position: "absolute",
+                        top: "4px",
+                        right: "4px",
+                        padding: 0,
+                    }}
+                    size="small"
+                    onClick={run}
+                >
+                    <ReplayIcon sx={{ fontSize: `${Math.max(12, Math.round(size * 0.09))}px` }} />
+                </Button>
+            )}
         </div>
     );
 });
