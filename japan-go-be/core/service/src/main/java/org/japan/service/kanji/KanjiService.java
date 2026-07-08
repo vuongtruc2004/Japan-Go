@@ -1,8 +1,6 @@
 package org.japan.service.kanji;
 
 import lombok.RequiredArgsConstructor;
-import org.japan.dto.mapper.KanjiDtoMapper;
-import org.japan.dto.mapper.kanji.KanjiMapper;
 import org.japan.dto.request.kanji.UpdateKanjiMainSinoVietnameseRequest;
 import org.japan.dto.response.kanji.KanjiResponse;
 import org.japan.entity.kanji.KanjiEntity;
@@ -11,6 +9,7 @@ import org.japan.exception.FileNotValidException;
 import org.japan.exception.NotFoundException;
 import org.japan.i18n.I18nService;
 import org.japan.importer.kanji.KanjiXmlImporter;
+import org.japan.mapper.kanji.KanjiMapper;
 import org.japan.message.FileMessage;
 import org.japan.message.kanji.KanjiMessage;
 import org.japan.message.kanji.SinoVietnameseMessage;
@@ -28,7 +27,6 @@ import java.util.List;
 @RequiredArgsConstructor
 public class KanjiService {
     private final FileValidator fileValidator;
-    private final KanjiDtoMapper kanjiDTOMapper;
     private final I18nService i18nService;
     private final KanjiXmlImporter kanjiXmlImporter;
     private final KanjiRepository kanjiRepository;
@@ -50,12 +48,12 @@ public class KanjiService {
 
         kanji.setMainSinoVietnamese(sinoVietnamese);
         KanjiEntity savedKanji = kanjiRepository.save(kanji);
-        return kanjiDTOMapper.kanjiEntityToKanjiResponse(savedKanji);
+        return kanjiMapper.mapEntityToResponseSummary(savedKanji);
     }
 
     public KanjiResponse getKanjiByKanjiCharacter(String kanjiCharacter) {
         return kanjiRepository.findByKanjiCharacter(kanjiCharacter)
-                .map(kanjiDTOMapper::kanjiEntityToKanjiResponse)
+                .map(kanjiMapper::mapEntityToIdAndKanjiCharacter)
                 .orElse(null);
     }
 
@@ -71,7 +69,7 @@ public class KanjiService {
         List<KanjiEntity> kanjiEntities = kanjiRepository.findAllByJlptLevel(jlptLevel);
         return kanjiEntities
                 .stream()
-                .map(kanjiMapper::mapKanjiEntityToKanjiResponse)
+                .map(kanjiMapper::mapEntityToIdAndKanjiCharacter)
                 .toList();
     }
 

@@ -1,4 +1,4 @@
-package org.japan.dto.mapper;
+package org.japan.mapper.card;
 
 import lombok.RequiredArgsConstructor;
 import org.japan.dto.response.card.DeckResponse;

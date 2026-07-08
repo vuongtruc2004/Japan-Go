@@ -1,7 +1,6 @@
 package org.japan.service.common;
 
 import lombok.RequiredArgsConstructor;
-import org.japan.dto.mapper.FolderDtoMapper;
 import org.japan.dto.request.common.FolderLessonRequest;
 import org.japan.dto.request.common.FolderRequest;
 import org.japan.dto.response.common.FolderResponse;
@@ -11,6 +10,7 @@ import org.japan.exception.common.FolderException;
 import org.japan.helper.folder.FolderHelper;
 import org.japan.helper.lesson.LessonHelper;
 import org.japan.i18n.I18nService;
+import org.japan.mapper.common.FolderDtoMapper;
 import org.japan.message.common.FolderMessage;
 import org.japan.persistence.repository.common.FolderRepository;
 import org.japan.persistence.repository.lesson.LessonRepository;

@@ -16,4 +16,4 @@ logging:
     root: info
 
 sources:
-  uri: ${SOURCES_URI:file:///D:/Ki_9/SEP490/Japan-Go/sources}
+  uri: file:///D:/Ki_9/SEP490/My_Project/Japan-Go/sources

@@ -1,7 +1,6 @@
 package org.japan.importer.kanji;
 
 import lombok.RequiredArgsConstructor;
-import org.japan.dto.mapper.KanjiDtoMapper;
 import org.japan.entity.kanji.KanjiEntity;
 import org.japan.entity.kanji.KanjiMeaningEntity;
 import org.japan.entity.kanji.KunyomiEntity;
@@ -11,6 +10,7 @@ import org.japan.exception.FileNotValidException;
 import org.japan.exception.kanji.KanjiException;
 import org.japan.helper.kanji.KanjiHelper;
 import org.japan.i18n.I18nService;
+import org.japan.mapper.kanji.KanjiMapper;
 import org.japan.message.FileMessage;
 import org.japan.message.kanji.KanjiMessage;
 import org.japan.persistence.repository.kanji.KanjiMeaningRepository;
@@ -43,7 +43,7 @@ public class KanjiXmlImporter {
     private final KanjiMeaningRepository kanjiMeaningRepository;
     private final I18nService i18nService;
     private final KanjiHelper kanjiHelper;
-    private final KanjiDtoMapper kanjiDtoMapper;
+    private final KanjiMapper kanjiMapper;
 
     public List<KanjiEntity> importKanji(InputStream kanjidicInputstream, InputStream kanjijlptInputstream) {
         try {
@@ -130,7 +130,7 @@ public class KanjiXmlImporter {
         // save all kanji
         List<KanjiEntity> kanjiEntities = new ArrayList<>();
         for (KanjiDicEntry kanjiDicEntry : kanjiDicEntryList) {
-            KanjiEntity kanjiEntity = kanjiDtoMapper.kanjiDicEntryToKanjiEntity(kanjiDicEntry);
+            KanjiEntity kanjiEntity = kanjiMapper.mapEntryToEntity(kanjiDicEntry);
             for (String kunyomi : kanjiDicEntry.getKunyomiSet()) {
                 kanjiEntity.getKunyomiList().add(kunyomiEntityMap.get(kunyomi));
             }

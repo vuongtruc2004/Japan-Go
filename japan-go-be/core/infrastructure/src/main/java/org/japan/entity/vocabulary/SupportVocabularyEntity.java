@@ -1,4 +1,4 @@
-package org.japan.entity.kanji;
+package org.japan.entity.vocabulary;
 
 import jakarta.persistence.*;
 import lombok.*;
@@ -11,9 +11,9 @@ import org.japan.entity.base.BaseEntity;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "vocabularies")
+@Table(name = "support_vocabularies")
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class VocabularyEntity extends BaseEntity {
+public class SupportVocabularyEntity extends BaseEntity {
     @Column(nullable = false)
     String japanese;
 
@@ -22,9 +22,7 @@ public class VocabularyEntity extends BaseEntity {
 
     String meaning;
 
-    String note;
-
     @ManyToOne
-    @JoinColumn(name = "kanji_page_id")
-    KanjiPageEntity kanjiPage;
+    @JoinColumn(name = "vocabulary_id")
+    VocabularyEntity vocabulary;
 }

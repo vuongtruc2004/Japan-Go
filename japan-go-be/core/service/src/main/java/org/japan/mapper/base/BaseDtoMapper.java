@@ -1,4 +1,4 @@
-package org.japan.dto.mapper.base;
+package org.japan.mapper.base;
 
 import lombok.RequiredArgsConstructor;
 import org.japan.dto.response.base.BaseResponse;
@@ -12,9 +12,7 @@ public class BaseDtoMapper {
         return BaseResponse.builder()
                 .id(baseEntity.getId())
                 .createdTime(baseEntity.getCreatedTime())
-                .createdBy(baseEntity.getCreatedBy())
                 .modifiedTime(baseEntity.getModifiedTime())
-                .modifiedBy(baseEntity.getModifiedBy())
                 .build();
     }
 }

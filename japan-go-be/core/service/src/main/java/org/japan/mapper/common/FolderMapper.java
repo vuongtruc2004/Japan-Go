@@ -1,4 +1,4 @@
-package org.japan.dto.mapper.common;
+package org.japan.mapper.common;
 
 import org.japan.dto.response.common.FolderResponseTest;
 import org.japan.entity.common.FolderEntity;

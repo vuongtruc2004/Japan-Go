@@ -1,13 +1,13 @@
 package org.japan.service.deck;
 
 import lombok.RequiredArgsConstructor;
-import org.japan.dto.mapper.DeckDtoMapper;
 import org.japan.dto.request.deck.DeckRequest;
 import org.japan.dto.response.card.DeckResponse;
 import org.japan.entity.card.CardEntity;
 import org.japan.entity.card.DeckEntity;
 import org.japan.entity.grammar.SentenceEntity;
 import org.japan.helper.card.DeckHelper;
+import org.japan.mapper.card.DeckDtoMapper;
 import org.japan.persistence.repository.card.DeckRepository;
 import org.japan.persistence.repository.grammar.SentenceRepository;
 import org.springframework.stereotype.Service;

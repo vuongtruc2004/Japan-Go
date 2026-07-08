@@ -1,9 +1,9 @@
 package org.japan.service.common;
 
 import lombok.RequiredArgsConstructor;
-import org.japan.dto.mapper.common.FolderMapper;
 import org.japan.dto.response.common.FolderResponseTest;
 import org.japan.entity.common.FolderEntity;
+import org.japan.mapper.common.FolderMapper;
 import org.japan.persistence.repository.common.FolderRepository;
 import org.springframework.stereotype.Service;
 

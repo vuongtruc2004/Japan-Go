@@ -16,12 +16,8 @@ import java.time.Instant;
 public class BaseResponse {
     Long id;
 
-    String createdBy;
-
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+7")
     Instant createdTime;
-
-    String modifiedBy;
 
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+7")
     Instant modifiedTime;

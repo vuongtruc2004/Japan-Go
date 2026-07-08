@@ -1,12 +1,13 @@
 package org.japan.service.lesson;
 
 import lombok.RequiredArgsConstructor;
-import org.japan.dto.mapper.lesson.LessonDtoMapper;
+import org.japan.constants.lesson.LessonTypeEnum;
 import org.japan.dto.response.base.PageDetailsResponse;
 import org.japan.dto.response.lesson.LessonResponse;
 import org.japan.entity.common.FolderEntity;
 import org.japan.entity.lesson.LessonEntity;
 import org.japan.helper.lesson.LessonHelper;
+import org.japan.mapper.lesson.LessonMapper;
 import org.japan.persistence.repository.lesson.LessonRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -21,12 +22,15 @@ import java.util.List;
 @RequiredArgsConstructor
 public class LessonService {
     private final LessonRepository lessonRepository;
-    private final LessonDtoMapper lessonDtoMapper;
+    private final LessonMapper lessonMapper;
     private final LessonHelper lessonHelper;
 
     public LessonResponse getLessonById(Long id) {
         LessonEntity lesson = lessonHelper.getLessonById(id);
-        return lessonDtoMapper.lessonEntityToLessonResponseDetails(lesson);
+        if (lesson.getLessonType().equals(LessonTypeEnum.GRAMMAR)) {
+            return lessonMapper.mapEntityToResponseDetailsGrammar(lesson);
+        }
+        return lessonMapper.mapEntityToResponseDetailsKanji(lesson);
     }
 
     public Long deleteLesson(Long id) {
@@ -53,7 +57,7 @@ public class LessonService {
 
         Page<LessonEntity> page = lessonRepository.findAll(specification, pageable);
         List<LessonResponse> lessonResponses = page.getContent()
-                .stream().map(lessonDtoMapper::lessonEntityToLessonResponseSummary)
+                .stream().map(lessonMapper::mapEntityToResponseSummary)
                 .toList();
 
         return PageDetailsResponse.<List<LessonResponse>>builder()

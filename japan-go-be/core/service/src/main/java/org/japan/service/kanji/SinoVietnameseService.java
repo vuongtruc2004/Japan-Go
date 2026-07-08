@@ -1,7 +1,6 @@
 package org.japan.service.kanji;
 
 import lombok.RequiredArgsConstructor;
-import org.japan.dto.mapper.KanjiDtoMapper;
 import org.japan.dto.request.kanji.CreateSinoVietnameseRequest;
 import org.japan.dto.request.kanji.GetSinoVietnameseRequest;
 import org.japan.entity.kanji.KanjiEntity;
@@ -33,7 +32,6 @@ import java.util.Map;
 @Service
 @RequiredArgsConstructor
 public class SinoVietnameseService {
-    private final KanjiDtoMapper kanjiDTOMapper;
     private final FileValidator fileValidator;
     private final I18nService i18nService;
     private final SinoVietnameseHelper sinoVietnameseHelper;

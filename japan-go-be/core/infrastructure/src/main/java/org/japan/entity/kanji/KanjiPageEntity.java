@@ -5,6 +5,7 @@ import lombok.*;
 import lombok.experimental.FieldDefaults;
 import org.japan.entity.base.BaseEntity;
 import org.japan.entity.lesson.KanjiLessonEntity;
+import org.japan.entity.vocabulary.VocabularyEntity;
 
 import java.util.ArrayList;
 import java.util.List;

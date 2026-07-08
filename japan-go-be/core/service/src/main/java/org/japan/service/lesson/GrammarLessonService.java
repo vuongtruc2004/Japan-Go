@@ -1,7 +1,6 @@
 package org.japan.service.lesson;
 
 import lombok.RequiredArgsConstructor;
-import org.japan.dto.mapper.lesson.LessonDtoMapper;
 import org.japan.dto.request.lesson.ExportGrammarLessonRequest;
 import org.japan.dto.request.lesson.GrammarLessonRequest;
 import org.japan.dto.response.lesson.LessonResponse;
@@ -17,8 +16,9 @@ import org.japan.helper.grammar.GrammarHelper;
 import org.japan.helper.lesson.BookHelper;
 import org.japan.i18n.I18nService;
 import org.japan.importer.grammar.GrammarLessonMarkdownImporter;
-import org.japan.persistence.mybatis.grammar.SentenceMapper;
+import org.japan.mapper.lesson.LessonMapper;
 import org.japan.message.FileMessage;
+import org.japan.persistence.mybatis.grammar.SentenceMapper;
 import org.japan.persistence.repository.lesson.GrammarLessonRepository;
 import org.japan.persistence.repository.lesson.LessonRepository;
 import org.japan.utils.StringUtil;
@@ -37,7 +37,7 @@ public class GrammarLessonService {
     private final FileValidator fileValidator;
     private final I18nService i18nService;
     private final GrammarLessonMarkdownImporter grammarLessonMarkdownImporter;
-    private final LessonDtoMapper lessonDtoMapper;
+    private final LessonMapper lessonMapper;
     private final LessonRepository lessonRepository;
     private final FolderHelper folderHelper;
     private final GrammarLessonRepository grammarLessonRepository;
@@ -96,7 +96,7 @@ public class GrammarLessonService {
         }
         List<LessonEntity> savedLessons = lessonRepository.saveAll(lessons);
         return savedLessons.stream()
-                .map(lessonDtoMapper::lessonEntityToLessonResponseSummary)
+                .map(lessonMapper::mapEntityToResponseSummary)
                 .toList();
     }
 

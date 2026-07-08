@@ -1,16 +1,16 @@
-package org.japan.dto.mapper;
+package org.japan.mapper.common;
 
 import lombok.RequiredArgsConstructor;
-import org.japan.dto.mapper.lesson.LessonDtoMapper;
 import org.japan.dto.response.common.FolderResponse;
 import org.japan.entity.common.FolderEntity;
+import org.japan.mapper.lesson.LessonMapper;
 import org.springframework.stereotype.Component;
 
 @Component
 @RequiredArgsConstructor
 public class FolderDtoMapper {
 
-    private final LessonDtoMapper lessonDtoMapper;
+    private final LessonMapper lessonMapper;
 
     public FolderResponse folderEntityToFolderResponseSummary(FolderEntity folderEntity) {
         FolderResponse folderResponse = FolderResponse.builder()
@@ -32,7 +32,7 @@ public class FolderDtoMapper {
         folderResponse.setLessons(folderEntity
                 .getLessons()
                 .stream()
-                .map(lessonDtoMapper::lessonEntityToLessonResponseSummary)
+                .map(lessonMapper::mapEntityToResponseSummary)
                 .toList());
         return folderResponse;
     }

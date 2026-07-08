@@ -4,6 +4,7 @@ import lombok.*;
 import lombok.experimental.FieldDefaults;
 import lombok.experimental.SuperBuilder;
 import org.japan.dto.response.base.BaseResponse;
+import org.japan.dto.response.vocabulary.VocabularyResponse;
 
 import java.util.ArrayList;
 import java.util.List;

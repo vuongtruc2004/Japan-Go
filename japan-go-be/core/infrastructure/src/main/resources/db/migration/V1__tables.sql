@@ -1,9 +1,7 @@
 CREATE TABLE books
 (
     id               BIGINT AUTO_INCREMENT NOT NULL,
-    created_by       VARCHAR(255)          NOT NULL,
     created_time     datetime              NOT NULL,
-    modified_by      VARCHAR(255)          NULL,
     modified_time    datetime              NULL,
     vietnamese_title VARCHAR(255)          NULL,
     japanese_title   VARCHAR(255)          NULL,
@@ -15,9 +13,7 @@ CREATE TABLE books
 CREATE TABLE cards
 (
     id            BIGINT AUTO_INCREMENT NOT NULL,
-    created_by    VARCHAR(255)          NOT NULL,
     created_time  datetime              NOT NULL,
-    modified_by   VARCHAR(255)          NULL,
     modified_time datetime              NULL,
     front         MEDIUMTEXT            NOT NULL,
     grammar_id    BIGINT                NULL,
@@ -29,9 +25,7 @@ CREATE TABLE cards
 CREATE TABLE decks
 (
     id            BIGINT AUTO_INCREMENT NOT NULL,
-    created_by    VARCHAR(255)          NOT NULL,
     created_time  datetime              NOT NULL,
-    modified_by   VARCHAR(255)          NULL,
     modified_time datetime              NULL,
     title         VARCHAR(255)          NOT NULL,
     `description` VARCHAR(255)          NULL,
@@ -47,9 +41,7 @@ CREATE TABLE folder_lesson
 CREATE TABLE folders
 (
     id                   BIGINT AUTO_INCREMENT NOT NULL,
-    created_by           VARCHAR(255)          NOT NULL,
     created_time         datetime              NOT NULL,
-    modified_by          VARCHAR(255)          NULL,
     modified_time        datetime              NULL,
     folder_name          VARCHAR(255)          NOT NULL,
     parent_folder_id     BIGINT                NULL,
@@ -60,9 +52,7 @@ CREATE TABLE folders
 CREATE TABLE grammar_examples
 (
     id            BIGINT AUTO_INCREMENT NOT NULL,
-    created_by    VARCHAR(255)          NOT NULL,
     created_time  datetime              NOT NULL,
-    modified_by   VARCHAR(255)          NULL,
     modified_time datetime              NULL,
     CONSTRAINT pk_grammar_examples PRIMARY KEY (id)
 );
@@ -70,9 +60,7 @@ CREATE TABLE grammar_examples
 CREATE TABLE grammar_lessons
 (
     id            BIGINT AUTO_INCREMENT NOT NULL,
-    created_by    VARCHAR(255)          NOT NULL,
     created_time  datetime              NOT NULL,
-    modified_by   VARCHAR(255)          NULL,
     modified_time datetime              NULL,
     CONSTRAINT pk_grammar_lessons PRIMARY KEY (id)
 );
@@ -80,9 +68,7 @@ CREATE TABLE grammar_lessons
 CREATE TABLE grammar_meanings
 (
     id            BIGINT AUTO_INCREMENT NOT NULL,
-    created_by    VARCHAR(255)          NOT NULL,
     created_time  datetime              NOT NULL,
-    modified_by   VARCHAR(255)          NULL,
     modified_time datetime              NULL,
     CONSTRAINT pk_grammar_meanings PRIMARY KEY (id)
 );
@@ -90,9 +76,7 @@ CREATE TABLE grammar_meanings
 CREATE TABLE grammar_notes
 (
     id            BIGINT AUTO_INCREMENT NOT NULL,
-    created_by    VARCHAR(255)          NOT NULL,
     created_time  datetime              NOT NULL,
-    modified_by   VARCHAR(255)          NULL,
     modified_time datetime              NULL,
     CONSTRAINT pk_grammar_notes PRIMARY KEY (id)
 );
@@ -100,9 +84,7 @@ CREATE TABLE grammar_notes
 CREATE TABLE grammar_structures
 (
     id            BIGINT AUTO_INCREMENT NOT NULL,
-    created_by    VARCHAR(255)          NOT NULL,
     created_time  datetime              NOT NULL,
-    modified_by   VARCHAR(255)          NULL,
     modified_time datetime              NULL,
     CONSTRAINT pk_grammar_structures PRIMARY KEY (id)
 );
@@ -110,9 +92,7 @@ CREATE TABLE grammar_structures
 CREATE TABLE grammars
 (
     id                     BIGINT AUTO_INCREMENT NOT NULL,
-    created_by             VARCHAR(255)          NOT NULL,
     created_time           datetime              NOT NULL,
-    modified_by            VARCHAR(255)          NULL,
     modified_time          datetime              NULL,
     grammar_title          VARCHAR(255)          NOT NULL,
     grammar_title_furigana VARCHAR(255)          NULL,
@@ -130,9 +110,7 @@ CREATE TABLE grammars
 CREATE TABLE images
 (
     id            BIGINT AUTO_INCREMENT NOT NULL,
-    created_by    VARCHAR(255)          NOT NULL,
     created_time  datetime              NOT NULL,
-    modified_by   VARCHAR(255)          NULL,
     modified_time datetime              NULL,
     img_path      VARCHAR(255)          NULL,
     img_alt       VARCHAR(255)          NULL,
@@ -142,9 +120,7 @@ CREATE TABLE images
 CREATE TABLE kanji
 (
     id                      BIGINT AUTO_INCREMENT NOT NULL,
-    created_by              VARCHAR(255)          NOT NULL,
     created_time            datetime              NOT NULL,
-    modified_by             VARCHAR(255)          NULL,
     modified_time           datetime              NULL,
     kanji_character         VARCHAR(255)          NOT NULL,
     unicode                 VARCHAR(255)          NOT NULL,
@@ -172,9 +148,7 @@ CREATE TABLE kanji_kunyomi
 CREATE TABLE kanji_lessons
 (
     id            BIGINT AUTO_INCREMENT NOT NULL,
-    created_by    VARCHAR(255)          NOT NULL,
     created_time  datetime              NOT NULL,
-    modified_by   VARCHAR(255)          NULL,
     modified_time datetime              NULL,
     CONSTRAINT pk_kanji_lessons PRIMARY KEY (id)
 );
@@ -182,9 +156,7 @@ CREATE TABLE kanji_lessons
 CREATE TABLE kanji_meaning
 (
     id            BIGINT AUTO_INCREMENT NOT NULL,
-    created_by    VARCHAR(255)          NOT NULL,
     created_time  datetime              NOT NULL,
-    modified_by   VARCHAR(255)          NULL,
     modified_time datetime              NULL,
     reading_text  VARCHAR(255)          NOT NULL,
     CONSTRAINT pk_kanji_meaning PRIMARY KEY (id)
@@ -199,9 +171,7 @@ CREATE TABLE kanji_onyomi
 CREATE TABLE kanji_pages
 (
     id              BIGINT AUTO_INCREMENT NOT NULL,
-    created_by      VARCHAR(255)          NOT NULL,
     created_time    datetime              NOT NULL,
-    modified_by     VARCHAR(255)          NULL,
     modified_time   datetime              NULL,
     main_kanji_id   BIGINT                NULL,
     kanji_lesson_id BIGINT                NULL,
@@ -211,9 +181,7 @@ CREATE TABLE kanji_pages
 CREATE TABLE kunyomi
 (
     id            BIGINT AUTO_INCREMENT NOT NULL,
-    created_by    VARCHAR(255)          NOT NULL,
     created_time  datetime              NOT NULL,
-    modified_by   VARCHAR(255)          NULL,
     modified_time datetime              NULL,
     reading_text  VARCHAR(255)          NOT NULL,
     CONSTRAINT pk_kunyomi PRIMARY KEY (id)
@@ -222,9 +190,7 @@ CREATE TABLE kunyomi
 CREATE TABLE lessons
 (
     id                BIGINT AUTO_INCREMENT NOT NULL,
-    created_by        VARCHAR(255)          NOT NULL,
     created_time      datetime              NOT NULL,
-    modified_by       VARCHAR(255)          NULL,
     modified_time     datetime              NULL,
     lesson_name       VARCHAR(255)          NOT NULL,
     `description`     VARCHAR(255)          NULL,
@@ -238,9 +204,7 @@ CREATE TABLE lessons
 CREATE TABLE onyomi
 (
     id            BIGINT AUTO_INCREMENT NOT NULL,
-    created_by    VARCHAR(255)          NOT NULL,
     created_time  datetime              NOT NULL,
-    modified_by   VARCHAR(255)          NULL,
     modified_time datetime              NULL,
     reading_text  VARCHAR(255)          NOT NULL,
     CONSTRAINT pk_onyomi PRIMARY KEY (id)
@@ -249,9 +213,7 @@ CREATE TABLE onyomi
 CREATE TABLE permissions
 (
     id            BIGINT AUTO_INCREMENT NOT NULL,
-    created_by    VARCHAR(255)          NOT NULL,
     created_time  datetime              NOT NULL,
-    modified_by   VARCHAR(255)          NULL,
     modified_time datetime              NULL,
     api_path      VARCHAR(255)          NULL,
     api_method    VARCHAR(255)          NULL,
@@ -267,9 +229,7 @@ CREATE TABLE role_permission
 CREATE TABLE roles
 (
     id            BIGINT AUTO_INCREMENT NOT NULL,
-    created_by    VARCHAR(255)          NOT NULL,
     created_time  datetime              NOT NULL,
-    modified_by   VARCHAR(255)          NULL,
     modified_time datetime              NULL,
     role_name     VARCHAR(255)          NULL,
     CONSTRAINT pk_roles PRIMARY KEY (id)
@@ -278,9 +238,7 @@ CREATE TABLE roles
 CREATE TABLE sentences
 (
     id                   BIGINT AUTO_INCREMENT NOT NULL,
-    created_by           VARCHAR(255)          NOT NULL,
     created_time         datetime              NOT NULL,
-    modified_by          VARCHAR(255)          NULL,
     modified_time        datetime              NULL,
     japanese_raw         MEDIUMTEXT            NULL,
     vietnamese_raw       MEDIUMTEXT            NULL,
@@ -298,9 +256,7 @@ CREATE TABLE sentences
 CREATE TABLE sino_vietnamese
 (
     id            BIGINT AUTO_INCREMENT NOT NULL,
-    created_by    VARCHAR(255)          NOT NULL,
     created_time  datetime              NOT NULL,
-    modified_by   VARCHAR(255)          NULL,
     modified_time datetime              NULL,
     reading_text  VARCHAR(255)          NOT NULL,
     kanji_id      BIGINT                NULL,
@@ -310,9 +266,7 @@ CREATE TABLE sino_vietnamese
 CREATE TABLE sino_vietnamese_meaning
 (
     id                 BIGINT AUTO_INCREMENT NOT NULL,
-    created_by         VARCHAR(255)          NOT NULL,
     created_time       datetime              NOT NULL,
-    modified_by        VARCHAR(255)          NULL,
     modified_time      datetime              NULL,
     reading_text       VARCHAR(255)          NOT NULL,
     sino_vietnamese_id BIGINT                NULL,
@@ -322,9 +276,7 @@ CREATE TABLE sino_vietnamese_meaning
 CREATE TABLE study_session_cards
 (
     id                        BIGINT AUTO_INCREMENT NOT NULL,
-    created_by                VARCHAR(255)          NOT NULL,
     created_time              datetime              NOT NULL,
-    modified_by               VARCHAR(255)          NULL,
     modified_time             datetime              NULL,
     study_session_id          BIGINT                NULL,
     card_id                   BIGINT                NULL,
@@ -336,9 +288,7 @@ CREATE TABLE study_session_cards
 CREATE TABLE study_sessions
 (
     id                   BIGINT AUTO_INCREMENT NOT NULL,
-    created_by           VARCHAR(255)          NOT NULL,
     created_time         datetime              NOT NULL,
-    modified_by          VARCHAR(255)          NULL,
     modified_time        datetime              NULL,
     deck_id              BIGINT                NULL,
     study_session_status VARCHAR(255)          NULL,
@@ -350,12 +300,22 @@ CREATE TABLE study_sessions
     CONSTRAINT pk_study_sessions PRIMARY KEY (id)
 );
 
+CREATE TABLE support_vocabularies
+(
+    id            BIGINT AUTO_INCREMENT NOT NULL,
+    created_time  datetime              NOT NULL,
+    modified_time datetime              NULL,
+    japanese      VARCHAR(255)          NOT NULL,
+    reading       VARCHAR(255)          NOT NULL,
+    meaning       VARCHAR(255)          NULL,
+    vocabulary_id BIGINT                NULL,
+    CONSTRAINT pk_support_vocabularies PRIMARY KEY (id)
+);
+
 CREATE TABLE teachers
 (
     id            BIGINT AUTO_INCREMENT NOT NULL,
-    created_by    VARCHAR(255)          NOT NULL,
     created_time  datetime              NOT NULL,
-    modified_by   VARCHAR(255)          NULL,
     modified_time datetime              NULL,
     user_id       BIGINT                NULL,
     CONSTRAINT pk_teachers PRIMARY KEY (id)
@@ -364,9 +324,7 @@ CREATE TABLE teachers
 CREATE TABLE users
 (
     id              BIGINT AUTO_INCREMENT NOT NULL,
-    created_by      VARCHAR(255)          NOT NULL,
     created_time    datetime              NOT NULL,
-    modified_by     VARCHAR(255)          NULL,
     modified_time   datetime              NULL,
     email           VARCHAR(255)          NULL,
     password        VARCHAR(255)          NULL,
@@ -382,9 +340,7 @@ CREATE TABLE users
 CREATE TABLE vocabularies
 (
     id            BIGINT AUTO_INCREMENT NOT NULL,
-    created_by    VARCHAR(255)          NOT NULL,
     created_time  datetime              NOT NULL,
-    modified_by   VARCHAR(255)          NULL,
     modified_time datetime              NULL,
     japanese      VARCHAR(255)          NOT NULL,
     reading       VARCHAR(255)          NOT NULL,
@@ -501,6 +457,9 @@ ALTER TABLE study_session_cards
 
 ALTER TABLE study_session_cards
     ADD CONSTRAINT FK_STUDY_SESSION_CARDS_ON_STUDY_SESSION FOREIGN KEY (study_session_id) REFERENCES study_sessions (id);
+
+ALTER TABLE support_vocabularies
+    ADD CONSTRAINT FK_SUPPORT_VOCABULARIES_ON_VOCABULARY FOREIGN KEY (vocabulary_id) REFERENCES vocabularies (id);
 
 ALTER TABLE teachers
     ADD CONSTRAINT FK_TEACHERS_ON_USER FOREIGN KEY (user_id) REFERENCES users (id);
