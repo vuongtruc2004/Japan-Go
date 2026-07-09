@@ -8,11 +8,13 @@ const KanjiVgAnimator = React.memo(function KanjiVgAnimator({
     durationPerStroke = 250,
     durationBetweenEachStroke = 50,
     size = 192,
+    className,
 }: {
     kanjiVg: string;
     durationPerStroke?: number;
     durationBetweenEachStroke?: number;
     size?: number;
+    className?: string;
 }) {
     const containerRef = useRef<HTMLDivElement>(null);
 
@@ -32,8 +34,8 @@ const KanjiVgAnimator = React.memo(function KanjiVgAnimator({
 
     return (
         <div 
-            className="border-bdc-primary relative flex items-center justify-center rounded-md border bg-bgc-app dark:bg-zinc-950 shrink-0"
-            style={{ width: `${size}px`, height: `${size}px` }}
+            className={`border-bdc-primary relative flex items-center justify-center rounded-md border bg-bgc-app dark:bg-zinc-950 shrink-0 ${className || ""}`}
+            style={className ? undefined : { width: `${size}px`, height: `${size}px` }}
             onClick={(e) => e.stopPropagation()}
         >
             <Box

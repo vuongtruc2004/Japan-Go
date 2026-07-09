@@ -56,7 +56,7 @@ const ActiveKanji = ({ kanjiPages }: { kanjiPages: KanjiPageResponse[] }) => {
             {/* Left Column: Main Kanji Info Card */}
             <div className="border-bdc-primary bg-bgc-app sticky flex h-max w-full shrink-0 flex-col items-center gap-y-4 rounded-xl border p-5 pt-9 shadow-sm lg:top-21.25 lg:w-64 dark:bg-zinc-900">
                 {/* macOS Traffic Lights Toggles */}
-                <div className="absolute top-4 left-4 flex items-center gap-x-1.5 select-none">
+                <div className="absolute top-4 left-5 flex items-center gap-x-1.5 select-none">
                     {toggles.map((toggle) => {
                         const active = toggle.visible;
                         const tooltipText = active
@@ -95,7 +95,7 @@ const ActiveKanji = ({ kanjiPages }: { kanjiPages: KanjiPageResponse[] }) => {
                 </div>
 
                 <div className="relative flex w-full justify-center pb-2">
-                    <KanjiVgAnimator kanjiVg={mainKanji.kanjiVg} />
+                    <KanjiVgAnimator kanjiVg={mainKanji.kanjiVg} className="w-full aspect-square" />
                     <span className="border-bdc-primary bg-bgc-app text-tc-primary absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-1/2 rounded-md border px-4 py-1.5 text-lg font-semibold shadow-sm select-none dark:bg-zinc-950">
                         {mainKanji.mainSinoVietnamese}
                     </span>
