@@ -5,8 +5,8 @@ import { useKanjiVgAnimation } from "@/features/lesson/hooks/use.kanji.vg.animat
 
 const KanjiVgAnimator = React.memo(function KanjiVgAnimator({
     kanjiVg,
-    durationPerStroke = 250,
-    durationBetweenEachStroke = 50,
+    durationPerStroke = 500,
+    durationBetweenEachStroke = 100,
     size = 192,
     className,
 }: {

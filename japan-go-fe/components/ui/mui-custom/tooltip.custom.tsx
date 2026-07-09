@@ -9,13 +9,16 @@ export const TooltipCustom = styled(
     ({ className, ...props }: TooltipCustomProps) => (
         <Tooltip {...props} arrow classes={{ popper: className }} />
     ),
-)(({ color = "--color-bgc-highlight" }) => ({
-    [`& .${tooltipClasses.arrow}`]: {
-        color: `var(${color})`,
-    },
-    [`& .${tooltipClasses.tooltip}`]: {
-        backgroundColor: `var(${color})`,
-        fontWeight: "bold",
-    },
-}));
+)(({ color = "--color-bgc-highlight" }) => {
+    const resolvedColor = color.startsWith("--") ? `var(${color})` : color;
+    return {
+        [`& .${tooltipClasses.arrow}`]: {
+            color: resolvedColor,
+        },
+        [`& .${tooltipClasses.tooltip}`]: {
+            backgroundColor: resolvedColor,
+            fontWeight: "bold",
+        },
+    };
+});
 

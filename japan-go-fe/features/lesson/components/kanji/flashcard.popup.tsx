@@ -34,6 +34,9 @@ const FlashcardPopup = ({ open, onClose, lesson }: FlashcardPopupProps) => {
     const [isFlipped, setIsFlipped] = useState<boolean>(false);
     const [isSwapped, setIsSwapped] = useState<boolean>(false); // swap Side A and Side B
     const [isLoadingProgress, setIsLoadingProgress] = useState<boolean>(true);
+    const [swipeClass, setSwipeClass] = useState<string>("");
+    const [isAnimating, setIsAnimating] = useState<boolean>(false);
+    const [replayKey, setReplayKey] = useState<number>(0);
 
     const [history, setHistory] = useState<{
         currentRoundVocabs: VocabularyResponse[];
@@ -99,8 +102,8 @@ const FlashcardPopup = ({ open, onClose, lesson }: FlashcardPopupProps) => {
         }, 0);
     }, [open, lessonId, allVocabs]);
 
-    // Handle card movement actions (Left/X and Right/Check)
-    const handleNextCard = useCallback((markAsLearned: boolean) => {
+    // Internal function to update state when moving to next card
+    const applyNextCardData = useCallback((markAsLearned: boolean) => {
         if (currentIndex >= currentRoundVocabs.length) return;
         
         // Push snapshot to history stack for Undo
@@ -143,9 +146,40 @@ const FlashcardPopup = ({ open, onClose, lesson }: FlashcardPopupProps) => {
         }
     }, [currentIndex, currentRoundVocabs, nextRoundVocabs, saveProgress]);
 
+    // Handle card movement actions (Left/X and Right/Check) with Swipe Animation
+    const handleNextCard = useCallback((markAsLearned: boolean) => {
+        if (isAnimating || currentIndex >= currentRoundVocabs.length) return;
+
+        setIsAnimating(true);
+
+        // Phase 1: Swipe out (Left for False/Chưa thuộc, Right for True/Đã thuộc)
+        const swipeOutClass = markAsLearned
+            ? "transition-all duration-150 translate-x-[100%] rotate-6 opacity-0"
+            : "transition-all duration-150 -translate-x-[100%] -rotate-6 opacity-0";
+        
+        setSwipeClass(swipeOutClass);
+
+        setTimeout(() => {
+            // Phase 2: Update data and snap position to bottom instantly
+            applyNextCardData(markAsLearned);
+            setSwipeClass("translate-y-8 opacity-0");
+
+            setTimeout(() => {
+                // Phase 3: Slide in new card from bottom
+                setSwipeClass("transition-all duration-150 translate-y-0 opacity-100");
+
+                setTimeout(() => {
+                    // Phase 4: Clean up classes
+                    setSwipeClass("");
+                    setIsAnimating(false);
+                }, 150);
+            }, 20);
+        }, 150);
+    }, [isAnimating, currentIndex, currentRoundVocabs.length, applyNextCardData]);
+
     // Undo action (Curved back arrow)
     const handleUndo = useCallback(() => {
-        if (history.length === 0) return;
+        if (history.length === 0 || isAnimating) return;
         const prevHistory = [...history];
         const snapshot = prevHistory.pop()!;
         setHistory(prevHistory);
@@ -154,28 +188,29 @@ const FlashcardPopup = ({ open, onClose, lesson }: FlashcardPopupProps) => {
         setCurrentIndex(snapshot.currentIndex);
         setIsFlipped(false);
         saveProgress(snapshot.currentRoundVocabs, snapshot.nextRoundVocabs, snapshot.currentIndex);
-    }, [history, saveProgress]);
+    }, [history, isAnimating, saveProgress]);
 
     // Shuffle action (Trộn thẻ)
     const handleShuffle = useCallback(() => {
-        if (currentRoundVocabs.length <= 1) return;
+        if (currentRoundVocabs.length <= 1 || isAnimating) return;
         const shuffled = [...currentRoundVocabs].sort(() => Math.random() - 0.5);
         setCurrentRoundVocabs(shuffled);
         setCurrentIndex(0);
         setHistory([]);
         setIsFlipped(false);
         saveProgress(shuffled, nextRoundVocabs, 0);
-    }, [currentRoundVocabs, nextRoundVocabs, saveProgress]);
+    }, [currentRoundVocabs, nextRoundVocabs, isAnimating, saveProgress]);
 
     // Reset/Restart learning session from the beginning
     const handleRestart = useCallback(() => {
+        if (isAnimating) return;
         setCurrentRoundVocabs(allVocabs);
         setNextRoundVocabs([]);
         setCurrentIndex(0);
         setHistory([]);
         setIsFlipped(false);
         saveProgress(allVocabs, [], 0);
-    }, [allVocabs, saveProgress]);
+    }, [allVocabs, isAnimating, saveProgress]);
 
     // Keyboard Shortcuts listener
     useEffect(() => {
@@ -196,12 +231,18 @@ const FlashcardPopup = ({ open, onClose, lesson }: FlashcardPopupProps) => {
             } else if (e.key === "ArrowRight") {
                 e.preventDefault();
                 if (!isCompleted) handleNextCard(true);  // Mark as learned
+            } else if (e.key === "r" || e.key === "R") {
+                const isFrontVisible = (!isSwapped && !isFlipped) || (isSwapped && isFlipped);
+                if (!isCompleted && isFrontVisible) {
+                    e.preventDefault();
+                    setReplayKey((prev) => prev + 1);
+                }
             }
         };
 
         window.addEventListener("keydown", handleKeyDown);
         return () => window.removeEventListener("keydown", handleKeyDown);
-    }, [open, isLoadingProgress, currentIndex, currentRoundVocabs, handleNextCard, allVocabs.length]);
+    }, [open, isLoadingProgress, currentIndex, currentRoundVocabs, handleNextCard, allVocabs.length, isSwapped, isFlipped]);
 
     if (!open) return null;
 
@@ -228,8 +269,8 @@ const FlashcardPopup = ({ open, onClose, lesson }: FlashcardPopupProps) => {
     const currentVocab = currentRoundVocabs[currentIndex];
 
     // Card Side content: Strokes + Japanese text
-    const renderFrontStrokes = (vocab: VocabularyResponse) => (
-        <div className="flex flex-col items-center justify-center gap-y-6 w-full h-full">
+    const renderFrontStrokes = (vocab: VocabularyResponse, replayKey: number) => (
+        <div className="flex flex-col items-center justify-center gap-y-4 sm:gap-y-6 w-full h-full overflow-y-auto py-2">
             {vocab.kanjiVgList && vocab.kanjiVgList.length > 0 ? (
                 <div 
                     className="flex flex-nowrap gap-3 items-center justify-start sm:justify-center overflow-x-auto max-w-full pb-2 [&::-webkit-scrollbar]:hidden"
@@ -237,9 +278,16 @@ const FlashcardPopup = ({ open, onClose, lesson }: FlashcardPopupProps) => {
                 >
                     {vocab.kanjiVgList.map((svg, idx) => {
                         const len = vocab.kanjiVgList.length;
-                        const size = len <= 1 ? 280 : len === 2 ? 240 : len === 3 ? 192 : 150;
+                        const size = len <= 1 ? 220 : len === 2 ? 180 : len === 3 ? 140 : 110;
+                        const animatorClass = len <= 1 
+                            ? "w-[28vh] h-[28vh] max-w-[220px] max-h-[220px] min-w-[140px] min-h-[140px]" 
+                            : len === 2 
+                            ? "w-[24vh] h-[24vh] max-w-[180px] max-h-[180px] min-w-[120px] min-h-[120px]" 
+                            : len === 3 
+                            ? "w-[20vh] h-[20vh] max-w-[140px] max-h-[140px] min-w-[100px] min-h-[100px]" 
+                            : "w-[18vh] h-[18vh] max-w-[110px] max-h-[110px] min-w-[80px] min-h-[80px]";
                         return (
-                            <KanjiVgAnimator key={idx} kanjiVg={svg} size={size} />
+                            <KanjiVgAnimator key={`${idx}-${replayKey}`} kanjiVg={svg} size={size} className={animatorClass} />
                         );
                     })}
                 </div>
@@ -248,7 +296,7 @@ const FlashcardPopup = ({ open, onClose, lesson }: FlashcardPopupProps) => {
                     Không có nét vẽ
                 </div>
             )}
-            <span className="text-5xl font-extrabold font-noto-sans-jp text-neutral-900 dark:text-neutral-50 tracking-wider">
+            <span className="text-4xl sm:text-5xl font-extrabold font-noto-sans-jp text-neutral-900 dark:text-neutral-50 tracking-wider">
                 {vocab.japanese}
             </span>
 
@@ -257,7 +305,7 @@ const FlashcardPopup = ({ open, onClose, lesson }: FlashcardPopupProps) => {
                     href={`https://mazii.net/vi-VN/search/word/ja/${encodeURIComponent(vocab.japanese)}`}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center gap-x-1.5 px-3 py-1.5 rounded-lg border border-[#f57c00]/30 hover:border-[#f57c00]/60 bg-[#f57c00]/5 hover:bg-[#f57c00]/10 text-[#f57c00] text-xs font-bold transition-all shadow-sm cursor-pointer"
+                    className="flex items-center gap-x-1.5 px-3 py-1.5 rounded-lg border border-[#f57c00]/30 hover:border-[#f57c00]/60 bg-[#f57c00]/5 hover:bg-[#f57c00]/10 text-[#f57c00] text-xs font-bold transition-all shadow-sm cursor-pointer outline-none"
                 >
                     <span>Tra từ Mazii</span>
                     <OpenInNewIcon sx={{ fontSize: "12px" }} />
@@ -266,7 +314,7 @@ const FlashcardPopup = ({ open, onClose, lesson }: FlashcardPopupProps) => {
                     href={`https://www.weblio.jp/content/${encodeURIComponent(vocab.japanese)}`}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center gap-x-1.5 px-3 py-1.5 rounded-lg border border-[#0288d1]/30 hover:border-[#0288d1]/60 bg-[#0288d1]/5 hover:bg-[#0288d1]/10 text-[#0288d1] text-xs font-bold transition-all shadow-sm cursor-pointer"
+                    className="flex items-center gap-x-1.5 px-3 py-1.5 rounded-lg border border-[#0288d1]/30 hover:border-[#0288d1]/60 bg-[#0288d1]/5 hover:bg-[#0288d1]/10 text-[#0288d1] text-xs font-bold transition-all shadow-sm cursor-pointer outline-none"
                 >
                     <span>Tra từ Weblio</span>
                     <OpenInNewIcon sx={{ fontSize: "12px" }} />
@@ -281,7 +329,7 @@ const FlashcardPopup = ({ open, onClose, lesson }: FlashcardPopupProps) => {
         return (
             <div className="flex flex-col items-center justify-center gap-y-4 w-full h-full max-w-2xl text-center overflow-y-auto px-2">
                 {vocab.sinoVietnamese && (
-                    <span className="text-xs font-bold tracking-widest uppercase text-blue-600 dark:text-blue-400 bg-blue-500/10 dark:bg-blue-950/40 px-3 py-1 rounded-full border border-blue-500/20 select-none">
+                    <span className="text-sm sm:text-base font-bold tracking-widest uppercase text-blue-600 dark:text-blue-400 bg-blue-500/10 dark:bg-blue-950/40 px-4 py-1.5 rounded-full border border-blue-500/20 select-none">
                         {vocab.sinoVietnamese}
                     </span>
                 )}
@@ -342,9 +390,9 @@ const FlashcardPopup = ({ open, onClose, lesson }: FlashcardPopupProps) => {
     const cardInnerStyle: React.CSSProperties = {
         width: "100%",
         height: "100%",
-        transition: "transform 0.6s cubic-bezier(0.4, 0, 0.2, 1)",
+        transition: isAnimating ? "none" : "transform 0.35s cubic-bezier(0.4, 0, 0.2, 1)",
         transformStyle: "preserve-3d",
-        transform: isFlipped ? "rotateY(180deg)" : "rotateY(0deg)",
+        transform: isFlipped ? "rotateX(180deg)" : "rotateX(0deg)",
         position: "relative",
     };
 
@@ -362,22 +410,36 @@ const FlashcardPopup = ({ open, onClose, lesson }: FlashcardPopupProps) => {
         height: "100%",
         backfaceVisibility: "hidden",
         WebkitBackfaceVisibility: "hidden",
-        transform: "rotateY(180deg)",
+        transform: "rotateX(180deg)",
     };
 
     return (
         <Modal open={open} onClose={onClose} className="backdrop-blur-sm">
-            <div className="bg-bgc-app/95 border border-bdc-primary dark:bg-zinc-950/95 absolute top-1/2 left-1/2 flex -translate-x-1/2 -translate-y-1/2 flex-col items-center rounded-2xl p-6 md:p-8 max-w-6xl w-[98%] h-[95vh] max-h-[900px] shadow-2xl overflow-hidden transition-all duration-200">
+            <div className="bg-bgc-app/95 border border-bdc-primary dark:bg-zinc-950/95 absolute top-1/2 left-1/2 flex -translate-x-1/2 -translate-y-1/2 flex-col items-center rounded-2xl p-4 sm:p-6 max-w-6xl w-[98%] h-[92vh] max-h-[760px] shadow-2xl overflow-hidden transition-all duration-200 outline-none">
                 {/* Modal Header */}
-                <div className="flex items-center justify-between w-full pb-4 border-b border-bdc-primary/50">
-                    <div className="flex items-center gap-x-2">
-                        <SchoolOutlinedIcon className="text-neutral-500" fontSize="medium" />
-                        <h2 className="text-xl font-bold tracking-tight text-tc-primary">
+                <div className="flex items-center justify-between w-full pb-2.5 border-b border-bdc-primary/50 gap-x-4">
+                    <div className="flex items-center gap-x-2 shrink-0">
+                        <SchoolOutlinedIcon className="text-neutral-500" sx={{ fontSize: "1.25rem" }} />
+                        <h2 className="text-base font-bold tracking-tight text-tc-primary hidden sm:block">
                             Học thẻ ghi nhớ
                         </h2>
                     </div>
 
-                    <div className="flex items-center gap-x-2">
+                    {!isCompleted && (
+                        <div className="flex-1 max-w-md flex items-center gap-x-3">
+                            <div className="flex-1 h-2 bg-neutral-100 dark:bg-zinc-800 rounded-full overflow-hidden border border-bdc-primary">
+                                <div 
+                                    className="h-full bg-blue-500 rounded-full transition-all duration-300"
+                                    style={{ width: `${((currentIndex + 1) / currentRoundVocabs.length) * 100}%` }}
+                                />
+                            </div>
+                            <span className="text-xs font-bold text-neutral-500 whitespace-nowrap">
+                                {currentIndex + 1} / {currentRoundVocabs.length}
+                            </span>
+                        </div>
+                    )}
+
+                    <div className="flex items-center gap-x-2 shrink-0">
                         {!isCompleted && (
                             <TooltipCustom title="Đổi mặt thẻ trước / sau" placement="top">
                                 <div>
@@ -387,9 +449,21 @@ const FlashcardPopup = ({ open, onClose, lesson }: FlashcardPopupProps) => {
                                 </div>
                             </TooltipCustom>
                         )}
-                        <IconButtonCustom onClick={onClose}>
-                            <CloseIcon fontSize="small" />
-                        </IconButtonCustom>
+                        <TooltipCustom title="Đóng" placement="top" color="#ef4444">
+                            <div>
+                                <IconButtonCustom 
+                                    onClick={onClose}
+                                    sx={{
+                                        "&:hover": {
+                                            bgcolor: "#ef4444",
+                                            color: "#ffffff"
+                                        }
+                                    }}
+                                >
+                                    <CloseIcon fontSize="small" />
+                                </IconButtonCustom>
+                            </div>
+                        </TooltipCustom>
                     </div>
                 </div>
 
@@ -413,7 +487,7 @@ const FlashcardPopup = ({ open, onClose, lesson }: FlashcardPopupProps) => {
                         </p>
                         <button
                             onClick={handleRestart}
-                            className="mt-4 px-6 py-3 bg-neutral-900 dark:bg-white text-white dark:text-black font-semibold rounded-xl hover:opacity-90 transition-opacity cursor-pointer shadow-lg active:scale-95"
+                            className="mt-4 px-6 py-3 bg-neutral-900 dark:bg-white text-white dark:text-black font-semibold rounded-xl hover:opacity-90 transition-opacity cursor-pointer shadow-lg active:scale-95 outline-none"
                         >
                             Học lại từ đầu
                         </button>
@@ -447,7 +521,7 @@ const FlashcardPopup = ({ open, onClose, lesson }: FlashcardPopupProps) => {
                         {/* 3D Flashcard Container */}
                         <div 
                             style={cardStyle}
-                            className="w-full max-w-5xl h-[560px]"
+                            className={`w-full max-w-5xl flex-1 min-h-[300px] max-h-[450px] ${swipeClass}`}
                         >
                             <div 
                                 style={cardInnerStyle}
@@ -456,33 +530,21 @@ const FlashcardPopup = ({ open, onClose, lesson }: FlashcardPopupProps) => {
                                 {/* Front Face */}
                                 <div 
                                     style={cardFaceFrontStyle}
-                                    className="bg-bgc-page dark:bg-zinc-900 border border-bdc-primary rounded-2xl p-6 flex flex-col items-center justify-center shadow-lg hover:shadow-xl hover:border-tc-highlight/45 transition-all duration-300"
+                                    className="bg-bgc-page dark:bg-zinc-900 border border-bdc-primary rounded-2xl p-4 sm:p-6 flex flex-col items-center justify-center shadow-lg hover:shadow-xl hover:border-tc-highlight/45 transition-all duration-300"
                                 >
-                                    {isSwapped ? renderBackDetails(currentVocab) : renderFrontStrokes(currentVocab)}
+                                    {isSwapped ? renderBackDetails(currentVocab) : renderFrontStrokes(currentVocab, replayKey)}
                                 </div>
 
                                 {/* Back Face */}
                                 <div 
                                     style={cardFaceBackStyle}
-                                    className="bg-bgc-page dark:bg-zinc-900 border border-bdc-primary rounded-2xl p-6 flex flex-col items-center justify-center shadow-lg hover:shadow-xl hover:border-tc-highlight/45 transition-all duration-300"
+                                    className="bg-bgc-page dark:bg-zinc-900 border border-bdc-primary rounded-2xl p-4 sm:p-6 flex flex-col items-center justify-center shadow-lg hover:shadow-xl hover:border-tc-highlight/45 transition-all duration-300"
                                 >
-                                    {isSwapped ? renderFrontStrokes(currentVocab) : renderBackDetails(currentVocab)}
+                                    {isSwapped ? renderFrontStrokes(currentVocab, replayKey) : renderBackDetails(currentVocab)}
                                 </div>
                             </div>
                         </div>
 
-                        {/* Progress Tracker */}
-                        <div className="w-full max-w-md flex flex-col gap-y-2 items-center">
-                            <span className="text-sm font-semibold text-neutral-500 select-none">
-                                Tiến độ vòng này: {currentIndex + 1} / {currentRoundVocabs.length}
-                            </span>
-                            <div className="w-full h-2 bg-neutral-100 dark:bg-zinc-800 rounded-full overflow-hidden border border-bdc-primary">
-                                <div 
-                                    className="h-full bg-blue-500 rounded-full transition-all duration-300"
-                                    style={{ width: `${((currentIndex + 1) / currentRoundVocabs.length) * 100}%` }}
-                                />
-                            </div>
-                        </div>
 
                         {/* Bottom Actions Row (MacBook Style Buttons) */}
                         <div className="flex items-center justify-center gap-x-6 pb-2 select-none">
@@ -490,7 +552,8 @@ const FlashcardPopup = ({ open, onClose, lesson }: FlashcardPopupProps) => {
                             <TooltipCustom title="Chưa thuộc (Mũi tên Trái)" placement="top">
                                 <button
                                     onClick={() => handleNextCard(false)}
-                                    className="w-18 h-12 bg-red-500/10 border border-red-500/20 hover:bg-red-500/20 text-red-600 dark:text-red-400 rounded-2xl flex items-center justify-center transition-all duration-150 cursor-pointer hover:scale-105 active:scale-95 shadow-sm hover:shadow-md"
+                                    disabled={isAnimating}
+                                    className="w-18 h-12 bg-red-500/10 border border-red-500/20 hover:bg-red-500/20 text-red-600 dark:text-red-400 rounded-2xl flex items-center justify-center transition-all duration-150 cursor-pointer hover:scale-105 active:scale-95 shadow-sm hover:shadow-md outline-none disabled:opacity-50 disabled:cursor-not-allowed"
                                 >
                                     <CloseIcon className="w-6 h-6" />
                                 </button>
@@ -500,7 +563,8 @@ const FlashcardPopup = ({ open, onClose, lesson }: FlashcardPopupProps) => {
                             <TooltipCustom title="Đã thuộc (Mũi tên Phải)" placement="top">
                                 <button
                                     onClick={() => handleNextCard(true)}
-                                    className="w-18 h-12 bg-green-500/10 border border-green-500/20 hover:bg-green-500/20 text-green-600 dark:text-green-400 rounded-2xl flex items-center justify-center transition-all duration-150 cursor-pointer hover:scale-105 active:scale-95 shadow-sm hover:shadow-md"
+                                    disabled={isAnimating}
+                                    className="w-18 h-12 bg-green-500/10 border border-green-500/20 hover:bg-green-500/20 text-green-600 dark:text-green-400 rounded-2xl flex items-center justify-center transition-all duration-150 cursor-pointer hover:scale-105 active:scale-95 shadow-sm hover:shadow-md outline-none disabled:opacity-50 disabled:cursor-not-allowed"
                                 >
                                     <CheckIcon className="w-6 h-6" />
                                 </button>
@@ -511,7 +575,7 @@ const FlashcardPopup = ({ open, onClose, lesson }: FlashcardPopupProps) => {
                                 <div>
                                     <IconButtonCustom 
                                         onClick={handleUndo} 
-                                        disabled={history.length === 0}
+                                        disabled={history.length === 0 || isAnimating}
                                     >
                                         <UndoIcon fontSize="small" />
                                     </IconButtonCustom>
@@ -521,7 +585,7 @@ const FlashcardPopup = ({ open, onClose, lesson }: FlashcardPopupProps) => {
                             {/* Shuffle Button: Randomize deck */}
                             <TooltipCustom title="Trộn thẻ" placement="top">
                                 <div>
-                                    <IconButtonCustom onClick={handleShuffle} disabled={currentRoundVocabs.length <= 1}>
+                                    <IconButtonCustom onClick={handleShuffle} disabled={currentRoundVocabs.length <= 1 || isAnimating}>
                                         <ShuffleIcon fontSize="small" />
                                     </IconButtonCustom>
                                 </div>
@@ -530,7 +594,7 @@ const FlashcardPopup = ({ open, onClose, lesson }: FlashcardPopupProps) => {
                             {/* Reset Button: Restart deck study */}
                             <TooltipCustom title="Học lại từ đầu (Reset)" placement="top">
                                 <div>
-                                    <IconButtonCustom onClick={handleRestart}>
+                                    <IconButtonCustom onClick={handleRestart} disabled={isAnimating}>
                                         <ReplayIcon fontSize="small" />
                                     </IconButtonCustom>
                                 </div>
