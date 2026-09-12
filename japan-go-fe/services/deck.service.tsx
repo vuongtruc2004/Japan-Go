@@ -15,9 +15,31 @@ export const createDeckFromFolder = async (deckRequest: DeckRequest) => {
     return response;
 };
 
-export const formatQuizletData = async (raw: string) => {
+export const formatQuizletDataKanji = async (raw: string) => {
     return await sendRequest<string>({
-        url: "/cards/quizlet-data-formatting",
+        url: "/cards/quizlet-data-formatting/kanji",
+        method: "POST",
+        responseType: "text",
+        body: {
+            raw,
+        },
+    });
+};
+
+export const formatQuizletDataHiragana = async (raw: string) => {
+    return await sendRequest<string>({
+        url: "/cards/quizlet-data-formatting/hiragana",
+        method: "POST",
+        responseType: "text",
+        body: {
+            raw,
+        },
+    });
+};
+
+export const formatQuizletDataSentence = async (raw: string) => {
+    return await sendRequest<string>({
+        url: "/cards/quizlet-data-formatting/sentence",
         method: "POST",
         responseType: "text",
         body: {

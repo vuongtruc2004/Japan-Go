@@ -17,8 +17,20 @@ public class CardController {
     private final CardService cardService;
 
     @ApiResponseFormat(devMessage = "", clientMessage = "")
-    @PostMapping("/quizlet-data-formatting")
-    public ResponseEntity<String> formatQuizletData(@RequestBody QuizletFormatRequest request) {
-        return ResponseEntity.ok(cardService.formatQuizletData(request));
+    @PostMapping("/quizlet-data-formatting/kanji")
+    public ResponseEntity<String> formatQuizletDataKanji(@RequestBody QuizletFormatRequest request) {
+        return ResponseEntity.ok(cardService.formatQuizletDataKanji(request));
+    }
+
+    @ApiResponseFormat(devMessage = "", clientMessage = "")
+    @PostMapping("/quizlet-data-formatting/hiragana")
+    public ResponseEntity<String> formatQuizletDataHiragana(@RequestBody QuizletFormatRequest request) {
+        return ResponseEntity.ok(cardService.formatQuizletDataHiragana(request));
+    }
+
+    @ApiResponseFormat(devMessage = "", clientMessage = "")
+    @PostMapping("/quizlet-data-formatting/sentence")
+    public ResponseEntity<String> formatQuizletDataSentence(@RequestBody QuizletFormatRequest request) {
+        return ResponseEntity.ok(cardService.formatQuizletDataSentence(request));
     }
 }

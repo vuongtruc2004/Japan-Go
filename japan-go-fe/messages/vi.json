@@ -227,7 +227,13 @@
         },
         "flashcard": {
             "buttonTitle": "Format dữ liệu",
-            "title": "Chép và dán dữ liệu vào đây để format"
+            "buttonTitleKanji": "Format Quizlet Kanji",
+            "buttonTitleHiragana": "Format Quizlet Hiragana",
+            "buttonTitleSentence": "Format Quizlet Sentence",
+            "title": "Chép và dán dữ liệu vào đây để format",
+            "titleKanji": "Format dữ liệu Quizlet Kanji",
+            "titleHiragana": "Format dữ liệu Quizlet Hiragana",
+            "titleSentence": "Format dữ liệu Quizlet Câu"
         }
     }
 }
