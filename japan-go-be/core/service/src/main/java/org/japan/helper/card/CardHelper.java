@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 @Component
 @RequiredArgsConstructor
 public class CardHelper {
-    private static final String SEPARATOR = "------------------------------";
+    private static final String SEPARATOR = "------------------------";
 
     public String buildKanjiBackSide(
             String a,
