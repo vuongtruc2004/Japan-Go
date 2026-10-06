@@ -133,14 +133,14 @@ public class CardService {
             return "";
         }
 
-        if (!raw.contains("$")) {
+        if (!raw.contains("@@")) {
             throw new BadRequestException(
-                    "Invalid raw data. It should contain '$' character to separate cards.",
-                    "Invalid raw data. It should contain '$' character to separate cards."
+                    "Invalid raw data. It should contain '@@' character to separate cards.",
+                    "Invalid raw data. It should contain '@@' character to separate cards."
             );
         }
 
-        return Arrays.stream(raw.split("\\$", -1))
+        return Arrays.stream(raw.split("@@", -1))
                 .filter(line -> !line.isBlank())
                 .map(line -> {
                     // Tham số -1 để giữ nguyên toàn bộ phần tử, kể cả empty string
