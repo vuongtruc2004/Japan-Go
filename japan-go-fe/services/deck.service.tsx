@@ -47,3 +47,14 @@ export const formatQuizletDataSentence = async (raw: string) => {
         },
     });
 };
+
+export const formatQuizletDataTech = async (raw: string) => {
+    return await sendRequest<string>({
+        url: "/cards/quizlet-data-formatting/tech",
+        method: "POST",
+        responseType: "text",
+        body: {
+            raw,
+        },
+    });
+};

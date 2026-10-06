@@ -33,4 +33,10 @@ public class CardController {
     public ResponseEntity<String> formatQuizletDataSentence(@RequestBody QuizletFormatRequest request) {
         return ResponseEntity.ok(cardService.formatQuizletDataSentence(request));
     }
+
+    @ApiResponseFormat(devMessage = "", clientMessage = "")
+    @PostMapping("/quizlet-data-formatting/tech")
+    public ResponseEntity<String> formatQuizletTech(@RequestBody QuizletFormatRequest request) {
+        return ResponseEntity.ok(cardService.formatQuizletTech(request));
+    }
 }

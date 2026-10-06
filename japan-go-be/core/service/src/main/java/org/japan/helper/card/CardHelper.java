@@ -168,6 +168,14 @@ public class CardHelper {
         return result.toString();
     }
 
+    public String buildTechFrontSide(String a, String b, String c, String d, String e) {
+        return a + "\n" +
+                b + "\n" +
+                c + "\n" +
+                d + "\n" +
+                e;
+    }
+
     public String get(String[] columns, int index) {
         if (index >= columns.length || columns[index] == null) {
             return "";

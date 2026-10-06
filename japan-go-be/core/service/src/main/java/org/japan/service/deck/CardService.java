@@ -125,4 +125,37 @@ public class CardService {
                 })
                 .collect(Collectors.joining());
     }
+
+    public String formatQuizletTech(QuizletFormatRequest request) {
+        String raw = request.raw();
+
+        if (raw == null || raw.isBlank()) {
+            return "";
+        }
+
+        if (!raw.contains("$")) {
+            throw new BadRequestException(
+                    "Invalid raw data. It should contain '$' character to separate cards.",
+                    "Invalid raw data. It should contain '$' character to separate cards."
+            );
+        }
+
+        return Arrays.stream(raw.split("\\$", -1))
+                .filter(line -> !line.isBlank())
+                .map(line -> {
+                    // Tham số -1 để giữ nguyên toàn bộ phần tử, kể cả empty string
+                    String[] columns = line.split("\t", -1);
+
+                    String a = cardHelper.get(columns, 0);
+                    String b = cardHelper.get(columns, 1);
+                    String c = cardHelper.get(columns, 2);
+                    String d = cardHelper.get(columns, 3);
+                    String e = cardHelper.get(columns, 4);
+                    String f = cardHelper.get(columns, 5);
+
+                    String frontside = cardHelper.buildTechFrontSide(a, b, c, d, e);
+                    return frontside + "##" + f + "@@";
+                })
+                .collect(Collectors.joining());
+    }
 }

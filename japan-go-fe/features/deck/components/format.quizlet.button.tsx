@@ -7,14 +7,16 @@ import CloseIcon from "@mui/icons-material/Close";
 import TranslateIcon from "@mui/icons-material/Translate";
 import SpellcheckIcon from "@mui/icons-material/Spellcheck";
 import MenuBookIcon from "@mui/icons-material/MenuBook";
+import ComputerIcon from "@mui/icons-material/Computer";
 import { useTranslations } from "next-intl";
 import {
     formatQuizletDataKanji,
     formatQuizletDataHiragana,
     formatQuizletDataSentence,
+    formatQuizletDataTech,
 } from "@/services/deck.service";
 
-type FormatType = "kanji" | "hiragana" | "sentence";
+type FormatType = "kanji" | "hiragana" | "sentence" | "tech";
 
 const FormatQuizletButton = () => {
     const t = useTranslations();
@@ -47,6 +49,8 @@ const FormatQuizletButton = () => {
                 res = await formatQuizletDataHiragana(raw);
             } else if (formatType === "sentence") {
                 res = await formatQuizletDataSentence(raw);
+            } else if (formatType === "tech") {
+                res = await formatQuizletDataTech(raw);
             }
             setResult(res);
         } catch (err) {
@@ -69,6 +73,8 @@ const FormatQuizletButton = () => {
                 return t("Pages.flashcard.titleHiragana");
             case "sentence":
                 return t("Pages.flashcard.titleSentence");
+            case "tech":
+                return t("Pages.flashcard.titleTech");
             default:
                 return t("Pages.flashcard.title");
         }
@@ -107,6 +113,24 @@ const FormatQuizletButton = () => {
                     <MenuBookIcon fontSize="small" />
                     <p className="ml-1.5 text-sm font-medium">
                         {t("Pages.flashcard.buttonTitleSentence")}
+                    </p>
+                </Button>
+
+                <Button
+                    variant="contained"
+                    color="secondary"
+                    onClick={() => handleOpenModal("tech")}
+                    sx={{
+                        backgroundColor: "#7c3aed",
+                        color: "#ffffff",
+                        "&:hover": {
+                            backgroundColor: "#6d28d9",
+                        },
+                    }}
+                >
+                    <ComputerIcon fontSize="small" />
+                    <p className="ml-1.5 text-sm font-medium">
+                        {t("Pages.flashcard.buttonTitleTech")}
                     </p>
                 </Button>
             </div>
