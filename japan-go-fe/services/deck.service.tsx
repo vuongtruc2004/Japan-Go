@@ -58,3 +58,14 @@ export const formatQuizletDataTech = async (raw: string) => {
         },
     });
 };
+
+export const formatQuizletDataGrammar = async (raw: string) => {
+    return await sendRequest<string>({
+        url: "/cards/quizlet-data-formatting/grammar",
+        method: "POST",
+        responseType: "text",
+        body: {
+            raw,
+        },
+    });
+};

@@ -231,11 +231,13 @@
             "buttonTitleHiragana": "Format Quizlet Hiragana",
             "buttonTitleSentence": "Format Quizlet Sentence",
             "buttonTitleTech": "Format Quizlet Tech",
+            "buttonTitleGrammar": "Format Quizlet Grammar",
             "title": "Chép và dán dữ liệu vào đây để format",
             "titleKanji": "Format dữ liệu Quizlet Kanji",
             "titleHiragana": "Format dữ liệu Quizlet Hiragana",
             "titleSentence": "Format dữ liệu Quizlet Câu",
-            "titleTech": "Format dữ liệu Quizlet Tech"
+            "titleTech": "Format dữ liệu Quizlet Tech",
+            "titleGrammar": "Format dữ liệu Quizlet Ngữ pháp"
         }
     }
 }

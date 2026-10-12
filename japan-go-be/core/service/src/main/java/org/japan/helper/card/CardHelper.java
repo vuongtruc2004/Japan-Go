@@ -168,6 +168,32 @@ public class CardHelper {
         return result.toString();
     }
 
+    public String buildGrammarFrontSide(String a, String b, String d) {
+        StringBuilder result = new StringBuilder();
+        result.append(a)
+                .append(" 【")
+                .append(b)
+                .append("】")
+                .append("\n")
+                .append(SEPARATOR)
+                .append("\n")
+                .append(d);
+        return result.toString();
+    }
+
+    public String buildGrammarBackSide(String c, String e, String f) {
+        StringBuilder result = new StringBuilder();
+        result.append(c)
+                .append("\n")
+                .append(SEPARATOR)
+                .append("\n")
+                .append(e)
+                .append("\n")
+                .append("⇒ ")
+                .append(f);
+        return result.toString();
+    }
+
     public String buildTechFrontSide(String a, String b, String c, String d, String e) {
         return a + "\n" +
                 b + "\n" +

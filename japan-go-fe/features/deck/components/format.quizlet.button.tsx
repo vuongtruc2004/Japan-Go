@@ -8,15 +8,17 @@ import TranslateIcon from "@mui/icons-material/Translate";
 import SpellcheckIcon from "@mui/icons-material/Spellcheck";
 import MenuBookIcon from "@mui/icons-material/MenuBook";
 import ComputerIcon from "@mui/icons-material/Computer";
+import SchoolIcon from "@mui/icons-material/School";
 import { useTranslations } from "next-intl";
 import {
     formatQuizletDataKanji,
     formatQuizletDataHiragana,
     formatQuizletDataSentence,
     formatQuizletDataTech,
+    formatQuizletDataGrammar,
 } from "@/services/deck.service";
 
-type FormatType = "kanji" | "hiragana" | "sentence" | "tech";
+type FormatType = "kanji" | "hiragana" | "sentence" | "tech" | "grammar";
 
 const FormatQuizletButton = () => {
     const t = useTranslations();
@@ -51,6 +53,8 @@ const FormatQuizletButton = () => {
                 res = await formatQuizletDataSentence(raw);
             } else if (formatType === "tech") {
                 res = await formatQuizletDataTech(raw);
+            } else if (formatType === "grammar") {
+                res = await formatQuizletDataGrammar(raw);
             }
             setResult(res);
         } catch (err) {
@@ -75,6 +79,8 @@ const FormatQuizletButton = () => {
                 return t("Pages.flashcard.titleSentence");
             case "tech":
                 return t("Pages.flashcard.titleTech");
+            case "grammar":
+                return t("Pages.flashcard.titleGrammar");
             default:
                 return t("Pages.flashcard.title");
         }
@@ -131,6 +137,17 @@ const FormatQuizletButton = () => {
                     <ComputerIcon fontSize="small" />
                     <p className="ml-1.5 text-sm font-medium">
                         {t("Pages.flashcard.buttonTitleTech")}
+                    </p>
+                </Button>
+
+                <Button
+                    variant="outlined"
+                    color="primary"
+                    onClick={() => handleOpenModal("grammar")}
+                >
+                    <SchoolIcon fontSize="small" />
+                    <p className="ml-1.5 text-sm font-medium">
+                        {t("Pages.flashcard.buttonTitleGrammar")}
                     </p>
                 </Button>
             </div>
